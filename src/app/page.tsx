@@ -787,7 +787,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. VISUAL 3-STEP JOURNEY: HOW IT WORKS IN PHOTOGRAPHIC FRAMES */}
-      <section className="bg-white/60 backdrop-blur-md border-y border-[#E6D7C3]/60 py-20 my-16">
+      <section id="how-it-works" className="bg-white/60 backdrop-blur-md border-y border-[#E6D7C3]/60 py-20 my-16 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A]">
@@ -849,7 +849,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. VISUAL RWANDA SAFARI & SCENIC EXPEDITIONS (Inspiring Photographic Journey) */}
-      <section className="container mx-auto px-4 sm:px-6 py-12">
+      <section id="about" className="container mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A]">
             Beyond the City

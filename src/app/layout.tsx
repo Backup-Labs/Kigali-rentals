@@ -5,6 +5,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import MobileBottomNav from '@/components/MobileBottomNav';
 
+import NavigationProgressBar from '@/components/NavigationProgressBar';
+import PageTransition from '@/components/PageTransition';
+
 export const metadata: Metadata = {
   title: 'Kigali Rentals | Villas, Penthouses & 4x4 Fleet in Rwanda',
   description:
@@ -33,8 +36,11 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#1A282E] antialiased selection:bg-[#C85A2A] selection:text-white">
         <RentalProvider>
+          <NavigationProgressBar />
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 flex flex-col">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
           <MobileBottomNav />
         </RentalProvider>
