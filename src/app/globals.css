@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,6 +7,7 @@
 :root {
   --font-syne: 'Syne', sans-serif;
   --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
 }
 
 body {
@@ -20,6 +21,13 @@ body {
 h1, h2, h3, h4, h5, h6, .font-syne {
   font-family: var(--font-syne);
   letter-spacing: -0.025em;
+}
+
+/* Distinct high-end numerical typography for prices */
+.font-price {
+  font-family: 'Outfit', var(--font-jakarta), sans-serif;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+  letter-spacing: -0.03em;
 }
 
 /* Custom scrollbars in warm terracotta & sand */

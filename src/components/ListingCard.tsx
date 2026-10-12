@@ -7,15 +7,18 @@ import { Listing } from '@/lib/types';
 import { useRental } from '@/lib/rentalContext';
 import {
   Star,
-  MapPin,
+  Compass,
+  Heart,
+  Bed,
+  Bath,
+  Waves,
+  Zap,
+  Users,
+  Gauge,
   ShieldCheck,
   ChevronLeft,
   ChevronRight,
   Sparkles,
-  Users,
-  Car as CarIcon,
-  Home as HomeIcon,
-  Zap,
 } from 'lucide-react';
 
 interface ListingCardProps {
@@ -26,6 +29,7 @@ interface ListingCardProps {
 export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps) {
   const { formatPrice, setDraftBooking } = useRental();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   const nextImage = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,7 +46,6 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
   };
 
   const isCar = listing.type === 'car';
-  const totalEstimatedPrice = listing.pricePerDay * daysCount;
 
   const handleSelectForDraft = () => {
     setDraftBooking((prev) => ({
@@ -54,43 +57,61 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
   };
 
   return (
-    <div className="group skeu-card-elevated rounded-2xl overflow-hidden transition-all duration-300 flex flex-col h-full hover:-translate-y-1">
-      {/* Image Gallery Header with Carousel */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
-        <Image
-          src={listing.images[currentImageIndex] || listing.images[0]}
-          alt={listing.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          priority={listing.featured}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+    <div className="group bg-white rounded-[26px] p-3 sm:p-3.5 border border-[#EBE5DB] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(13,56,70,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+      {/* 1. Inset Image Frame with Action Buttons matching Reference Design */}
+      <div className="relative aspect-[16/11] rounded-[20px] overflow-hidden bg-slate-900 mb-3.5">
+        <Link href={`/listings/${listing.id}`} onClick={handleSelectForDraft} className="block w-full h-full relative">
+          <Image
+            src={listing.images[currentImageIndex] || listing.images[0]}
+            alt={listing.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            priority={listing.featured}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+        </Link>
 
-        {/* Badges Overlay */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 items-center z-10">
-          <span
-            className={`inline-flex items-center gap-1 text-[11px] font-syne font-bold px-2.5 py-1 rounded-full uppercase tracking-wider text-white shadow-md ${
-              isCar ? 'bg-gradient-to-b from-[#6A7E46] to-[#5A6B3C] border border-[#44522C]' : 'bg-gradient-to-b from-[#184F60] to-[#0D3846] border border-[#082731]'
-            }`}
-          >
-            {isCar ? <CarIcon className="w-3 h-3" /> : <HomeIcon className="w-3 h-3" />}
-            {isCar ? 'Vehicle' : 'Property'}
-          </span>
-
-          {listing.badges?.[0] && (
-            <span className="text-[10px] font-semibold skeu-badge text-[#0D3846] px-2.5 py-0.5 rounded-full">
-              {listing.badges[0]}
-            </span>
-          )}
+        {/* Floating Bottom-Left Badge: "● For Rent" (from Reference Design) */}
+        <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md text-xs font-semibold text-slate-800">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <span>{isCar ? 'For Rent • Fleet' : 'For Rent'}</span>
+          </div>
         </div>
 
-        {/* Verified Badge */}
-        {listing.isVerified && (
-          <div className="absolute top-3 right-3 glass-skeu-card p-1.5 rounded-full text-emerald-600 shadow-sm z-10" title="Verified Quality & Power Backup Checked">
-            <ShieldCheck className="w-4 h-4 fill-emerald-100" />
-          </div>
-        )}
+        {/* Floating Bottom-Right Action Buttons: Map + Wishlist (from Reference Design) */}
+        <div className="absolute bottom-3 right-3 flex items-center gap-2 z-10">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            aria-label="View on map"
+            className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-slate-700 hover:text-[#0D3846] hover:scale-110 active:scale-95 transition-all"
+            title="Explore neighborhood on map"
+          >
+            <Compass className="w-4 h-4 text-slate-700" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsLiked(!isLiked);
+            }}
+            aria-label="Save to favorites"
+            className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-rose-500 hover:scale-110 active:scale-95 transition-all"
+            title="Save to favorites"
+          >
+            <Heart
+              className={`w-4 h-4 transition-colors ${
+                isLiked ? 'fill-rose-500 text-rose-500' : 'text-rose-500'
+              }`}
+            />
+          </button>
+        </div>
 
         {/* Carousel Navigation Buttons */}
         {listing.images.length > 1 && (
@@ -98,25 +119,25 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
             <button
               onClick={prevImage}
               aria-label="Previous photo"
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 backdrop-blur-xs shadow-md"
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 backdrop-blur-xs shadow-md"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextImage}
               aria-label="Next photo"
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 backdrop-blur-xs shadow-md"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 backdrop-blur-xs shadow-md"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4" />
             </button>
 
-            {/* Dots */}
-            <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
-              {listing.images.map((_, idx) => (
+            {/* Gallery Indicator Dots */}
+            <div className="absolute top-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
+              {listing.images.slice(0, 5).map((_, idx) => (
                 <span
                   key={idx}
-                  className={`w-1.5 h-1.5 rounded-full transition-all ${
-                    idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'
+                  className={`h-1.5 rounded-full transition-all ${
+                    idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50 w-1.5'
                   }`}
                 />
               ))}
@@ -125,89 +146,87 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
         )}
       </div>
 
-      {/* Content Details */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-        <div>
-          {/* Location & Rating */}
-          <div className="flex items-center justify-between text-xs text-[#0D3846]/80 mb-2">
-            <div className="flex items-center gap-1 font-medium">
-              <MapPin className="w-3.5 h-3.5 text-[#C85A2A]" />
-              <span>{listing.neighborhood}, Kigali</span>
-            </div>
-            <div className="flex items-center gap-1 text-slate-800 font-bold skeu-badge px-2 py-0.5 rounded-lg">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span>{listing.rating.toFixed(2)}</span>
-              <span className="text-slate-400 font-normal">({listing.reviewCount})</span>
-            </div>
-          </div>
-
-          {/* Title */}
-          <Link href={`/listings/${listing.id}`} onClick={handleSelectForDraft}>
-            <h3 className="font-syne font-bold text-base sm:text-lg text-[#0D3846] group-hover:text-[#C85A2A] transition-colors leading-snug line-clamp-1">
-              {listing.title}
-            </h3>
-          </Link>
-
-          {/* Subtitle / Description teaser */}
-          <p className="text-xs text-slate-600 line-clamp-1 mt-1 mb-3">
-            {listing.subtitle}
-          </p>
-
-          {/* Specifications Chips */}
-          <div className="flex items-center gap-2 py-2 px-3 rounded-xl skeu-tray text-xs text-[#0D3846] font-medium mb-3.5">
-            {isCar ? (
-              <span className="truncate">
-                {listing.specsSummary}
-              </span>
-            ) : (
-              <span className="truncate">
-                {listing.specsSummary}
-              </span>
-            )}
-          </div>
-
-          {/* Cross-Sell Teaser Banner if available */}
-          {listing.crossSellRecommendation && (
-            <div className="mb-3.5 p-2 rounded-xl bg-gradient-to-r from-[#C85A2A]/10 to-transparent border border-[#C85A2A]/20 flex items-center justify-between gap-2 text-[11px] text-[#C85A2A]">
-              <div className="flex items-center gap-1.5 truncate">
-                <Sparkles className="w-3.5 h-3.5 shrink-0 text-[#C85A2A]" />
-                <span className="truncate font-medium">
-                  {listing.crossSellRecommendation.tagline}
-                </span>
-              </div>
-              <span className="shrink-0 font-bold underline cursor-pointer">
-                Bundle
-              </span>
-            </div>
-          )}
+      {/* 2. Price Row & Rating (Directly under image, matching Reference Design) */}
+      <div className="flex items-center justify-between px-1 mb-2">
+        <div className="flex items-baseline gap-1">
+          <span className="font-price text-2xl sm:text-[26px] font-extrabold text-slate-900 tracking-tight leading-none">
+            {formatPrice(listing.pricePerDay)}
+          </span>
+          <span className="text-xs sm:text-sm font-medium text-slate-400">
+            {isCar ? '/ day' : '/ night'}
+          </span>
         </div>
 
-        {/* Footer Pricing & CTA */}
-        <div className="pt-3 border-t border-[#E6D7C3]/60 flex items-end justify-between">
-          <div>
-            <div className="flex items-baseline gap-1">
-              <span className="font-syne font-extrabold text-lg sm:text-xl text-[#0D3846]">
-                {formatPrice(listing.pricePerDay)}
-              </span>
-              <span className="text-xs text-slate-500 font-normal">
-                {isCar ? '/ day' : '/ night'}
-              </span>
-            </div>
-            <div className="text-[11px] text-slate-500 mt-0.5">
-              Est. {formatPrice(totalEstimatedPrice)} for {daysCount} {isCar ? 'days' : 'nights'}
-            </div>
-          </div>
-
-          <Link
-            href={`/listings/${listing.id}`}
-            onClick={handleSelectForDraft}
-            className="px-3.5 sm:px-4 py-2 rounded-xl skeu-btn-teal text-white font-syne font-semibold text-xs tracking-tight"
-          >
-            View Details
-          </Link>
+        {/* Rating Pill with Gold Star */}
+        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-100/90 shadow-2xs">
+          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+          <span className="text-xs font-bold text-slate-800">
+            {listing.rating.toFixed(1)}
+          </span>
+          <span className="text-[11px] text-slate-400">/ 5.0</span>
         </div>
+      </div>
+
+      {/* 3. Divider Line */}
+      <div className="border-t border-slate-100 my-2" />
+
+      {/* 4. Title & Address Subtitle */}
+      <div className="px-1 mb-3">
+        <Link href={`/listings/${listing.id}`} onClick={handleSelectForDraft}>
+          <h3 className="font-syne font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#C85A2A] transition-colors leading-snug line-clamp-1">
+            {listing.title}
+          </h3>
+        </Link>
+        <p className="text-xs text-slate-400 mt-1 line-clamp-1">
+          {listing.neighborhood}, Kigali • Rwanda
+        </p>
+      </div>
+
+      {/* 5. Amenities / Specs Row (3 columns with icons, matching Reference Design) */}
+      <div className="mt-auto px-1 pt-2.5 border-t border-slate-100/80 flex items-center justify-between text-xs text-slate-500 font-medium">
+        {isCar ? (
+          <>
+            <div className="flex items-center gap-1.5 truncate">
+              <Users className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="truncate">{listing.vehicleDetails?.seats || 5} seats</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              <Gauge className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="truncate">{listing.vehicleDetails?.fourWheelDrive ? '4x4 AWD' : 'Auto'}</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              <ShieldCheck className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="truncate">
+                {listing.vehicleDetails?.driverOption === 'both' ? 'Driver opt' : 'Chauffeur'}
+              </span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center gap-1.5 truncate">
+              <Bed className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="truncate">{listing.propertyDetails?.bedrooms || 3} bedroom</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              <Bath className="w-4 h-4 text-slate-400 shrink-0" />
+              <span className="truncate">{listing.propertyDetails?.bathrooms || 2} bathroom</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              {listing.propertyDetails?.hasPool ? (
+                <>
+                  <Waves className="w-4 h-4 text-slate-400 shrink-0" />
+                  <span className="truncate">1 private pool</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-4 h-4 text-slate-400 shrink-0" />
+                  <span className="truncate">24/7 generator</span>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 }
-

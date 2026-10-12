@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRental } from '@/lib/rentalContext';
@@ -32,38 +32,64 @@ import {
   Zap,
 } from 'lucide-react';
 
-const HERO_BACKGROUNDS: Record<
-  'all' | 'property' | 'car' | 'combo',
-  { url: string; title: string; badge: string; neighborhood: string }
-> = {
-  all: {
+const HERO_SLIDES = [
+  {
     url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=85',
     title: 'Kiyovu Luxury Heights & Panoramic Skyline',
     badge: 'Diplomatic Hill Precinct',
     neighborhood: 'Kiyovu, Kigali',
+    tab: 'all' as const,
   },
-  property: {
+  {
     url: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=2400&q=85',
     title: 'Nyarutarama Diplomatic Private Villa',
     badge: 'Private Tropical Compound',
     neighborhood: 'Nyarutarama, Kigali',
+    tab: 'property' as const,
   },
-  car: {
+  {
     url: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=2400&q=85',
     title: 'Toyota Land Cruiser Prado TXL 4x4 Fleet',
     badge: 'Safari & Volcanoes Expedition Ready',
     neighborhood: 'Rwanda-wide Fleet',
+    tab: 'car' as const,
   },
-  combo: {
+  {
     url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=85',
     title: 'Stay & Drive Curated Experience',
     badge: 'Villa + Prado 4x4 (-20% Bundle)',
     neighborhood: 'Greater Kigali & Beyond',
+    tab: 'combo' as const,
   },
+  {
+    url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2400&q=85',
+    title: 'Panoramic Hilltop Penthouse Views',
+    badge: 'Floor-to-Ceiling Balcony',
+    neighborhood: 'Kimihurura, Kigali',
+    tab: 'property' as const,
+  },
+];
+
+const HERO_BACKGROUNDS = {
+  all: HERO_SLIDES[0],
+  property: HERO_SLIDES[1],
+  car: HERO_SLIDES[2],
+  combo: HERO_SLIDES[3],
 };
 
 export default function HomePage() {
   const { listings, formatPrice, draftBooking, setDraftBooking } = useRental();
+
+  // Automatic slideshow state (Cycles every 5 seconds by default)
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   // Search State (DS-01)
   const [activeTab, setActiveTab] = useState<'all' | 'property' | 'car' | 'combo'>('all');
@@ -306,6 +332,10 @@ export default function HomePage() {
     setSelectedNeighborhood('all');
     setGuestsCapacity('all');
     setSelectedAssetSubtype('all');
+    const matchedIdx = HERO_SLIDES.findIndex((s) => s.tab === tab);
+    if (matchedIdx !== -1) {
+      setCurrentSlideIndex(matchedIdx);
+    }
   };
 
   const resetFilters = () => {
@@ -331,47 +361,70 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2]">
-      {/* 1. HERO SECTION: HIGH-FROST LUMINOUS GLASSMORPHISM & SKEUOMORPHISM */}
-      <section className="relative min-h-[100dvh] flex flex-col justify-center items-center px-4 sm:px-6 pt-24 sm:pt-28 pb-12 sm:pb-16">
-        {/* Full-bleed Background Image with overflow-hidden isolated strictly to the image wrapper */}
+      {/* 1. HERO SECTION: ZERO-SCROLL GUARANTEED WITH LOWERED FORM PLACEMENT */}
+      <section className="relative h-[100dvh] min-h-[640px] max-h-[1050px] flex flex-col justify-center items-center px-4 sm:px-6 pt-24 sm:pt-28 pb-6 sm:pb-8">
+        {/* Full-bleed Background Images Slideshow (Auto-cycles smoothly by default) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <Image
-            src={HERO_BACKGROUNDS[activeTab].url}
-            alt={HERO_BACKGROUNDS[activeTab].title}
-            fill
-            className="object-cover object-center transition-all duration-1000 scale-100 transform ease-out"
-            priority
-          />
+          {HERO_SLIDES.map((slide, idx) => (
+            <div
+              key={slide.url}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                idx === currentSlideIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+            >
+              <Image
+                src={slide.url}
+                alt={slide.title}
+                fill
+                className="object-cover object-center transform transition-transform duration-[6000ms] ease-out scale-100"
+                priority={idx === 0}
+              />
+            </div>
+          ))}
           {/* Luminous photographic overlay: rich vibrancy without muddy graying */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/50" />
         </div>
 
-        {/* Hero Headlines: Grand, commanding, and perfectly proportioned */}
-        <div className="container mx-auto relative z-10 max-w-4xl text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-xs sm:text-sm font-syne font-semibold text-white mb-3 sm:mb-4 shadow-lg">
+        {/* Slideshow Progress Dots Indicator */}
+        <div className="absolute bottom-3 right-4 sm:right-8 z-30 flex items-center gap-1.5 glass-skeu-card px-2.5 py-1 rounded-full pointer-events-auto">
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlideIndex(idx)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === currentSlideIndex ? 'w-5 bg-[#C85A2A]' : 'w-1.5 bg-slate-400/50 hover:bg-slate-600'
+              }`}
+              aria-label={`Slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Hero Headlines: Positioned with distinct distance from navbar and wide breathing space to form */}
+        <div className="container mx-auto relative z-10 max-w-3xl text-center mb-10 sm:mb-14 mt-4 sm:mt-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-xs sm:text-sm font-syne font-semibold text-white mb-2 sm:mb-2.5 shadow-lg">
             <span className="w-2.5 h-2.5 rounded-full bg-[#C85A2A] animate-pulse"></span>
             <span>Rwanda Verified Living & Mobility</span>
             <span className="text-white/60">•</span>
             <span className="text-white/95 font-sans font-normal text-xs">Villas & 4x4 Prado Fleet</span>
           </div>
 
-          <h1 className="font-syne text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08] drop-shadow-xl mb-3 sm:mb-4">
+          <h1 className="font-syne text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12] drop-shadow-xl mb-2 sm:mb-2.5">
             Find your luxury stay & drive in{' '}
             <span className="text-[#C85A2A] relative inline-block">
               Kigali
-              <span className="absolute bottom-1 left-0 right-0 h-2 sm:h-3 bg-[#C85A2A]/30 -z-10 rounded-full" />
+              <span className="absolute bottom-1 left-0 right-0 h-2 sm:h-2.5 bg-[#C85A2A]/30 -z-10 rounded-full" />
             </span>
           </h1>
 
-          <p className="text-sm sm:text-base lg:text-lg text-white/95 font-sans max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+          <p className="text-xs sm:text-sm lg:text-base text-white/95 font-sans max-w-xl mx-auto leading-relaxed drop-shadow-md">
             Serviced diplomatic villas and panoramic penthouses paired seamlessly with safari-ready 4x4 Land Cruisers. 100% verified backup power & water.
           </p>
         </div>
 
-        {/* High-Frost Luminous Glassmorphic Search Form (Matched width with Navbar) */}
+        {/* High-Frost Luminous Glassmorphic Search Form (Lowered position, zero-scroll fit) */}
         <div
           id="search"
-          className="w-full max-w-6xl mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-3 sm:p-4 text-slate-800 scroll-mt-24 transition-all"
+          className="w-full max-w-6xl mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 text-slate-800 scroll-mt-24 transition-all"
         >
           {/* Dynamic Tab Selector with Tactile Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2 pb-2.5 mb-2.5 border-b border-white/70 overflow-x-auto scrollbar-none">
