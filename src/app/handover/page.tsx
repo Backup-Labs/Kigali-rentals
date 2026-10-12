@@ -81,7 +81,7 @@ export default function HandoverToolPage() {
 
   const [savedSuccessMessage, setSavedSuccessMessage] = useState<string | null>(null);
 
-  const isCarAsset = selectedBooking?.assetType === 'car';
+  const isCarAsset = selectedBooking?.assetType === 'car'; 
 
   const addScratch = () => {
     if (!newScratchLoc) return;
