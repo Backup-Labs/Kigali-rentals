@@ -1,0 +1,858 @@
+import { Listing, Reservation, AdminTask, ConditionReport, AssetInventoryItem } from './types';
+
+export const USD_TO_RWF_RATE = 1350;
+
+export const INITIAL_LISTINGS: Listing[] = [
+  // Properties
+  {
+    id: 'prop-kiyovu-heights',
+    type: 'property',
+    title: 'Kiyovu Luxury Heights',
+    subtitle: 'Panoramic 2-Bed Penthouse with Heated Infinity Pool',
+    neighborhood: 'Kiyovu',
+    address: 'KN 4 Ave, Kiyovu Hill, Kigali',
+    description: 'Perched in the leafy and prestigious diplomatic quarter of Kiyovu, this penthouse offers 270-degree floor-to-ceiling views across Kigali’s rolling hills. Features bespoke Scandinavian-meets-Rwandan hardwood furnishings, a designer open kitchen with marble island, ultra-fast 250Mbps fiber optic WiFi, automated blackout shades, and access to a shared heated infinity pool overlooking the city skyline. Perfect for diplomats, expatriates, and travelers who appreciate peaceful luxury within 5 minutes of Kigali city center.',
+    images: [
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+    ],
+    pricePerDay: 185,
+    pricePerDayRwf: 185 * USD_TO_RWF_RATE,
+    securityDeposit: 250,
+    cleaningOrServiceFee: 35,
+    rating: 4.96,
+    reviewCount: 48,
+    isVerified: true,
+    isInstantBook: true,
+    featured: true,
+    badges: ['Superhost', 'Diplomatic Zone', 'Fiber WiFi 250M'],
+    specsSummary: '2 Beds • 2 Baths • 4 Guests • 140 sqm',
+    propertyDetails: {
+      category: 'penthouse',
+      bedrooms: 2,
+      bathrooms: 2,
+      maxGuests: 4,
+      sqm: 140,
+      amenities: [
+        'Heated Infinity Pool',
+        '250 Mbps Fiber Optic WiFi',
+        'Solar + Silent Diesel Backup Generator',
+        'Smart Keyless Entry',
+        'Daily Housekeeping Available',
+        'Espresso Bar & Wine Cooler',
+        'Dedicated Underground Parking',
+        '24/7 G4S Security & CCTV',
+        'Air Conditioning & Ceiling Fans',
+        'Washer & Dryer in Unit'
+      ],
+      rules: [
+        'No smoking inside (balcony permitted)',
+        'Quiet hours after 10:00 PM',
+        'No unregistered commercial film shoots',
+        'ID required for all guests'
+      ],
+      hasBackupGenerator: true,
+      hasWaterReservoir: true,
+      hasFastWifi: true,
+      hasPool: true,
+    },
+    crossSellRecommendation: {
+      assetId: 'veh-land-cruiser-prado',
+      title: 'Toyota Land Cruiser Prado TXL (4x4)',
+      type: 'car',
+      originalDailyRate: 95,
+      discountDailyRate: 75,
+      image: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=800&q=80',
+      tagline: 'Need a 4x4 for your stay in Kigali? Add a Toyota Prado for +$75/day ($20 off).',
+      specs: '7 Seats • Automatic • Chauffeur or Self-Drive'
+    }
+  },
+  {
+    id: 'prop-nyarutarama-villa',
+    type: 'property',
+    title: 'Nyarutarama Diplomatic Villa',
+    subtitle: 'Private 4-Bed Compound with Lush Garden & Chef Kitchen',
+    neighborhood: 'Nyarutarama',
+    address: 'KG 9 Ave, Nyarutarama Golf Precinct, Kigali',
+    description: 'An expansive private sanctuary located just blocks from the Kigali Golf Club and international embassies in Nyarutarama. Spanning over 380 square meters of refined indoor-outdoor living, this villa boasts 4 en-suite bedrooms, high wood-beam ceilings, manicured tropical gardens, private patio BBQ pavilion, and automated heavy-duty backup power and water purification systems. Includes dedicated security staff and secure gated parking for up to 4 vehicles.',
+    images: [
+      'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 320,
+    pricePerDayRwf: 320 * USD_TO_RWF_RATE,
+    securityDeposit: 400,
+    cleaningOrServiceFee: 50,
+    rating: 4.98,
+    reviewCount: 32,
+    isVerified: true,
+    isInstantBook: true,
+    featured: true,
+    badges: ['Diplomat Grade', 'Private Garden', 'Silent Generator'],
+    specsSummary: '4 Beds • 4.5 Baths • 8 Guests • 380 sqm',
+    propertyDetails: {
+      category: 'villa',
+      bedrooms: 4,
+      bathrooms: 4.5,
+      maxGuests: 8,
+      sqm: 380,
+      amenities: [
+        'Private Tropical Garden & Patio',
+        'Chef Kitchen with Gas Range',
+        '50 kVA Silent Automatic Generator',
+        '5,000L Redundant Water Tank + Filtration',
+        'High-Speed Mesh WiFi (300 Mbps)',
+        'Gated Compound with Security Post',
+        'En-Suite Jacuzzi in Master',
+        'Barbecue Grill Station',
+        'Staff Quarters on Site',
+        'Smart TV with Netflix & DSTV'
+      ],
+      rules: [
+        'Family and embassy friendly',
+        'Events must have prior written approval',
+        'Pets considered upon request'
+      ],
+      hasBackupGenerator: true,
+      hasWaterReservoir: true,
+      hasFastWifi: true,
+      hasPool: false,
+    },
+    crossSellRecommendation: {
+      assetId: 'veh-mercedes-e-class',
+      title: 'Mercedes-Benz E-Class Executive',
+      type: 'car',
+      originalDailyRate: 150,
+      discountDailyRate: 120,
+      image: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+      tagline: 'Host visiting delegations in style. Add VIP Mercedes Chauffeur for +$120/day.',
+      specs: '5 Seats • Automatic • Uniformed Chauffeur'
+    }
+  },
+  {
+    id: 'prop-kimihurura-studio',
+    type: 'property',
+    title: 'Kimihurura Urban Studio Loft',
+    subtitle: 'Modern Serviced Loft Steps from Kigali’s Best Culinary Hotspots',
+    neighborhood: 'Kimihurura',
+    address: 'KG 674 St, Kimihurura, Kigali',
+    description: 'Located in Kigali’s most vibrant dining and arts district, this chic industrial loft blends exposed brick, Rwandan Imigongo geometric accents, and sleek minimalist architecture. Features a dedicated work desk with ergonomic chair, high-speed fiber internet, rainfall shower, and a private balcony overlooking the palm-lined Kimihurura hills. Walking distance to Republik Lounge, Poivre Noir, and Inzora Rooftop.',
+    images: [
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 75,
+    pricePerDayRwf: 75 * USD_TO_RWF_RATE,
+    securityDeposit: 100,
+    cleaningOrServiceFee: 20,
+    rating: 4.91,
+    reviewCount: 64,
+    isVerified: true,
+    isInstantBook: true,
+    featured: false,
+    badges: ['Nomad Friendly', 'Walk to Cafes', 'Fiber 150M'],
+    specsSummary: '1 Bed • 1 Bath • 2 Guests • 55 sqm',
+    propertyDetails: {
+      category: 'studio',
+      bedrooms: 1,
+      bathrooms: 1,
+      maxGuests: 2,
+      sqm: 55,
+      amenities: [
+        '150 Mbps Fiber Internet',
+        'Dedicated Ergonomic Workstation',
+        'Private Sunset Balcony',
+        'Nespresso Coffee Machine',
+        'Inverter AC Unit',
+        'Electronic Safe Box',
+        'Bi-weekly Housekeeping',
+        'Secure Building Keycard Access'
+      ],
+      rules: [
+        'No smoking',
+        'Ideal for solo business or couples',
+        'Self check-in via smart lock'
+      ],
+      hasBackupGenerator: true,
+      hasWaterReservoir: true,
+      hasFastWifi: true,
+      hasPool: false,
+    },
+    crossSellRecommendation: {
+      assetId: 'veh-rav4-hybrid',
+      title: 'Toyota RAV4 Hybrid AWD',
+      type: 'car',
+      originalDailyRate: 65,
+      discountDailyRate: 50,
+      image: 'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?auto=format&fit=crop&w=800&q=80',
+      tagline: 'Zip through Kigali and Musanze. Add fuel-efficient RAV4 Hybrid for +$50/day.',
+      specs: '5 Seats • Automatic • Hybrid AWD'
+    }
+  },
+  {
+    id: 'prop-gacuriro-residence',
+    type: 'property',
+    title: 'Gacuriro Hillside Terrace Villa',
+    subtitle: '3-Bed Family Haven with Expansive Sunset Deck',
+    neighborhood: 'Gacuriro',
+    address: 'KG 14 Ave, Vision 2020 Estate, Gacuriro',
+    description: 'A serene modern villa perched on Gacuriro ridge, offering crisp breezes and panoramic northern vistas. Boasts 3 spacious bedrooms, open plan living and dining, child-friendly fenced garden, solar-powered water heating, and modern security fencing. Just 10 minutes to Kigali International Community School (KICS) and MTN Center.',
+    images: [
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 195,
+    pricePerDayRwf: 195 * USD_TO_RWF_RATE,
+    securityDeposit: 250,
+    cleaningOrServiceFee: 30,
+    rating: 4.88,
+    reviewCount: 23,
+    isVerified: true,
+    isInstantBook: false,
+    featured: false,
+    badges: ['Family Favorite', 'Fenced Garden', 'Solar Water'],
+    specsSummary: '3 Beds • 3 Baths • 6 Guests • 220 sqm',
+    propertyDetails: {
+      category: 'villa',
+      bedrooms: 3,
+      bathrooms: 3,
+      maxGuests: 6,
+      sqm: 220,
+      amenities: [
+        'Panoramic Terrace Deck',
+        'Fenced Lawn for Children',
+        'Fully Equipped Family Kitchen',
+        'High Speed WiFi',
+        'Solar Water Heater & Reserve Tank',
+        'Covered Garage for 2 Cars'
+      ],
+      rules: ['No loud outdoor parties past 11 PM', 'No pets without prior consent'],
+      hasBackupGenerator: true,
+      hasWaterReservoir: true,
+      hasFastWifi: true,
+      hasPool: false,
+    }
+  },
+
+  // Vehicles
+  {
+    id: 'veh-land-cruiser-prado',
+    type: 'car',
+    title: 'Toyota Land Cruiser Prado TXL (4x4)',
+    subtitle: 'Rugged Luxury 7-Seater Built for Rwandan Hills & Volcanoes Safari',
+    neighborhood: 'Kigali Airport',
+    address: 'KN 5 Rd, Kigali International Airport Terminal',
+    description: 'The undisputed king of Rwandan terrain. This Prado TXL combines genuine full-time 4WD capability with plush leather seating, dual-zone climate control, and elevated road visibility. Ideal whether cruising between Kigali meetings or tackling the steep volcanic passes of Musanze, Akagera National Park tracks, or Lake Kivu roads. Available for self-drive or with a licensed, English/French/Kinyarwanda-speaking professional chauffeur.',
+    images: [
+      'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 95,
+    pricePerDayRwf: 95 * USD_TO_RWF_RATE,
+    securityDeposit: 300,
+    cleaningOrServiceFee: 15,
+    rating: 4.97,
+    reviewCount: 92,
+    isVerified: true,
+    isInstantBook: true,
+    featured: true,
+    badges: ['Top 4x4 Choice', 'Unlimited KM', 'Akagera Safari Ready'],
+    specsSummary: '7 Seats • Automatic • Diesel 4WD • Self or Chauffeur',
+    vehicleDetails: {
+      category: '4x4',
+      seats: 7,
+      doors: 5,
+      transmission: 'automatic',
+      fuelType: 'diesel',
+      fuelEfficiency: '9.8 km/L',
+      features: [
+        'Full-Time 4WD with Low Range Lock',
+        'Bluetooth & Apple CarPlay Display',
+        'Dual-Zone Ice-Cold A/C & Rear Vents',
+        'Full Comprehensive Comprehensive Insurance',
+        '24/7 Roadside Assistance Rwanda-wide',
+        'Heavy-Duty Roof Rails & Cargo Net',
+        'Spare Wheel, High-Lift Jack & First Aid'
+      ],
+      driverOption: 'both',
+      driverCostPerDay: 25,
+      fourWheelDrive: true,
+      unlimitedMileage: true,
+    },
+    crossSellRecommendation: {
+      assetId: 'prop-kiyovu-heights',
+      title: 'Kiyovu Luxury Heights Penthouse',
+      type: 'property',
+      originalDailyRate: 185,
+      discountDailyRate: 160,
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+      tagline: 'Pair your Prado with a Diplomatic Penthouse in Kiyovu for -$25/day off.',
+      specs: '2 Beds • Heated Pool • City Panoramas'
+    }
+  },
+  {
+    id: 'veh-rav4-hybrid',
+    type: 'car',
+    title: 'Toyota RAV4 Hybrid AWD',
+    subtitle: 'Intelligent Eco-SUV for Kigali City Hills & Smooth Intercity Trips',
+    neighborhood: 'Kimihurura',
+    address: 'KG 2 Ave, Kimihurura Roundabout, Kigali',
+    description: 'The ultimate urban efficiency vehicle for Rwanda. Combining an ultra-quiet hybrid powertrain with intelligent Electric All-Wheel Drive (E-Four), this RAV4 effortlessly navigates Kigali’s famous slopes while cutting fuel costs in half. Equipped with Toyota Safety Sense, wireless phone charging, 360-degree parking cameras, and ample luggage space for 4 travelers.',
+    images: [
+      'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 65,
+    pricePerDayRwf: 65 * USD_TO_RWF_RATE,
+    securityDeposit: 200,
+    cleaningOrServiceFee: 15,
+    rating: 4.93,
+    reviewCount: 57,
+    isVerified: true,
+    isInstantBook: true,
+    featured: true,
+    badges: ['Eco Hybrid', '5.2 L/100km', 'Easy Parking'],
+    specsSummary: '5 Seats • Automatic • Hybrid AWD • Self-Drive',
+    vehicleDetails: {
+      category: 'hybrid',
+      seats: 5,
+      doors: 5,
+      transmission: 'automatic',
+      fuelType: 'hybrid',
+      fuelEfficiency: '19.2 km/L',
+      features: [
+        'Electronic All-Wheel Drive (AWD)',
+        'Wireless Apple CarPlay & Android Auto',
+        'Blind Spot Monitoring & Lane Assist',
+        'Keyless Smart Entry & Push Start',
+        'Reversing Camera with Dynamic Guidelines',
+        'Split Fold-Down Rear Seats',
+        'Full Airbag Suite'
+      ],
+      driverOption: 'both',
+      driverCostPerDay: 20,
+      fourWheelDrive: true,
+      unlimitedMileage: true,
+    },
+    crossSellRecommendation: {
+      assetId: 'prop-kimihurura-studio',
+      title: 'Kimihurura Urban Studio Loft',
+      type: 'property',
+      originalDailyRate: 75,
+      discountDailyRate: 60,
+      image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
+      tagline: 'Combine your green commute with Kimihurura loft living. Save $15/day.',
+      specs: '1 Bed • Fast WiFi • Steps to Cafes'
+    }
+  },
+  {
+    id: 'veh-mercedes-e-class',
+    type: 'car',
+    title: 'Mercedes-Benz E-Class Executive',
+    subtitle: 'VIP Chauffeur Luxury Saloon for Corporate Missions & State Events',
+    neighborhood: 'Kiyovu',
+    address: 'Kiyovu Serena Hotel VIP Rank, Kigali',
+    description: 'When precision, prestige, and consummate comfort matter. Our Mercedes-Benz E-Class comes with a professionally groomed, certified executive chauffeur. Features heated Nappa leather seats, acoustic comfort glass, Burmester surround sound, and high-speed in-car 5G WiFi hotspot. Recommended for corporate summits at the Kigali Convention Centre, diplomatic protocols, and airport VIP transfers.',
+    images: [
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 150,
+    pricePerDayRwf: 150 * USD_TO_RWF_RATE,
+    securityDeposit: 350,
+    cleaningOrServiceFee: 20,
+    rating: 4.99,
+    reviewCount: 41,
+    isVerified: true,
+    isInstantBook: true,
+    featured: false,
+    badges: ['Chauffeur Included', 'Diplomatic Choice', 'In-Car 5G'],
+    specsSummary: '4 Passengers • Automatic • Chauffeur Driven',
+    vehicleDetails: {
+      category: 'luxury',
+      seats: 5,
+      doors: 4,
+      transmission: 'automatic',
+      fuelType: 'petrol',
+      fuelEfficiency: '13.5 km/L',
+      features: [
+        'Dedicated English/French Speaking Chauffeur',
+        'In-Car High-Speed 5G WiFi',
+        'Complimentary Chilled Bottled Rwandan Water',
+        'Burmester Premium Surround Audio',
+        'Rear Window Electric Privacy Shades',
+        'Airport Meet-and-Greet Service with Name Sign'
+      ],
+      driverOption: 'chauffeur',
+      driverCostPerDay: 0, // Included
+      fourWheelDrive: false,
+      unlimitedMileage: false,
+    }
+  },
+  {
+    id: 'veh-defender-110',
+    type: 'car',
+    title: 'Land Rover Defender 110 SE',
+    subtitle: 'Expedition Master with Air Suspension & Safari Roof Rack',
+    neighborhood: 'Nyarutarama',
+    address: 'KG 11 Ave, Nyarutarama Embassy Row, Kigali',
+    description: 'Engineered for untamed African adventures without sacrificing five-star comfort. Equipped with adaptive air suspension, Terrain Response 2, 360-degree 3D surround camera with Wade Sensing, and an expedition roof rack. Ready for Gorilla trekking excursions in Kinigi, Nyungwe canopy walks, or stylish arrivals in Kigali.',
+    images: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=1200&q=80'
+    ],
+    pricePerDay: 165,
+    pricePerDayRwf: 165 * USD_TO_RWF_RATE,
+    securityDeposit: 500,
+    cleaningOrServiceFee: 25,
+    rating: 4.95,
+    reviewCount: 29,
+    isVerified: true,
+    isInstantBook: false,
+    featured: false,
+    badges: ['Expedition Ready', 'Adaptive Air Suspension', 'Safari Grade'],
+    specsSummary: '5-7 Seats • Automatic • 4WD • Self or Chauffeur',
+    vehicleDetails: {
+      category: '4x4',
+      seats: 7,
+      doors: 5,
+      transmission: 'automatic',
+      fuelType: 'petrol',
+      fuelEfficiency: '9.2 km/L',
+      features: [
+        'Electronic Air Suspension',
+        'ClearSight Ground View Camera',
+        'Expedition Roof Rack & Side Ladder',
+        'Wireless Apple CarPlay / Android Auto',
+        'Meridian Sound System'
+      ],
+      driverOption: 'both',
+      driverCostPerDay: 30,
+      fourWheelDrive: true,
+      unlimitedMileage: true,
+    }
+  }
+];
+
+export const INITIAL_RESERVATIONS: Reservation[] = [
+  {
+    id: 'KGL-2026-8942',
+    assetId: 'prop-kiyovu-heights',
+    assetTitle: 'Kiyovu Luxury Heights Penthouse',
+    assetType: 'combo',
+    assetImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+    pairedAssetId: 'veh-land-cruiser-prado',
+    pairedAssetTitle: 'Toyota Land Cruiser Prado TXL (4x4)',
+    pairedAssetImage: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=800&q=80',
+    neighborhood: 'Kiyovu',
+    customer: {
+      fullName: 'David Kamanzi',
+      email: 'david.kamanzi@techafrica.rw',
+      phone: '+250 788 123 456',
+      idNumber: '1 1988 8 0045231 1 09',
+      idType: 'national_id',
+      documentUploaded: true,
+      documentFileName: 'kamanzi_id_rwanda.pdf'
+    },
+    startDate: '2026-10-14',
+    endDate: '2026-10-19',
+    daysCount: 5,
+    status: 'confirmed',
+    addOns: {
+      airportPickup: true,
+      dedicatedDriver: true,
+      childSeat: false,
+      wifiHotspot: true,
+      damageWaiver: true
+    },
+    pricing: {
+      baseDailyRate: 185,
+      days: 5,
+      baseTotal: 925,
+      comboAssetDailyRate: 75,
+      comboTotal: 375,
+      cleaningOrServiceFee: 35,
+      addOnsTotal: 125,
+      securityDepositHold: 250,
+      subtotal: 1460,
+      taxesAndTourismLevy: 73,
+      grandTotal: 1533,
+      payableToday: 1533,
+      dueAtCheckIn: 0,
+      currency: 'USD',
+      paymentPlan: 'pay_full',
+      paymentMethod: 'momo_mtn'
+    },
+    agreementSigned: true,
+    signatureDataUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60"><path d="M 10 30 Q 50 10 80 40 T 150 25 T 190 35" stroke="%230D3846" stroke-width="2" fill="none"/></svg>',
+    createdAt: '2026-10-11T14:22:00Z',
+    handoverStatus: {
+      checkInDone: false,
+      checkOutDone: false
+    }
+  },
+  {
+    id: 'KGL-2026-8910',
+    assetId: 'veh-mercedes-e-class',
+    assetTitle: 'Mercedes-Benz E-Class Executive',
+    assetType: 'car',
+    assetImage: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80',
+    neighborhood: 'Kiyovu',
+    customer: {
+      fullName: 'Claire Dubois',
+      email: 'c.dubois@eu-delegation.org',
+      phone: '+250 782 998 112',
+      idNumber: 'FR-94281920',
+      idType: 'passport',
+      documentUploaded: true,
+      documentFileName: 'dubois_diplomatic_pass.pdf'
+    },
+    startDate: '2026-10-12',
+    endDate: '2026-10-15',
+    daysCount: 3,
+    status: 'active',
+    addOns: {
+      airportPickup: true,
+      dedicatedDriver: true,
+      childSeat: false,
+      wifiHotspot: true,
+      damageWaiver: false
+    },
+    pricing: {
+      baseDailyRate: 150,
+      days: 3,
+      baseTotal: 450,
+      cleaningOrServiceFee: 20,
+      addOnsTotal: 40,
+      securityDepositHold: 350,
+      subtotal: 510,
+      taxesAndTourismLevy: 25.5,
+      grandTotal: 535.5,
+      payableToday: 535.5,
+      dueAtCheckIn: 0,
+      currency: 'USD',
+      paymentPlan: 'pay_full',
+      paymentMethod: 'card'
+    },
+    agreementSigned: true,
+    createdAt: '2026-10-10T09:15:00Z',
+    handoverStatus: {
+      checkInDone: true,
+      checkInDate: '2026-10-12T08:30:00Z',
+      checkOutDone: false
+    }
+  },
+  {
+    id: 'KGL-2026-8877',
+    assetId: 'prop-nyarutarama-villa',
+    assetTitle: 'Nyarutarama Diplomatic Villa',
+    assetType: 'property',
+    assetImage: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
+    neighborhood: 'Nyarutarama',
+    customer: {
+      fullName: 'Marcus Sterling',
+      email: 'm.sterling@unicef.org',
+      phone: '+250 787 554 321',
+      idNumber: 'UK-67812938',
+      idType: 'passport',
+      documentUploaded: true,
+      documentFileName: 'sterling_passport.pdf'
+    },
+    startDate: '2026-10-06',
+    endDate: '2026-10-12',
+    daysCount: 6,
+    status: 'pending_handover',
+    addOns: {
+      airportPickup: true,
+      dedicatedDriver: false,
+      childSeat: true,
+      wifiHotspot: false,
+      damageWaiver: true
+    },
+    pricing: {
+      baseDailyRate: 320,
+      days: 6,
+      baseTotal: 1920,
+      cleaningOrServiceFee: 50,
+      addOnsTotal: 80,
+      securityDepositHold: 400,
+      subtotal: 2050,
+      taxesAndTourismLevy: 102.5,
+      grandTotal: 2152.5,
+      payableToday: 645.75, // 30% deposit
+      dueAtCheckIn: 1506.75,
+      currency: 'USD',
+      paymentPlan: 'deposit_30',
+      paymentMethod: 'card'
+    },
+    agreementSigned: true,
+    createdAt: '2026-10-04T11:45:00Z',
+    handoverStatus: {
+      checkInDone: true,
+      checkInDate: '2026-10-06T15:00:00Z',
+      checkOutDone: false // Checking out today!
+    }
+  }
+];
+
+export const INITIAL_ADMIN_TASKS: AdminTask[] = [
+  {
+    id: 'task-101',
+    title: 'Check-out Handover & Meter Inspection',
+    type: 'handover_checkout',
+    assetId: 'prop-nyarutarama-villa',
+    assetName: 'Nyarutarama Diplomatic Villa',
+    assetType: 'property',
+    assignee: 'Jean-Paul Nsengiyumva',
+    assigneeRole: 'Senior Property Inspector',
+    time: '11:00 AM',
+    date: '2026-10-12',
+    status: 'pending',
+    priority: 'urgent',
+    notes: 'Verify electricity meter units and garden patio condition before guest departure to airport.'
+  },
+  {
+    id: 'task-102',
+    title: 'Pre-Arrival Deep Clean & Welcome Basket',
+    type: 'cleaning',
+    assetId: 'prop-kiyovu-heights',
+    assetName: 'Kiyovu Luxury Heights Penthouse',
+    assetType: 'property',
+    assignee: 'Solange Uwase',
+    assigneeRole: 'Head of Housekeeping',
+    time: '01:30 PM',
+    date: '2026-10-13',
+    status: 'in_progress',
+    priority: 'high',
+    notes: 'Replenish Rwanda Mountain Tea & Bourbon Coffee. Test backup solar inverter switch.'
+  },
+  {
+    id: 'task-103',
+    title: 'Vehicle 50-Point Inspection & Fuel Top-Up',
+    type: 'handover_checkin',
+    assetId: 'veh-land-cruiser-prado',
+    assetName: 'Toyota Land Cruiser Prado TXL',
+    assetType: 'car',
+    assignee: 'Eric Hakizimana',
+    assigneeRole: 'Fleet Lead & Logistics',
+    time: '03:00 PM',
+    date: '2026-10-13',
+    status: 'pending',
+    priority: 'high',
+    notes: 'Install child booster seat. Verify 4WD low range switch and clean undercarriage.'
+  },
+  {
+    id: 'task-104',
+    title: 'VIP Airport Meet & Chauffeur Transfer',
+    type: 'driver_dispatch',
+    assetId: 'veh-mercedes-e-class',
+    assetName: 'Mercedes-Benz E-Class',
+    assetType: 'car',
+    assignee: 'Patrick Mugabo',
+    assigneeRole: 'Executive Chauffeur',
+    time: '05:45 PM',
+    date: '2026-10-12',
+    status: 'in_progress',
+    priority: 'urgent',
+    notes: 'Flight WB302 from Nairobi. Welcome sign: "Claire Dubois - EU Delegation".'
+  },
+  {
+    id: 'task-105',
+    title: 'Routine AC Filter Servicing & Smart Lock Battery',
+    type: 'maintenance',
+    assetId: 'prop-kimihurura-studio',
+    assetName: 'Kimihurura Urban Studio Loft',
+    assetType: 'property',
+    assignee: 'Emmanuel Bizimana',
+    assigneeRole: 'Facilities Tech',
+    time: '10:00 AM',
+    date: '2026-10-14',
+    status: 'pending',
+    priority: 'medium',
+    notes: 'Replace AA batteries in Yale Smart Lock. Inspect water pressure regulator.'
+  }
+];
+
+export const INITIAL_CONDITION_REPORTS: ConditionReport[] = [
+  {
+    id: 'report-8910-in',
+    bookingId: 'KGL-2026-8910',
+    assetId: 'veh-mercedes-e-class',
+    assetTitle: 'Mercedes-Benz E-Class Executive',
+    assetType: 'car',
+    stage: 'check_in',
+    timestamp: '2026-10-12T08:30:00Z',
+    agentName: 'Patrick Mugabo',
+    customerName: 'Claire Dubois',
+    carData: {
+      odometer: 34120,
+      fuelLevel: 100, // Full tank
+      cleanliness: 'pristine',
+      exteriorPhotos: {
+        front: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80',
+        back: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=600&q=80',
+        driverSide: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=80',
+        passengerSide: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80',
+      },
+      scratches: [
+        { id: 'sc-1', location: 'Rear bumper lower right', severity: 'minor', note: '1.5cm faint clearcoat scratch, previously logged' }
+      ],
+      spareTireAndJack: true,
+      trianglePresent: true,
+      notes: 'Car detailed and sanitized. Tires at 34 PSI. 2 bottles of Virunga water in rear holders.'
+    },
+    signatureUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40"><path d="M 5 20 Q 30 5 60 25 T 120 15" stroke="%23C85A2A" stroke-width="2" fill="none"/></svg>',
+    completed: true
+  },
+  {
+    id: 'report-8877-in',
+    bookingId: 'KGL-2026-8877',
+    assetId: 'prop-nyarutarama-villa',
+    assetTitle: 'Nyarutarama Diplomatic Villa',
+    assetType: 'property',
+    stage: 'check_in',
+    timestamp: '2026-10-06T15:00:00Z',
+    agentName: 'Jean-Paul Nsengiyumva',
+    customerName: 'Marcus Sterling',
+    propertyData: {
+      keysHandedOver: true,
+      keyBoxPin: '9420',
+      electricityMeterKwh: 12450.8,
+      waterMeterUnits: 842.1,
+      cleanliness: 'pristine',
+      roomsChecklist: [
+        { id: 'rm-1', room: 'Living Room & Patio', status: 'ok', notes: 'All furniture and TV in perfect order.' },
+        { id: 'rm-2', room: 'Master Suite', status: 'ok', notes: 'Jacuzzi tested, spotless linens.' },
+        { id: 'rm-3', room: 'Guest Bedrooms (3)', status: 'ok', notes: 'Towels and toiletries stocked.' },
+        { id: 'rm-4', room: 'Chef Kitchen', status: 'ok', notes: 'Gas tank full, oven clean, cutlery verified.' },
+        { id: 'rm-5', room: 'Generator & Garden', status: 'ok', notes: 'Generator diesel tank at 90%.' }
+      ],
+      acAndAppliancesWorking: true,
+      poolAndGardenCondition: 'excellent',
+      notes: 'Guest welcomed in person. Handed 2 physical front gate remotes + backup manual keys.'
+    },
+    completed: true
+  }
+];
+
+export const INITIAL_INVENTORY_ITEMS: AssetInventoryItem[] = [
+  {
+    id: 'prop-kiyovu-heights',
+    title: 'Kiyovu Luxury Heights',
+    type: 'property',
+    neighborhood: 'Kiyovu',
+    status: 'Cleaning',
+    pricePerDay: 185,
+    pricePerDayRwf: 185 * USD_TO_RWF_RATE,
+    activeBookingId: 'KGL-2026-8942',
+    nextAvailableDate: '2026-10-20',
+    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80',
+    specs: '2 Beds • 2 Baths • Pool'
+  },
+  {
+    id: 'prop-nyarutarama-villa',
+    title: 'Nyarutarama Diplomatic Villa',
+    type: 'property',
+    neighborhood: 'Nyarutarama',
+    status: 'Rented',
+    pricePerDay: 320,
+    pricePerDayRwf: 320 * USD_TO_RWF_RATE,
+    activeBookingId: 'KGL-2026-8877',
+    nextAvailableDate: '2026-10-13',
+    imageUrl: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=400&q=80',
+    specs: '4 Beds • 4.5 Baths • Garden'
+  },
+  {
+    id: 'prop-kimihurura-studio',
+    title: 'Kimihurura Urban Studio',
+    type: 'property',
+    neighborhood: 'Kimihurura',
+    status: 'Available',
+    pricePerDay: 75,
+    pricePerDayRwf: 75 * USD_TO_RWF_RATE,
+    nextAvailableDate: 'Today',
+    imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=400&q=80',
+    specs: '1 Bed • 1 Bath • Loft'
+  },
+  {
+    id: 'prop-gacuriro-residence',
+    title: 'Gacuriro Hillside Terrace',
+    type: 'property',
+    neighborhood: 'Gacuriro',
+    status: 'Available',
+    pricePerDay: 195,
+    pricePerDayRwf: 195 * USD_TO_RWF_RATE,
+    nextAvailableDate: 'Today',
+    imageUrl: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=400&q=80',
+    specs: '3 Beds • 3 Baths • Sunset Deck'
+  },
+  {
+    id: 'veh-land-cruiser-prado',
+    title: 'Toyota Land Cruiser Prado TXL',
+    type: 'car',
+    neighborhood: 'Kigali Airport',
+    status: 'Available',
+    pricePerDay: 95,
+    pricePerDayRwf: 95 * USD_TO_RWF_RATE,
+    nextAvailableDate: 'Today',
+    imageUrl: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=400&q=80',
+    specs: '7 Seats • Diesel • 4x4'
+  },
+  {
+    id: 'veh-rav4-hybrid',
+    title: 'Toyota RAV4 Hybrid AWD',
+    type: 'car',
+    neighborhood: 'Kimihurura',
+    status: 'Available',
+    pricePerDay: 65,
+    pricePerDayRwf: 65 * USD_TO_RWF_RATE,
+    nextAvailableDate: 'Today',
+    imageUrl: 'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?auto=format&fit=crop&w=400&q=80',
+    specs: '5 Seats • Hybrid AWD'
+  },
+  {
+    id: 'veh-mercedes-e-class',
+    title: 'Mercedes-Benz E-Class',
+    type: 'car',
+    neighborhood: 'Kiyovu',
+    status: 'Rented',
+    pricePerDay: 150,
+    pricePerDayRwf: 150 * USD_TO_RWF_RATE,
+    activeBookingId: 'KGL-2026-8910',
+    nextAvailableDate: '2026-10-16',
+    imageUrl: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=400&q=80',
+    specs: '4 Seats • VIP Chauffeur'
+  },
+  {
+    id: 'veh-defender-110',
+    title: 'Land Rover Defender 110',
+    type: 'car',
+    neighborhood: 'Nyarutarama',
+    status: 'Maintenance',
+    pricePerDay: 165,
+    pricePerDayRwf: 165 * USD_TO_RWF_RATE,
+    nextAvailableDate: '2026-10-15',
+    imageUrl: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80',
+    specs: '7 Seats • Air Suspension'
+  }
+];
+
+export const KIGALI_NEIGHBORHOODS = [
+  { name: 'All Neighborhoods', value: 'all', desc: 'Across Greater Kigali' },
+  { name: 'Kiyovu', value: 'Kiyovu', desc: 'Diplomatic hill, serene tree-lined boulevards' },
+  { name: 'Nyarutarama', value: 'Nyarutarama', desc: 'Golf course, embassies & luxury estates' },
+  { name: 'Kimihurura', value: 'Kimihurura', desc: 'Kigali Convention Centre, top dining & cafes' },
+  { name: 'Kigali Airport / Kanombe', value: 'Kigali Airport', desc: 'Direct airport terminal pickups & quick transit' },
+  { name: 'Gacuriro', value: 'Gacuriro', desc: 'Scenic ridges, family residences & hill views' },
+  { name: 'Kacyiru', value: 'Kacyiru', desc: 'Government ministries & King Faisal Hospital' },
+];
+

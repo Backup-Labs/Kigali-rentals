@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-syne: 'Syne', sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-jakarta);
+  background-color: #FAF7F2;
+  color: #1A282E;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-syne {
+  font-family: var(--font-syne);
+  letter-spacing: -0.025em;
+}
+
+/* Custom scrollbars in warm terracotta & sand */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5EFE6;
+}
+::-webkit-scrollbar-thumb {
+  background: #C85A2A;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B24F23;
+}
+
+/* =========================================================
+   GLASSMORPHISM + SKEUOMORPHISM DESIGN SYSTEM TOKENS
+   Tactile physical lighting, specular highlights, and frosted depth
+   ========================================================= */
+
+/* Frosted Glass + Skeuomorphic Tactile Panel (Pure White High Frost, never gray) */
+.glass-skeu-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.90) 100%
+  );
+  backdrop-filter: blur(28px) saturate(210%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%);
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 
+    0 24px 60px -12px rgba(13, 56, 70, 0.18),
+    0 10px 24px -5px rgba(0, 0, 0, 0.08),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Pure High-Frost Luminous Glassmorphism for Hero Section */
+.glass-high-frost {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.84) 45%,
+    rgba(255, 255, 255, 0.91) 100%
+  );
+  backdrop-filter: blur(36px) saturate(230%);
+  -webkit-backdrop-filter: blur(36px) saturate(230%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 32px 75px -15px rgba(13, 56, 70, 0.24),
+    0 14px 30px -5px rgba(0, 0, 0, 0.10),
+    inset 0 2px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* High-Frost Glass Popovers / Dropdowns */
+.glass-high-frost-dropdown {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(32px) saturate(210%);
+  -webkit-backdrop-filter: blur(32px) saturate(210%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 24px 60px -10px rgba(13, 56, 70, 0.22),
+    0 12px 28px -5px rgba(0, 0, 0, 0.10),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 1);
+}
+
+/* Floating Navigation Capsule with Specular Edge */
+.glass-skeu-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(28px) saturate(210%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 14px 40px -6px rgba(13, 56, 70, 0.14),
+    0 4px 14px -2px rgba(0, 0, 0, 0.05),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Luxury Tactile Input Cell */
+.skeu-input-cell {
+  background: #FFFFFF;
+  border: 1.5px solid #E2D7C3;
+  box-shadow:
+    0 2px 6px -1px rgba(13, 56, 70, 0.05),
+    inset 0 1px 2px 0 rgba(13, 56, 70, 0.03),
+    0 1px 0 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skeu-input-cell:hover {
+  border-color: #C85A2A;
+  background: #FCFAF7;
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 12px -2px rgba(200, 90, 42, 0.12),
+    inset 0 1px 2px 0 rgba(13, 56, 70, 0.02);
+}
+.skeu-input-cell:focus, .skeu-input-cell:focus-within {
+  border-color: #C85A2A;
+  background: #FFFFFF;
+  box-shadow:
+    0 0 0 3px rgba(200, 90, 42, 0.18),
+    0 4px 12px -2px rgba(200, 90, 42, 0.15),
+    inset 0 1px 2px 0 rgba(13, 56, 70, 0.03);
+}
+
+/* Skeuomorphic Terracotta Tactile Button */
+.skeu-btn-terracotta {
+  background: linear-gradient(180deg, #D96632 0%, #C85A2A 60%, #B24F23 100%);
+  border: 1px solid #A8441A;
+  box-shadow:
+    0 4px 12px -1px rgba(200, 90, 42, 0.4),
+    0 2px 4px 0 rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
+    inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+.skeu-btn-terracotta:hover {
+  background: linear-gradient(180deg, #E2723E 0%, #CE6131 60%, #B85225 100%);
+  box-shadow:
+    0 6px 16px -1px rgba(200, 90, 42, 0.48),
+    0 3px 6px 0 rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+    inset 0 -2px 0 0 rgba(0, 0, 0, 0.22);
+  transform: translateY(-1px);
+}
+.skeu-btn-terracotta:active {
+  background: linear-gradient(180deg, #B24F23 0%, #C85A2A 100%);
+  box-shadow:
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.35),
+    0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+}
+
+/* Skeuomorphic Deep Teal Tactile Button */
+.skeu-btn-teal {
+  background: linear-gradient(180deg, #184F60 0%, #0D3846 65%, #082731 100%);
+  border: 1px solid #061F27;
+  box-shadow:
+    0 4px 12px -1px rgba(13, 56, 70, 0.35),
+    0 2px 4px 0 rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
+    inset 0 -2px 0 0 rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease-in-out;
+}
+.skeu-btn-teal:hover {
+  background: linear-gradient(180deg, #1D5B6E 0%, #114353 65%, #0B2F3B 100%);
+  box-shadow:
+    0 6px 16px -1px rgba(13, 56, 70, 0.45),
+    0 3px 6px 0 rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
+    inset 0 -2px 0 0 rgba(0, 0, 0, 0.45);
+  transform: translateY(-1px);
+}
+.skeu-btn-teal:active {
+  background: linear-gradient(180deg, #07232C 0%, #0D3846 100%);
+  box-shadow:
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.45),
+    0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  transform: translateY(1px);
+}
+
+/* Skeuomorphic Frosted Glass Button */
+.skeu-btn-frosted {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 241, 235, 0.85) 100%);
+  border: 1px solid rgba(226, 215, 195, 0.8);
+  box-shadow:
+    0 3px 8px -2px rgba(0, 0, 0, 0.08),
+    0 1px 3px 0 rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.08);
+  transition: all 0.15s ease-in-out;
+}
+.skeu-btn-frosted:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(250, 247, 242, 0.95) 100%);
+  border-color: rgba(200, 90, 42, 0.35);
+  box-shadow:
+    0 5px 12px -2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    inset 0 -1.5px 0 0 rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+.skeu-btn-frosted:active {
+  background: linear-gradient(180deg, rgba(235, 230, 222, 0.9) 0%, rgba(250, 247, 242, 0.9) 100%);
+  box-shadow:
+    inset 0 2px 3px 0 rgba(0, 0, 0, 0.15),
+    0 1px 1px 0 rgba(255, 255, 255, 0.8);
+  transform: translateY(1px);
+}
+
+/* Debossed / Inset Skeuomorphic Field (inputs, selectors) */
+.skeu-input {
+  background: #FFFFFF;
+  border: 1px solid #D9CEBE;
+  box-shadow:
+    inset 0 2px 4px 0 rgba(13, 56, 70, 0.06),
+    inset 0 1px 2px 0 rgba(0, 0, 0, 0.04),
+    0 1px 0 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.15s ease;
+}
+.skeu-input:hover {
+  border-color: #BBAF9E;
+  background: #FCFAF7;
+}
+.skeu-input:focus, .skeu-input:focus-within {
+  border-color: #C85A2A;
+  background: #FFFFFF;
+  box-shadow:
+    0 0 0 3px rgba(200, 90, 42, 0.15),
+    inset 0 1.5px 3px 0 rgba(13, 56, 70, 0.05);
+}
+
+/* Physical Card Surface with Tactile Depth */
+.skeu-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F4 100%);
+  border: 1px solid rgba(226, 215, 195, 0.7);
+  box-shadow:
+    0 12px 30px -8px rgba(13, 56, 70, 0.08),
+    0 4px 10px -2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
+}
+.skeu-card-elevated {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 100%);
+  border: 1px solid rgba(226, 215, 195, 0.85);
+  box-shadow:
+    0 20px 40px -10px rgba(13, 56, 70, 0.12),
+    0 8px 16px -4px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Debossed Inset Tray / Container */
+.skeu-tray {
+  background: linear-gradient(180deg, #F0EAE1 0%, #F6F1EA 100%);
+  border: 1px solid rgba(215, 201, 182, 0.8);
+  box-shadow:
+    inset 0 2px 4px 0 rgba(13, 56, 70, 0.08),
+    inset 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+    0 1px 0 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Tactile Active Pill / Tab */
+.skeu-tab-active {
+  background: linear-gradient(180deg, #184F60 0%, #0D3846 100%);
+  border: 1px solid #082731;
+  box-shadow:
+    0 3px 8px -1px rgba(13, 56, 70, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
+}
+
+.skeu-tab-active-accent {
+  background: linear-gradient(180deg, #D96632 0%, #C85A2A 100%);
+  border: 1px solid #A8441A;
+  box-shadow:
+    0 3px 8px -1px rgba(200, 90, 42, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Tactile Badge */
+.skeu-badge {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5EFE6 100%);
+  border: 1px solid rgba(226, 215, 195, 0.9);
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+}
+
+/* Subtle dot texture */
+.bg-subtle-pattern {
+  background-color: #FAF7F2;
+  background-image: radial-gradient(#C85A2A 0.65px, transparent 0.65px), radial-gradient(#5A6B3C 0.65px, #FAF7F2 0.65px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
