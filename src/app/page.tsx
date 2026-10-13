@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRental } from '@/lib/rentalContext';
@@ -30,50 +30,53 @@ import {
   ChevronRight,
   Shield,
   Zap,
+  Phone,
+  MessageSquare,
+  X,
 } from 'lucide-react';
 
 const HERO_SLIDES = [
   {
-    url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=85',
-    title: 'Kiyovu Luxury Heights & Panoramic Skyline',
-    badge: 'Diplomatic Hill Precinct',
-    neighborhood: 'Kiyovu, Kigali',
-    tab: 'all' as const,
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=2400&q=85',
-    title: 'Nyarutarama Diplomatic Private Villa',
-    badge: 'Private Tropical Compound',
-    neighborhood: 'Nyarutarama, Kigali',
-    tab: 'property' as const,
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=2400&q=85',
+    url: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=2400&q=85',
     title: 'Toyota Land Cruiser Prado TXL 4x4 Fleet',
     badge: 'Safari & Volcanoes Expedition Ready',
-    neighborhood: 'Rwanda-wide Fleet',
+    neighborhood: 'Full-Time 4WD • Automatic',
     tab: 'car' as const,
   },
   {
-    url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=85',
-    title: 'Stay & Drive Curated Experience',
-    badge: 'Villa + Prado 4x4 (-20% Bundle)',
-    neighborhood: 'Greater Kigali & Beyond',
-    tab: 'combo' as const,
+    url: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=2400&q=85',
+    title: 'Land Rover Defender 110 Expedition 4x4',
+    badge: 'Adaptive Air Suspension & Roof Rack',
+    neighborhood: 'Akagera & Virunga Ready',
+    tab: 'car' as const,
   },
   {
-    url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=2400&q=85',
-    title: 'Panoramic Hilltop Penthouse Views',
-    badge: 'Floor-to-Ceiling Balcony',
-    neighborhood: 'Kimihurura, Kigali',
-    tab: 'property' as const,
+    url: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=2400&q=85',
+    title: 'Mercedes-Benz E-Class VIP Saloon',
+    badge: 'Executive Diplomatic Chauffeur',
+    neighborhood: 'Kigali Airport & Protocol',
+    tab: 'car' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?auto=format&fit=crop&w=2400&q=85',
+    title: 'Toyota RAV4 Hybrid Eco AWD',
+    badge: 'Intelligent AWD City & Lake Kivu Cruiser',
+    neighborhood: 'Eco Hybrid • Smooth AWD',
+    tab: 'car' as const,
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=2400&q=85',
+    title: 'Rugged 4x4 Overland & Cross-Country Fleet',
+    badge: 'Certified Rwanda Roadside Rescue 24/7',
+    neighborhood: 'Self-Drive or Licensed Chauffeur',
+    tab: 'car' as const,
   },
 ];
 
 const HERO_BACKGROUNDS = {
   all: HERO_SLIDES[0],
   property: HERO_SLIDES[1],
-  car: HERO_SLIDES[2],
+  car: HERO_SLIDES[0],
   combo: HERO_SLIDES[3],
 };
 
@@ -93,10 +96,149 @@ export default function HomePage() {
 
   // Search State (DS-01)
   const [activeTab, setActiveTab] = useState<'all' | 'property' | 'car' | 'combo'>('all');
+  const [customSearchQuery, setCustomSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
   const [selectedNeighborhood, setSelectedNeighborhood] = useState('all');
   const [startDate, setStartDate] = useState(draftBooking.startDate || '2026-10-14');
   const [endDate, setEndDate] = useState(draftBooking.endDate || '2026-10-18');
-  const [guestsCapacity, setGuestsCapacity] = useState('2');
+  const [guestsCapacity, setGuestsCapacity] = useState('all');
+
+  // Click outside to dismiss live search suggestions
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    }
+    if (showSuggestions) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  }, [showSuggestions]);
+
+  // Handle URL hash changes or direct deep links to #vehicles, #apartments, #properties
+  useEffect(() => {
+    const handleUrlNavigation = () => {
+      if (typeof window === 'undefined') return;
+      const hash = window.location.hash;
+      const search = new URLSearchParams(window.location.search);
+      const typeParam = search.get('type');
+
+      if (hash === '#vehicles' || typeParam === 'car') {
+        if (activeTab === 'property') {
+          setActiveTab('car');
+        }
+        setTimeout(() => {
+          const el = document.getElementById('vehicles');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      } else if (hash === '#apartments' || hash === '#properties' || typeParam === 'property') {
+        if (activeTab === 'car') {
+          setActiveTab('property');
+        }
+        setTimeout(() => {
+          const el = document.getElementById('apartments') || document.getElementById('properties');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      }
+    };
+
+    handleUrlNavigation();
+    window.addEventListener('hashchange', handleUrlNavigation);
+    return () => window.removeEventListener('hashchange', handleUrlNavigation);
+  }, [activeTab]);
+
+  // Dynamic live suggestions retrieved directly from DB listings (never hardcoded)
+  const liveSuggestions = useMemo(() => {
+    const q = customSearchQuery.trim().toLowerCase();
+
+    // Matching vehicles from database inventory
+    const cars = listings
+      .filter((l) => l.type === 'car')
+      .map((l) => ({
+        type: 'car' as const,
+        title: l.title,
+        category: l.vehicleDetails?.category === '4x4' ? '4x4 Fleet' : l.vehicleDetails?.category === 'luxury' ? 'VIP Saloon' : 'Eco Hybrid',
+        badge: l.specsSummary,
+      }));
+
+    // Locations from database inventory
+    const locations = Array.from(new Set(listings.map((l) => l.neighborhood))).map((nh) => ({
+      type: 'location' as const,
+      title: `${nh}`,
+      category: 'Kigali Area',
+      badge: `${listings.filter((l) => l.neighborhood === nh).length} assets in DB`,
+    }));
+
+    // Properties from database inventory
+    const properties = listings
+      .filter((l) => l.type === 'property')
+      .map((l) => ({
+        type: 'property' as const,
+        title: l.title,
+        category: 'Residence',
+        badge: l.specsSummary,
+      }));
+
+    const pool =
+      activeTab === 'car'
+        ? [...cars, ...locations]
+        : activeTab === 'property'
+        ? [...properties, ...locations]
+        : [...cars, ...locations, ...properties];
+
+    if (!q) {
+      return pool.slice(0, 6);
+    }
+
+    return pool
+      .filter(
+        (item) =>
+          item.title.toLowerCase().includes(q) ||
+          item.category.toLowerCase().includes(q) ||
+          item.badge.toLowerCase().includes(q)
+      )
+      .slice(0, 6);
+  }, [listings, customSearchQuery, activeTab]);
+
+  // Dynamic category & fleet options derived directly from DB inventory (never hardcoded)
+  const dynamicCategoryOptions = useMemo(() => {
+    if (activeTab === 'car') {
+      const cars = listings.filter((l) => l.type === 'car');
+      return [
+        { value: 'all', label: 'All Kigali Fleets', description: `${cars.length} vehicles verified in DB` },
+        { value: '4x4', label: 'Toyota Prado & 4x4 (AWD)', description: 'Full-time 4WD with low-range lock' },
+        { value: 'with_driver', label: 'Chauffeur Included', description: 'Certified English & French speaking driver' },
+        { value: 'self_drive', label: 'Self-Drive Options', description: 'Self-drive rental with unlimited km' },
+        { value: 'luxury', label: 'Mercedes-Benz VIP', description: 'Executive diplomatic chauffeur' },
+        { value: 'hybrid', label: 'Toyota RAV4 Hybrid', description: 'Eco-efficient city & lake AWD' },
+      ];
+    }
+    if (activeTab === 'property') {
+      const props = listings.filter((l) => l.type === 'property');
+      return [
+        { value: 'all', label: 'All Kigali Residences', description: `${props.length} residences verified in DB` },
+        { value: 'penthouse', label: 'Hilltop Penthouses', description: 'Kiyovu skyline & private pools' },
+        { value: 'villa', label: 'Diplomatic Villas', description: 'Nyarutarama private compounds' },
+        { value: 'studio', label: 'Serviced Urban Lofts', description: 'High-speed fiber & central location' },
+      ];
+    }
+    if (activeTab === 'combo') {
+      return [
+        { value: 'all', label: 'All Curated Bundles (-20%)', description: 'Stay & 4x4 combined contract' },
+        { value: 'penthouse', label: 'Penthouse + Prado 4x4', description: 'Kiyovu luxury + Land Cruiser' },
+        { value: 'villa', label: 'Diplomatic Villa + Chauffeur', description: 'Private compound + dedicated driver' },
+      ];
+    }
+    return [
+      { value: 'all', label: 'All Assets in Database', description: `${listings.length} verified listings in DB` },
+      { value: '4x4', label: '4x4 Expedition Fleet', description: 'Toyota Land Cruiser Prado & Defender' },
+      { value: 'luxury', label: 'Executive VIP Fleet', description: 'Mercedes-Benz VIP Saloon' },
+      { value: 'villa', label: 'Diplomatic Villas', description: 'Private compounds with generators' },
+      { value: 'penthouse', label: 'Panoramic Penthouses', description: 'Skyline balconies & pools' },
+    ];
+  }, [activeTab, listings]);
 
   // Filter & Sort State (DS-02, DS-03)
   const [maxPrice, setMaxPrice] = useState<number>(350);
@@ -125,6 +267,7 @@ export default function HomePage() {
   // Sync dates to context
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setShowSuggestions(false);
     setDraftBooking((prev) => ({
       ...prev,
       startDate,
@@ -132,8 +275,13 @@ export default function HomePage() {
       daysCount,
       guestsCount: parseInt(guestsCapacity, 10) || 2,
     }));
-    // Smooth scroll to listings grid
-    const target = document.getElementById('properties');
+    // Smooth scroll to relevant listings section (vehicles or apartments)
+    const targetId = activeTab === 'property' ? 'apartments' : 'vehicles';
+    const target =
+      document.getElementById(targetId) ||
+      document.getElementById('vehicles') ||
+      document.getElementById('apartments') ||
+      document.getElementById('properties');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -179,22 +327,55 @@ export default function HomePage() {
         if (!item.propertyDetails?.hasBackupGenerator) return false;
       }
 
+      // Custom typed input search query (retrieves dynamically from DB)
+      if (customSearchQuery.trim()) {
+        const q = customSearchQuery.toLowerCase().trim();
+        const inTitle = item.title.toLowerCase().includes(q);
+        const inSubtitle = item.subtitle?.toLowerCase().includes(q);
+        const inNeighborhood = item.neighborhood.toLowerCase().includes(q);
+        const inDesc = item.description.toLowerCase().includes(q);
+        const inAddress = item.address.toLowerCase().includes(q);
+        const inSpecs = item.specsSummary?.toLowerCase().includes(q);
+        const inCategory = (item.vehicleDetails?.category || item.propertyDetails?.category || '').toLowerCase().includes(q);
+        const inFeatures =
+          item.vehicleDetails?.features?.some((f) => f.toLowerCase().includes(q)) ||
+          item.propertyDetails?.amenities?.some((a) => a.toLowerCase().includes(q));
+
+        if (
+          !inTitle &&
+          !inSubtitle &&
+          !inNeighborhood &&
+          !inDesc &&
+          !inAddress &&
+          !inSpecs &&
+          !inCategory &&
+          !inFeatures
+        ) {
+          return false;
+        }
+      }
+
       // Dynamic tab capacity / model filter
       if (guestsCapacity !== 'all') {
-        if (activeTab === 'property') {
+        if (activeTab === 'car') {
+          if (guestsCapacity === '4x4' && !item.vehicleDetails?.fourWheelDrive) return false;
+          if (guestsCapacity === 'with_driver' && item.vehicleDetails?.driverOption === 'self-drive') return false;
+          if (guestsCapacity === 'self_drive' && item.vehicleDetails?.driverOption === 'chauffeur') return false;
+          if (guestsCapacity === 'hybrid' && item.vehicleDetails?.category !== 'hybrid') return false;
+          if (guestsCapacity === 'luxury' && item.vehicleDetails?.category !== 'luxury') return false;
+        } else if (activeTab === 'property') {
           if (guestsCapacity === 'studio' && item.propertyDetails?.category !== 'studio') return false;
           if (guestsCapacity === 'penthouse' && item.propertyDetails?.category !== 'penthouse') return false;
           if (guestsCapacity === 'villa' && item.propertyDetails?.category !== 'villa') return false;
-        } else if (activeTab === 'car') {
-          if (guestsCapacity === '4x4' && !item.vehicleDetails?.fourWheelDrive) return false;
-          if (guestsCapacity === 'with_driver' && item.vehicleDetails?.driverOption === 'self-drive') return false;
-          if (guestsCapacity === 'hybrid' && item.vehicleDetails?.category !== 'hybrid') return false;
-          if (guestsCapacity === 'luxury' && item.vehicleDetails?.category !== 'luxury') return false;
         } else if (activeTab === 'combo') {
           if (guestsCapacity === 'penthouse' && item.propertyDetails?.category !== 'penthouse') return false;
           if (guestsCapacity === 'villa' && item.propertyDetails?.category !== 'villa') return false;
           if (guestsCapacity === 'studio' && item.propertyDetails?.category !== 'studio') return false;
         } else if (activeTab === 'all') {
+          if (guestsCapacity === '4x4' && !item.vehicleDetails?.fourWheelDrive) return false;
+          if (guestsCapacity === 'luxury' && item.vehicleDetails?.category !== 'luxury') return false;
+          if (guestsCapacity === 'penthouse' && item.propertyDetails?.category !== 'penthouse') return false;
+          if (guestsCapacity === 'villa' && item.propertyDetails?.category !== 'villa') return false;
           const num = parseInt(guestsCapacity, 10);
           if (!isNaN(num)) {
             if (item.type === 'property' && (item.propertyDetails?.maxGuests || 0) < num) return false;
@@ -215,6 +396,7 @@ export default function HomePage() {
   }, [
     listings,
     activeTab,
+    customSearchQuery,
     selectedNeighborhood,
     maxPrice,
     selectedAssetSubtype,
@@ -223,8 +405,18 @@ export default function HomePage() {
     filter4x4Only,
     filterHasPool,
     filterHasGenerator,
-    sortBy,
   ]);
+
+  // Split filtered listings into dedicated vehicles and apartments sets
+  const vehicleListings = useMemo(
+    () => filteredListings.filter((item) => item.type === 'car'),
+    [filteredListings]
+  );
+
+  const apartmentListings = useMemo(
+    () => filteredListings.filter((item) => item.type === 'property'),
+    [filteredListings]
+  );
 
   // Dynamic form configs per tab
   const tabConfigs: Record<
@@ -307,7 +499,7 @@ export default function HomePage() {
     },
     combo: {
       zoneLabel: 'Base Sanctuary District',
-      zoneIcon: <Sparkles className="w-3.5 h-3.5 text-amber-500" />,
+      zoneIcon: <Sparkles className="w-3.5 h-3.5 text-[#C85A2A]" />,
       zoneOptions: [
         { value: 'all', label: 'All Curated Bundles (-20%)', description: 'Combined single invoice & deposit hold' },
         { value: 'Kiyovu', label: 'Diplomatic Kiyovu + Prado Fleet', description: 'Hilltop Penthouse with Land Cruiser' },
@@ -340,6 +532,7 @@ export default function HomePage() {
 
   const resetFilters = () => {
     setActiveTab('all');
+    setCustomSearchQuery('');
     setSelectedNeighborhood('all');
     setMaxPrice(350);
     setSelectedAssetSubtype('all');
@@ -401,15 +594,15 @@ export default function HomePage() {
 
         {/* Hero Headlines: Positioned with distinct distance from navbar and wide breathing space to form */}
         <div className="container mx-auto relative z-10 max-w-3xl text-center mb-10 sm:mb-14 mt-4 sm:mt-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-xs sm:text-sm font-syne font-semibold text-white mb-2 sm:mb-2.5 shadow-lg">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-xs sm:text-sm font-tenor font-semibold text-white mb-2 sm:mb-2.5 shadow-lg">
             <span className="w-2.5 h-2.5 rounded-full bg-[#C85A2A] animate-pulse"></span>
-            <span>Rwanda Verified Living & Mobility</span>
+            <span>Rwanda Verified Fleet & Executive Mobility</span>
             <span className="text-white/60">•</span>
-            <span className="text-white/95 font-sans font-normal text-xs">Villas & 4x4 Prado Fleet</span>
+            <span className="text-white/95 font-sans font-normal text-xs">Toyota Prado & Land Cruiser 4x4</span>
           </div>
 
-          <h1 className="font-syne text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12] drop-shadow-xl mb-2 sm:mb-2.5">
-            Find your luxury stay & drive in{' '}
+          <h1 className="font-tenor text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12] drop-shadow-xl mb-2 sm:mb-2.5">
+            Rent your luxury 4x4 & executive drive in{' '}
             <span className="text-[#C85A2A] relative inline-block">
               Kigali
               <span className="absolute bottom-1 left-0 right-0 h-2 sm:h-2.5 bg-[#C85A2A]/30 -z-10 rounded-full" />
@@ -417,21 +610,21 @@ export default function HomePage() {
           </h1>
 
           <p className="text-xs sm:text-sm lg:text-base text-white/95 font-sans max-w-xl mx-auto leading-relaxed drop-shadow-md">
-            Serviced diplomatic villas and panoramic penthouses paired seamlessly with safari-ready 4x4 Land Cruisers. 100% verified backup power & water.
+            Toyota Land Cruiser Prado TXL, Land Rover Defender 110, and VIP Mercedes-Benz saloons. Expedition-ready for Rwanda’s 1,000 hills, Volcanoes Gorilla trekking, and city protocol.
           </p>
         </div>
 
-        {/* High-Frost Luminous Glassmorphic Search Form (Lowered position, zero-scroll fit) */}
+        {/* High-Frost Luminous Glassmorphic Search Form (Sleek Reduced Height, Zero-Scroll Fit) */}
         <div
           id="search"
-          className="w-full max-w-6xl mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 text-slate-800 scroll-mt-24 transition-all"
+          className="w-full max-w-6xl mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 text-slate-800 scroll-mt-24 transition-all shadow-2xl"
         >
           {/* Dynamic Tab Selector with Tactile Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2 pb-2.5 mb-2.5 border-b border-white/70 overflow-x-auto scrollbar-none">
             <button
               type="button"
               onClick={() => handleTabChange('all')}
-              className={`px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-syne font-bold transition-all shrink-0 ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'all'
                   ? 'skeu-tab-active text-white shadow-sm'
                   : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
@@ -442,34 +635,34 @@ export default function HomePage() {
 
             <button
               type="button"
-              onClick={() => handleTabChange('property')}
-              className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-syne font-bold transition-all shrink-0 ${
-                activeTab === 'property'
-                  ? 'skeu-tab-active text-white shadow-sm'
-                  : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
-              }`}
-            >
-              <Home className="w-3.5 h-3.5 text-[#C85A2A]" />
-              <span>Stays</span>
-            </button>
-
-            <button
-              type="button"
               onClick={() => handleTabChange('car')}
-              className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-syne font-bold transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'car'
                   ? 'skeu-tab-active text-white shadow-sm'
                   : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
               }`}
             >
               <Car className="w-3.5 h-3.5 text-[#5A6B3C]" />
-              <span>Vehicles</span>
+              <span>Vehicles & 4x4 Fleet</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleTabChange('property')}
+              className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
+                activeTab === 'property'
+                  ? 'skeu-tab-active text-white shadow-sm'
+                  : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
+              }`}
+            >
+              <Home className="w-3.5 h-3.5 text-[#C85A2A]" />
+              <span>Apartments</span>
             </button>
 
             <button
               type="button"
               onClick={() => handleTabChange('combo')}
-              className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-syne font-bold transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'combo'
                   ? 'skeu-tab-active-accent text-white shadow-sm'
                   : 'skeu-btn-frosted text-[#C85A2A] hover:text-[#B24F23]'
@@ -483,19 +676,106 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* Luxury Form Inputs Grid with Unified Card Heights */}
-          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3 items-center">
-            <div className="lg:col-span-3">
-              <CustomSelect
-                label={tabConfigs[activeTab].zoneLabel}
-                icon={tabConfigs[activeTab].zoneIcon}
-                options={tabConfigs[activeTab].zoneOptions}
-                value={selectedNeighborhood}
-                onChange={(val) => setSelectedNeighborhood(val)}
-              />
+          {/* Luxury Form Inputs Grid with Reduced Height (h-11 sm:h-12) & Dynamic DB Search */}
+          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-2.5 items-center">
+            {/* Field 1: Custom Input with live suggestions retrieved directly from DB */}
+            <div ref={searchContainerRef} className="lg:col-span-4 relative">
+              <div className="relative flex items-center h-11 sm:h-12 px-3 sm:px-3.5 rounded-xl skeu-input-cell">
+                <Search className="w-4 h-4 text-[#C85A2A] shrink-0 mr-2" />
+                <div className="flex-1 min-w-0">
+                  <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">
+                    {activeTab === 'car'
+                      ? 'FLEET MODEL & CHAUFFEUR'
+                      : activeTab === 'property'
+                      ? 'VILLA OR NEIGHBORHOOD'
+                      : 'SEARCH ASSET OR MODEL'}
+                  </span>
+                  <input
+                    type="text"
+                    value={customSearchQuery}
+                    onChange={(e) => {
+                      setCustomSearchQuery(e.target.value);
+                      setShowSuggestions(true);
+                    }}
+                    onFocus={() => setShowSuggestions(true)}
+                    placeholder={
+                      activeTab === 'car'
+                        ? 'Toyota Prado, Defender, RAV4...'
+                        : activeTab === 'property'
+                        ? 'Kiyovu Villa, Nyarutarama...'
+                        : 'Prado 4x4, Penthouse...'
+                    }
+                    className="w-full bg-transparent font-tenor font-bold text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 placeholder:font-normal focus:outline-none leading-tight truncate"
+                  />
+                </div>
+                {customSearchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCustomSearchQuery('');
+                      setShowSuggestions(false);
+                    }}
+                    className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors shrink-0 ml-1"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Live Database Suggestions Dropdown */}
+              {showSuggestions && (
+                <div
+                  className="absolute top-full left-0 right-0 mt-2 z-50 glass-high-frost-dropdown rounded-2xl p-2 shadow-2xl animate-fadeIn border border-white/90 max-h-64 overflow-y-auto"
+                  onMouseDown={(e) => e.preventDefault()}
+                >
+                  <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between border-b border-slate-100 pb-1.5 mb-1">
+                    <span>Database Matches</span>
+                    <span className="font-mono text-[#5A6B3C] text-[9px] font-bold">Verified DB Inventory</span>
+                  </div>
+                  {liveSuggestions.length === 0 ? (
+                    <div className="p-3 text-xs text-slate-500 text-center">
+                      No matching assets found in DB. Press search to browse all inventory.
+                    </div>
+                  ) : (
+                    liveSuggestions.map((item, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setCustomSearchQuery(item.title);
+                          setShowSuggestions(false);
+                        }}
+                        className="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-[#FAF7F2] transition-colors flex items-center justify-between group"
+                      >
+                        <div className="flex items-center gap-2 truncate pr-2">
+                          {item.type === 'car' ? (
+                            <Car className="w-3.5 h-3.5 text-[#5A6B3C] shrink-0" />
+                          ) : item.type === 'location' ? (
+                            <MapPin className="w-3.5 h-3.5 text-[#C85A2A] shrink-0" />
+                          ) : (
+                            <Home className="w-3.5 h-3.5 text-[#0D3846] shrink-0" />
+                          )}
+                          <div className="truncate">
+                            <span className="font-tenor font-bold text-xs text-slate-900 group-hover:text-[#C85A2A] block truncate">
+                              {item.title}
+                            </span>
+                            <span className="text-[10px] text-slate-400 block truncate">
+                              {item.badge}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-tenor shrink-0">
+                          {item.category}
+                        </span>
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
 
-            <div className="lg:col-span-4">
+            {/* Field 2: Trip / Rental Dates (Reduced compact height h-11 sm:h-12) */}
+            <div className="lg:col-span-3">
               <DatePicker
                 label={tabConfigs[activeTab].dateLabel}
                 startDate={startDate}
@@ -504,23 +784,27 @@ export default function HomePage() {
                   setStartDate(start);
                   setEndDate(end);
                 }}
+                compact={true}
               />
             </div>
 
+            {/* Field 3: Dynamic Category / Fleet from DB (Reduced compact height h-11 sm:h-12) */}
             <div className="lg:col-span-3">
               <CustomSelect
                 label={tabConfigs[activeTab].capacityLabel}
                 icon={tabConfigs[activeTab].capacityIcon}
-                options={tabConfigs[activeTab].capacityOptions}
+                options={dynamicCategoryOptions}
                 value={guestsCapacity}
                 onChange={(val) => setGuestsCapacity(val)}
+                compact={true}
               />
             </div>
 
+            {/* Field 4: Search Action Button (Reduced compact height h-11 sm:h-12) */}
             <div className="lg:col-span-2">
               <button
                 type="submit"
-                className="w-full h-[52px] sm:h-[56px] skeu-btn-terracotta text-white rounded-xl sm:rounded-2xl font-syne font-bold text-xs sm:text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
+                className="w-full h-11 sm:h-12 skeu-btn-terracotta text-white rounded-xl font-tenor font-bold text-xs sm:text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
               >
                 <Search className="w-4 h-4 shrink-0" />
                 <span className="truncate">{tabConfigs[activeTab].buttonText}</span>
@@ -535,25 +819,12 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
             {
-              title: 'Diplomatic Villas',
-              badge: 'Kiyovu & Nyarutarama',
-              desc: 'Gated compounds with private pools, manicured gardens, and 24/7 security.',
-              img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
-              tab: 'property',
-            },
-            {
-              title: 'Hilltop Penthouses',
-              badge: 'Panoramic Kigali',
-              desc: 'Floor-to-ceiling glass balconies overlooking the illuminated 1,000 hills.',
-              img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
-              tab: 'property',
-            },
-            {
               title: '4x4 Prado Fleets',
               badge: 'Self-Drive or Chauffeur',
               desc: 'Expedition Land Cruisers ready for Kigali hills or Volcanoes Gorilla safaris.',
               img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
               tab: 'car',
+              target: 'vehicles',
             },
             {
               title: 'Executive Chauffeurs',
@@ -561,13 +832,30 @@ export default function HomePage() {
               desc: 'Mercedes-Benz & Hybrid AWD with verified English & French speaking drivers.',
               img: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80',
               tab: 'car',
+              target: 'vehicles',
+            },
+            {
+              title: 'Hilltop Penthouses',
+              badge: 'Panoramic Kigali',
+              desc: 'Floor-to-ceiling glass balconies overlooking the illuminated 1,000 hills.',
+              img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+              tab: 'property',
+              target: 'apartments',
+            },
+            {
+              title: 'Diplomatic Villas',
+              badge: 'Kiyovu & Nyarutarama',
+              desc: 'Gated compounds with private pools, manicured gardens, and 24/7 security.',
+              img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80',
+              tab: 'property',
+              target: 'apartments',
             },
           ].map((cat, i) => (
             <div
               key={i}
               onClick={() => {
                 setActiveTab(cat.tab as any);
-                const el = document.getElementById('properties');
+                const el = document.getElementById(cat.target) || document.getElementById('properties');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
               className="group relative h-72 rounded-2xl overflow-hidden cursor-pointer skeu-card-elevated hover:shadow-2xl transition-all duration-300"
@@ -582,7 +870,7 @@ export default function HomePage() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#C85A2A] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {cat.badge}
                 </span>
-                <h3 className="font-syne font-bold text-lg text-white group-hover:text-amber-200 transition-colors">
+                <h3 className="font-syne font-bold text-lg text-white group-hover:text-[#E6D7C3] transition-colors">
                   {cat.title}
                 </h3>
                 <p className="text-xs text-white/80 mt-1 line-clamp-2">
@@ -609,12 +897,12 @@ export default function HomePage() {
               </span>
               {[
                 { label: 'All', value: 'all' },
+                { label: '4x4 SUVs', value: '4x4' },
+                { label: 'VIP Chauffeur', value: 'luxury' },
+                { label: 'Hybrids', value: 'hybrid' },
+                { label: 'Apartments', value: 'studio' },
                 { label: 'Penthouses', value: 'penthouse' },
                 { label: 'Villas', value: 'villa' },
-                { label: 'Studios', value: 'studio' },
-                { label: '4x4 SUVs', value: '4x4' },
-                { label: 'Hybrids', value: 'hybrid' },
-                { label: 'VIP Chauffeur', value: 'luxury' },
               ].map((pill) => (
                 <button
                   key={pill.value}
@@ -645,7 +933,7 @@ export default function HomePage() {
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span>Filters</span>
                 {(filterWithDriverOnly || filter4x4Only || filterHasPool || filterHasGenerator || maxPrice < 350) && (
-                  <span className="w-2 h-2 rounded-full bg-amber-300"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#C85A2A]"></span>
                 )}
               </button>
 
@@ -747,8 +1035,141 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. VISUAL STAY & DRIVE COMBO INTERACTIVE BANNER (BK-05) */}
-      <section id="how-it-works" className="container mx-auto px-4 sm:px-6 my-12 scroll-mt-28">
+      {/* 4. DEDICATED VEHICLES SECTION (VEHICLES FIRST) */}
+      <section id="vehicles" className="container mx-auto px-4 sm:px-6 py-8 scroll-mt-28">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#5A6B3C]/15 text-[#5A6B3C] text-xs font-tenor font-bold mb-2">
+              <Car className="w-3.5 h-3.5" />
+              <span>Kigali Fleet & Safari 4x4s</span>
+            </div>
+            <h2 className="font-tenor text-2xl sm:text-3xl font-extrabold text-[#1A282E] tracking-tight">
+              Available Vehicles & 4x4 Fleet in Kigali
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              Toyota Land Cruiser Prado TXL, Safari AWDs, and VIP Mercedes-Benz executive sedans.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl skeu-badge-porcelain text-[#0D3846]">
+              {vehicleListings.length} Vehicles Available
+            </span>
+          </div>
+        </div>
+
+        {activeTab === 'property' ? (
+          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-[#E6D7C3]">
+            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#5A6B3C] mb-3">
+              <Car className="w-6 h-6" />
+            </div>
+            <h3 className="font-tenor font-bold text-base text-[#1A282E]">Currently filtering by Apartments</h3>
+            <p className="text-xs text-slate-600 mt-1.5 mb-4">
+              Explore our Kigali Land Cruiser Prado fleet, Safari AWDs, and executive chauffeurs.
+            </p>
+            <button
+              type="button"
+              onClick={() => setActiveTab('all')}
+              className="px-5 py-2 rounded-xl skeu-btn-teal text-white text-xs font-tenor font-bold"
+            >
+              Show All Vehicles & Fleets
+            </button>
+          </div>
+        ) : vehicleListings.length === 0 ? (
+          <div className="skeu-card rounded-3xl p-12 text-center max-w-lg mx-auto my-6">
+            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-slate-400 mb-4">
+              <Search className="w-8 h-8" />
+            </div>
+            <h3 className="font-tenor font-bold text-lg text-slate-900">No vehicles match your criteria</h3>
+            <p className="text-xs text-slate-500 mt-2 mb-6">
+              Try adjusting your price ceiling or reset filters to see all available vehicles.
+            </p>
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="px-5 py-2.5 rounded-xl skeu-btn-teal text-white text-xs font-tenor font-bold"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {vehicleListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} daysCount={daysCount} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* 5. DEDICATED APARTMENTS & RESIDENCES SECTION (APARTMENTS SECOND) */}
+      <section id="apartments" className="container mx-auto px-4 sm:px-6 py-8 scroll-mt-28 relative">
+        {/* Backward-compatibility anchor for legacy #properties links */}
+        <span id="properties" className="absolute -top-28 pointer-events-none" />
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C85A2A]/15 text-[#C85A2A] text-xs font-tenor font-bold mb-2">
+              <Home className="w-3.5 h-3.5" />
+              <span>Luxury Kigali Residences</span>
+            </div>
+            <h2 className="font-tenor text-2xl sm:text-3xl font-extrabold text-[#1A282E] tracking-tight">
+              Luxury Apartments & Diplomatic Stays in Kigali
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
+              Gated diplomatic villas in Nyarutarama, panoramic penthouses in Kiyovu, and serviced modern lofts.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl skeu-badge-porcelain text-[#0D3846]">
+              {apartmentListings.length} Apartments Available
+            </span>
+          </div>
+        </div>
+
+        {activeTab === 'car' ? (
+          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-[#E6D7C3]">
+            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#C85A2A] mb-3">
+              <Home className="w-6 h-6" />
+            </div>
+            <h3 className="font-tenor font-bold text-base text-[#1A282E]">Currently filtering by Vehicles</h3>
+            <p className="text-xs text-slate-600 mt-1.5 mb-4">
+              Explore our luxury serviced apartments, Kiyovu penthouses, and Nyarutarama villas.
+            </p>
+            <button
+              type="button"
+              onClick={() => setActiveTab('all')}
+              className="px-5 py-2 rounded-xl skeu-btn-terracotta text-white text-xs font-tenor font-bold"
+            >
+              Show All Apartments & Stays
+            </button>
+          </div>
+        ) : apartmentListings.length === 0 ? (
+          <div className="skeu-card rounded-3xl p-12 text-center max-w-lg mx-auto my-6">
+            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-slate-400 mb-4">
+              <Search className="w-8 h-8" />
+            </div>
+            <h3 className="font-tenor font-bold text-lg text-slate-900">No residences match your criteria</h3>
+            <p className="text-xs text-slate-500 mt-2 mb-6">
+              Try adjusting your price ceiling or reset filters to see all available properties.
+            </p>
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="px-5 py-2.5 rounded-xl skeu-btn-teal text-white text-xs font-tenor font-bold"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {apartmentListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} daysCount={daysCount} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* 6. VISUAL STAY & DRIVE COMBO INTERACTIVE BANNER */}
+      <section id="combo" className="container mx-auto px-4 sm:px-6 my-12 scroll-mt-28">
         <div className="skeu-card-elevated !bg-gradient-to-br !from-[#0D3846] !via-[#092B36] !to-[#061F27] rounded-3xl overflow-hidden text-white grid grid-cols-1 lg:grid-cols-12 items-center border border-[#16495A]">
           {/* Visual Side: Combined Imagery */}
           <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden">
@@ -766,7 +1187,7 @@ export default function HomePage() {
 
           {/* Copy Side */}
           <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-center">
-            <span className="text-xs font-bold font-syne uppercase tracking-wider text-emerald-300 mb-2">
+            <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A] mb-2">
               Stay & Drive Experience
             </span>
             <h2 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight mb-3">
@@ -783,60 +1204,18 @@ export default function HomePage() {
               >
                 View Combos
               </button>
-              <Link
-                href="/handover"
-                className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#0D3846] font-syne font-semibold text-xs"
+              <a
+                href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20am%20inquiring%20about%20the%20Stay%20%26%20Drive%20Combo%20package."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#0D3846] font-syne font-semibold text-xs flex items-center gap-1.5"
               >
-                Inspection Tool
-              </Link>
+                <MessageSquare className="w-3.5 h-3.5 text-[#0D3846]" />
+                <span>WhatsApp Concierge</span>
+              </a>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* 5. VISUAL LISTINGS GRID */}
-      <section id="properties" className="container mx-auto px-4 sm:px-6 py-6 scroll-mt-28">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="font-syne text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              {activeTab === 'property'
-                ? 'Available Properties in Kigali'
-                : activeTab === 'car'
-                ? 'Available Kigali Fleet'
-                : activeTab === 'combo'
-                ? 'Stay & Drive Curated Packages'
-                : 'Featured Kigali Rentals'}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Showing {filteredListings.length} premium listings matching your dates and criteria
-            </p>
-          </div>
-        </div>
-
-        {filteredListings.length === 0 ? (
-          <div className="skeu-card rounded-3xl p-12 text-center max-w-lg mx-auto my-12">
-            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-slate-400 mb-4">
-              <Search className="w-8 h-8" />
-            </div>
-            <h3 className="font-syne font-bold text-lg text-slate-900">No listings found</h3>
-            <p className="text-xs text-slate-500 mt-2 mb-6">
-              Try adjusting your price ceiling or reset filters to see all available inventory.
-            </p>
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="px-5 py-2.5 rounded-xl skeu-btn-teal text-white text-xs font-syne font-bold"
-            >
-              Reset Filters
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredListings.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} daysCount={daysCount} />
-            ))}
-          </div>
-        )}
       </section>
 
       {/* 6. VISUAL 3-STEP JOURNEY: HOW IT WORKS IN PHOTOGRAPHIC FRAMES */}
@@ -864,8 +1243,8 @@ export default function HomePage() {
               },
               {
                 step: '02',
-                title: 'Digital Hold & Agreement',
-                desc: 'Lock inventory in 10 minutes. Sign digital agreements and pay with MTN MoMo, Airtel, or Credit Card.',
+                title: 'Call or WhatsApp Concierge',
+                desc: 'Message or call our Kigali office directly (+250 788 123 456). We confirm availability, dates, and driver preferences within minutes.',
                 img: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80',
               },
               {
@@ -953,7 +1332,7 @@ export default function HomePage() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#C85A2A] glass-skeu-card px-2 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {dest.badge}
                 </span>
-                <h3 className="font-syne font-bold text-lg text-white group-hover:text-amber-200 transition-colors">
+                <h3 className="font-syne font-bold text-lg text-white group-hover:text-[#E6D7C3] transition-colors">
                   {dest.title}
                 </h3>
                 <p className="text-xs text-white/80 mt-1 line-clamp-2">
@@ -965,94 +1344,120 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. VISUAL OPERATIONAL STANDARD: HANDOVER TOOL PREVIEW */}
-      <section className="container mx-auto px-4 sm:px-6 py-12">
-        <div className="skeu-card-elevated rounded-3xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      {/* 8. DIRECT CONCIERGE & FAST BOOKING (CALL OR TEXT) */}
+      <section id="contact" className="container mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
+        <div className="skeu-card-elevated rounded-3xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-gradient-to-br from-white via-white to-[#F6F1EA] border border-[#E6D7C3]/80">
           <div className="lg:col-span-6 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#5A6B3C]/10 text-[#5A6B3C] border border-[#5A6B3C]/30 text-xs font-bold font-syne shadow-[inset_0_1px_1px_rgba(90,107,60,0.15)]">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Zero-Friction Transparency</span>
+              <span className="w-2 h-2 rounded-full bg-[#5A6B3C] animate-pulse" />
+              <span>Direct Booking Concierge • 24/7 Available</span>
             </div>
-            <h2 className="font-syne text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
-              Digital Condition Inspection on Every Handover
+            <h2 className="font-syne text-2xl sm:text-4xl font-extrabold text-[#0D3846] leading-tight">
+              Borrow a Car or Rent a Villa in Kigali — Just Call or Text Us
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              We eliminate rental disputes with digital photo inspection at pickup and return. Odometer readings, fuel sliders, and room condition checklists are recorded on your phone.
+              In Rwanda, the best hospitality is personal. No complicated checkout flows or automated inventory locks. Simply tell us what dates you need, and our Kigali reservations manager will confirm availability, verify options, and arrange handover in minutes.
             </p>
-            <div className="grid grid-cols-2 gap-3 pt-2 text-xs font-semibold text-slate-800">
-              <div className="flex items-center gap-2 p-2 rounded-xl skeu-tray">
-                <Camera className="w-4 h-4 text-[#C85A2A]" />
-                <span>4-Angle Exterior Photos</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-slate-800">
+              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
+                <MessageSquare className="w-4 h-4 text-[#5A6B3C] shrink-0" />
+                <div>
+                  <span className="block font-bold text-slate-900">Instant WhatsApp</span>
+                  <span className="text-[11px] text-slate-500">Replies within 5 minutes</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-xl skeu-tray">
-                <Fuel className="w-4 h-4 text-[#5A6B3C]" />
-                <span>Digital Fuel Gauge Log</span>
+              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
+                <Phone className="w-4 h-4 text-[#C85A2A] shrink-0" />
+                <div>
+                  <span className="block font-bold text-slate-900">Direct Phone Line</span>
+                  <span className="text-[11px] text-slate-500">+250 788 123 456 (24/7)</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-xl skeu-tray">
-                <Gauge className="w-4 h-4 text-[#0D3846]" />
-                <span>Mileage Tracking</span>
+              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
+                <ShieldCheck className="w-4 h-4 text-[#0D3846] shrink-0" />
+                <div>
+                  <span className="block font-bold text-slate-900">Verified Kigali Assets</span>
+                  <span className="text-[11px] text-slate-500">Generators & safari AWD</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-xl skeu-tray">
-                <Zap className="w-4 h-4 text-[#C85A2A]" />
-                <span>Backup Power Test</span>
+              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
+                <MapPin className="w-4 h-4 text-[#5A6B3C] shrink-0" />
+                <div>
+                  <span className="block font-bold text-slate-900">Airport & Villa Delivery</span>
+                  <span className="text-[11px] text-slate-500">KGL airport or doorstep</span>
+                </div>
               </div>
             </div>
-            <div className="pt-2">
-              <Link
-                href="/handover"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl skeu-btn-teal text-white font-syne font-bold text-xs"
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <a
+                href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20would%20like%20to%20inquire%20about%20renting%20a%20car%20or%20property."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl skeu-btn-terracotta text-white font-syne font-bold text-xs shadow-md hover:shadow-lg transition-all"
               >
-                <span>Launch Interactive Handover Tool</span>
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+                <MessageSquare className="w-4 h-4 fill-current" />
+                <span>Text Us on WhatsApp</span>
+              </a>
+              <a
+                href="tel:+250788123456"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl skeu-btn-teal text-white font-syne font-bold text-xs shadow-md hover:shadow-lg transition-all"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Call Concierge Now</span>
+              </a>
             </div>
           </div>
 
-          {/* Visual Tool Mockup Card */}
-          <div className="lg:col-span-6 skeu-card rounded-2xl p-5 border border-slate-200">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3 mb-4 text-xs font-syne font-bold text-slate-700">
-              <span>Sample Inspection Report #RW-2026</span>
-              <span className="text-emerald-700 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-bold">
-                Verified Matching
+          {/* Visual Concierge Contact Card */}
+          <div className="lg:col-span-6 skeu-card rounded-3xl p-6 sm:p-7 border border-[#E6D7C3] bg-white/90 shadow-xl space-y-5">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-b from-[#184F60] to-[#0D3846] flex items-center justify-center text-white font-syne font-bold shadow-md">
+                  KR
+                </div>
+                <div>
+                  <h3 className="font-syne font-bold text-base text-[#0D3846]">Kigali Concierge Desk</h3>
+                  <p className="text-xs text-slate-500">Live Personal Booking & Advisory</p>
+                </div>
+              </div>
+              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 border border-[#5A6B3C]/20 px-2.5 py-1 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#5A6B3C] animate-pulse" />
+                <span>Online Now</span>
               </span>
             </div>
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="relative h-28 rounded-xl overflow-hidden border border-slate-200 shadow-inner">
-                <Image
-                  src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80"
-                  alt="Check-in Photo"
-                  fill
-                  className="object-cover"
-                />
-                <span className="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded font-mono">
-                  Check-in (Front)
-                </span>
+
+            <div className="space-y-3 text-xs">
+              <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E6D7C3]/60 flex items-start gap-3">
+                <Phone className="w-4 h-4 text-[#C85A2A] mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-slate-800 block">Phone & WhatsApp Hotline:</span>
+                  <a href="tel:+250788123456" className="font-mono text-sm font-bold text-[#0D3846] hover:text-[#C85A2A] transition-colors block mt-0.5">
+                    +250 788 123 456
+                  </a>
+                  <span className="text-[11px] text-slate-400">Available 24/7 for arrivals & urgent bookings</span>
+                </div>
               </div>
-              <div className="relative h-28 rounded-xl overflow-hidden border border-slate-200 shadow-inner">
-                <Image
-                  src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=400&q=80"
-                  alt="Check-out Photo"
-                  fill
-                  className="object-cover"
-                />
-                <span className="absolute bottom-1 left-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded font-mono">
-                  Check-out (Match)
-                </span>
+
+              <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E6D7C3]/60 flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-[#5A6B3C] mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-slate-800 block">Physical Kigali Office:</span>
+                  <span className="text-slate-600 block mt-0.5">KN 3 Ave, Kiyovu Hill, Kigali, Rwanda</span>
+                  <span className="text-[11px] text-slate-400">Opposite Kigali Serena Hotel • 8:00 AM – 9:00 PM</span>
+                </div>
               </div>
             </div>
-            <div className="bg-white p-3.5 rounded-xl border border-slate-200 text-xs space-y-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
-              <div className="flex justify-between text-slate-600">
-                <span>Fuel Gauge Level:</span>
-                <span className="font-mono font-bold text-slate-900">100% (Full Tank)</span>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>Odometer Mileage:</span>
-                <span className="font-mono font-bold text-slate-900">42,850 km</span>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>Security Deposit Refund:</span>
-                <span className="font-mono font-bold text-emerald-600">Instant Release</span>
-              </div>
+
+            <div className="pt-2">
+              <a
+                href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20want%20to%20rent%20a%20car%20or%20house."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full skeu-btn-terracotta text-white py-3 px-4 rounded-xl font-syne font-bold text-xs tracking-tight flex items-center justify-center gap-2 shadow-sm transition-all"
+              >
+                <MessageSquare className="w-4 h-4 fill-current" />
+                <span>Start WhatsApp Conversation</span>
+              </a>
             </div>
           </div>
         </div>

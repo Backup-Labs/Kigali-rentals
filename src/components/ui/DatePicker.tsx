@@ -9,6 +9,7 @@ interface DatePickerProps {
   onChange: (start: string, end: string) => void;
   label?: string;
   className?: string;
+  compact?: boolean;
 }
 
 export default function DatePicker({
@@ -17,6 +18,7 @@ export default function DatePicker({
   onChange,
   label = 'Dates',
   className = '',
+  compact = false,
 }: DatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -168,33 +170,51 @@ export default function DatePicker({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full text-left skeu-input-cell rounded-xl sm:rounded-2xl px-3.5 py-2 sm:py-2.5 transition-all duration-200 group focus:outline-none ${
-          isOpen ? 'border-[#C85A2A] ring-2 ring-[#C85A2A]/20 bg-white' : ''
-        }`}
+        className={`w-full text-left skeu-input-cell rounded-xl px-3 sm:px-3.5 transition-all duration-200 group focus:outline-none flex items-center justify-between ${
+          compact ? 'h-11 sm:h-12' : 'py-2 sm:py-2.5 rounded-xl sm:rounded-2xl'
+        } ${isOpen ? 'border-[#C85A2A] ring-2 ring-[#C85A2A]/20 bg-white' : ''}`}
       >
-        {/* Upper Micro-Label with Calendar Icon */}
-        <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-syne font-bold uppercase tracking-wider text-slate-500 mb-0.5">
-          <CalendarIcon className="w-3.5 h-3.5 text-[#C85A2A]" />
-          <span className="truncate">{label}</span>
-        </div>
-
-        {/* Primary Date Range & Duration Pill */}
-        <div className="flex items-center justify-between gap-1.5">
-          <div className="truncate pr-1">
-            <span className="font-syne font-bold text-xs sm:text-sm text-slate-900 block truncate">
-              {formatDisplayDate(tempStart)} — {tempEnd ? formatDisplayDate(tempEnd) : 'Pick departure'}
-            </span>
+        {compact ? (
+          <div className="flex items-center gap-2 truncate pr-1">
+            <CalendarIcon className="w-4 h-4 text-[#C85A2A] shrink-0" />
+            <div className="truncate">
+              {label && (
+                <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">
+                  {label}
+                </span>
+              )}
+              <span className="font-tenor font-bold text-xs sm:text-sm text-slate-900 truncate block leading-tight">
+                {formatDisplayDate(tempStart)} — {tempEnd ? formatDisplayDate(tempEnd) : 'Departure'}
+              </span>
+            </div>
           </div>
+        ) : (
+          <div className="w-full">
+            {/* Upper Micro-Label with Calendar Icon */}
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tenor font-bold uppercase tracking-wider text-slate-500 mb-0.5">
+              <CalendarIcon className="w-3.5 h-3.5 text-[#C85A2A]" />
+              <span className="truncate">{label}</span>
+            </div>
 
-          <span className="text-[10px] sm:text-[11px] font-syne font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 border border-[#5A6B3C]/20 px-2 py-0.5 rounded-full shrink-0 group-hover:bg-[#5A6B3C]/20 transition-colors">
-            {tempEnd ? `${daysDiff()} nights` : 'Select'}
-          </span>
-        </div>
+            {/* Primary Date Range & Duration Pill */}
+            <div className="flex items-center justify-between gap-1.5">
+              <div className="truncate pr-1">
+                <span className="font-tenor font-bold text-xs sm:text-sm text-slate-900 block truncate">
+                  {formatDisplayDate(tempStart)} — {tempEnd ? formatDisplayDate(tempEnd) : 'Pick departure'}
+                </span>
+              </div>
+            </div>
 
-        {/* Supporting Hint */}
-        <div className="text-[10px] sm:text-[11px] text-slate-400 font-sans truncate mt-0.5">
-          {tempEnd ? 'Instant dates confirmation' : 'Click to select trip dates'}
-        </div>
+            {/* Supporting Hint */}
+            <div className="text-[10px] sm:text-[11px] text-slate-400 font-sans truncate mt-0.5">
+              {tempEnd ? 'Instant dates confirmation' : 'Click to select trip dates'}
+            </div>
+          </div>
+        )}
+
+        <span className="text-[10px] font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 border border-[#5A6B3C]/20 px-2 py-0.5 rounded-full shrink-0 group-hover:bg-[#5A6B3C]/20 transition-colors ml-1">
+          {tempEnd ? `${daysDiff()}d` : 'Pick'}
+        </span>
       </button>
 
       {/* High-Frost Calendar Popover */}

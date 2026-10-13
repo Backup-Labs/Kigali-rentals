@@ -28,6 +28,7 @@ import {
   Flame,
   Award,
   Check,
+  MessageSquare,
 } from 'lucide-react';
 import DatePicker from '@/components/ui/DatePicker';
 
@@ -135,14 +136,14 @@ export default function ListingDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] pb-24 pt-20 sm:pt-24">
-      {/* Breadcrumbs & Lock Notice Header */}
+      {/* Breadcrumbs & Direct Concierge Notice Header */}
       <div className="bg-[#07232C] text-white py-3 border-b border-white/10">
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2 text-[#E6D7C3]/80">
             <Link href="/" className="hover:text-white">Home</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <Link href={`/?type=${listing.type}`} className="hover:text-white capitalize">
-              {isCar ? 'Vehicles' : 'Properties'}
+            <Link href={`/#${isCar ? 'vehicles' : 'apartments'}`} className="hover:text-white capitalize">
+              {isCar ? 'Vehicles' : 'Apartments'}
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
             <span className="text-white font-medium truncate max-w-[200px] sm:max-w-none">
@@ -150,10 +151,15 @@ export default function ListingDetailPage({ params }: PageProps) {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 bg-[#C85A2A]/20 text-[#E6D7C3] px-2.5 py-1 rounded-full border border-[#C85A2A]/40 font-mono text-[11px]">
-            <Lock className="w-3 h-3 text-[#C85A2A] animate-pulse" />
-            <span>Inventory Hold Active: {formatTimer(lockSecondsLeft)}</span>
-          </div>
+          <a
+            href="https://wa.me/250788123456"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-[#5A6B3C]/30 hover:bg-[#5A6B3C]/50 text-[#E6D7C3] px-3 py-1 rounded-full border border-[#5A6B3C]/40 font-mono text-[11px] transition-colors"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#5A6B3C] animate-pulse" />
+            <span>Concierge Online • Call / WhatsApp: +250 788 123 456</span>
+          </a>
         </div>
       </div>
 
@@ -180,7 +186,7 @@ export default function ListingDetailPage({ params }: PageProps) {
               ))}
 
               {listing.isVerified && (
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 border border-[#5A6B3C]/20 px-2.5 py-1 rounded-full">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Kigali Certified</span>
                 </span>
@@ -198,7 +204,7 @@ export default function ListingDetailPage({ params }: PageProps) {
               </div>
               <span>•</span>
               <div className="flex items-center gap-1 text-slate-800">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <Star className="w-4 h-4 fill-[#C85A2A] text-[#C85A2A]" />
                 <span className="font-bold">{listing.rating.toFixed(2)}</span>
                 <span className="text-slate-500">({listing.reviewCount} verified guest reviews)</span>
               </div>
@@ -403,7 +409,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                         onClick={() => setIncludeCrossSell(!includeCrossSell)}
                         className={`px-4 py-2 rounded-xl text-xs font-syne font-bold transition-all shadow-sm ${
                           includeCrossSell
-                            ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                            ? 'bg-[#5A6B3C] text-white hover:bg-[#44522C]'
                             : 'bg-[#C85A2A] text-white hover:bg-[#B24F23]'
                         }`}
                       >
@@ -460,7 +466,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                 </div>
 
                 <div className="text-right">
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 shadow-xs">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 px-2.5 py-1 rounded-full border border-[#5A6B3C]/20 shadow-xs">
                     <Check className="w-3.5 h-3.5" />
                     <span>Instant Booking</span>
                   </span>
@@ -623,7 +629,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                       <Info className="w-3 h-3" />
                     </span>
                   </span>
-                  <span className="font-mono text-emerald-700 font-medium">
+                  <span className="font-mono text-[#5A6B3C] font-medium">
                     {formatPrice(securityDepositHold)} (Hold)
                   </span>
                 </div>
@@ -636,21 +642,50 @@ export default function ListingDetailPage({ params }: PageProps) {
                 </div>
               </div>
 
-              {/* Main CTA: Instant Book with 10-Minute Lock Timer */}
-              <button
-                type="button"
-                onClick={handleProceedToCheckout}
-                className="w-full skeu-btn-terracotta text-white py-3.5 px-6 rounded-2xl font-syne font-bold text-sm tracking-tight flex items-center justify-center gap-2"
-              >
-                <span>Proceed to Instant Checkout</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              {/* Direct Booking Actions (WhatsApp & Phone Call) */}
+              {(() => {
+                const whatsappMessage = `Hello Kigali Rentals! I would like to inquire about renting "${listing.title}" in ${listing.neighborhood}, Kigali.
+Dates: ${startDate} to ${endDate} (${daysCount} ${isCar ? 'days' : 'nights'})
+Guests: ${guestsCount} ${guestsCount === 1 ? 'person' : 'people'}
+Estimated total: ${formatPrice(grandTotal)}
+Is this available?`;
+                const whatsappUrl = `https://wa.me/250788123456?text=${encodeURIComponent(whatsappMessage)}`;
+                const phoneUrl = `tel:+250788123456`;
 
-              <div className="mt-3 text-center">
-                <span className="text-[11px] text-slate-400">
-                  🔒 Inventory locked for 10 minutes upon proceeding
-                </span>
-              </div>
+                return (
+                  <div className="space-y-2.5">
+                    {/* Primary Action: Direct WhatsApp Chat */}
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full skeu-btn-terracotta active:scale-[0.99] text-white py-3.5 px-6 rounded-2xl font-syne font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg transition-all"
+                    >
+                      <MessageSquare className="w-4 h-4 fill-current shrink-0" />
+                      <span>Chat on WhatsApp to Book</span>
+                    </a>
+
+                    {/* Secondary Action: Direct Phone Call */}
+                    <a
+                      href={phoneUrl}
+                      className="w-full skeu-btn-teal text-white py-3 px-6 rounded-2xl font-syne font-bold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
+                    >
+                      <Phone className="w-4 h-4 shrink-0" />
+                      <span>Call Concierge (+250 788 123 456)</span>
+                    </a>
+
+                    <div className="pt-3 border-t border-slate-100 text-center space-y-1">
+                      <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#5A6B3C]">
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        <span>Direct Booking • Zero Intermediary Fees</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">
+                        Call or text us anytime. Keys delivered at Kigali Airport or to your address.
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Assistance card */}

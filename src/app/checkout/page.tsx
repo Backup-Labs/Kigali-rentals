@@ -267,7 +267,7 @@ export default function CheckoutPage() {
       <div className="bg-[#0D3846] text-[#E6D7C3] py-2.5 border-b border-white/10">
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <ShieldCheck className="w-4 h-4 text-[#5A6B3C]" />
             <span className="font-semibold text-white">SSL Encrypted Rwandan Checkout</span>
           </div>
           <div className="flex items-center gap-2 font-mono text-xs bg-white/10 px-3 py-1 rounded-full border border-white/20">
@@ -297,7 +297,7 @@ export default function CheckoutPage() {
                     currentStep === s.num
                       ? 'skeu-tab-active text-white'
                       : currentStep > s.num
-                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-xs'
+                      ? 'bg-[#5A6B3C]/10 text-[#5A6B3C] border border-[#5A6B3C]/30 shadow-xs'
                       : 'skeu-btn-frosted !text-slate-400 opacity-60'
                   }`}
                 >
@@ -537,27 +537,27 @@ export default function CheckoutPage() {
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border-2 border-emerald-500/40 bg-emerald-50/40 cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border-2 border-[#5A6B3C]/40 bg-[#5A6B3C]/10 cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={damageWaiver}
                           onChange={(e) => setDamageWaiver(e.target.checked)}
-                          className="mt-1 rounded accent-emerald-600"
+                          className="mt-1 rounded accent-[#5A6B3C]"
                         />
                         <div>
-                          <span className="font-syne font-bold text-sm text-emerald-950 flex items-center gap-2">
+                          <span className="font-syne font-bold text-sm text-[#0D3846] flex items-center gap-2">
                             <span>Zero-Deductible Damage Waiver</span>
-                            <span className="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded font-mono">
+                            <span className="text-[10px] bg-[#5A6B3C] text-white px-2 py-0.5 rounded font-mono">
                               RECOMMENDED
                             </span>
                           </span>
-                          <span className="text-xs text-emerald-800 leading-relaxed">
+                          <span className="text-xs text-slate-700 leading-relaxed">
                             Protects against minor windshield chips, door dings, and appliance mishaps without deposit deduction.
                           </span>
                         </div>
                       </div>
-                      <span className="font-syne font-bold text-xs text-emerald-900 shrink-0">
+                      <span className="font-syne font-bold text-xs text-[#0D3846] shrink-0">
                         +{formatPrice(12 * days)}
                       </span>
                     </label>
@@ -754,7 +754,7 @@ export default function CheckoutPage() {
                       <span className="text-[11px] text-slate-500 block mt-0.5">
                         {formatPrice(grandTotal)}
                       </span>
-                      <span className="text-[10px] text-emerald-700 font-semibold block mt-1">
+                      <span className="text-[10px] text-[#5A6B3C] font-semibold block mt-1">
                         Zero check-in balance
                       </span>
                     </button>
@@ -774,7 +774,7 @@ export default function CheckoutPage() {
                       <span className="text-[11px] text-slate-500 block mt-0.5">
                         {formatPrice(Math.round(grandTotal * 0.3))} today
                       </span>
-                      <span className="text-[10px] text-amber-700 font-semibold block mt-1">
+                      <span className="text-[10px] text-[#C85A2A] font-semibold block mt-1">
                         Balance at check-in
                       </span>
                     </button>
@@ -876,9 +876,9 @@ export default function CheckoutPage() {
                         </p>
 
                         {isSimulatingPayment && (
-                          <div className="p-3 rounded-xl bg-amber-100 border border-amber-300 flex items-center gap-3 animate-pulse">
-                            <RefreshCw className="w-4 h-4 text-amber-700 animate-spin" />
-                            <span className="text-xs text-amber-900 font-medium">
+                          <div className="p-3 rounded-xl bg-[#C85A2A]/10 border border-[#C85A2A]/30 flex items-center gap-3 animate-pulse">
+                            <RefreshCw className="w-4 h-4 text-[#C85A2A] animate-spin" />
+                            <span className="text-xs text-[#C85A2A] font-medium">
                               {momoPromptStep === 'prompt_sent'
                                 ? 'Dial *182*7*1# prompt sent to phone. Waiting for PIN confirmation...'
                                 : 'PIN accepted! Finalizing instant reservation...'}
@@ -989,7 +989,7 @@ export default function CheckoutPage() {
                     <Image src={pairedAsset.images[0]} alt={pairedAsset.title} fill className="object-cover" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A2A]">
                       Paired Bundle (-20%)
                     </span>
                     <h4 className="font-syne font-bold text-xs text-[#0D3846] line-clamp-1">
@@ -1049,7 +1049,7 @@ export default function CheckoutPage() {
 
                 <div className="flex justify-between text-slate-500 pt-1">
                   <span>Refundable Deposit Hold</span>
-                  <span className="font-mono text-emerald-700">
+                  <span className="font-mono text-[#5A6B3C]">
                     {formatPrice(securityDepositHold)} (Hold)
                   </span>
                 </div>
@@ -1085,11 +1085,11 @@ export default function CheckoutPage() {
           /* STEP 5: SUCCESS STATE WITH PRINTABLE PDF RECEIPT & HANDOVER CTA */
           <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#E6D7C3] shadow-2xl animate-fadeIn">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-600/20">
+              <div className="w-16 h-16 rounded-full bg-[#5A6B3C]/15 text-[#5A6B3C] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#5A6B3C]/20">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
-              <span className="text-xs font-bold font-syne uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#5A6B3C] bg-[#5A6B3C]/10 px-3 py-1 rounded-full border border-[#5A6B3C]/20">
                 Payment Authorized & Inventory Confirmed
               </span>
 
@@ -1138,7 +1138,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <span className="text-slate-400 block text-[10px] uppercase font-bold">Total Paid</span>
-                  <span className="font-mono font-bold text-emerald-800">{formatPrice(payableToday)}</span>
+                  <span className="font-mono font-bold text-[#5A6B3C]">{formatPrice(payableToday)}</span>
                 </div>
               </div>
 

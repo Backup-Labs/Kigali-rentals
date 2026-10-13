@@ -195,7 +195,7 @@ export default function HandoverToolPage() {
       <div className="container mx-auto px-4 sm:px-6 pt-6">
         {/* Success Alert Banner */}
         {savedSuccessMessage && (
-          <div className="mb-6 p-4 rounded-2xl bg-emerald-500 text-white font-syne font-bold text-xs flex items-center justify-between shadow-lg animate-fadeIn">
+          <div className="mb-6 p-4 rounded-2xl bg-[#5A6B3C] text-white font-syne font-bold text-xs flex items-center justify-between shadow-lg animate-fadeIn">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-white" />
               <span>{savedSuccessMessage}</span>
@@ -371,7 +371,7 @@ export default function HandoverToolPage() {
                             <span className="text-[10px] font-syne font-bold uppercase truncate">
                               {slot.label}
                             </span>
-                            <span className="text-[9px] text-emerald-300">✓ Uploaded</span>
+                            <span className="text-[9px] text-[#E6D7C3]">✓ Uploaded</span>
                           </div>
                         </div>
                       ))}
@@ -397,7 +397,7 @@ export default function HandoverToolPage() {
                           <button
                             type="button"
                             onClick={() => removeScratch(s.id)}
-                            className="text-slate-400 hover:text-red-600 p-1"
+                            className="text-slate-400 hover:text-[#C85A2A] p-1"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -477,7 +477,7 @@ export default function HandoverToolPage() {
 
                     <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-200">
                       <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-4 h-4 text-amber-500" />
+                        <Zap className="w-4 h-4 text-[#C85A2A]" />
                         <span className="text-xs font-bold font-syne text-slate-700 uppercase">
                           Cash-Power Electricity (kWh)
                         </span>
@@ -519,8 +519,8 @@ export default function HandoverToolPage() {
                             onClick={() => toggleRoomStatus(room.id)}
                             className={`px-3 py-1.5 rounded-xl text-xs font-syne font-bold transition-all ${
                               room.status === 'ok'
-                                ? 'bg-emerald-600 text-white'
-                                : 'bg-red-500 text-white'
+                                ? 'bg-[#5A6B3C] text-white'
+                                : 'bg-[#C85A2A] text-white'
                             }`}
                           >
                             {room.status === 'ok' ? '✓ Verified OK' : '⚠ Issue Logged'}
@@ -603,7 +603,7 @@ export default function HandoverToolPage() {
                 </h2>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-300">
+                <span className="text-xs font-bold bg-[#5A6B3C]/10 text-[#5A6B3C] px-3 py-1 rounded-full border border-[#5A6B3C]/30">
                   Zero Deductions • Full Deposit Release Eligible
                 </span>
               </div>
@@ -638,7 +638,7 @@ export default function HandoverToolPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Cleanliness:</span>
-                      <span className="font-bold text-emerald-700">Pristine</span>
+                      <span className="font-bold text-[#5A6B3C]">Pristine</span>
                     </div>
                   </div>
 
@@ -655,12 +655,12 @@ export default function HandoverToolPage() {
                 </div>
 
                 {/* Column B: Check-Out */}
-                <div className="p-5 rounded-2xl bg-white border-2 border-emerald-500/50 space-y-4 shadow-sm">
+                <div className="p-5 rounded-2xl bg-white border-2 border-[#5A6B3C]/40 space-y-4 shadow-sm">
                   <div className="flex items-center justify-between border-b border-slate-200 pb-2">
                     <span className="font-syne font-bold text-sm text-[#0D3846]">
                       Check-Out Status (Return)
                     </span>
-                    <span className="text-xs font-mono bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">
+                    <span className="text-xs font-mono bg-[#5A6B3C]/10 text-[#5A6B3C] px-2 py-0.5 rounded font-bold">
                       Match Verified
                     </span>
                   </div>
@@ -680,7 +680,7 @@ export default function HandoverToolPage() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">New Scratches:</span>
-                      <span className="font-bold text-emerald-700">None detected ✓</span>
+                      <span className="font-bold text-[#5A6B3C]">None detected ✓</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Cleanliness:</span>
@@ -713,7 +713,7 @@ export default function HandoverToolPage() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-white border-2 border-emerald-500/50 space-y-3">
+                <div className="p-5 rounded-2xl bg-white border-2 border-[#5A6B3C]/40 space-y-3">
                   <h4 className="font-syne font-bold text-sm text-[#0D3846]">Check-out Departure</h4>
                   <div className="text-xs space-y-1.5 text-slate-600">
                     <div>Electricity: {electricityKwh} kWh</div>
@@ -739,7 +739,7 @@ export default function HandoverToolPage() {
                 onClick={() => {
                   alert(`Deposit release authorized for ${selectedBooking.customer.fullName}! SMS confirmation sent to ${selectedBooking.customer.phone}.`);
                 }}
-                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-syne font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-600/20 transition-all flex items-center gap-2"
+                className="px-6 py-3 skeu-btn-terracotta text-white font-syne font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Approve Return & Release Deposit</span>

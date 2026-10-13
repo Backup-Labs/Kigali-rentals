@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Zap, Award, MapPin, Mail, Phone, Heart } from 'lucide-react';
+import { ShieldCheck, Zap, Award, MapPin, Mail, Phone, Heart, MessageSquare } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 rounded-3xl bg-gradient-to-b from-white/10 to-white/[0.03] backdrop-blur-xl border border-white/15 shadow-[0_12px_30px_rgba(0,0,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)]">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-b from-[#5A6B3C]/40 to-[#5A6B3C]/10 border border-[#5A6B3C]/40 flex items-center justify-center text-[#5A6B3C] shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
-              <Zap className="w-6 h-6 text-emerald-400" />
+              <Zap className="w-6 h-6 text-[#E6D7C3]" />
             </div>
             <div>
               <h4 className="font-syne font-bold text-white text-base">Uninterrupted Comfort</h4>
@@ -34,7 +34,7 @@ export default function Footer() {
 
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-b from-[#5A6B3C]/40 to-[#5A6B3C]/10 border border-[#5A6B3C]/40 flex items-center justify-center text-[#5A6B3C] shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
-              <Award className="w-6 h-6 text-amber-300" />
+              <Award className="w-6 h-6 text-[#E6D7C3]" />
             </div>
             <div>
               <h4 className="font-syne font-bold text-white text-base">Rwanda Certified Fleet</h4>
@@ -134,20 +134,25 @@ export default function Footer() {
 
         <div>
           <h5 className="font-syne font-bold text-white text-sm uppercase tracking-wider mb-4">
-            Operations & Trust
+            Concierge & Contact
           </h5>
           <ul className="space-y-2.5 text-sm text-[#E6D7C3]/80">
             <li>
-              <Link href="/handover" className="hover:text-white transition-colors flex items-center gap-2">
-                <span>Digital Condition Handover</span>
-                <span className="text-[10px] bg-[#5A6B3C] text-white px-1.5 py-0.5 rounded">HO-02</span>
-              </Link>
+              <a
+                href="https://wa.me/250788123456"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors flex items-center gap-2 text-[#E6D7C3] font-semibold"
+              >
+                <MessageSquare className="w-4 h-4 text-[#C85A2A]" />
+                <span>WhatsApp: +250 788 123 456</span>
+              </a>
             </li>
             <li>
-              <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-2">
-                <span>Back-Office Operations Hub</span>
-                <span className="text-[10px] bg-[#C85A2A] text-white px-1.5 py-0.5 rounded">AD-01</span>
-              </Link>
+              <a href="tel:+250788123456" className="hover:text-white transition-colors flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#C85A2A]" />
+                <span>Direct Call: +250 788 123 456</span>
+              </a>
             </li>
             <li>
               <a href="mailto:concierge@kigalirentals.rw" className="hover:text-white transition-colors flex items-center gap-2">
@@ -156,10 +161,10 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="tel:+250788123456" className="hover:text-white transition-colors flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#C85A2A]" />
-                <span>+250 788 123 456 (MTN / MoMo)</span>
-              </a>
+              <Link href="/admin" className="hover:text-white transition-colors flex items-center gap-2 text-xs text-slate-400 pt-1">
+                <span>Operations Hub</span>
+                <span className="text-[10px] bg-[#C85A2A] text-white px-1.5 py-0.5 rounded">AD-01</span>
+              </Link>
             </li>
           </ul>
         </div>

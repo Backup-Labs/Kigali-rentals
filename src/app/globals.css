@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-syne: 'Syne', sans-serif;
+  --font-tenor: 'Tenor Sans', serif;
+  --font-syne: 'Tenor Sans', serif;
   --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-outfit: 'Outfit', sans-serif;
 }
@@ -18,9 +19,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6, .font-syne {
-  font-family: var(--font-syne);
-  letter-spacing: -0.025em;
+h1, h2, h3, h4, h5, h6, .font-syne, .font-tenor {
+  font-family: var(--font-tenor), 'Tenor Sans', serif;
+  letter-spacing: 0.01em;
 }
 
 /* Distinct high-end numerical typography for prices */

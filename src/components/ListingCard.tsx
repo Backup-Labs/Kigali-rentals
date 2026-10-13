@@ -75,7 +75,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
         {/* Floating Bottom-Left Badge: "● For Rent" (from Reference Design) */}
         <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md text-xs font-semibold text-slate-800">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#5A6B3C] animate-pulse" />
             <span>{isCar ? 'For Rent • Fleet' : 'For Rent'}</span>
           </div>
         </div>
@@ -102,12 +102,12 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
               setIsLiked(!isLiked);
             }}
             aria-label="Save to favorites"
-            className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-rose-500 hover:scale-110 active:scale-95 transition-all"
+            className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-[#C85A2A] hover:scale-110 active:scale-95 transition-all"
             title="Save to favorites"
           >
             <Heart
               className={`w-4 h-4 transition-colors ${
-                isLiked ? 'fill-rose-500 text-rose-500' : 'text-rose-500'
+                isLiked ? 'fill-[#C85A2A] text-[#C85A2A]' : 'text-[#C85A2A]'
               }`}
             />
           </button>
@@ -157,9 +157,9 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
           </span>
         </div>
 
-        {/* Rating Pill with Gold Star */}
+        {/* Rating Pill with Terracotta Star */}
         <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-100/90 shadow-2xs">
-          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+          <Star className="w-3.5 h-3.5 fill-[#C85A2A] text-[#C85A2A]" />
           <span className="text-xs font-bold text-slate-800">
             {listing.rating.toFixed(1)}
           </span>

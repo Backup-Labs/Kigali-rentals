@@ -7,8 +7,10 @@ import { useRental } from '@/lib/rentalContext';
 import {
   Menu,
   X,
-  Clock,
   ChevronRight,
+  Phone,
+  MessageSquare,
+  Globe,
 } from 'lucide-react';
 
 interface NavItem {
@@ -19,40 +21,24 @@ interface NavItem {
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { currency, toggleCurrency, lockSecondsLeft } = useRental();
+  const { currency, toggleCurrency } = useRental();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('home');
 
   const navItems: NavItem[] = [
     { label: 'Home', href: '/', id: 'home' },
-    { label: 'About', href: '/#about', id: 'about' },
+    { label: 'Vehicles', href: '/#vehicles', id: 'vehicles' },
+    { label: 'Apartments', href: '/#apartments', id: 'apartments' },
     { label: 'How it works', href: '/#how-it-works', id: 'how-it-works' },
-    { label: 'Properties', href: '/?type=property', id: 'property' },
-    { label: 'Vehicles', href: '/?type=car', id: 'car' },
-    { label: 'Handover', href: '/handover', id: 'handover' },
+    { label: 'About', href: '/#about', id: 'about' },
+    { label: 'Contact', href: '/#contact', id: 'contact' },
   ];
-
-  const formatTimer = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const isCheckout = pathname === '/checkout';
 
   // Determine active tab on mount, route change, search param, and scroll position
   useEffect(() => {
     const determineActiveTab = () => {
-      if (pathname === '/handover') {
-        setActiveTab('handover');
-        return;
-      }
-      if (pathname === '/checkout') {
-        setActiveTab('checkout');
-        return;
-      }
       if (pathname.startsWith('/listings')) {
-        setActiveTab('property');
+        setActiveTab('apartments');
         return;
       }
 
@@ -60,12 +46,16 @@ export default function Navbar() {
         const hash = window.location.hash;
         const search = window.location.search;
 
-        if (search.includes('type=property')) {
-          setActiveTab('property');
+        if (hash === '#vehicles' || search.includes('type=car')) {
+          setActiveTab('vehicles');
           return;
         }
-        if (search.includes('type=car')) {
-          setActiveTab('car');
+        if (hash === '#apartments' || hash === '#properties' || search.includes('type=property')) {
+          setActiveTab('apartments');
+          return;
+        }
+        if (hash === '#contact') {
+          setActiveTab('contact');
           return;
         }
         if (hash === '#how-it-works') {
@@ -77,18 +67,24 @@ export default function Navbar() {
           return;
         }
 
-        // Scroll spy on homepage sections
+        // Scroll spy on homepage sections (evaluated from bottom to top)
         const scrollY = window.scrollY;
+        const contactEl = document.getElementById('contact');
         const aboutEl = document.getElementById('about');
         const howEl = document.getElementById('how-it-works');
-        const propEl = document.getElementById('properties');
+        const aptsEl = document.getElementById('apartments') || document.getElementById('properties');
+        const vehEl = document.getElementById('vehicles');
 
-        if (aboutEl && scrollY >= aboutEl.offsetTop - 200) {
+        if (contactEl && scrollY >= contactEl.offsetTop - 250) {
+          setActiveTab('contact');
+        } else if (aboutEl && scrollY >= aboutEl.offsetTop - 200) {
           setActiveTab('about');
         } else if (howEl && scrollY >= howEl.offsetTop - 200) {
           setActiveTab('how-it-works');
-        } else if (propEl && scrollY >= propEl.offsetTop - 250) {
-          setActiveTab('property');
+        } else if (aptsEl && scrollY >= aptsEl.offsetTop - 250) {
+          setActiveTab('apartments');
+        } else if (vehEl && scrollY >= vehEl.offsetTop - 250) {
+          setActiveTab('vehicles');
         } else {
           setActiveTab('home');
         }
@@ -119,18 +115,25 @@ export default function Navbar() {
         window.history.pushState(null, '', '/');
       } else if (item.href.startsWith('/#')) {
         const targetId = item.href.replace('/#', '');
-        const targetEl = document.getElementById(targetId);
+        const targetEl =
+          document.getElementById(targetId) ||
+          (targetId === 'apartments' ? document.getElementById('properties') : null);
         if (targetEl) {
           e.preventDefault();
           targetEl.scrollIntoView({ behavior: 'smooth' });
           window.history.pushState(null, '', `/#${targetId}`);
+          window.dispatchEvent(new Event('hashchange'));
         }
       } else if (item.href.startsWith('/?type=')) {
-        const targetEl = document.getElementById('properties');
+        const type = item.href.replace('/?type=', '');
+        const targetId = type === 'car' ? 'vehicles' : 'apartments';
+        const targetEl =
+          document.getElementById(targetId) || document.getElementById('properties');
         if (targetEl) {
           e.preventDefault();
           targetEl.scrollIntoView({ behavior: 'smooth' });
           window.history.pushState(null, '', item.href);
+          window.dispatchEvent(new Event('hashchange'));
         }
       }
     }
@@ -149,7 +152,7 @@ export default function Navbar() {
           <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-b from-[#184F60] to-[#0D3846] flex items-center justify-center text-white shadow-sm border border-[#0A2E3A] transition-transform group-hover:scale-105 active:scale-95">
             {/* Geometric L-Angle Icon */}
             <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-amber-200"
+              className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-[#E6D7C3]"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -158,7 +161,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col">
-            <span className="font-syne text-base sm:text-lg font-extrabold tracking-tight text-[#0D3846] leading-tight">
+            <span className="font-tenor text-base sm:text-lg font-extrabold tracking-tight text-[#0D3846] leading-tight">
               Kigali<span className="text-[#C85A2A]">Rentals</span>
             </span>
             <span className="text-[9px] text-slate-500 font-sans tracking-wide hidden sm:inline -mt-0.5">
@@ -177,7 +180,7 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
-                className={`relative py-1.5 px-3.5 rounded-full text-xs sm:text-sm font-syne font-semibold transition-all duration-300 flex items-center gap-1.5 group ${
+                className={`relative h-9 px-3.5 rounded-full text-xs sm:text-sm font-tenor font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 group shrink-0 ${
                   isActive
                     ? 'text-white font-bold'
                     : 'text-slate-600 hover:text-[#0D3846] font-medium hover:bg-white/60'
@@ -196,45 +199,39 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Side Actions */}
+        {/* Right Side Actions with Identical Button Height (h-9) */}
         <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Active Hold Badge (if in checkout flow) */}
-          {isCheckout && (
-            <div className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#C85A2A]/10 text-[#C85A2A] border border-[#C85A2A]/25 font-mono text-xs font-semibold shadow-[inset_0_1px_2px_rgba(200,90,42,0.1)]">
-              <Clock className="w-3.5 h-3.5 animate-spin" />
-              <span>{formatTimer(lockSecondsLeft)}</span>
-            </div>
-          )}
-
-          {/* Tactile Currency Toggle */}
+          {/* Elegant Currency Selector Pill */}
           <button
             onClick={toggleCurrency}
-            className="flex items-center gap-1 px-2.5 py-1 sm:py-1.5 rounded-xl skeu-btn-frosted text-xs font-semibold text-slate-700"
-            title="Switch Currency (USD / RWF)"
+            className="h-9 px-3 rounded-xl skeu-btn-frosted flex items-center justify-center gap-2 text-xs font-tenor shrink-0 transition-all hover:bg-white/90 group"
+            title={`Active: ${currency} (Click to toggle USD / RWF)`}
           >
-            <span className="text-[10px] uppercase font-bold text-slate-400">Curr:</span>
-            <span className="font-mono text-[#C85A2A] font-bold">{currency}</span>
+            <Globe className="w-3.5 h-3.5 text-[#0D3846] group-hover:text-[#C85A2A] transition-colors shrink-0" />
+            <div className="flex items-center text-[11px] font-bold tracking-tight">
+              <span className={currency === 'USD' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+                USD
+              </span>
+              <span className="text-slate-300 mx-1">|</span>
+              <span className={currency === 'RWF' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+                RWF
+              </span>
+            </div>
           </button>
 
-          {/* Primary CTA (Skeuomorphic Deep Teal Button) */}
-          <Link
-            href="/#search"
-            onClick={(e) => {
-              if (pathname === '/') {
-                e.preventDefault();
-                const s = document.getElementById('search');
-                if (s) s.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            className="inline-flex items-center justify-center px-4 sm:px-5 py-1.5 sm:py-2 rounded-xl skeu-btn-teal text-white font-syne font-semibold text-xs sm:text-sm tracking-tight"
+          {/* Primary Phone Call CTA */}
+          <a
+            href="tel:+250788123456"
+            className="inline-flex h-9 items-center justify-center gap-1.5 px-3.5 sm:px-4 rounded-xl skeu-btn-teal text-white font-tenor font-semibold text-xs sm:text-sm tracking-tight shrink-0 shadow-md hover:shadow-lg transition-all"
           >
-            Get Started
-          </Link>
+            <Phone className="w-3.5 h-3.5 shrink-0" />
+            <span>Call Us</span>
+          </a>
 
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-xl text-slate-700 hover:text-slate-900 skeu-btn-frosted"
+            className="md:hidden h-9 w-9 flex items-center justify-center rounded-xl text-slate-700 hover:text-slate-900 skeu-btn-frosted shrink-0 transition-all"
             aria-label="Toggle navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -256,7 +253,7 @@ export default function Navbar() {
                   handleNavClick(e, item);
                   setMobileMenuOpen(false);
                 }}
-                className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-syne font-semibold transition-all ${
+                className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-tenor font-semibold transition-all ${
                   isActive
                     ? 'bg-gradient-to-r from-[#184F60] to-[#0D3846] text-white shadow-md'
                     : 'text-slate-700 hover:text-[#0D3846] hover:bg-white/80'
@@ -271,13 +268,42 @@ export default function Navbar() {
             );
           })}
 
+          {/* Quick Mobile Contact Buttons */}
+          <div className="grid grid-cols-2 gap-2 pt-2">
+            <a
+              href="https://wa.me/250788123456"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-10 flex items-center justify-center gap-1.5 px-3 rounded-xl skeu-btn-terracotta text-white text-xs font-tenor font-bold shadow-sm"
+            >
+              <MessageSquare className="w-3.5 h-3.5 fill-current" />
+              <span>WhatsApp</span>
+            </a>
+            <a
+              href="tel:+250788123456"
+              className="h-10 flex items-center justify-center gap-1.5 px-3 rounded-xl bg-[#0D3846] text-white text-xs font-tenor font-bold shadow-sm"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              <span>Call Direct</span>
+            </a>
+          </div>
+
           <div className="pt-3 border-t border-slate-200/60 flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-syne">Active Currency:</span>
+            <span className="text-xs text-slate-600 font-tenor flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-[#0D3846]" />
+              <span>Currency</span>
+            </span>
             <button
               onClick={toggleCurrency}
-              className="px-3 py-1 bg-[#0D3846] text-white rounded-lg text-xs font-mono font-bold"
+              className="h-8 px-3 rounded-lg skeu-btn-frosted text-xs font-tenor font-bold flex items-center gap-2 border border-[#E6D7C3]"
             >
-              Switch to {currency === 'USD' ? 'RWF' : 'USD'}
+              <span className={currency === 'USD' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+                USD
+              </span>
+              <span className="text-slate-300">|</span>
+              <span className={currency === 'RWF' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+                RWF
+              </span>
             </button>
           </div>
         </div>

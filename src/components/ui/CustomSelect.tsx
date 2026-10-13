@@ -18,6 +18,7 @@ interface CustomSelectProps {
   icon?: React.ReactNode;
   placeholder?: string;
   className?: string;
+  compact?: boolean;
 }
 
 export default function CustomSelect({
@@ -28,6 +29,7 @@ export default function CustomSelect({
   icon,
   placeholder = 'Select an option',
   className = '',
+  compact = false,
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,44 +61,52 @@ export default function CustomSelect({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full text-left skeu-input-cell rounded-xl sm:rounded-2xl px-3.5 py-2 sm:py-2.5 transition-all duration-200 group focus:outline-none ${
-          isOpen ? 'border-[#C85A2A] ring-2 ring-[#C85A2A]/20 bg-white' : ''
-        }`}
+        className={`w-full text-left skeu-input-cell rounded-xl px-3 sm:px-3.5 transition-all duration-200 group focus:outline-none flex items-center justify-between ${
+          compact ? 'h-11 sm:h-12' : 'py-2 sm:py-2.5 rounded-xl sm:rounded-2xl'
+        } ${isOpen ? 'border-[#C85A2A] ring-2 ring-[#C85A2A]/20 bg-white' : ''}`}
       >
-        {/* Upper Micro-Label with Icon */}
-        {label && (
-          <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-syne font-bold uppercase tracking-wider text-slate-500 mb-0.5">
+        {compact ? (
+          <div className="flex items-center gap-2 truncate pr-1">
             {icon && <span className="shrink-0">{icon}</span>}
-            <span className="truncate">{label}</span>
+            <div className="truncate">
+              {label && (
+                <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">
+                  {label}
+                </span>
+              )}
+              <span className="font-tenor font-bold text-xs sm:text-sm text-slate-900 truncate block leading-tight">
+                {selectedOption ? selectedOption.label : placeholder}
+              </span>
+            </div>
           </div>
-        )}
-
-        {/* Primary Value & Chevron Indicator */}
-        <div className="flex items-center justify-between gap-1.5">
-          <div className="flex items-center gap-1.5 truncate pr-1">
-            {selectedOption?.icon && (
-              <span className="text-[#C85A2A] shrink-0">{selectedOption.icon}</span>
+        ) : (
+          <div className="w-full">
+            {label && (
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tenor font-bold uppercase tracking-wider text-slate-500 mb-0.5">
+                {icon && <span className="shrink-0">{icon}</span>}
+                <span className="truncate">{label}</span>
+              </div>
             )}
-            <span className="font-syne font-bold text-xs sm:text-sm text-slate-900 truncate">
-              {selectedOption ? selectedOption.label : placeholder}
-            </span>
-          </div>
-
-          <div
-            className={`w-5 h-5 rounded-full bg-slate-100/90 flex items-center justify-center shrink-0 text-slate-500 transition-transform duration-200 group-hover:bg-[#C85A2A]/10 group-hover:text-[#C85A2A] ${
-              isOpen ? 'rotate-180 bg-[#C85A2A]/15 text-[#C85A2A]' : ''
-            }`}
-          >
-            <ChevronDown className="w-3 h-3" />
-          </div>
-        </div>
-
-        {/* Supporting Hint / Description */}
-        {selectedOption?.description && (
-          <div className="text-[10px] sm:text-[11px] text-slate-400 font-sans truncate mt-0.5">
-            {selectedOption.description}
+            <div className="flex items-center justify-between gap-1.5">
+              <span className="font-tenor font-bold text-xs sm:text-sm text-slate-900 truncate">
+                {selectedOption ? selectedOption.label : placeholder}
+              </span>
+            </div>
+            {selectedOption?.description && (
+              <div className="text-[10px] sm:text-[11px] text-slate-400 font-sans truncate mt-0.5">
+                {selectedOption.description}
+              </div>
+            )}
           </div>
         )}
+
+        <div
+          className={`w-5 h-5 rounded-full bg-slate-100/90 flex items-center justify-center shrink-0 text-slate-500 transition-transform duration-200 group-hover:bg-[#C85A2A]/10 group-hover:text-[#C85A2A] ml-1 ${
+            isOpen ? 'rotate-180 bg-[#C85A2A]/15 text-[#C85A2A]' : ''
+          }`}
+        >
+          <ChevronDown className="w-3 h-3" />
+        </div>
       </button>
 
       {/* High-Frost Glass Dropdown Menu */}

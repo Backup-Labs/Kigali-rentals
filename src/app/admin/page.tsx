@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
               <span className="text-[10px] font-bold font-syne uppercase tracking-wider bg-[#C85A2A] text-white px-2 py-0.5 rounded">
                 Back-Office AD-01
               </span>
-              <span className="text-xs text-emerald-400 font-mono">
+              <span className="text-xs text-[#5A6B3C] font-mono">
                 ● Live Operations Console
               </span>
             </div>
@@ -189,11 +189,11 @@ export default function AdminDashboardPage() {
               <span className="font-syne font-extrabold text-3xl text-[#0D3846] mt-1 block">
                 {todayArrivals}
               </span>
-              <span className="text-xs text-emerald-600 font-medium mt-1 block">
+              <span className="text-xs text-[#5A6B3C] font-medium mt-1 block">
                 2 VIP Meet & Greets scheduled
               </span>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-[#5A6B3C]/10 border border-[#5A6B3C]/25 text-[#5A6B3C] flex items-center justify-center shadow-xs">
               <Calendar className="w-5 h-5" />
             </div>
           </div>
@@ -227,7 +227,7 @@ export default function AdminDashboardPage() {
                 {rentedAssets} of {totalAssets} assets active
               </span>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-[#0D3846]/10 border border-[#0D3846]/25 text-[#0D3846] flex items-center justify-center shadow-xs">
               <TrendingUp className="w-5 h-5" />
             </div>
           </div>
@@ -240,11 +240,11 @@ export default function AdminDashboardPage() {
               <span className="font-syne font-extrabold text-2xl text-[#0D3846] mt-1 block">
                 {formatPrice(totalRevenueUsd)}
               </span>
-              <span className="text-xs text-emerald-700 font-medium mt-1 block">
+              <span className="text-xs text-[#5A6B3C] font-medium mt-1 block">
                 Via MTN MoMo & Card Holds
               </span>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-[#C85A2A]/10 border border-[#C85A2A]/25 text-[#C85A2A] flex items-center justify-center shadow-xs">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
@@ -321,10 +321,10 @@ export default function AdminDashboardPage() {
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                               res.status === 'confirmed'
-                                ? 'bg-blue-100 text-blue-800'
+                                ? 'bg-[#0D3846]/10 text-[#0D3846]'
                                 : res.status === 'active'
-                                ? 'bg-emerald-100 text-emerald-800'
-                                : 'bg-amber-100 text-amber-800'
+                                ? 'bg-[#5A6B3C]/10 text-[#5A6B3C]'
+                                : 'bg-[#C85A2A]/10 text-[#C85A2A]'
                             }`}
                           >
                             {res.status}
@@ -361,10 +361,10 @@ export default function AdminDashboardPage() {
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                           item.status === 'Available'
-                            ? 'bg-emerald-100 text-emerald-800'
+                            ? 'bg-[#5A6B3C]/10 text-[#5A6B3C]'
                             : item.status === 'Rented'
-                            ? 'bg-amber-100 text-amber-800'
-                            : 'bg-purple-100 text-purple-800'
+                            ? 'bg-[#C85A2A]/10 text-[#C85A2A]'
+                            : 'bg-slate-100 text-slate-700'
                         }`}
                       >
                         {item.status}
@@ -408,8 +408,8 @@ export default function AdminDashboardPage() {
                         }
                         className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                           task.status === 'completed'
-                            ? 'bg-emerald-100 text-emerald-800'
-                            : 'bg-amber-100 text-amber-800'
+                            ? 'bg-[#5A6B3C]/10 text-[#5A6B3C]'
+                            : 'bg-[#C85A2A]/10 text-[#C85A2A]'
                         }`}
                       >
                         {task.status === 'completed' ? '✓ Done' : 'Pending'}
@@ -507,7 +507,7 @@ export default function AdminDashboardPage() {
                               </span>
                             </div>
                           ) : (
-                            <span className="text-[10px] text-emerald-600 font-medium pl-2">
+                            <span className="text-[10px] text-[#5A6B3C] font-medium pl-2">
                               Available
                             </span>
                           )}
@@ -592,12 +592,12 @@ export default function AdminDashboardPage() {
                         <span
                           className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                             item.status === 'Available'
-                              ? 'bg-emerald-100 text-emerald-800'
+                              ? 'bg-[#5A6B3C]/10 text-[#5A6B3C]'
                               : item.status === 'Rented'
-                              ? 'bg-amber-100 text-amber-800'
+                              ? 'bg-[#C85A2A]/10 text-[#C85A2A]'
                               : item.status === 'Cleaning'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-red-100 text-red-800'
+                              ? 'bg-[#0D3846]/10 text-[#0D3846]'
+                              : 'bg-slate-200 text-slate-800'
                           }`}
                         >
                           {item.status}
@@ -769,7 +769,7 @@ export default function AdminDashboardPage() {
                       }
                       className={`px-3 py-1 rounded-lg font-syne font-bold text-[10px] uppercase transition-colors ${
                         task.status === 'completed'
-                          ? 'bg-emerald-100 text-emerald-800'
+                          ? 'bg-[#5A6B3C]/10 text-[#5A6B3C]'
                           : 'bg-[#0D3846] text-white hover:bg-[#C85A2A]'
                       }`}
                     >

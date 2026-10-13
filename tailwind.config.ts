@@ -55,8 +55,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        syne: ["var(--font-syne)", "Syne", "sans-serif"],
+        tenor: ["var(--font-tenor)", "Tenor Sans", "serif"],
+        syne: ["var(--font-tenor)", "Tenor Sans", "serif"],
         sans: ["var(--font-jakarta)", "Plus Jakarta Sans", "system-ui", "sans-serif"],
+        price: ["var(--font-outfit)", "Outfit", "sans-serif"],
       },
     },
   },
