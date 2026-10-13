@@ -172,11 +172,11 @@ export default function DatePicker({
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full text-left skeu-input-cell rounded-xl px-3 sm:px-3.5 transition-all duration-200 group focus:outline-none flex items-center justify-between ${
           compact ? 'h-11 sm:h-12' : 'py-2 sm:py-2.5 rounded-xl sm:rounded-2xl'
-        } ${isOpen ? 'border-[#C85A2A] ring-2 ring-[#C85A2A]/20 bg-white' : ''}`}
+        } ${isOpen ? 'border-[#00638E] ring-2 ring-[#00638E]/20 bg-white' : ''}`}
       >
         {compact ? (
           <div className="flex items-center gap-2 truncate pr-1">
-            <CalendarIcon className="w-4 h-4 text-[#C85A2A] shrink-0" />
+            <CalendarIcon className="w-4 h-4 text-[#00638E] shrink-0" />
             <div className="truncate">
               {label && (
                 <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">
@@ -192,7 +192,7 @@ export default function DatePicker({
           <div className="w-full">
             {/* Upper Micro-Label with Calendar Icon */}
             <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tenor font-bold uppercase tracking-wider text-slate-500 mb-0.5">
-              <CalendarIcon className="w-3.5 h-3.5 text-[#C85A2A]" />
+              <CalendarIcon className="w-3.5 h-3.5 text-[#00638E]" />
               <span className="truncate">{label}</span>
             </div>
 
@@ -212,7 +212,7 @@ export default function DatePicker({
           </div>
         )}
 
-        <span className="text-[10px] font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 border border-[#5A6B3C]/20 px-2 py-0.5 rounded-full shrink-0 group-hover:bg-[#5A6B3C]/20 transition-colors ml-1">
+        <span className="text-[10px] font-bold text-[#00638E] bg-[#00638E]/10 border border-[#00638E]/20 px-2 py-0.5 rounded-full shrink-0 group-hover:bg-[#00638E]/20 transition-colors ml-1">
           {tempEnd ? `${daysDiff()}d` : 'Pick'}
         </span>
       </button>
@@ -292,10 +292,10 @@ export default function DatePicker({
                   onClick={() => handleDayClick(dayNum)}
                   className={`h-8 rounded-xl text-xs font-semibold transition-all relative flex items-center justify-center ${
                     isStart || isEnd
-                      ? 'bg-[#C85A2A] text-white shadow-md font-bold z-10'
+                      ? 'bg-[#00638E] text-white shadow-md font-bold z-10'
                       : isInRange
-                      ? 'bg-[#C85A2A]/15 text-[#C85A2A] rounded-none'
-                      : 'text-slate-700 hover:bg-[#FAF7F2]'
+                      ? 'bg-[#00638E]/15 text-[#00638E] rounded-none'
+                      : 'text-slate-700 hover:bg-[#F0F6F9]'
                   }`}
                 >
                   {dayNum}
@@ -311,14 +311,14 @@ export default function DatePicker({
               <button
                 type="button"
                 onClick={() => applyPreset(3)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#5A6B3C]/10 hover:bg-[#5A6B3C]/20 text-[#5A6B3C] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#003060]/10 hover:bg-[#003060]/20 text-[#003060] transition-colors"
               >
                 3 Days
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset(7)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#C85A2A]/10 hover:bg-[#C85A2A]/20 text-[#C85A2A] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#00638E]/10 hover:bg-[#00638E]/20 text-[#00638E] transition-colors"
               >
                 1 Week
               </button>

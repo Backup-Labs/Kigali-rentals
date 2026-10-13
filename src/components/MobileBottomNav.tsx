@@ -76,21 +76,21 @@ export default function MobileBottomNav() {
               <>
                 {/* Active Capsule Background */}
                 {isActive && (
-                  <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-[#184F60] to-[#0D3846] border border-[#082731] shadow-[0_2px_6px_rgba(13,56,70,0.3),inset_0_1px_1px_rgba(255,255,255,0.4)] -z-10 animate-fadeIn" />
+                  <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-[#004A6B] to-[#003060] border border-[#002244] shadow-[0_2px_6px_rgba(0,48,96,0.3),inset_0_1px_1px_rgba(255,255,255,0.4)] -z-10 animate-fadeIn" />
                 )}
 
                 <Icon
                   className={`w-4 h-4 mb-0.5 transition-colors ${
                     item.id === 'whatsapp'
-                      ? 'text-[#C85A2A]'
+                      ? 'text-[#00638E]'
                       : isActive
-                      ? 'text-[#C85A2A]'
+                      ? 'text-[#8CB9CC]'
                       : 'text-slate-400'
                   }`}
                 />
                 <span className="text-[10px] font-tenor truncate">{item.label}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C85A2A] shadow-[0_0_6px_#C85A2A] animate-pulse mt-0.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8CB9CC] shadow-[0_0_6px_#8CB9CC] animate-pulse mt-0.5" />
                 )}
               </>
             );
@@ -98,7 +98,7 @@ export default function MobileBottomNav() {
             const className = `relative flex flex-col items-center justify-center py-1.5 transition-all duration-300 rounded-xl ${
               isActive
                 ? 'text-white font-bold'
-                : 'text-slate-500 hover:text-[#0D3846]'
+                : 'text-[#2B2B2B] hover:text-[#00638E]'
             }`;
 
             if (item.isExternal) {

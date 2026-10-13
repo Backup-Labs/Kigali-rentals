@@ -63,7 +63,7 @@ export default function CustomSelect({
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full text-left skeu-input-cell rounded-xl px-3 sm:px-3.5 transition-all duration-200 group focus:outline-none flex items-center justify-between ${
           compact ? 'h-11 sm:h-12' : 'py-2 sm:py-2.5 rounded-xl sm:rounded-2xl'
-        } ${isOpen ? 'border-[#C85A2A] ring-2 ring-[#C85A2A]/20 bg-white' : ''}`}
+        } ${isOpen ? 'border-[#00638E] ring-2 ring-[#00638E]/20 bg-white' : ''}`}
       >
         {compact ? (
           <div className="flex items-center gap-2 truncate pr-1">
@@ -101,8 +101,8 @@ export default function CustomSelect({
         )}
 
         <div
-          className={`w-5 h-5 rounded-full bg-slate-100/90 flex items-center justify-center shrink-0 text-slate-500 transition-transform duration-200 group-hover:bg-[#C85A2A]/10 group-hover:text-[#C85A2A] ml-1 ${
-            isOpen ? 'rotate-180 bg-[#C85A2A]/15 text-[#C85A2A]' : ''
+          className={`w-5 h-5 rounded-full bg-slate-100/90 flex items-center justify-center shrink-0 text-slate-500 transition-transform duration-200 group-hover:bg-[#00638E]/10 group-hover:text-[#00638E] ml-1 ${
+            isOpen ? 'rotate-180 bg-[#00638E]/15 text-[#00638E]' : ''
           }`}
         >
           <ChevronDown className="w-3 h-3" />
@@ -121,7 +121,7 @@ export default function CustomSelect({
                 onClick={() => handleSelect(opt.value)}
                 className={`w-full px-3.5 py-2.5 mx-0 my-0.5 rounded-xl text-left transition-all duration-150 flex items-center justify-between gap-2 ${
                   isSelected
-                    ? 'bg-[#C85A2A]/12 text-[#C85A2A] font-bold border border-[#C85A2A]/25 shadow-[inset_0_1px_2px_rgba(200,90,42,0.08)]'
+                    ? 'bg-[#00638E]/12 text-[#00638E] font-bold border border-[#00638E]/25 shadow-[inset_0_1px_2px_rgba(0,99,142,0.08)]'
                     : 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-900'
                 }`}
               >
@@ -140,7 +140,7 @@ export default function CustomSelect({
                 </div>
 
                 {isSelected && (
-                  <div className="w-5 h-5 rounded-full bg-[#C85A2A] text-white flex items-center justify-center shrink-0 shadow-xs">
+                  <div className="w-5 h-5 rounded-full bg-[#00638E] text-white flex items-center justify-center shrink-0 shadow-xs">
                     <Check className="w-3 h-3 stroke-[2.5]" />
                   </div>
                 )}

@@ -138,10 +138,10 @@ export default function Navbar() {
           onClick={(e) => handleNavClick(e, navItems[0])}
           className="flex items-center gap-2.5 sm:gap-3 group"
         >
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-b from-[#184F60] to-[#0D3846] flex items-center justify-center text-white shadow-sm border border-[#0A2E3A] transition-transform group-hover:scale-105 active:scale-95">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-b from-[#004A6B] to-[#003060] flex items-center justify-center text-white shadow-sm border border-[#002244] transition-transform group-hover:scale-105 active:scale-95">
             {/* Geometric L-Angle Icon */}
             <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-[#E6D7C3]"
+              className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-[#BFD8E3]"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -150,10 +150,10 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-col">
-            <span className="font-tenor text-base sm:text-lg font-extrabold tracking-tight text-[#0D3846] leading-tight">
-              Kigali<span className="text-[#C85A2A]">Rentals</span>
+            <span className="font-tenor text-base sm:text-lg font-extrabold tracking-tight text-[#003060] leading-tight">
+              Kigali<span className="text-[#00638E]">Rentals</span>
             </span>
-            <span className="text-[9px] text-slate-500 font-sans tracking-wide hidden sm:inline -mt-0.5">
+            <span className="text-[9px] text-[#2B2B2B] font-sans tracking-wide hidden sm:inline -mt-0.5">
               Rwanda Living & Mobility
             </span>
           </div>
@@ -171,13 +171,13 @@ export default function Navbar() {
                 onClick={(e) => handleNavClick(e, item)}
                 className={`h-9 px-3.5 rounded-full text-xs sm:text-sm font-tenor transition-all duration-200 flex items-center justify-center gap-1.5 shrink-0 ${
                   isActive
-                    ? 'bg-[#0D3846] text-white font-bold shadow-md'
-                    : 'text-slate-600 hover:text-[#0D3846] font-medium hover:bg-slate-100/70'
+                    ? 'bg-gradient-to-r from-[#003060] to-[#00638E] text-white font-bold shadow-md'
+                    : 'text-[#2B2B2B] hover:text-[#00638E] font-medium hover:bg-[#F0F6F9]'
                 }`}
               >
                 <span>{item.label}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C85A2A] shadow-[0_0_8px_#C85A2A] animate-pulse shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8CB9CC] shadow-[0_0_8px_#8CB9CC] animate-pulse shrink-0" />
                 )}
               </Link>
             );
@@ -192,13 +192,13 @@ export default function Navbar() {
             className="h-9 px-3 rounded-xl skeu-btn-frosted flex items-center justify-center gap-2 text-xs font-tenor shrink-0 transition-all hover:bg-white/90 group"
             title={`Active: ${currency} (Click to toggle USD / RWF)`}
           >
-            <Globe className="w-3.5 h-3.5 text-[#0D3846] group-hover:text-[#C85A2A] transition-colors shrink-0" />
+            <Globe className="w-3.5 h-3.5 text-[#00638E] group-hover:text-[#004A6B] transition-colors shrink-0" />
             <div className="flex items-center text-[11px] font-bold tracking-tight">
-              <span className={currency === 'USD' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+              <span className={currency === 'USD' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
                 USD
               </span>
               <span className="text-slate-300 mx-1">|</span>
-              <span className={currency === 'RWF' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+              <span className={currency === 'RWF' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
                 RWF
               </span>
             </div>
@@ -226,7 +226,7 @@ export default function Navbar() {
 
       {/* Clean Solid White Mobile Drawer with Active Highlighting */}
       {mobileMenuOpen && (
-        <div className="pointer-events-auto max-w-6xl mx-auto md:hidden mt-2 bg-white border border-[#E6D7C3] shadow-2xl rounded-2xl p-4 animate-fadeIn space-y-2">
+        <div className="pointer-events-auto max-w-6xl mx-auto md:hidden mt-2 bg-white border border-[#BFD8E3] shadow-2xl rounded-2xl p-4 animate-fadeIn space-y-2">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
 
@@ -240,12 +240,12 @@ export default function Navbar() {
                 }}
                 className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-tenor font-semibold transition-all ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#184F60] to-[#0D3846] text-white shadow-md'
-                    : 'text-slate-700 hover:text-[#0D3846] hover:bg-white/80'
+                    ? 'bg-gradient-to-r from-[#003060] to-[#00638E] text-white shadow-md'
+                    : 'text-slate-700 hover:text-[#00638E] hover:bg-[#F0F6F9]'
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  {isActive && <span className="w-2 h-2 rounded-full bg-[#C85A2A] animate-pulse" />}
+                  {isActive && <span className="w-2 h-2 rounded-full bg-[#8CB9CC] animate-pulse" />}
                   <span>{item.label}</span>
                 </div>
                 <ChevronRight className={`w-4 h-4 ${isActive ? 'text-white/80' : 'text-slate-400'}`} />
@@ -266,7 +266,7 @@ export default function Navbar() {
             </a>
             <a
               href="tel:+250788123456"
-              className="h-10 flex items-center justify-center gap-1.5 px-3 rounded-xl bg-[#0D3846] text-white text-xs font-tenor font-bold shadow-sm"
+              className="h-10 flex items-center justify-center gap-1.5 px-3 rounded-xl bg-[#003060] text-white text-xs font-tenor font-bold shadow-sm"
             >
               <Phone className="w-3.5 h-3.5" />
               <span>Book Call</span>
@@ -275,18 +275,18 @@ export default function Navbar() {
 
           <div className="pt-3 border-t border-slate-200/60 flex items-center justify-between">
             <span className="text-xs text-slate-600 font-tenor flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-[#0D3846]" />
+              <Globe className="w-3.5 h-3.5 text-[#00638E]" />
               <span>Currency</span>
             </span>
             <button
               onClick={toggleCurrency}
-              className="h-8 px-3 rounded-lg skeu-btn-frosted text-xs font-tenor font-bold flex items-center gap-2 border border-[#E6D7C3]"
+              className="h-8 px-3 rounded-lg skeu-btn-frosted text-xs font-tenor font-bold flex items-center gap-2 border border-[#BFD8E3]"
             >
-              <span className={currency === 'USD' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+              <span className={currency === 'USD' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
                 USD
               </span>
               <span className="text-slate-300">|</span>
-              <span className={currency === 'RWF' ? 'text-[#C85A2A] font-extrabold' : 'text-slate-400 font-medium'}>
+              <span className={currency === 'RWF' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
                 RWF
               </span>
             </button>

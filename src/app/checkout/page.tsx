@@ -134,7 +134,7 @@ export default function CheckoutPage() {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        ctx.strokeStyle = '#0D3846';
+        ctx.strokeStyle = '#003060';
         ctx.lineWidth = 2.5;
         ctx.lineCap = 'round';
       }
@@ -262,16 +262,16 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] pb-24 pt-20 sm:pt-24">
+    <div className="min-h-screen bg-[#F0F6F9] pb-24 pt-20 sm:pt-24">
       {/* Top Lock Banner */}
-      <div className="bg-[#0D3846] text-[#E6D7C3] py-2.5 border-b border-white/10">
+      <div className="bg-[#003060] text-[#BFD8E3] py-2.5 border-b border-white/10">
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#5A6B3C]" />
+            <ShieldCheck className="w-4 h-4 text-[#00638E]" />
             <span className="font-semibold text-white">SSL Encrypted Rwandan Checkout</span>
           </div>
           <div className="flex items-center gap-2 font-mono text-xs bg-white/10 px-3 py-1 rounded-full border border-white/20">
-            <Lock className="w-3.5 h-3.5 text-[#C85A2A] animate-pulse" />
+            <Lock className="w-3.5 h-3.5 text-[#8CB9CC] animate-pulse" />
             <span>Price Guaranteed for: {formatTimer(lockSecondsLeft)}</span>
           </div>
         </div>
@@ -297,7 +297,7 @@ export default function CheckoutPage() {
                     currentStep === s.num
                       ? 'skeu-tab-active text-white'
                       : currentStep > s.num
-                      ? 'bg-[#5A6B3C]/10 text-[#5A6B3C] border border-[#5A6B3C]/30 shadow-xs'
+                      ? 'bg-[#00638E]/10 text-[#00638E] border border-[#00638E]/30 shadow-xs'
                       : 'skeu-btn-frosted !text-slate-400 opacity-60'
                   }`}
                 >
@@ -320,7 +320,7 @@ export default function CheckoutPage() {
               {currentStep === 1 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#003060]">
                       Guest Identification & Verification
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -401,15 +401,15 @@ export default function CheckoutPage() {
                       <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                         Upload Photo ID / Passport Copy
                       </label>
-                      <div className="border-2 border-dashed border-[#E6D7C3] hover:border-[#C85A2A] rounded-2xl p-6 text-center skeu-tray transition-colors relative cursor-pointer">
+                      <div className="border-2 border-dashed border-[#BFD8E3] hover:border-[#00638E] rounded-2xl p-6 text-center skeu-tray transition-colors relative cursor-pointer">
                         <input
                           type="file"
                           onChange={handleMockUpload}
                           aria-label="Upload Photo ID or Passport Copy"
                           className="absolute inset-0 opacity-0 cursor-pointer"
                         />
-                        <UploadCloud className="w-8 h-8 text-[#C85A2A] mx-auto mb-2" />
-                        <span className="text-xs font-bold font-tenor text-[#0D3846] block">
+                        <UploadCloud className="w-8 h-8 text-[#00638E] mx-auto mb-2" />
+                        <span className="text-xs font-bold font-tenor text-[#003060] block">
                           {isUploading
                             ? 'Verifying file integrity...'
                             : uploadedDocName
@@ -440,7 +440,7 @@ export default function CheckoutPage() {
               {currentStep === 2 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#003060]">
                       Curate Your Experience
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -449,16 +449,16 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="space-y-3">
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#FAF7F2] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={airportPickup}
                           onChange={(e) => setAirportPickup(e.target.checked)}
-                          className="mt-1 rounded accent-[#C85A2A]"
+                          className="mt-1 rounded accent-[#00638E]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#003060] block">
                             Kigali Airport VIP Meet & Greet
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -466,21 +466,21 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#003060] shrink-0">
                         +{formatPrice(30)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#FAF7F2] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={dedicatedDriver}
                           onChange={(e) => setDedicatedDriver(e.target.checked)}
-                          className="mt-1 rounded accent-[#C85A2A]"
+                          className="mt-1 rounded accent-[#00638E]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#003060] block">
                             Professional Executive Chauffeur
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -488,21 +488,21 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#003060] shrink-0">
                         +{formatPrice(25 * days)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#FAF7F2] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={childSeat}
                           onChange={(e) => setChildSeat(e.target.checked)}
-                          className="mt-1 rounded accent-[#C85A2A]"
+                          className="mt-1 rounded accent-[#00638E]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#003060] block">
                             Sanitized Child Safety Booster Seat
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -510,21 +510,21 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#003060] shrink-0">
                         +{formatPrice(15)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#FAF7F2] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={wifiHotspot}
                           onChange={(e) => setWifiHotspot(e.target.checked)}
-                          className="mt-1 rounded accent-[#C85A2A]"
+                          className="mt-1 rounded accent-[#00638E]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#003060] block">
                             5G High-Speed Pocket MiFi Device
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -532,23 +532,23 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#003060] shrink-0">
                         +{formatPrice(10)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border-2 border-[#5A6B3C]/40 bg-[#5A6B3C]/10 cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border-2 border-[#00638E]/40 bg-[#00638E]/10 cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={damageWaiver}
                           onChange={(e) => setDamageWaiver(e.target.checked)}
-                          className="mt-1 rounded accent-[#5A6B3C]"
+                          className="mt-1 rounded accent-[#00638E]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#0D3846] flex items-center gap-2">
+                          <span className="font-tenor font-bold text-sm text-[#003060] flex items-center gap-2">
                             <span>Zero-Deductible Damage Waiver</span>
-                            <span className="text-[10px] bg-[#5A6B3C] text-white px-2 py-0.5 rounded font-mono">
+                            <span className="text-[10px] bg-[#00638E] text-white px-2 py-0.5 rounded font-mono">
                               RECOMMENDED
                             </span>
                           </span>
@@ -557,7 +557,7 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#003060] shrink-0">
                         +{formatPrice(12 * days)}
                       </span>
                     </label>
@@ -576,7 +576,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(3)}
-                      className="px-6 py-3 bg-[#0D3846] hover:bg-[#C85A2A] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
+                      className="px-6 py-3 bg-[#003060] hover:bg-[#00638E] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
                     >
                       <span>Review Digital Agreement</span>
                       <ArrowRight className="w-4 h-4" />
@@ -589,7 +589,7 @@ export default function CheckoutPage() {
               {currentStep === 3 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#003060]">
                       Rental Agreement & Digital Signature
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -598,9 +598,9 @@ export default function CheckoutPage() {
                   </div>
 
                   {/* Contract Scrollbox */}
-                  <div className="h-64 overflow-y-auto bg-[#FAF7F2] p-4 rounded-2xl border border-slate-300 text-xs text-slate-700 space-y-3 font-sans leading-relaxed">
+                  <div className="h-64 overflow-y-auto bg-[#F0F6F9] p-4 rounded-2xl border border-slate-300 text-xs text-slate-700 space-y-3 font-sans leading-relaxed">
                     <div className="border-b border-slate-200 pb-2">
-                      <span className="font-tenor font-bold text-sm text-[#0D3846] block">
+                      <span className="font-tenor font-bold text-sm text-[#003060] block">
                         KIGALI RENTALS MASTER RENTAL AGREEMENT #KGL-AGR-2026
                       </span>
                       <span className="text-[11px] text-slate-500">
@@ -638,7 +638,7 @@ export default function CheckoutPage() {
                           onClick={() => setSignatureType('type')}
                           className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                             signatureType === 'type'
-                              ? 'bg-[#0D3846] text-white'
+                              ? 'bg-[#003060] text-white'
                               : 'text-slate-500 hover:bg-slate-100'
                           }`}
                         >
@@ -649,7 +649,7 @@ export default function CheckoutPage() {
                           onClick={() => setSignatureType('draw')}
                           className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                             signatureType === 'draw'
-                              ? 'bg-[#0D3846] text-white'
+                              ? 'bg-[#003060] text-white'
                               : 'text-slate-500 hover:bg-slate-100'
                           }`}
                         >
@@ -667,7 +667,7 @@ export default function CheckoutPage() {
                             setTypedSignature(e.target.value);
                             setHasSignature(e.target.value.length > 2);
                           }}
-                          className="w-full bg-[#FAF7F2] border-2 border-slate-300 rounded-2xl p-4 font-serif italic text-2xl text-[#0D3846] focus:outline-none focus:border-[#C85A2A]"
+                          className="w-full bg-[#F0F6F9] border-2 border-slate-300 rounded-2xl p-4 font-serif italic text-2xl text-[#003060] focus:outline-none focus:border-[#00638E]"
                           placeholder="Type your full legal name"
                         />
                         <span className="text-[11px] text-slate-400 mt-1 block">
@@ -693,7 +693,7 @@ export default function CheckoutPage() {
                           <button
                             type="button"
                             onClick={clearCanvas}
-                            className="text-xs text-[#C85A2A] hover:underline font-bold"
+                            className="text-xs text-[#00638E] hover:underline font-bold"
                           >
                             Clear
                           </button>
@@ -716,7 +716,7 @@ export default function CheckoutPage() {
                       type="button"
                       disabled={!hasSignature}
                       onClick={() => setCurrentStep(4)}
-                      className="px-6 py-3 bg-[#0D3846] hover:bg-[#C85A2A] disabled:opacity-50 text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
+                      className="px-6 py-3 bg-[#003060] hover:bg-[#00638E] disabled:opacity-50 text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
                     >
                       <span>Agree & Proceed to Payment</span>
                       <ArrowRight className="w-4 h-4" />
@@ -729,7 +729,7 @@ export default function CheckoutPage() {
               {currentStep === 4 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#003060]">
                       Rwanda Payment Terminal
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -744,17 +744,17 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentPlan('pay_full')}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         paymentPlan === 'pay_full'
-                          ? 'border-[#C85A2A] bg-[#C85A2A]/5 ring-2 ring-[#C85A2A]/20'
-                          : 'border-slate-200 hover:bg-[#FAF7F2]'
+                          ? 'border-[#00638E] bg-[#00638E]/5 ring-2 ring-[#00638E]/20'
+                          : 'border-slate-200 hover:bg-[#F0F6F9]'
                       }`}
                     >
-                      <span className="text-xs font-tenor font-bold text-[#0D3846] block">
+                      <span className="text-xs font-tenor font-bold text-[#003060] block">
                         Pay 100% Today
                       </span>
                       <span className="text-[11px] text-slate-500 block mt-0.5">
                         {formatPrice(grandTotal)}
                       </span>
-                      <span className="text-[10px] text-[#5A6B3C] font-semibold block mt-1">
+                      <span className="text-[10px] text-[#00638E] font-semibold block mt-1">
                         Zero check-in balance
                       </span>
                     </button>
@@ -764,17 +764,17 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentPlan('deposit_30')}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         paymentPlan === 'deposit_30'
-                          ? 'border-[#C85A2A] bg-[#C85A2A]/5 ring-2 ring-[#C85A2A]/20'
-                          : 'border-slate-200 hover:bg-[#FAF7F2]'
+                          ? 'border-[#00638E] bg-[#00638E]/5 ring-2 ring-[#00638E]/20'
+                          : 'border-slate-200 hover:bg-[#F0F6F9]'
                       }`}
                     >
-                      <span className="text-xs font-tenor font-bold text-[#0D3846] block">
+                      <span className="text-xs font-tenor font-bold text-[#003060] block">
                         Pay 30% Deposit
                       </span>
                       <span className="text-[11px] text-slate-500 block mt-0.5">
                         {formatPrice(Math.round(grandTotal * 0.3))} today
                       </span>
-                      <span className="text-[10px] text-[#C85A2A] font-semibold block mt-1">
+                      <span className="text-[10px] text-[#00638E] font-semibold block mt-1">
                         Balance at check-in
                       </span>
                     </button>
@@ -784,11 +784,11 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentPlan('hold_card')}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         paymentPlan === 'hold_card'
-                          ? 'border-[#C85A2A] bg-[#C85A2A]/5 ring-2 ring-[#C85A2A]/20'
-                          : 'border-slate-200 hover:bg-[#FAF7F2]'
+                          ? 'border-[#00638E] bg-[#00638E]/5 ring-2 ring-[#00638E]/20'
+                          : 'border-slate-200 hover:bg-[#F0F6F9]'
                       }`}
                     >
-                      <span className="text-xs font-tenor font-bold text-[#0D3846] block">
+                      <span className="text-xs font-tenor font-bold text-[#003060] block">
                         Hold with Card
                       </span>
                       <span className="text-[11px] text-slate-500 block mt-0.5">
@@ -842,11 +842,11 @@ export default function CheckoutPage() {
                         onClick={() => setPaymentMethod('card')}
                         className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${
                           paymentMethod === 'card'
-                            ? 'border-[#0D3846] bg-slate-50 ring-2 ring-[#0D3846]/20'
+                            ? 'border-[#003060] bg-slate-50 ring-2 ring-[#003060]/20'
                             : 'border-slate-200 hover:bg-slate-50'
                         }`}
                       >
-                        <div className="w-9 h-9 rounded-full bg-[#0D3846] flex items-center justify-center text-white shadow-sm">
+                        <div className="w-9 h-9 rounded-full bg-[#003060] flex items-center justify-center text-white shadow-sm">
                           <CreditCard className="w-4 h-4" />
                         </div>
                         <span className="text-xs font-bold text-slate-900">Credit / Debit</span>
@@ -855,7 +855,7 @@ export default function CheckoutPage() {
 
                     {/* Method details input */}
                     {paymentMethod.startsWith('momo') ? (
-                      <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-300 space-y-3">
+                      <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-300 space-y-3">
                         <label className="block text-xs font-bold font-tenor text-slate-700">
                           Enter Rwandan Mobile Money Number
                         </label>
@@ -876,9 +876,9 @@ export default function CheckoutPage() {
                         </p>
 
                         {isSimulatingPayment && (
-                          <div className="p-3 rounded-xl bg-[#C85A2A]/10 border border-[#C85A2A]/30 flex items-center gap-3 animate-pulse">
-                            <RefreshCw className="w-4 h-4 text-[#C85A2A] animate-spin" />
-                            <span className="text-xs text-[#C85A2A] font-medium">
+                          <div className="p-3 rounded-xl bg-[#00638E]/10 border border-[#00638E]/30 flex items-center gap-3 animate-pulse">
+                            <RefreshCw className="w-4 h-4 text-[#00638E] animate-spin" />
+                            <span className="text-xs text-[#00638E] font-medium">
                               {momoPromptStep === 'prompt_sent'
                                 ? 'Dial *182*7*1# prompt sent to phone. Waiting for PIN confirmation...'
                                 : 'PIN accepted! Finalizing instant reservation...'}
@@ -887,7 +887,7 @@ export default function CheckoutPage() {
                         )}
                       </div>
                     ) : (
-                      <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-300 space-y-3">
+                      <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-300 space-y-3">
                         <div>
                           <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
                             Card Number
@@ -938,7 +938,7 @@ export default function CheckoutPage() {
                       type="button"
                       disabled={isSimulatingPayment}
                       onClick={handlePaymentSubmit}
-                      className="px-8 py-3.5 bg-[#C85A2A] hover:bg-[#B24F23] disabled:opacity-50 text-white font-tenor font-bold text-sm tracking-tight rounded-2xl shadow-xl shadow-[#C85A2A]/25 transition-all flex items-center gap-2"
+                      className="px-8 py-3.5 bg-[#00638E] hover:bg-[#004A6B] disabled:opacity-50 text-white font-tenor font-bold text-sm tracking-tight rounded-2xl shadow-xl shadow-[#00638E]/25 transition-all flex items-center gap-2"
                     >
                       {isSimulatingPayment ? (
                         <>
@@ -958,21 +958,21 @@ export default function CheckoutPage() {
             </div>
 
             {/* Right Summary Sticky Card (5 cols) */}
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#E6D7C3] shadow-lg sticky top-24">
-              <h3 className="font-tenor font-bold text-base text-[#0D3846] mb-4">
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#BFD8E3] shadow-lg sticky top-24">
+              <h3 className="font-tenor font-bold text-base text-[#003060] mb-4">
                 Booking Summary
               </h3>
 
               {/* Main Asset Mini Card */}
               <div className="flex items-center gap-3.5 pb-4 border-b border-slate-100">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-[#E6D7C3]">
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-[#BFD8E3]">
                   <Image src={asset.images[0]} alt={asset.title} fill className="object-cover" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A2A]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#00638E]">
                     {asset.type === 'car' ? 'Vehicle' : 'Property'}
                   </span>
-                  <h4 className="font-tenor font-bold text-sm text-[#0D3846] line-clamp-1">
+                  <h4 className="font-tenor font-bold text-sm text-[#003060] line-clamp-1">
                     {asset.title}
                   </h4>
                   <div className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
@@ -985,14 +985,14 @@ export default function CheckoutPage() {
               {/* Paired Asset if Combo */}
               {pairedAsset && (
                 <div className="flex items-center gap-3.5 py-3 border-b border-slate-100">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-[#E6D7C3]">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-[#BFD8E3]">
                     <Image src={pairedAsset.images[0]} alt={pairedAsset.title} fill className="object-cover" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A2A]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#00638E]">
                       Paired Bundle (-20%)
                     </span>
-                    <h4 className="font-tenor font-bold text-xs text-[#0D3846] line-clamp-1">
+                    <h4 className="font-tenor font-bold text-xs text-[#003060] line-clamp-1">
                       {pairedAsset.title}
                     </h4>
                     <span className="text-[11px] text-slate-500 font-mono">
@@ -1024,7 +1024,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {pairedAsset && (
-                  <div className="flex justify-between text-[#C85A2A]">
+                  <div className="flex justify-between text-[#00638E]">
                     <span>Combo vehicle ({formatPrice(pairedDailyRate)} × {days}d)</span>
                     <span className="font-semibold">{formatPrice(pairedTotal)}</span>
                   </div>
@@ -1049,7 +1049,7 @@ export default function CheckoutPage() {
 
                 <div className="flex justify-between text-slate-500 pt-1">
                   <span>Refundable Deposit Hold</span>
-                  <span className="font-mono text-[#5A6B3C]">
+                  <span className="font-mono text-[#00638E]">
                     {formatPrice(securityDepositHold)} (Hold)
                   </span>
                 </div>
@@ -1066,9 +1066,9 @@ export default function CheckoutPage() {
                   </span>
                 </div>
 
-                <div className="flex justify-between items-baseline p-3 rounded-2xl bg-[#FAF7F2] border border-[#E6D7C3]">
-                  <span className="font-tenor font-bold text-sm text-[#0D3846]">Payable Now</span>
-                  <span className="font-tenor font-extrabold text-2xl text-[#C85A2A]">
+                <div className="flex justify-between items-baseline p-3 rounded-2xl bg-[#F0F6F9] border border-[#BFD8E3]">
+                  <span className="font-tenor font-bold text-sm text-[#003060]">Payable Now</span>
+                  <span className="font-tenor font-extrabold text-2xl text-[#00638E]">
                     {formatPrice(payableToday)}
                   </span>
                 </div>
@@ -1083,17 +1083,17 @@ export default function CheckoutPage() {
           </div>
         ) : (
           /* STEP 5: SUCCESS STATE WITH PRINTABLE PDF RECEIPT & HANDOVER CTA */
-          <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#E6D7C3] shadow-2xl animate-fadeIn">
+          <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#BFD8E3] shadow-2xl animate-fadeIn">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 rounded-full bg-[#5A6B3C]/15 text-[#5A6B3C] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#5A6B3C]/20">
+              <div className="w-16 h-16 rounded-full bg-[#00638E]/15 text-[#00638E] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#00638E]/20">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
-              <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#5A6B3C] bg-[#5A6B3C]/10 px-3 py-1 rounded-full border border-[#5A6B3C]/20">
+              <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E] bg-[#00638E]/10 px-3 py-1 rounded-full border border-[#00638E]/20">
                 Payment Authorized & Inventory Confirmed
               </span>
 
-              <h1 className="font-tenor text-3xl font-extrabold text-[#0D3846] mt-3">
+              <h1 className="font-tenor text-3xl font-extrabold text-[#003060] mt-3">
                 Murakaza Neza! Your Kigali Booking is Ready.
               </h1>
 
@@ -1103,11 +1103,11 @@ export default function CheckoutPage() {
             </div>
 
             {/* Printable Digital Receipt / Voucher Card (PY-04) */}
-            <div className="bg-[#FAF7F2] rounded-2xl p-6 border-2 border-dashed border-slate-300 mb-8 font-sans">
+            <div className="bg-[#F0F6F9] rounded-2xl p-6 border-2 border-dashed border-slate-300 mb-8 font-sans">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-300 gap-2">
                 <div>
-                  <span className="font-tenor font-extrabold text-lg text-[#0D3846] tracking-tight">
-                    Kigali<span className="text-[#C85A2A]">Rentals</span> Voucher
+                  <span className="font-tenor font-extrabold text-lg text-[#003060] tracking-tight">
+                    Kigali<span className="text-[#00638E]">Rentals</span> Voucher
                   </span>
                   <span className="text-xs text-slate-500 block">
                     Issued: {new Date().toLocaleDateString('en-GB')}
@@ -1117,7 +1117,7 @@ export default function CheckoutPage() {
                   <span className="text-[10px] uppercase font-bold text-slate-400 block font-tenor">
                     Booking Reference Code
                   </span>
-                  <span className="font-mono text-base font-bold text-[#C85A2A] bg-white px-2 py-0.5 rounded border border-slate-200">
+                  <span className="font-mono text-base font-bold text-[#00638E] bg-white px-2 py-0.5 rounded border border-slate-200">
                     {confirmedReservation?.id || 'KGL-2026-8942'}
                   </span>
                 </div>
@@ -1138,7 +1138,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <span className="text-slate-400 block text-[10px] uppercase font-bold">Total Paid</span>
-                  <span className="font-mono font-bold text-[#5A6B3C]">{formatPrice(payableToday)}</span>
+                  <span className="font-mono font-bold text-[#00638E]">{formatPrice(payableToday)}</span>
                 </div>
               </div>
 
@@ -1147,7 +1147,7 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="flex items-center gap-1.5 text-[#0D3846] hover:text-[#C85A2A] font-bold"
+                  className="flex items-center gap-1.5 text-[#003060] hover:text-[#00638E] font-bold"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print PDF Receipt</span>
@@ -1157,10 +1157,10 @@ export default function CheckoutPage() {
 
             {/* Next Steps & Action Buttons */}
             <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-white border border-[#E6D7C3] flex items-start gap-3">
-                <Sparkles className="w-5 h-5 text-[#C85A2A] shrink-0 mt-0.5" />
+              <div className="p-4 rounded-2xl bg-white border border-[#BFD8E3] flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-[#00638E] shrink-0 mt-0.5" />
                 <div className="text-xs text-slate-700">
-                  <span className="font-bold text-[#0D3846] block mb-0.5">
+                  <span className="font-bold text-[#003060] block mb-0.5">
                     Next Step: Digital Handover & Inspection
                   </span>
                   When receiving the vehicle or property keys, launch the mobile Condition Tool to sign off on odometer, fuel level, and key exchange.
@@ -1170,7 +1170,7 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Link
                   href="/handover"
-                  className="w-full bg-[#0D3846] hover:bg-[#C85A2A] text-white py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center shadow-lg transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#003060] hover:bg-[#00638E] text-white py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center shadow-lg transition-all flex items-center justify-center gap-2"
                 >
                   <FileCheck className="w-4 h-4" />
                   <span>Open Handover Inspection Tool</span>
@@ -1178,7 +1178,7 @@ export default function CheckoutPage() {
 
                 <Link
                   href="/admin"
-                  className="w-full bg-[#FAF7F2] hover:bg-[#E6D7C3] text-[#0D3846] border border-[#E6D7C3] py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#F0F6F9] hover:bg-[#BFD8E3] text-[#003060] border border-[#BFD8E3] py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
                 >
                   <span>View in Admin Back-Office</span>
                   <ArrowRight className="w-4 h-4" />

@@ -38,7 +38,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#1A282E] antialiased selection:bg-[#C85A2A] selection:text-white">
+      <body className="min-h-screen flex flex-col bg-white text-[#141414] antialiased selection:bg-[#00638E] selection:text-white">
         <RentalProvider>
           <NavigationProgressBar />
           <Navbar />

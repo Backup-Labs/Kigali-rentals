@@ -13,8 +13,8 @@
 
 body {
   font-family: var(--font-jakarta);
-  background-color: #FAF7F2;
-  color: #1A282E;
+  background-color: #FFFFFF;
+  color: #141414;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -35,20 +35,20 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
   letter-spacing: -0.03em;
 }
 
-/* Custom scrollbars in warm terracotta & sand */
+/* Custom scrollbars in Dark Azure & soft tint */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5EFE6;
+  background: #F0F6F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C85A2A;
+  background: #00638E;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B24F23;
+  background: #004A6B;
 }
 
 /* =========================================================
@@ -60,114 +60,114 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
 .glass-satin-frost,
 .glass-high-frost {
   background: #FFFFFF;
-  border: 1px solid #E6D7C3;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    0 12px 32px -6px rgba(13, 56, 70, 0.08),
-    0 4px 12px -2px rgba(0, 0, 0, 0.04);
+    0 12px 32px -6px rgba(0, 99, 142, 0.08),
+    0 4px 12px -2px rgba(20, 20, 20, 0.04);
 }
 
 /* Solid White Tactile Card Panel */
 .glass-skeu-card {
   background: #FFFFFF;
-  border: 1px solid #E6D7C3;
+  border: 1px solid #BFD8E3;
   box-shadow: 
-    0 8px 24px -4px rgba(13, 56, 70, 0.06),
-    0 2px 6px -1px rgba(0, 0, 0, 0.03);
+    0 8px 24px -4px rgba(0, 99, 142, 0.06),
+    0 2px 6px -1px rgba(20, 20, 20, 0.03);
 }
 
 /* High-Clarity Solid White Popovers / Dropdowns */
 .glass-high-frost-dropdown {
   background: #FFFFFF;
-  border: 1px solid #E6D7C3;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    0 24px 50px -10px rgba(13, 56, 70, 0.16),
-    0 8px 20px -4px rgba(0, 0, 0, 0.06);
+    0 24px 50px -10px rgba(0, 48, 96, 0.16),
+    0 8px 20px -4px rgba(20, 20, 20, 0.06);
 }
 
 /* Floating Navigation Capsule in Solid Crisp White */
 .glass-skeu-nav {
   background: #FFFFFF;
-  border: 1px solid #E6D7C3;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    0 10px 30px -5px rgba(13, 56, 70, 0.08),
-    0 2px 8px -2px rgba(0, 0, 0, 0.04);
+    0 10px 30px -5px rgba(0, 48, 96, 0.08),
+    0 2px 8px -2px rgba(20, 20, 20, 0.04);
 }
 
 /* Luxury Tactile Input Cell in Solid Crisp White */
 .skeu-input-cell {
   background: #FFFFFF;
-  border: 1px solid #E6D7C3;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    0 1px 3px 0 rgba(13, 56, 70, 0.04);
+    0 1px 3px 0 rgba(0, 99, 142, 0.04);
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .skeu-input-cell:hover {
-  border-color: #C85A2A;
-  background: rgba(255, 255, 255, 0.97);
+  border-color: #00638E;
+  background: rgba(255, 255, 255, 0.98);
   transform: translateY(-1px);
   box-shadow:
-    0 4px 12px -2px rgba(200, 90, 42, 0.12),
-    inset 0 1px 2px 0 rgba(13, 56, 70, 0.02);
+    0 4px 12px -2px rgba(0, 99, 142, 0.14),
+    inset 0 1px 2px 0 rgba(0, 48, 96, 0.02);
 }
 .skeu-input-cell:focus, .skeu-input-cell:focus-within {
-  border-color: #C85A2A;
+  border-color: #00638E;
   background: #FFFFFF;
   box-shadow:
-    0 0 0 3px rgba(200, 90, 42, 0.18),
-    0 4px 12px -2px rgba(200, 90, 42, 0.15),
-    inset 0 1px 2px 0 rgba(13, 56, 70, 0.03);
+    0 0 0 3px rgba(0, 99, 142, 0.2),
+    0 4px 12px -2px rgba(0, 99, 142, 0.15),
+    inset 0 1px 2px 0 rgba(0, 48, 96, 0.03);
 }
 
-/* Skeuomorphic Terracotta Tactile Button */
+/* Skeuomorphic Dark Azure Tactile Button */
 .skeu-btn-terracotta {
-  background: linear-gradient(180deg, #D96632 0%, #C85A2A 60%, #B24F23 100%);
-  border: 1px solid #A8441A;
+  background: linear-gradient(180deg, #0077AB 0%, #00638E 60%, #004A6B 100%);
+  border: 1px solid #003A54;
   box-shadow:
-    0 4px 12px -1px rgba(200, 90, 42, 0.4),
+    0 4px 12px -1px rgba(0, 99, 142, 0.4),
     0 2px 4px 0 rgba(0, 0, 0, 0.1),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
     inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
   transition: all 0.15s ease-in-out;
 }
 .skeu-btn-terracotta:hover {
-  background: linear-gradient(180deg, #E2723E 0%, #CE6131 60%, #B85225 100%);
+  background: linear-gradient(180deg, #0084BD 0%, #006CA0 60%, #00557B 100%);
   box-shadow:
-    0 6px 16px -1px rgba(200, 90, 42, 0.48),
+    0 6px 16px -1px rgba(0, 99, 142, 0.48),
     0 3px 6px 0 rgba(0, 0, 0, 0.12),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
     inset 0 -2px 0 0 rgba(0, 0, 0, 0.22);
   transform: translateY(-1px);
 }
 .skeu-btn-terracotta:active {
-  background: linear-gradient(180deg, #B24F23 0%, #C85A2A 100%);
+  background: linear-gradient(180deg, #004A6B 0%, #00638E 100%);
   box-shadow:
     inset 0 2px 4px 0 rgba(0, 0, 0, 0.35),
     0 1px 2px 0 rgba(0, 0, 0, 0.1);
   transform: translateY(1px);
 }
 
-/* Skeuomorphic Deep Teal Tactile Button */
+/* Skeuomorphic Deep Azure Tactile Button */
 .skeu-btn-teal {
-  background: linear-gradient(180deg, #184F60 0%, #0D3846 65%, #082731 100%);
-  border: 1px solid #061F27;
+  background: linear-gradient(180deg, #004A6B 0%, #003060 65%, #002244 100%);
+  border: 1px solid #001A33;
   box-shadow:
-    0 4px 12px -1px rgba(13, 56, 70, 0.35),
+    0 4px 12px -1px rgba(0, 48, 96, 0.35),
     0 2px 4px 0 rgba(0, 0, 0, 0.15),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
     inset 0 -2px 0 0 rgba(0, 0, 0, 0.4);
   transition: all 0.15s ease-in-out;
 }
 .skeu-btn-teal:hover {
-  background: linear-gradient(180deg, #1D5B6E 0%, #114353 65%, #0B2F3B 100%);
+  background: linear-gradient(180deg, #005A82 0%, #003E70 65%, #002850 100%);
   box-shadow:
-    0 6px 16px -1px rgba(13, 56, 70, 0.45),
+    0 6px 16px -1px rgba(0, 48, 96, 0.45),
     0 3px 6px 0 rgba(0, 0, 0, 0.18),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
     inset 0 -2px 0 0 rgba(0, 0, 0, 0.45);
   transform: translateY(-1px);
 }
 .skeu-btn-teal:active {
-  background: linear-gradient(180deg, #07232C 0%, #0D3846 100%);
+  background: linear-gradient(180deg, #001A33 0%, #003060 100%);
   box-shadow:
     inset 0 2px 4px 0 rgba(0, 0, 0, 0.45),
     0 1px 2px 0 rgba(0, 0, 0, 0.1);
@@ -177,22 +177,22 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
 /* Crisp White Tactile Button */
 .skeu-btn-frosted {
   background: #FFFFFF;
-  border: 1px solid #E6D7C3;
+  border: 1px solid #BFD8E3;
   box-shadow:
     0 2px 6px -1px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 0 rgba(255, 255, 255, 1);
   transition: all 0.15s ease-in-out;
 }
 .skeu-btn-frosted:hover {
-  background: #FAF7F2;
-  border-color: #C85A2A;
+  background: #F0F6F9;
+  border-color: #00638E;
   box-shadow:
-    0 4px 12px -2px rgba(200, 90, 42, 0.12),
+    0 4px 12px -2px rgba(0, 99, 142, 0.15),
     inset 0 1px 0 0 rgba(255, 255, 255, 1);
   transform: translateY(-1px);
 }
 .skeu-btn-frosted:active {
-  background: #F3ECE1;
+  background: #E1EEF4;
   box-shadow:
     inset 0 2px 3px 0 rgba(0, 0, 0, 0.08),
     0 1px 1px 0 rgba(255, 255, 255, 0.8);
@@ -202,78 +202,78 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
 /* Debossed / Inset Skeuomorphic Field (inputs, selectors) */
 .skeu-input {
   background: #FFFFFF;
-  border: 1px solid #D9CEBE;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    inset 0 2px 4px 0 rgba(13, 56, 70, 0.06),
+    inset 0 2px 4px 0 rgba(0, 48, 96, 0.06),
     inset 0 1px 2px 0 rgba(0, 0, 0, 0.04),
     0 1px 0 0 rgba(255, 255, 255, 0.9);
   transition: all 0.15s ease;
 }
 .skeu-input:hover {
-  border-color: #BBAF9E;
-  background: #FCFAF7;
+  border-color: #8CB9CC;
+  background: #F0F6F9;
 }
 .skeu-input:focus, .skeu-input:focus-within {
-  border-color: #C85A2A;
+  border-color: #00638E;
   background: #FFFFFF;
   box-shadow:
-    0 0 0 3px rgba(200, 90, 42, 0.15),
-    inset 0 1.5px 3px 0 rgba(13, 56, 70, 0.05);
+    0 0 0 3px rgba(0, 99, 142, 0.18),
+    inset 0 1.5px 3px 0 rgba(0, 48, 96, 0.05);
 }
 
 /* Physical Card Surface with Tactile Depth */
 .skeu-card {
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F4 100%);
-  border: 1px solid rgba(226, 215, 195, 0.7);
+  background: #FFFFFF;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    0 12px 30px -8px rgba(13, 56, 70, 0.08),
-    0 4px 10px -2px rgba(0, 0, 0, 0.04),
+    0 12px 30px -8px rgba(0, 99, 142, 0.08),
+    0 4px 10px -2px rgba(20, 20, 20, 0.04),
     inset 0 1px 0 0 rgba(255, 255, 255, 1),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
 }
 .skeu-card-elevated {
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 100%);
-  border: 1px solid rgba(226, 215, 195, 0.85);
+  background: #FFFFFF;
+  border: 1px solid #BFD8E3;
   box-shadow:
-    0 20px 40px -10px rgba(13, 56, 70, 0.12),
-    0 8px 16px -4px rgba(0, 0, 0, 0.06),
+    0 20px 40px -10px rgba(0, 48, 96, 0.12),
+    0 8px 16px -4px rgba(20, 20, 20, 0.06),
     inset 0 1px 1px 0 rgba(255, 255, 255, 1),
     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.04);
 }
 
 /* Debossed Inset Tray / Container */
 .skeu-tray {
-  background: linear-gradient(180deg, #F0EAE1 0%, #F6F1EA 100%);
-  border: 1px solid rgba(215, 201, 182, 0.8);
+  background: linear-gradient(180deg, #F0F6F9 0%, #E8F2F7 100%);
+  border: 1px solid #BFD8E3;
   box-shadow:
-    inset 0 2px 4px 0 rgba(13, 56, 70, 0.08),
+    inset 0 2px 4px 0 rgba(0, 48, 96, 0.08),
     inset 0 1px 2px 0 rgba(0, 0, 0, 0.05),
     0 1px 0 0 rgba(255, 255, 255, 0.95);
 }
 
 /* Tactile Active Pill / Tab */
 .skeu-tab-active {
-  background: linear-gradient(180deg, #184F60 0%, #0D3846 100%);
-  border: 1px solid #082731;
+  background: linear-gradient(180deg, #004A6B 0%, #003060 100%);
+  border: 1px solid #002244;
   box-shadow:
-    0 3px 8px -1px rgba(13, 56, 70, 0.35),
+    0 3px 8px -1px rgba(0, 48, 96, 0.35),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
 }
 
 .skeu-tab-active-accent {
-  background: linear-gradient(180deg, #D96632 0%, #C85A2A 100%);
-  border: 1px solid #A8441A;
+  background: linear-gradient(180deg, #0077AB 0%, #00638E 100%);
+  border: 1px solid #004A6B;
   box-shadow:
-    0 3px 8px -1px rgba(200, 90, 42, 0.4),
+    0 3px 8px -1px rgba(0, 99, 142, 0.4),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
     inset 0 -1px 0 0 rgba(0, 0, 0, 0.25);
 }
 
 /* Tactile Badge */
 .skeu-badge {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F5EFE6 100%);
-  border: 1px solid rgba(226, 215, 195, 0.9);
+  background: #F0F6F9;
+  border: 1px solid #BFD8E3;
   box-shadow:
     0 2px 4px -1px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 0 rgba(255, 255, 255, 1);
@@ -281,8 +281,8 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
 
 /* Subtle dot texture */
 .bg-subtle-pattern {
-  background-color: #FAF7F2;
-  background-image: radial-gradient(#C85A2A 0.65px, transparent 0.65px), radial-gradient(#5A6B3C 0.65px, #FAF7F2 0.65px);
+  background-color: #FFFFFF;
+  background-image: radial-gradient(#00638E 0.65px, transparent 0.65px), radial-gradient(#8CB9CC 0.65px, #FFFFFF 0.65px);
   background-size: 28px 28px;
   background-position: 0 0, 14px 14px;
 }
