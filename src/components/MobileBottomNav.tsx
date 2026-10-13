@@ -14,48 +14,54 @@ export default function MobileBottomNav() {
     { label: 'Vehicles', href: '/#vehicles', id: 'vehicles', icon: Car, isExternal: false },
     { label: 'Apartments', href: '/#apartments', id: 'apartments', icon: Home, isExternal: false },
     { label: 'WhatsApp', href: 'https://wa.me/250788123456', id: 'whatsapp', icon: MessageSquare, isExternal: true },
-    { label: 'Call Us', href: 'tel:+250788123456', id: 'call', icon: Phone, isExternal: true },
+    { label: 'Book Call', href: 'tel:+250788123456', id: 'call', icon: Phone, isExternal: true },
   ];
 
   useEffect(() => {
+    if (pathname.startsWith('/listings')) {
+      setActiveTab('apartments');
+      return;
+    }
+
+    if (pathname !== '/') {
+      return;
+    }
+
     const updateActive = () => {
-      if (pathname.startsWith('/listings')) {
-        setActiveTab('apartments');
-      } else if (pathname === '/') {
-        const hash = window.location.hash;
-        const search = window.location.search;
+      const scrollY = window.scrollY;
+      const triggerLine = 220;
 
-        if (hash === '#vehicles' || search.includes('type=car')) {
-          setActiveTab('vehicles');
-          return;
-        }
-        if (hash === '#apartments' || hash === '#properties' || search.includes('type=property')) {
+      const aptsEl = document.getElementById('apartments') || document.getElementById('properties');
+      const vehEl = document.getElementById('vehicles');
+
+      if (aptsEl) {
+        const rect = aptsEl.getBoundingClientRect();
+        if (rect.top <= triggerLine && rect.bottom > triggerLine) {
           setActiveTab('apartments');
           return;
         }
+      }
 
-        const scrollY = window.scrollY;
-        const aptsEl = document.getElementById('apartments') || document.getElementById('properties');
-        const vehEl = document.getElementById('vehicles');
-
-        if (aptsEl && scrollY >= aptsEl.offsetTop - 250) {
-          setActiveTab('apartments');
-        } else if (vehEl && scrollY >= vehEl.offsetTop - 250) {
+      if (vehEl) {
+        const rect = vehEl.getBoundingClientRect();
+        if (rect.top <= triggerLine && rect.bottom > triggerLine) {
           setActiveTab('vehicles');
-        } else {
-          setActiveTab('explore');
+          return;
         }
+      }
+
+      if (scrollY < 380) {
+        setActiveTab('explore');
       }
     };
 
     updateActive();
     window.addEventListener('scroll', updateActive, { passive: true });
-    window.addEventListener('hashchange', updateActive);
-    window.addEventListener('popstate', updateActive);
+    window.addEventListener('resize', updateActive, { passive: true });
+
     return () => {
       window.removeEventListener('scroll', updateActive);
-      window.removeEventListener('hashchange', updateActive);
-      window.removeEventListener('popstate', updateActive);
+      window.removeEventListener('resize', updateActive);
     };
   }, [pathname]);
 
@@ -82,7 +88,7 @@ export default function MobileBottomNav() {
                       : 'text-slate-400'
                   }`}
                 />
-                <span className="text-[10px] font-syne truncate">{item.label}</span>
+                <span className="text-[10px] font-tenor truncate">{item.label}</span>
                 {isActive && (
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C85A2A] shadow-[0_0_6px_#C85A2A] animate-pulse mt-0.5" />
                 )}

@@ -594,13 +594,6 @@ export default function HomePage() {
 
         {/* Hero Headlines: Positioned with distinct distance from navbar and wide breathing space to form */}
         <div className="container mx-auto relative z-10 max-w-3xl text-center mb-10 sm:mb-14 mt-4 sm:mt-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/40 text-xs sm:text-sm font-tenor font-semibold text-white mb-2 sm:mb-2.5 shadow-lg">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A2A] animate-pulse"></span>
-            <span>Rwanda Verified Fleet & Executive Mobility</span>
-            <span className="text-white/60">•</span>
-            <span className="text-white/95 font-sans font-normal text-xs">Toyota Prado & Land Cruiser 4x4</span>
-          </div>
-
           <h1 className="font-tenor text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12] drop-shadow-xl mb-2 sm:mb-2.5">
             Rent your luxury 4x4 & executive drive in{' '}
             <span className="text-[#C85A2A] relative inline-block">
@@ -870,7 +863,7 @@ export default function HomePage() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#C85A2A] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {cat.badge}
                 </span>
-                <h3 className="font-syne font-bold text-lg text-white group-hover:text-[#E6D7C3] transition-colors">
+                <h3 className="font-tenor font-bold text-lg text-white group-hover:text-[#E6D7C3] transition-colors">
                   {cat.title}
                 </h3>
                 <p className="text-xs text-white/80 mt-1 line-clamp-2">
@@ -892,7 +885,7 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* Quick Subcategory Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none text-xs">
-              <span className="font-syne font-bold text-slate-500 uppercase text-[11px] shrink-0 mr-1">
+              <span className="font-tenor font-bold text-slate-500 uppercase text-[11px] shrink-0 mr-1">
                 Asset:
               </span>
               {[
@@ -924,7 +917,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold font-syne transition-all ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold font-tenor transition-all ${
                   showAdvancedFilters
                     ? 'skeu-btn-terracotta text-white'
                     : 'skeu-btn-frosted text-slate-700'
@@ -952,7 +945,7 @@ export default function HomePage() {
           {showAdvancedFilters && (
             <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fadeIn">
               <div>
-                <div className="flex items-center justify-between text-xs font-bold font-syne text-slate-800 mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold font-tenor text-slate-800 mb-1.5">
                   <span>Max Daily Rate:</span>
                   <span className="text-[#C85A2A] font-mono text-sm">{formatPrice(maxPrice)}</span>
                 </div>
@@ -973,7 +966,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <span className="text-xs font-bold font-syne text-slate-800 block mb-2">Properties:</span>
+                <span className="text-xs font-bold font-tenor text-slate-800 block mb-2">Properties:</span>
                 <div className="space-y-1.5 text-xs text-slate-700">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -997,7 +990,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <span className="text-xs font-bold font-syne text-slate-800 block mb-2">Vehicles:</span>
+                <span className="text-xs font-bold font-tenor text-slate-800 block mb-2">Vehicles:</span>
                 <div className="space-y-1.5 text-xs text-slate-700">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -1180,17 +1173,17 @@ export default function HomePage() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#0D3846]/40 to-[#0D3846]" />
-            <div className="absolute top-4 left-4 skeu-btn-terracotta text-white px-3 py-1 rounded-full text-xs font-syne font-bold uppercase tracking-wider">
+            <div className="absolute top-4 left-4 skeu-btn-terracotta text-white px-3 py-1 rounded-full text-xs font-tenor font-bold uppercase tracking-wider">
               Save 20% on Bundle
             </div>
           </div>
 
           {/* Copy Side */}
           <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-center">
-            <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A] mb-2">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#C85A2A] mb-2">
               Stay & Drive Experience
             </span>
-            <h2 className="font-syne text-2xl sm:text-3xl font-bold tracking-tight mb-3">
+            <h2 className="font-tenor text-2xl sm:text-3xl font-bold tracking-tight mb-3">
               Kiyovu Penthouse + Prado 4x4
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed mb-6">
@@ -1200,7 +1193,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('combo')}
-                className="px-5 py-2.5 rounded-xl skeu-btn-terracotta text-white font-syne font-bold text-xs uppercase tracking-wider"
+                className="px-5 py-2.5 rounded-xl skeu-btn-terracotta text-white font-tenor font-bold text-xs uppercase tracking-wider"
               >
                 View Combos
               </button>
@@ -1208,7 +1201,7 @@ export default function HomePage() {
                 href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20am%20inquiring%20about%20the%20Stay%20%26%20Drive%20Combo%20package."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#0D3846] font-syne font-semibold text-xs flex items-center gap-1.5"
+                className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#0D3846] font-tenor font-semibold text-xs flex items-center gap-1.5"
               >
                 <MessageSquare className="w-3.5 h-3.5 text-[#0D3846]" />
                 <span>WhatsApp Concierge</span>
@@ -1219,13 +1212,13 @@ export default function HomePage() {
       </section>
 
       {/* 6. VISUAL 3-STEP JOURNEY: HOW IT WORKS IN PHOTOGRAPHIC FRAMES */}
-      <section id="how-it-works" className="bg-white/60 backdrop-blur-md border-y border-[#E6D7C3]/60 py-20 my-16 scroll-mt-24">
+      <section id="how-it-works" className="bg-[#FAF7F2] border-y border-[#E6D7C3]/60 py-20 my-16 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A]">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#C85A2A]">
               Seamless Experience
             </span>
-            <h2 className="font-syne text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#0D3846] mt-1">
               How Kigali Rentals Works
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -1262,12 +1255,12 @@ export default function HomePage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 w-9 h-9 rounded-xl skeu-btn-teal text-white flex items-center justify-center font-syne font-bold text-xs">
+                  <div className="absolute top-4 left-4 w-9 h-9 rounded-xl skeu-btn-teal text-white flex items-center justify-center font-tenor font-bold text-xs">
                     {step.step}
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-syne font-bold text-lg text-slate-900 mb-2">
+                  <h3 className="font-tenor font-bold text-lg text-slate-900 mb-2">
                     {step.title}
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
@@ -1283,10 +1276,10 @@ export default function HomePage() {
       {/* 7. VISUAL RWANDA SAFARI & SCENIC EXPEDITIONS (Inspiring Photographic Journey) */}
       <section id="about" className="container mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A]">
+          <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#C85A2A]">
             Beyond the City
           </span>
-          <h2 className="font-syne text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+          <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
             Traverse Rwanda from Your Kigali Base
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -1332,7 +1325,7 @@ export default function HomePage() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#C85A2A] glass-skeu-card px-2 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {dest.badge}
                 </span>
-                <h3 className="font-syne font-bold text-lg text-white group-hover:text-[#E6D7C3] transition-colors">
+                <h3 className="font-tenor font-bold text-lg text-white group-hover:text-[#E6D7C3] transition-colors">
                   {dest.title}
                 </h3>
                 <p className="text-xs text-white/80 mt-1 line-clamp-2">
@@ -1344,133 +1337,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. DIRECT CONCIERGE & FAST BOOKING (CALL OR TEXT) */}
-      <section id="contact" className="container mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
-        <div className="skeu-card-elevated rounded-3xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-gradient-to-br from-white via-white to-[#F6F1EA] border border-[#E6D7C3]/80">
-          <div className="lg:col-span-6 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#5A6B3C]/10 text-[#5A6B3C] border border-[#5A6B3C]/30 text-xs font-bold font-syne shadow-[inset_0_1px_1px_rgba(90,107,60,0.15)]">
-              <span className="w-2 h-2 rounded-full bg-[#5A6B3C] animate-pulse" />
-              <span>Direct Booking Concierge • 24/7 Available</span>
-            </div>
-            <h2 className="font-syne text-2xl sm:text-4xl font-extrabold text-[#0D3846] leading-tight">
-              Borrow a Car or Rent a Villa in Kigali — Just Call or Text Us
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              In Rwanda, the best hospitality is personal. No complicated checkout flows or automated inventory locks. Simply tell us what dates you need, and our Kigali reservations manager will confirm availability, verify options, and arrange handover in minutes.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-slate-800">
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
-                <MessageSquare className="w-4 h-4 text-[#5A6B3C] shrink-0" />
-                <div>
-                  <span className="block font-bold text-slate-900">Instant WhatsApp</span>
-                  <span className="text-[11px] text-slate-500">Replies within 5 minutes</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
-                <Phone className="w-4 h-4 text-[#C85A2A] shrink-0" />
-                <div>
-                  <span className="block font-bold text-slate-900">Direct Phone Line</span>
-                  <span className="text-[11px] text-slate-500">+250 788 123 456 (24/7)</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
-                <ShieldCheck className="w-4 h-4 text-[#0D3846] shrink-0" />
-                <div>
-                  <span className="block font-bold text-slate-900">Verified Kigali Assets</span>
-                  <span className="text-[11px] text-slate-500">Generators & safari AWD</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl skeu-tray">
-                <MapPin className="w-4 h-4 text-[#5A6B3C] shrink-0" />
-                <div>
-                  <span className="block font-bold text-slate-900">Airport & Villa Delivery</span>
-                  <span className="text-[11px] text-slate-500">KGL airport or doorstep</span>
-                </div>
-              </div>
-            </div>
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <a
-                href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20would%20like%20to%20inquire%20about%20renting%20a%20car%20or%20property."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl skeu-btn-terracotta text-white font-syne font-bold text-xs shadow-md hover:shadow-lg transition-all"
-              >
-                <MessageSquare className="w-4 h-4 fill-current" />
-                <span>Text Us on WhatsApp</span>
-              </a>
-              <a
-                href="tel:+250788123456"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl skeu-btn-teal text-white font-syne font-bold text-xs shadow-md hover:shadow-lg transition-all"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Call Concierge Now</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Visual Concierge Contact Card */}
-          <div className="lg:col-span-6 skeu-card rounded-3xl p-6 sm:p-7 border border-[#E6D7C3] bg-white/90 shadow-xl space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-b from-[#184F60] to-[#0D3846] flex items-center justify-center text-white font-syne font-bold shadow-md">
-                  KR
-                </div>
-                <div>
-                  <h3 className="font-syne font-bold text-base text-[#0D3846]">Kigali Concierge Desk</h3>
-                  <p className="text-xs text-slate-500">Live Personal Booking & Advisory</p>
-                </div>
-              </div>
-              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#5A6B3C] bg-[#5A6B3C]/10 border border-[#5A6B3C]/20 px-2.5 py-1 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#5A6B3C] animate-pulse" />
-                <span>Online Now</span>
-              </span>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E6D7C3]/60 flex items-start gap-3">
-                <Phone className="w-4 h-4 text-[#C85A2A] mt-0.5 shrink-0" />
-                <div>
-                  <span className="font-bold text-slate-800 block">Phone & WhatsApp Hotline:</span>
-                  <a href="tel:+250788123456" className="font-mono text-sm font-bold text-[#0D3846] hover:text-[#C85A2A] transition-colors block mt-0.5">
-                    +250 788 123 456
-                  </a>
-                  <span className="text-[11px] text-slate-400">Available 24/7 for arrivals & urgent bookings</span>
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E6D7C3]/60 flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#5A6B3C] mt-0.5 shrink-0" />
-                <div>
-                  <span className="font-bold text-slate-800 block">Physical Kigali Office:</span>
-                  <span className="text-slate-600 block mt-0.5">KN 3 Ave, Kiyovu Hill, Kigali, Rwanda</span>
-                  <span className="text-[11px] text-slate-400">Opposite Kigali Serena Hotel • 8:00 AM – 9:00 PM</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <a
-                href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20want%20to%20rent%20a%20car%20or%20house."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full skeu-btn-terracotta text-white py-3 px-4 rounded-xl font-syne font-bold text-xs tracking-tight flex items-center justify-center gap-2 shadow-sm transition-all"
-              >
-                <MessageSquare className="w-4 h-4 fill-current" />
-                <span>Start WhatsApp Conversation</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. KIGALI NEIGHBORHOOD CURATION (VISUAL-FIRST) */}
-      <section id="about" className="bg-white/60 backdrop-blur-md border-t border-[#E6D7C3]/60 py-16 scroll-mt-28">
+      {/* 8. KIGALI NEIGHBORHOOD CURATION (VISUAL-FIRST) */}
+      <section id="neighborhoods" className="bg-white border-t border-[#E6D7C3]/60 py-16 scroll-mt-28">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A]">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#C85A2A]">
               Local Insights
             </span>
-            <h2 className="font-syne text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#0D3846] mt-1">
               Explore Kigali’s Best Neighborhoods
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -1506,7 +1380,7 @@ export default function HomePage() {
                 key={i}
                 onClick={() => {
                   setSelectedNeighborhood(n.nh);
-                  const el = document.getElementById('properties');
+                  const el = document.getElementById('apartments') || document.getElementById('properties');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="group relative rounded-2xl overflow-hidden cursor-pointer skeu-card-elevated hover:shadow-2xl transition-all duration-300 aspect-[4/3]"
@@ -1518,10 +1392,10 @@ export default function HomePage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-6 flex flex-col justify-end text-white">
-                  <span className="text-[10px] uppercase font-bold font-syne tracking-wider text-[#C85A2A] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
+                  <span className="text-[10px] uppercase font-bold font-tenor tracking-wider text-[#C85A2A] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                     {n.badge}
                   </span>
-                  <h3 className="font-syne font-bold text-xl text-white group-hover:text-[#E6D7C3] transition-colors">
+                  <h3 className="font-tenor font-bold text-xl text-white group-hover:text-[#E6D7C3] transition-colors">
                     {n.title}
                   </h3>
                   <p className="text-xs text-slate-300 mt-1 line-clamp-2">

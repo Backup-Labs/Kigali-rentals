@@ -281,7 +281,7 @@ export default function CheckoutPage() {
         {/* Step Progress Stepper (Only on steps 1-4) */}
         {currentStep < 5 && (
           <div className="max-w-3xl mx-auto mb-10">
-            <div className="grid grid-cols-4 gap-2 text-center text-xs font-syne font-bold">
+            <div className="grid grid-cols-4 gap-2 text-center text-xs font-tenor font-bold">
               {[
                 { num: 1, label: 'Guest & ID' },
                 { num: 2, label: 'Add-ons' },
@@ -320,7 +320,7 @@ export default function CheckoutPage() {
               {currentStep === 1 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-syne text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
                       Guest Identification & Verification
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -330,7 +330,7 @@ export default function CheckoutPage() {
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                      <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                         Full Legal Name (as on Passport / ID)
                       </label>
                       <input
@@ -344,7 +344,7 @@ export default function CheckoutPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                        <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                           Email Address
                         </label>
                         <input
@@ -357,7 +357,7 @@ export default function CheckoutPage() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                        <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                           Phone Number (WhatsApp / MoMo)
                         </label>
                         <input
@@ -383,7 +383,7 @@ export default function CheckoutPage() {
                         />
 
                       <div>
-                        <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                        <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                           Document / Passport Number
                         </label>
                         <input
@@ -398,7 +398,7 @@ export default function CheckoutPage() {
 
                     {/* Document Upload Slot */}
                     <div>
-                      <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                      <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                         Upload Photo ID / Passport Copy
                       </label>
                       <div className="border-2 border-dashed border-[#E6D7C3] hover:border-[#C85A2A] rounded-2xl p-6 text-center skeu-tray transition-colors relative cursor-pointer">
@@ -409,7 +409,7 @@ export default function CheckoutPage() {
                           className="absolute inset-0 opacity-0 cursor-pointer"
                         />
                         <UploadCloud className="w-8 h-8 text-[#C85A2A] mx-auto mb-2" />
-                        <span className="text-xs font-bold font-syne text-[#0D3846] block">
+                        <span className="text-xs font-bold font-tenor text-[#0D3846] block">
                           {isUploading
                             ? 'Verifying file integrity...'
                             : uploadedDocName
@@ -427,7 +427,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(2)}
-                      className="px-6 py-3 skeu-btn-teal text-white font-syne font-bold text-xs uppercase tracking-wider rounded-xl flex items-center gap-2"
+                      className="px-6 py-3 skeu-btn-teal text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl flex items-center gap-2"
                     >
                       <span>Continue to Add-ons</span>
                       <ArrowRight className="w-4 h-4" />
@@ -440,7 +440,7 @@ export default function CheckoutPage() {
               {currentStep === 2 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-syne text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
                       Curate Your Experience
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -458,7 +458,7 @@ export default function CheckoutPage() {
                           className="mt-1 rounded accent-[#C85A2A]"
                         />
                         <div>
-                          <span className="font-syne font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
                             Kigali Airport VIP Meet & Greet
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -466,7 +466,7 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-syne font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
                         +{formatPrice(30)}
                       </span>
                     </label>
@@ -480,7 +480,7 @@ export default function CheckoutPage() {
                           className="mt-1 rounded accent-[#C85A2A]"
                         />
                         <div>
-                          <span className="font-syne font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
                             Professional Executive Chauffeur
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -488,7 +488,7 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-syne font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
                         +{formatPrice(25 * days)}
                       </span>
                     </label>
@@ -502,7 +502,7 @@ export default function CheckoutPage() {
                           className="mt-1 rounded accent-[#C85A2A]"
                         />
                         <div>
-                          <span className="font-syne font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
                             Sanitized Child Safety Booster Seat
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -510,7 +510,7 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-syne font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
                         +{formatPrice(15)}
                       </span>
                     </label>
@@ -524,7 +524,7 @@ export default function CheckoutPage() {
                           className="mt-1 rounded accent-[#C85A2A]"
                         />
                         <div>
-                          <span className="font-syne font-bold text-sm text-[#0D3846] block">
+                          <span className="font-tenor font-bold text-sm text-[#0D3846] block">
                             5G High-Speed Pocket MiFi Device
                           </span>
                           <span className="text-xs text-slate-500 leading-relaxed">
@@ -532,7 +532,7 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-syne font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
                         +{formatPrice(10)}
                       </span>
                     </label>
@@ -546,7 +546,7 @@ export default function CheckoutPage() {
                           className="mt-1 rounded accent-[#5A6B3C]"
                         />
                         <div>
-                          <span className="font-syne font-bold text-sm text-[#0D3846] flex items-center gap-2">
+                          <span className="font-tenor font-bold text-sm text-[#0D3846] flex items-center gap-2">
                             <span>Zero-Deductible Damage Waiver</span>
                             <span className="text-[10px] bg-[#5A6B3C] text-white px-2 py-0.5 rounded font-mono">
                               RECOMMENDED
@@ -557,7 +557,7 @@ export default function CheckoutPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="font-syne font-bold text-xs text-[#0D3846] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#0D3846] shrink-0">
                         +{formatPrice(12 * days)}
                       </span>
                     </label>
@@ -567,7 +567,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(1)}
-                      className="px-4 py-2.5 text-xs font-syne font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
+                      className="px-4 py-2.5 text-xs font-tenor font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -576,7 +576,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(3)}
-                      className="px-6 py-3 bg-[#0D3846] hover:bg-[#C85A2A] text-white font-syne font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
+                      className="px-6 py-3 bg-[#0D3846] hover:bg-[#C85A2A] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
                     >
                       <span>Review Digital Agreement</span>
                       <ArrowRight className="w-4 h-4" />
@@ -589,7 +589,7 @@ export default function CheckoutPage() {
               {currentStep === 3 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-syne text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
                       Rental Agreement & Digital Signature
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -600,7 +600,7 @@ export default function CheckoutPage() {
                   {/* Contract Scrollbox */}
                   <div className="h-64 overflow-y-auto bg-[#FAF7F2] p-4 rounded-2xl border border-slate-300 text-xs text-slate-700 space-y-3 font-sans leading-relaxed">
                     <div className="border-b border-slate-200 pb-2">
-                      <span className="font-syne font-bold text-sm text-[#0D3846] block">
+                      <span className="font-tenor font-bold text-sm text-[#0D3846] block">
                         KIGALI RENTALS MASTER RENTAL AGREEMENT #KGL-AGR-2026
                       </span>
                       <span className="text-[11px] text-slate-500">
@@ -629,7 +629,7 @@ export default function CheckoutPage() {
                   {/* Signature Pad */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold font-syne text-slate-700 uppercase">
+                      <label className="text-xs font-bold font-tenor text-slate-700 uppercase">
                         Legal Signature
                       </label>
                       <div className="flex items-center gap-2 text-xs">
@@ -706,7 +706,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(2)}
-                      className="px-4 py-2.5 text-xs font-syne font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
+                      className="px-4 py-2.5 text-xs font-tenor font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -716,7 +716,7 @@ export default function CheckoutPage() {
                       type="button"
                       disabled={!hasSignature}
                       onClick={() => setCurrentStep(4)}
-                      className="px-6 py-3 bg-[#0D3846] hover:bg-[#C85A2A] disabled:opacity-50 text-white font-syne font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
+                      className="px-6 py-3 bg-[#0D3846] hover:bg-[#C85A2A] disabled:opacity-50 text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
                     >
                       <span>Agree & Proceed to Payment</span>
                       <ArrowRight className="w-4 h-4" />
@@ -729,7 +729,7 @@ export default function CheckoutPage() {
               {currentStep === 4 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-syne text-2xl font-bold text-[#0D3846]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#0D3846]">
                       Rwanda Payment Terminal
                     </h2>
                     <p className="text-xs text-slate-500 mt-1">
@@ -748,7 +748,7 @@ export default function CheckoutPage() {
                           : 'border-slate-200 hover:bg-[#FAF7F2]'
                       }`}
                     >
-                      <span className="text-xs font-syne font-bold text-[#0D3846] block">
+                      <span className="text-xs font-tenor font-bold text-[#0D3846] block">
                         Pay 100% Today
                       </span>
                       <span className="text-[11px] text-slate-500 block mt-0.5">
@@ -768,7 +768,7 @@ export default function CheckoutPage() {
                           : 'border-slate-200 hover:bg-[#FAF7F2]'
                       }`}
                     >
-                      <span className="text-xs font-syne font-bold text-[#0D3846] block">
+                      <span className="text-xs font-tenor font-bold text-[#0D3846] block">
                         Pay 30% Deposit
                       </span>
                       <span className="text-[11px] text-slate-500 block mt-0.5">
@@ -788,7 +788,7 @@ export default function CheckoutPage() {
                           : 'border-slate-200 hover:bg-[#FAF7F2]'
                       }`}
                     >
-                      <span className="text-xs font-syne font-bold text-[#0D3846] block">
+                      <span className="text-xs font-tenor font-bold text-[#0D3846] block">
                         Hold with Card
                       </span>
                       <span className="text-[11px] text-slate-500 block mt-0.5">
@@ -802,7 +802,7 @@ export default function CheckoutPage() {
 
                   {/* Payment Method Selector */}
                   <div className="space-y-4">
-                    <span className="block text-xs font-bold font-syne text-slate-700 uppercase">
+                    <span className="block text-xs font-bold font-tenor text-slate-700 uppercase">
                       Select Method
                     </span>
 
@@ -856,7 +856,7 @@ export default function CheckoutPage() {
                     {/* Method details input */}
                     {paymentMethod.startsWith('momo') ? (
                       <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-300 space-y-3">
-                        <label className="block text-xs font-bold font-syne text-slate-700">
+                        <label className="block text-xs font-bold font-tenor text-slate-700">
                           Enter Rwandan Mobile Money Number
                         </label>
                         <div className="flex gap-2">
@@ -889,7 +889,7 @@ export default function CheckoutPage() {
                     ) : (
                       <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-300 space-y-3">
                         <div>
-                          <label className="block text-xs font-bold font-syne text-slate-700 mb-1">
+                          <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
                             Card Number
                           </label>
                           <input
@@ -900,7 +900,7 @@ export default function CheckoutPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs font-bold font-syne text-slate-700 mb-1">
+                            <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
                               Expiry Date
                             </label>
                             <input
@@ -910,7 +910,7 @@ export default function CheckoutPage() {
                             />
                           </div>
                           <div>
-                            <label className="block text-xs font-bold font-syne text-slate-700 mb-1">
+                            <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
                               CVV / CVC
                             </label>
                             <input
@@ -928,7 +928,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(3)}
-                      className="px-4 py-2.5 text-xs font-syne font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
+                      className="px-4 py-2.5 text-xs font-tenor font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -938,7 +938,7 @@ export default function CheckoutPage() {
                       type="button"
                       disabled={isSimulatingPayment}
                       onClick={handlePaymentSubmit}
-                      className="px-8 py-3.5 bg-[#C85A2A] hover:bg-[#B24F23] disabled:opacity-50 text-white font-syne font-bold text-sm tracking-tight rounded-2xl shadow-xl shadow-[#C85A2A]/25 transition-all flex items-center gap-2"
+                      className="px-8 py-3.5 bg-[#C85A2A] hover:bg-[#B24F23] disabled:opacity-50 text-white font-tenor font-bold text-sm tracking-tight rounded-2xl shadow-xl shadow-[#C85A2A]/25 transition-all flex items-center gap-2"
                     >
                       {isSimulatingPayment ? (
                         <>
@@ -959,7 +959,7 @@ export default function CheckoutPage() {
 
             {/* Right Summary Sticky Card (5 cols) */}
             <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-[#E6D7C3] shadow-lg sticky top-24">
-              <h3 className="font-syne font-bold text-base text-[#0D3846] mb-4">
+              <h3 className="font-tenor font-bold text-base text-[#0D3846] mb-4">
                 Booking Summary
               </h3>
 
@@ -972,7 +972,7 @@ export default function CheckoutPage() {
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A2A]">
                     {asset.type === 'car' ? 'Vehicle' : 'Property'}
                   </span>
-                  <h4 className="font-syne font-bold text-sm text-[#0D3846] line-clamp-1">
+                  <h4 className="font-tenor font-bold text-sm text-[#0D3846] line-clamp-1">
                     {asset.title}
                   </h4>
                   <div className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
@@ -992,7 +992,7 @@ export default function CheckoutPage() {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A2A]">
                       Paired Bundle (-20%)
                     </span>
-                    <h4 className="font-syne font-bold text-xs text-[#0D3846] line-clamp-1">
+                    <h4 className="font-tenor font-bold text-xs text-[#0D3846] line-clamp-1">
                       {pairedAsset.title}
                     </h4>
                     <span className="text-[11px] text-slate-500 font-mono">
@@ -1058,17 +1058,17 @@ export default function CheckoutPage() {
               {/* Grand Total & Payable Now */}
               <div className="pt-4 space-y-2">
                 <div className="flex justify-between items-baseline">
-                  <span className="text-xs font-syne font-bold text-slate-500 uppercase">
+                  <span className="text-xs font-tenor font-bold text-slate-500 uppercase">
                     Grand Total
                   </span>
-                  <span className="font-syne font-extrabold text-lg text-slate-700">
+                  <span className="font-tenor font-extrabold text-lg text-slate-700">
                     {formatPrice(grandTotal)}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-baseline p-3 rounded-2xl bg-[#FAF7F2] border border-[#E6D7C3]">
-                  <span className="font-syne font-bold text-sm text-[#0D3846]">Payable Now</span>
-                  <span className="font-syne font-extrabold text-2xl text-[#C85A2A]">
+                  <span className="font-tenor font-bold text-sm text-[#0D3846]">Payable Now</span>
+                  <span className="font-tenor font-extrabold text-2xl text-[#C85A2A]">
                     {formatPrice(payableToday)}
                   </span>
                 </div>
@@ -1089,11 +1089,11 @@ export default function CheckoutPage() {
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
-              <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#5A6B3C] bg-[#5A6B3C]/10 px-3 py-1 rounded-full border border-[#5A6B3C]/20">
+              <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#5A6B3C] bg-[#5A6B3C]/10 px-3 py-1 rounded-full border border-[#5A6B3C]/20">
                 Payment Authorized & Inventory Confirmed
               </span>
 
-              <h1 className="font-syne text-3xl font-extrabold text-[#0D3846] mt-3">
+              <h1 className="font-tenor text-3xl font-extrabold text-[#0D3846] mt-3">
                 Murakaza Neza! Your Kigali Booking is Ready.
               </h1>
 
@@ -1106,7 +1106,7 @@ export default function CheckoutPage() {
             <div className="bg-[#FAF7F2] rounded-2xl p-6 border-2 border-dashed border-slate-300 mb-8 font-sans">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-300 gap-2">
                 <div>
-                  <span className="font-syne font-extrabold text-lg text-[#0D3846] tracking-tight">
+                  <span className="font-tenor font-extrabold text-lg text-[#0D3846] tracking-tight">
                     Kigali<span className="text-[#C85A2A]">Rentals</span> Voucher
                   </span>
                   <span className="text-xs text-slate-500 block">
@@ -1114,7 +1114,7 @@ export default function CheckoutPage() {
                   </span>
                 </div>
                 <div className="text-left sm:text-right">
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block font-syne">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block font-tenor">
                     Booking Reference Code
                   </span>
                   <span className="font-mono text-base font-bold text-[#C85A2A] bg-white px-2 py-0.5 rounded border border-slate-200">
@@ -1170,7 +1170,7 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Link
                   href="/handover"
-                  className="w-full bg-[#0D3846] hover:bg-[#C85A2A] text-white py-3.5 px-6 rounded-2xl font-syne font-bold text-xs uppercase tracking-wider text-center shadow-lg transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#0D3846] hover:bg-[#C85A2A] text-white py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center shadow-lg transition-all flex items-center justify-center gap-2"
                 >
                   <FileCheck className="w-4 h-4" />
                   <span>Open Handover Inspection Tool</span>
@@ -1178,7 +1178,7 @@ export default function CheckoutPage() {
 
                 <Link
                   href="/admin"
-                  className="w-full bg-[#FAF7F2] hover:bg-[#E6D7C3] text-[#0D3846] border border-[#E6D7C3] py-3.5 px-6 rounded-2xl font-syne font-bold text-xs uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#FAF7F2] hover:bg-[#E6D7C3] text-[#0D3846] border border-[#E6D7C3] py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
                 >
                   <span>View in Admin Back-Office</span>
                   <ArrowRight className="w-4 h-4" />

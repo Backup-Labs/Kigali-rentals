@@ -80,9 +80,9 @@ export default function ListingDetailPage({ params }: PageProps) {
   if (!listing) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="font-syne text-2xl font-bold text-[#0D3846]">Listing Not Found</h1>
+        <h1 className="font-tenor text-2xl font-bold text-[#0D3846]">Listing Not Found</h1>
         <p className="text-sm text-slate-500 mt-2 mb-6">The requested asset ID does not exist in the Kigali inventory.</p>
-        <Link href="/" className="px-5 py-2.5 bg-[#0D3846] text-white rounded-xl text-xs font-syne font-bold">
+        <Link href="/" className="px-5 py-2.5 bg-[#0D3846] text-white rounded-xl text-xs font-tenor font-bold">
           Return to All Listings
         </Link>
       </div>
@@ -169,7 +169,7 @@ export default function ListingDetailPage({ params }: PageProps) {
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span
-                className={`text-xs font-syne font-bold px-3 py-1 rounded-full uppercase tracking-wider text-white ${
+                className={`text-xs font-tenor font-bold px-3 py-1 rounded-full uppercase tracking-wider text-white ${
                   isCar ? 'bg-[#5A6B3C]' : 'bg-[#0D3846]'
                 }`}
               >
@@ -193,7 +193,7 @@ export default function ListingDetailPage({ params }: PageProps) {
               )}
             </div>
 
-            <h1 className="font-syne text-2xl sm:text-4xl font-extrabold text-[#0D3846] tracking-tight">
+            <h1 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#0D3846] tracking-tight">
               {listing.title}
             </h1>
 
@@ -232,7 +232,7 @@ export default function ListingDetailPage({ params }: PageProps) {
               className="object-cover transition-all duration-300"
               priority
             />
-            <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full font-mono">
+            <div className="absolute bottom-4 left-4 bg-black/85 text-white text-xs px-3 py-1.5 rounded-full font-mono">
               Photo {activePhotoIdx + 1} of {listing.images.length}
             </div>
           </div>
@@ -265,26 +265,26 @@ export default function ListingDetailPage({ params }: PageProps) {
               {isCar ? (
                 <>
                   <div className="p-2">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Passengers</span>
-                    <span className="font-syne font-bold text-base text-[#0D3846]">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Passengers</span>
+                    <span className="font-tenor font-bold text-base text-[#0D3846]">
                       {listing.vehicleDetails?.seats} Seats
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Drivetrain</span>
-                    <span className="font-syne font-bold text-base text-[#0D3846] uppercase">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Drivetrain</span>
+                    <span className="font-tenor font-bold text-base text-[#0D3846] uppercase">
                       {listing.vehicleDetails?.category}
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Transmission</span>
-                    <span className="font-syne font-bold text-base text-[#0D3846] capitalize">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Transmission</span>
+                    <span className="font-tenor font-bold text-base text-[#0D3846] capitalize">
                       {listing.vehicleDetails?.transmission}
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Efficiency</span>
-                    <span className="font-syne font-bold text-base text-[#5A6B3C]">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Efficiency</span>
+                    <span className="font-tenor font-bold text-base text-[#5A6B3C]">
                       {listing.vehicleDetails?.fuelEfficiency}
                     </span>
                   </div>
@@ -292,26 +292,26 @@ export default function ListingDetailPage({ params }: PageProps) {
               ) : (
                 <>
                   <div className="p-2">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Bedrooms</span>
-                    <span className="font-syne font-bold text-base text-[#0D3846]">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Bedrooms</span>
+                    <span className="font-tenor font-bold text-base text-[#0D3846]">
                       {listing.propertyDetails?.bedrooms} En-Suite
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Bathrooms</span>
-                    <span className="font-syne font-bold text-base text-[#0D3846]">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Bathrooms</span>
+                    <span className="font-tenor font-bold text-base text-[#0D3846]">
                       {listing.propertyDetails?.bathrooms} Baths
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Capacity</span>
-                    <span className="font-syne font-bold text-base text-[#0D3846]">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Capacity</span>
+                    <span className="font-tenor font-bold text-base text-[#0D3846]">
                       {listing.propertyDetails?.maxGuests} Guests
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
-                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-syne">Living Space</span>
-                    <span className="font-syne font-bold text-base text-[#5A6B3C]">
+                    <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Living Space</span>
+                    <span className="font-tenor font-bold text-base text-[#5A6B3C]">
                       {listing.propertyDetails?.sqm} m²
                     </span>
                   </div>
@@ -321,7 +321,7 @@ export default function ListingDetailPage({ params }: PageProps) {
 
             {/* Description */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E6D7C3] shadow-sm">
-              <h2 className="font-syne text-xl font-bold text-[#0D3846] mb-4">
+              <h2 className="font-tenor text-xl font-bold text-[#0D3846] mb-4">
                 About this {isCar ? 'Vehicle' : 'Property'}
               </h2>
               <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
@@ -342,7 +342,7 @@ export default function ListingDetailPage({ params }: PageProps) {
 
             {/* Amenities & Specifications (LS-02) */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E6D7C3] shadow-sm">
-              <h2 className="font-syne text-xl font-bold text-[#0D3846] mb-4">
+              <h2 className="font-tenor text-xl font-bold text-[#0D3846] mb-4">
                 {isCar ? 'Vehicle Equipment & Safety Features' : 'Included Amenities & Comforts'}
               </h2>
 
@@ -373,7 +373,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute top-2 left-2 bg-[#C85A2A] text-white text-[10px] font-syne font-bold px-2 py-0.5 rounded-full uppercase">
+                    <div className="absolute top-2 left-2 bg-[#C85A2A] text-white text-[10px] font-tenor font-bold px-2 py-0.5 rounded-full uppercase">
                       Bundle Deal
                     </div>
                   </div>
@@ -383,7 +383,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Recommended Pairing</span>
                     </div>
-                    <h3 className="font-syne font-bold text-lg text-[#0D3846]">
+                    <h3 className="font-tenor font-bold text-lg text-[#0D3846]">
                       {crossSellAsset.title}
                     </h3>
                     <p className="text-xs text-slate-600 mt-1 mb-3">
@@ -398,7 +398,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                         <span className="text-xs text-slate-400 line-through mr-1.5">
                           {formatPrice(crossSellAsset.originalDailyRate)}/day
                         </span>
-                        <span className="font-syne font-extrabold text-lg text-[#C85A2A]">
+                        <span className="font-tenor font-extrabold text-lg text-[#C85A2A]">
                           +{formatPrice(crossSellAsset.discountDailyRate)}
                         </span>
                         <span className="text-xs text-slate-500"> /day</span>
@@ -407,7 +407,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                       <button
                         type="button"
                         onClick={() => setIncludeCrossSell(!includeCrossSell)}
-                        className={`px-4 py-2 rounded-xl text-xs font-syne font-bold transition-all shadow-sm ${
+                        className={`px-4 py-2 rounded-xl text-xs font-tenor font-bold transition-all shadow-sm ${
                           includeCrossSell
                             ? 'bg-[#5A6B3C] text-white hover:bg-[#44522C]'
                             : 'bg-[#C85A2A] text-white hover:bg-[#B24F23]'
@@ -423,7 +423,7 @@ export default function ListingDetailPage({ params }: PageProps) {
 
             {/* Mock Kigali Map Placeholder */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E6D7C3] shadow-sm">
-              <h2 className="font-syne text-xl font-bold text-[#0D3846] mb-2">
+              <h2 className="font-tenor text-xl font-bold text-[#0D3846] mb-2">
                 Location & Neighborhood Access
               </h2>
               <p className="text-xs text-slate-500 mb-4">
@@ -437,7 +437,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                   <div className="w-12 h-12 rounded-full bg-[#C85A2A] text-white flex items-center justify-center shadow-lg shadow-[#C85A2A]/40 mb-3 animate-bounce">
                     <MapPin className="w-6 h-6" />
                   </div>
-                  <h4 className="font-syne font-bold text-base text-[#0D3846]">
+                  <h4 className="font-tenor font-bold text-base text-[#0D3846]">
                     {listing.address}
                   </h4>
                   <p className="text-xs text-slate-600 max-w-sm mt-1">
@@ -456,7 +456,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                 <div>
                   <span className="text-xs text-slate-400 font-medium block">Starting from</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="font-syne font-extrabold text-3xl text-[#0D3846]">
+                    <span className="font-tenor font-extrabold text-3xl text-[#0D3846]">
                       {formatPrice(listing.pricePerDay)}
                     </span>
                     <span className="text-xs text-slate-500 font-normal">
@@ -488,7 +488,7 @@ export default function ListingDetailPage({ params }: PageProps) {
 
                 <div className="skeu-tray p-3 rounded-2xl flex items-center justify-between">
                   <div>
-                    <span className="block text-[10px] font-bold uppercase font-syne text-slate-400">
+                    <span className="block text-[10px] font-bold uppercase font-tenor text-slate-400">
                       {isCar ? 'Passengers' : 'Total Guests'}
                     </span>
                     <span className="text-xs font-bold text-slate-800">
@@ -516,7 +516,7 @@ export default function ListingDetailPage({ params }: PageProps) {
 
               {/* Add-ons Checkboxes */}
               <div className="space-y-2 mb-6">
-                <span className="block text-xs font-bold font-syne text-slate-600 uppercase">
+                <span className="block text-xs font-bold font-tenor text-slate-600 uppercase">
                   Add-on Services
                 </span>
 
@@ -635,8 +635,8 @@ export default function ListingDetailPage({ params }: PageProps) {
                 </div>
 
                 <div className="flex justify-between items-baseline pt-3 border-t border-slate-200">
-                  <span className="font-syne font-bold text-sm text-[#0D3846]">Total Estimated</span>
-                  <span className="font-syne font-extrabold text-xl text-[#0D3846]">
+                  <span className="font-tenor font-bold text-sm text-[#0D3846]">Total Estimated</span>
+                  <span className="font-tenor font-extrabold text-xl text-[#0D3846]">
                     {formatPrice(grandTotal)}
                   </span>
                 </div>
@@ -659,7 +659,7 @@ Is this available?`;
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full skeu-btn-terracotta active:scale-[0.99] text-white py-3.5 px-6 rounded-2xl font-syne font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg transition-all"
+                      className="w-full skeu-btn-terracotta active:scale-[0.99] text-white py-3.5 px-6 rounded-2xl font-tenor font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg transition-all"
                     >
                       <MessageSquare className="w-4 h-4 fill-current shrink-0" />
                       <span>Chat on WhatsApp to Book</span>
@@ -668,7 +668,7 @@ Is this available?`;
                     {/* Secondary Action: Direct Phone Call */}
                     <a
                       href={phoneUrl}
-                      className="w-full skeu-btn-teal text-white py-3 px-6 rounded-2xl font-syne font-bold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
+                      className="w-full skeu-btn-teal text-white py-3 px-6 rounded-2xl font-tenor font-bold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
                     >
                       <Phone className="w-4 h-4 shrink-0" />
                       <span>Call Concierge (+250 788 123 456)</span>

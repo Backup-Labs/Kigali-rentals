@@ -223,7 +223,7 @@ export default function DatePicker({
           {/* Header Month / Year & Navigation */}
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <span className="font-syne font-bold text-sm sm:text-base text-slate-900">
+              <span className="font-tenor font-bold text-sm sm:text-base text-slate-900">
                 {monthNames[viewMonth]} {viewYear}
               </span>
             </div>
@@ -259,7 +259,7 @@ export default function DatePicker({
           {/* Weekday Labels */}
           <div className="grid grid-cols-7 gap-1 text-center mb-2">
             {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((day) => (
-              <span key={day} className="text-[11px] font-bold text-slate-400 font-syne uppercase">
+              <span key={day} className="text-[11px] font-bold text-slate-400 font-tenor uppercase">
                 {day}
               </span>
             ))}
@@ -306,26 +306,26 @@ export default function DatePicker({
 
           {/* Quick Presets */}
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
-            <span className="text-[10px] font-bold text-slate-400 font-syne uppercase">Quick:</span>
+            <span className="text-[10px] font-bold text-slate-400 font-tenor uppercase">Quick:</span>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => applyPreset(3)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-syne font-bold bg-[#5A6B3C]/10 hover:bg-[#5A6B3C]/20 text-[#5A6B3C] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#5A6B3C]/10 hover:bg-[#5A6B3C]/20 text-[#5A6B3C] transition-colors"
               >
                 3 Days
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset(7)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-syne font-bold bg-[#C85A2A]/10 hover:bg-[#C85A2A]/20 text-[#C85A2A] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#C85A2A]/10 hover:bg-[#C85A2A]/20 text-[#C85A2A] transition-colors"
               >
                 1 Week
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset(14)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-syne font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
               >
                 2 Weeks
               </button>

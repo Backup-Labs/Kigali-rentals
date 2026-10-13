@@ -34,73 +34,64 @@ export default function Navbar() {
     { label: 'Contact', href: '/#contact', id: 'contact' },
   ];
 
-  // Determine active tab on mount, route change, search param, and scroll position
+  // Real-time Scroll Spy that highlights active section continuously as user scrolls
   useEffect(() => {
-    const determineActiveTab = () => {
-      if (pathname.startsWith('/listings')) {
-        setActiveTab('apartments');
+    if (pathname.startsWith('/listings')) {
+      setActiveTab('apartments');
+      return;
+    }
+
+    if (pathname !== '/') {
+      return;
+    }
+
+    const updateActiveOnScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // Bottom of page -> contact CTA
+      if (windowHeight + scrollY >= docHeight - 140) {
+        setActiveTab('contact');
         return;
       }
 
-      if (pathname === '/') {
-        const hash = window.location.hash;
-        const search = window.location.search;
+      // Very top of page in hero section
+      if (scrollY < 380) {
+        setActiveTab('home');
+        return;
+      }
 
-        if (hash === '#vehicles' || search.includes('type=car')) {
-          setActiveTab('vehicles');
-          return;
-        }
-        if (hash === '#apartments' || hash === '#properties' || search.includes('type=property')) {
-          setActiveTab('apartments');
-          return;
-        }
-        if (hash === '#contact') {
-          setActiveTab('contact');
-          return;
-        }
-        if (hash === '#how-it-works') {
-          setActiveTab('how-it-works');
-          return;
-        }
-        if (hash === '#about') {
-          setActiveTab('about');
-          return;
-        }
+      // 220px trigger line positioned right below the floating navbar
+      const triggerLine = 220;
 
-        // Scroll spy on homepage sections (evaluated from bottom to top)
-        const scrollY = window.scrollY;
-        const contactEl = document.getElementById('contact');
-        const aboutEl = document.getElementById('about');
-        const howEl = document.getElementById('how-it-works');
-        const aptsEl = document.getElementById('apartments') || document.getElementById('properties');
-        const vehEl = document.getElementById('vehicles');
+      const sections = [
+        { id: 'vehicles', el: document.getElementById('vehicles') },
+        { id: 'apartments', el: document.getElementById('apartments') || document.getElementById('properties') },
+        { id: 'how-it-works', el: document.getElementById('how-it-works') },
+        { id: 'about', el: document.getElementById('about') },
+        { id: 'contact', el: document.getElementById('contact') },
+      ];
 
-        if (contactEl && scrollY >= contactEl.offsetTop - 250) {
-          setActiveTab('contact');
-        } else if (aboutEl && scrollY >= aboutEl.offsetTop - 200) {
-          setActiveTab('about');
-        } else if (howEl && scrollY >= howEl.offsetTop - 200) {
-          setActiveTab('how-it-works');
-        } else if (aptsEl && scrollY >= aptsEl.offsetTop - 250) {
-          setActiveTab('apartments');
-        } else if (vehEl && scrollY >= vehEl.offsetTop - 250) {
-          setActiveTab('vehicles');
-        } else {
-          setActiveTab('home');
+      for (const sec of sections) {
+        if (sec.el) {
+          const rect = sec.el.getBoundingClientRect();
+          if (rect.top <= triggerLine && rect.bottom > triggerLine) {
+            setActiveTab(sec.id);
+            return;
+          }
         }
       }
     };
 
-    determineActiveTab();
+    updateActiveOnScroll();
 
-    window.addEventListener('scroll', determineActiveTab, { passive: true });
-    window.addEventListener('hashchange', determineActiveTab);
-    window.addEventListener('popstate', determineActiveTab);
+    window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+    window.addEventListener('resize', updateActiveOnScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', determineActiveTab);
-      window.removeEventListener('hashchange', determineActiveTab);
-      window.removeEventListener('popstate', determineActiveTab);
+      window.removeEventListener('scroll', updateActiveOnScroll);
+      window.removeEventListener('resize', updateActiveOnScroll);
     };
   }, [pathname]);
 
@@ -122,7 +113,6 @@ export default function Navbar() {
           e.preventDefault();
           targetEl.scrollIntoView({ behavior: 'smooth' });
           window.history.pushState(null, '', `/#${targetId}`);
-          window.dispatchEvent(new Event('hashchange'));
         }
       } else if (item.href.startsWith('/?type=')) {
         const type = item.href.replace('/?type=', '');
@@ -133,7 +123,6 @@ export default function Navbar() {
           e.preventDefault();
           targetEl.scrollIntoView({ behavior: 'smooth' });
           window.history.pushState(null, '', item.href);
-          window.dispatchEvent(new Event('hashchange'));
         }
       }
     }
@@ -180,16 +169,12 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
-                className={`relative h-9 px-3.5 rounded-full text-xs sm:text-sm font-tenor font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 group shrink-0 ${
+                className={`h-9 px-3.5 rounded-full text-xs sm:text-sm font-tenor transition-all duration-200 flex items-center justify-center gap-1.5 shrink-0 ${
                   isActive
-                    ? 'text-white font-bold'
-                    : 'text-slate-600 hover:text-[#0D3846] font-medium hover:bg-white/60'
+                    ? 'bg-[#0D3846] text-white font-bold shadow-md'
+                    : 'text-slate-600 hover:text-[#0D3846] font-medium hover:bg-slate-100/70'
                 }`}
               >
-                {/* Tactile Capsule Highlight Pill */}
-                {isActive && (
-                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#184F60] to-[#0D3846] border border-[#082731] shadow-[0_2px_8px_rgba(13,56,70,0.35),inset_0_1px_1px_rgba(255,255,255,0.45)] -z-10 animate-fadeIn" />
-                )}
                 <span>{item.label}</span>
                 {isActive && (
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C85A2A] shadow-[0_0_8px_#C85A2A] animate-pulse shrink-0" />
@@ -225,7 +210,7 @@ export default function Navbar() {
             className="inline-flex h-9 items-center justify-center gap-1.5 px-3.5 sm:px-4 rounded-xl skeu-btn-teal text-white font-tenor font-semibold text-xs sm:text-sm tracking-tight shrink-0 shadow-md hover:shadow-lg transition-all"
           >
             <Phone className="w-3.5 h-3.5 shrink-0" />
-            <span>Call Us</span>
+            <span>Book Call</span>
           </a>
 
           {/* Mobile Hamburger Button */}
@@ -239,9 +224,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Glassmorphic Mobile Drawer with Active Highlighting */}
+      {/* Clean Solid White Mobile Drawer with Active Highlighting */}
       {mobileMenuOpen && (
-        <div className="pointer-events-auto max-w-6xl mx-auto md:hidden mt-2 bg-white/95 backdrop-blur-2xl border border-white/80 shadow-2xl rounded-2xl p-4 animate-fadeIn space-y-2">
+        <div className="pointer-events-auto max-w-6xl mx-auto md:hidden mt-2 bg-white border border-[#E6D7C3] shadow-2xl rounded-2xl p-4 animate-fadeIn space-y-2">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
 
@@ -284,7 +269,7 @@ export default function Navbar() {
               className="h-10 flex items-center justify-center gap-1.5 px-3 rounded-xl bg-[#0D3846] text-white text-xs font-tenor font-bold shadow-sm"
             >
               <Phone className="w-3.5 h-3.5" />
-              <span>Call Direct</span>
+              <span>Book Call</span>
             </a>
           </div>
 

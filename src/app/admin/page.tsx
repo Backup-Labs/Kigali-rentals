@@ -125,14 +125,14 @@ export default function AdminDashboardPage() {
         <div className="container mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] font-bold font-syne uppercase tracking-wider bg-[#C85A2A] text-white px-2 py-0.5 rounded">
+              <span className="text-[10px] font-bold font-tenor uppercase tracking-wider bg-[#C85A2A] text-white px-2 py-0.5 rounded">
                 Back-Office AD-01
               </span>
               <span className="text-xs text-[#5A6B3C] font-mono">
                 ● Live Operations Console
               </span>
             </div>
-            <h1 className="font-syne text-2xl sm:text-3xl font-extrabold text-white">
+            <h1 className="font-tenor text-2xl sm:text-3xl font-extrabold text-white">
               Kigali Rentals Hub
             </h1>
           </div>
@@ -147,7 +147,7 @@ export default function AdminDashboardPage() {
 
             <Link
               href="/handover"
-              className="px-4 py-2 rounded-xl bg-[#5A6B3C] hover:bg-[#44522C] text-white text-xs font-syne font-bold flex items-center gap-1.5 shadow-sm"
+              className="px-4 py-2 rounded-xl bg-[#5A6B3C] hover:bg-[#44522C] text-white text-xs font-tenor font-bold flex items-center gap-1.5 shadow-sm"
             >
               <ClipboardList className="w-3.5 h-3.5" />
               <span>Launch Handover</span>
@@ -168,7 +168,7 @@ export default function AdminDashboardPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-syne font-bold transition-all shrink-0 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === tab.id
                   ? 'skeu-tab-active text-white'
                   : 'skeu-btn-frosted text-slate-600'
@@ -183,10 +183,10 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
           <div className="skeu-card-elevated rounded-2xl p-5 flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold font-syne text-slate-400 uppercase block">
+              <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Today’s Pickups / Arrivals
               </span>
-              <span className="font-syne font-extrabold text-3xl text-[#0D3846] mt-1 block">
+              <span className="font-tenor font-extrabold text-3xl text-[#0D3846] mt-1 block">
                 {todayArrivals}
               </span>
               <span className="text-xs text-[#5A6B3C] font-medium mt-1 block">
@@ -200,10 +200,10 @@ export default function AdminDashboardPage() {
 
           <div className="skeu-card-elevated rounded-2xl p-5 flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold font-syne text-slate-400 uppercase block">
+              <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Pending Check-outs
               </span>
-              <span className="font-syne font-extrabold text-3xl text-[#C85A2A] mt-1 block">
+              <span className="font-tenor font-extrabold text-3xl text-[#C85A2A] mt-1 block">
                 {pendingCheckouts}
               </span>
               <span className="text-xs text-slate-500 font-medium mt-1 block">
@@ -217,10 +217,10 @@ export default function AdminDashboardPage() {
 
           <div className="skeu-card-elevated rounded-2xl p-5 flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold font-syne text-slate-400 uppercase block">
+              <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Occupancy / Fleet Utilization
               </span>
-              <span className="font-syne font-extrabold text-3xl text-[#0D3846] mt-1 block">
+              <span className="font-tenor font-extrabold text-3xl text-[#0D3846] mt-1 block">
                 {occupancyRate}%
               </span>
               <span className="text-xs text-slate-500 font-medium mt-1 block">
@@ -234,10 +234,10 @@ export default function AdminDashboardPage() {
 
           <div className="skeu-card-elevated rounded-2xl p-5 flex items-start justify-between">
             <div>
-              <span className="text-[11px] font-bold font-syne text-slate-400 uppercase block">
+              <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Active Bookings Revenue
               </span>
-              <span className="font-syne font-extrabold text-2xl text-[#0D3846] mt-1 block">
+              <span className="font-tenor font-extrabold text-2xl text-[#0D3846] mt-1 block">
                 {formatPrice(totalRevenueUsd)}
               </span>
               <span className="text-xs text-[#5A6B3C] font-medium mt-1 block">
@@ -257,14 +257,14 @@ export default function AdminDashboardPage() {
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E6D7C3] shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="font-syne font-bold text-lg text-[#0D3846]">
+                  <h3 className="font-tenor font-bold text-lg text-[#0D3846]">
                     Recent Confirmed Reservations
                   </h3>
                   <span className="text-xs text-slate-500">Live feed from customer checkout terminal</span>
                 </div>
                 <Link
                   href="/checkout"
-                  className="text-xs font-syne font-bold text-[#C85A2A] hover:underline flex items-center gap-1"
+                  className="text-xs font-tenor font-bold text-[#C85A2A] hover:underline flex items-center gap-1"
                 >
                   <span>Test New Booking</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -274,7 +274,7 @@ export default function AdminDashboardPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-slate-200 text-slate-400 font-syne uppercase text-[10px]">
+                    <tr className="border-b border-slate-200 text-slate-400 font-tenor uppercase text-[10px]">
                       <th className="pb-3">Reference</th>
                       <th className="pb-3">Asset(s)</th>
                       <th className="pb-3">Renter</th>
@@ -341,7 +341,7 @@ export default function AdminDashboardPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Fleet status mini list */}
               <div className="bg-white rounded-3xl p-6 border border-[#E6D7C3] shadow-sm">
-                <h3 className="font-syne font-bold text-base text-[#0D3846] mb-3">
+                <h3 className="font-tenor font-bold text-base text-[#0D3846] mb-3">
                   Fleet & Property Availability
                 </h3>
                 <div className="space-y-3">
@@ -377,7 +377,7 @@ export default function AdminDashboardPage() {
               {/* Operations Tasks mini list */}
               <div className="bg-white rounded-3xl p-6 border border-[#E6D7C3] shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-syne font-bold text-base text-[#0D3846]">
+                  <h3 className="font-tenor font-bold text-base text-[#0D3846]">
                     Immediate Field Tasks
                   </h3>
                   <button
@@ -427,7 +427,7 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E6D7C3] shadow-md space-y-6 animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
               <div>
-                <h2 className="font-syne font-bold text-xl text-[#0D3846]">
+                <h2 className="font-tenor font-bold text-xl text-[#0D3846]">
                   Unified Booking & Handover Timeline
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -494,7 +494,7 @@ export default function AdminDashboardPage() {
                         <div className="col-span-8 relative h-7 flex items-center">
                           {activeRes ? (
                             <div
-                              className={`absolute h-6 rounded-lg text-white font-syne font-bold text-[10px] flex items-center px-2 truncate shadow-sm ${
+                              className={`absolute h-6 rounded-lg text-white font-tenor font-bold text-[10px] flex items-center px-2 truncate shadow-sm ${
                                 activeRes.assetType === 'combo'
                                   ? 'bg-[#C85A2A] left-[15%] w-[60%]'
                                   : asset.type === 'car'
@@ -526,7 +526,7 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E6D7C3] shadow-md space-y-6 animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <h2 className="font-syne font-bold text-xl text-[#0D3846]">
+                <h2 className="font-tenor font-bold text-xl text-[#0D3846]">
                   Asset Inventory & Rate Overrides
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -561,7 +561,7 @@ export default function AdminDashboardPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 text-slate-400 font-syne uppercase text-[10px]">
+                  <tr className="border-b border-slate-200 text-slate-400 font-tenor uppercase text-[10px]">
                     <th className="pb-3">Asset</th>
                     <th className="pb-3">Type</th>
                     <th className="pb-3">Neighborhood</th>
@@ -607,7 +607,7 @@ export default function AdminDashboardPage() {
                         <button
                           type="button"
                           onClick={() => handleOpenEdit(item)}
-                          className="px-3 py-1.5 bg-[#0D3846] hover:bg-[#C85A2A] text-white rounded-lg font-syne font-bold text-[10px] uppercase transition-colors"
+                          className="px-3 py-1.5 bg-[#0D3846] hover:bg-[#C85A2A] text-white rounded-lg font-tenor font-bold text-[10px] uppercase transition-colors"
                         >
                           Edit Status / Rate
                         </button>
@@ -620,10 +620,10 @@ export default function AdminDashboardPage() {
 
             {/* Asset Edit Modal */}
             {editingAsset && (
-              <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
                 <div className="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full border border-slate-200 shadow-2xl animate-fadeIn space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 className="font-syne font-bold text-base text-[#0D3846]">
+                    <h3 className="font-tenor font-bold text-base text-[#0D3846]">
                       Edit {editingAsset.title}
                     </h3>
                     <button
@@ -635,7 +635,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                       Override Daily Rate (USD)
                     </label>
                     <input
@@ -650,7 +650,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                       Operational Status
                     </label>
                     <select
@@ -669,14 +669,14 @@ export default function AdminDashboardPage() {
                     <button
                       type="button"
                       onClick={() => setEditingAsset(null)}
-                      className="px-4 py-2 text-xs font-syne font-bold text-slate-500 hover:bg-slate-100 rounded-xl"
+                      className="px-4 py-2 text-xs font-tenor font-bold text-slate-500 hover:bg-slate-100 rounded-xl"
                     >
                       Cancel
                     </button>
                     <button
                       type="button"
                       onClick={handleSaveAssetEdit}
-                      className="px-5 py-2 bg-[#C85A2A] hover:bg-[#B24F23] text-white text-xs font-syne font-bold uppercase rounded-xl shadow-md"
+                      className="px-5 py-2 bg-[#C85A2A] hover:bg-[#B24F23] text-white text-xs font-tenor font-bold uppercase rounded-xl shadow-md"
                     >
                       Save Changes
                     </button>
@@ -692,7 +692,7 @@ export default function AdminDashboardPage() {
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E6D7C3] shadow-md space-y-6 animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <h2 className="font-syne font-bold text-xl text-[#0D3846]">
+                <h2 className="font-tenor font-bold text-xl text-[#0D3846]">
                   Operations Handover & Turnover Tasks
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -703,7 +703,7 @@ export default function AdminDashboardPage() {
               <button
                 type="button"
                 onClick={() => setShowAddTaskModal(true)}
-                className="px-4 py-2.5 bg-[#C85A2A] hover:bg-[#B24F23] text-white rounded-xl text-xs font-syne font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md self-start sm:self-auto"
+                className="px-4 py-2.5 bg-[#C85A2A] hover:bg-[#B24F23] text-white rounded-xl text-xs font-tenor font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md self-start sm:self-auto"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Dispatch Task</span>
@@ -723,7 +723,7 @@ export default function AdminDashboardPage() {
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <span
-                      className={`text-[9px] font-syne font-bold uppercase px-2 py-0.5 rounded-full ${
+                      className={`text-[9px] font-tenor font-bold uppercase px-2 py-0.5 rounded-full ${
                         task.priority === 'urgent'
                           ? 'bg-red-100 text-red-700'
                           : task.priority === 'high'
@@ -739,7 +739,7 @@ export default function AdminDashboardPage() {
                     </span>
                   </div>
 
-                  <h4 className="font-syne font-bold text-sm text-[#0D3846] leading-snug mb-1">
+                  <h4 className="font-tenor font-bold text-sm text-[#0D3846] leading-snug mb-1">
                     {task.title}
                   </h4>
 
@@ -767,7 +767,7 @@ export default function AdminDashboardPage() {
                           task.status === 'completed' ? 'pending' : 'completed'
                         )
                       }
-                      className={`px-3 py-1 rounded-lg font-syne font-bold text-[10px] uppercase transition-colors ${
+                      className={`px-3 py-1 rounded-lg font-tenor font-bold text-[10px] uppercase transition-colors ${
                         task.status === 'completed'
                           ? 'bg-[#5A6B3C]/10 text-[#5A6B3C]'
                           : 'bg-[#0D3846] text-white hover:bg-[#C85A2A]'
@@ -782,13 +782,13 @@ export default function AdminDashboardPage() {
 
             {/* Create Task Modal */}
             {showAddTaskModal && (
-              <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
                 <form
                   onSubmit={handleCreateTask}
                   className="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full border border-slate-200 shadow-2xl animate-fadeIn space-y-4"
                 >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 className="font-syne font-bold text-base text-[#0D3846]">
+                    <h3 className="font-tenor font-bold text-base text-[#0D3846]">
                       Assign New Operations Task
                     </h3>
                     <button
@@ -801,7 +801,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                       Task Description
                     </label>
                     <input
@@ -815,7 +815,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                       Assigned Field Staff
                     </label>
                     <input
@@ -829,7 +829,7 @@ export default function AdminDashboardPage() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                      <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                         Task Type
                       </label>
                       <select
@@ -846,7 +846,7 @@ export default function AdminDashboardPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-1">
+                      <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
                         Priority
                       </label>
                       <select
@@ -866,13 +866,13 @@ export default function AdminDashboardPage() {
                     <button
                       type="button"
                       onClick={() => setShowAddTaskModal(false)}
-                      className="px-4 py-2 text-xs font-syne font-bold text-slate-500 hover:bg-slate-100 rounded-xl"
+                      className="px-4 py-2 text-xs font-tenor font-bold text-slate-500 hover:bg-slate-100 rounded-xl"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-[#C85A2A] hover:bg-[#B24F23] text-white text-xs font-syne font-bold uppercase rounded-xl shadow-md"
+                      className="px-5 py-2 bg-[#C85A2A] hover:bg-[#B24F23] text-white text-xs font-tenor font-bold uppercase rounded-xl shadow-md"
                     >
                       Dispatch Task
                     </button>

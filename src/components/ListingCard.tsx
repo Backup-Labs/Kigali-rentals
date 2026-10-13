@@ -74,7 +74,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
 
         {/* Floating Bottom-Left Badge: "● For Rent" (from Reference Design) */}
         <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md text-xs font-semibold text-slate-800">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-[#E6D7C3] shadow-md text-xs font-semibold text-slate-800">
             <span className="w-2 h-2 rounded-full bg-[#5A6B3C] animate-pulse" />
             <span>{isCar ? 'For Rent • Fleet' : 'For Rent'}</span>
           </div>
@@ -89,7 +89,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
               e.stopPropagation();
             }}
             aria-label="View on map"
-            className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-slate-700 hover:text-[#0D3846] hover:scale-110 active:scale-95 transition-all"
+            className="w-9 h-9 rounded-full bg-white border border-[#E6D7C3] shadow-md flex items-center justify-center text-slate-700 hover:text-[#0D3846] hover:scale-110 active:scale-95 transition-all"
             title="Explore neighborhood on map"
           >
             <Compass className="w-4 h-4 text-slate-700" />
@@ -102,7 +102,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
               setIsLiked(!isLiked);
             }}
             aria-label="Save to favorites"
-            className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-md shadow-md flex items-center justify-center text-[#C85A2A] hover:scale-110 active:scale-95 transition-all"
+            className="w-9 h-9 rounded-full bg-white border border-[#E6D7C3] shadow-md flex items-center justify-center text-[#C85A2A] hover:scale-110 active:scale-95 transition-all"
             title="Save to favorites"
           >
             <Heart
@@ -119,14 +119,14 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
             <button
               onClick={prevImage}
               aria-label="Previous photo"
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 backdrop-blur-xs shadow-md"
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-md"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextImage}
               aria-label="Next photo"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 backdrop-blur-xs shadow-md"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-md"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -173,7 +173,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
       {/* 4. Title & Address Subtitle */}
       <div className="px-1 mb-3">
         <Link href={`/listings/${listing.id}`} onClick={handleSelectForDraft}>
-          <h3 className="font-syne font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#C85A2A] transition-colors leading-snug line-clamp-1">
+          <h3 className="font-tenor font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#C85A2A] transition-colors leading-snug line-clamp-1">
             {listing.title}
           </h3>
         </Link>

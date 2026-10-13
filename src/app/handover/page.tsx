@@ -163,11 +163,11 @@ export default function HandoverToolPage() {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold font-syne uppercase tracking-wider text-[#C85A2A] bg-white/10 px-2.5 py-0.5 rounded-full mb-1">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold font-tenor uppercase tracking-wider text-[#C85A2A] bg-white/10 px-2.5 py-0.5 rounded-full mb-1">
                 <ClipboardCheck className="w-3.5 h-3.5" />
                 <span>Field Operations & Renter Inspection Tool</span>
               </div>
-              <h1 className="font-syne text-2xl sm:text-3xl font-extrabold text-white">
+              <h1 className="font-tenor text-2xl sm:text-3xl font-extrabold text-white">
                 Condition Handover Protocol
               </h1>
               <p className="text-xs text-[#E6D7C3]/80 mt-1">
@@ -195,7 +195,7 @@ export default function HandoverToolPage() {
       <div className="container mx-auto px-4 sm:px-6 pt-6">
         {/* Success Alert Banner */}
         {savedSuccessMessage && (
-          <div className="mb-6 p-4 rounded-2xl bg-[#5A6B3C] text-white font-syne font-bold text-xs flex items-center justify-between shadow-lg animate-fadeIn">
+          <div className="mb-6 p-4 rounded-2xl bg-[#5A6B3C] text-white font-tenor font-bold text-xs flex items-center justify-between shadow-lg animate-fadeIn">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-white" />
               <span>{savedSuccessMessage}</span>
@@ -226,7 +226,7 @@ export default function HandoverToolPage() {
                   {isCarAsset ? 'Vehicle Fleet' : 'Property Asset'}
                 </span>
               </div>
-              <h3 className="font-syne font-bold text-base text-[#0D3846]">
+              <h3 className="font-tenor font-bold text-base text-[#0D3846]">
                 {selectedBooking?.assetTitle}
               </h3>
               <p className="text-xs text-slate-600">
@@ -239,7 +239,7 @@ export default function HandoverToolPage() {
           <div className="flex items-center gap-2 skeu-tray p-1.5 rounded-2xl">
             <button
               onClick={() => setActiveTab('check_in')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-syne font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                 activeTab === 'check_in'
                   ? 'skeu-tab-active text-white'
                   : 'skeu-btn-frosted text-slate-600'
@@ -249,7 +249,7 @@ export default function HandoverToolPage() {
             </button>
             <button
               onClick={() => setActiveTab('check_out')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-syne font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                 activeTab === 'check_out'
                   ? 'skeu-tab-active text-white'
                   : 'skeu-btn-frosted text-slate-600'
@@ -259,7 +259,7 @@ export default function HandoverToolPage() {
             </button>
             <button
               onClick={() => setActiveTab('compare')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-syne font-bold transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                 activeTab === 'compare'
                   ? 'skeu-tab-active-accent text-white'
                   : 'skeu-btn-frosted text-[#C85A2A]'
@@ -280,14 +280,14 @@ export default function HandoverToolPage() {
                 <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E6D7C3] shadow-md space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <div>
-                      <h2 className="font-syne font-bold text-xl text-[#0D3846]">
+                      <h2 className="font-tenor font-bold text-xl text-[#0D3846]">
                         Vehicle Telemetry & Condition
                       </h2>
                       <span className="text-xs text-slate-500">
                         {activeTab === 'check_in' ? 'Pre-rental baseline verification' : 'Post-rental return verification'}
                       </span>
                     </div>
-                    <span className="text-xs font-bold font-syne uppercase bg-[#5A6B3C]/10 text-[#5A6B3C] px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold font-tenor uppercase bg-[#5A6B3C]/10 text-[#5A6B3C] px-3 py-1 rounded-full">
                       Automotive
                     </span>
                   </div>
@@ -297,7 +297,7 @@ export default function HandoverToolPage() {
                     {/* Odometer */}
                     <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-200">
                       <div className="flex items-center justify-between mb-2">
-                        <label className="text-xs font-bold font-syne text-slate-700 uppercase flex items-center gap-1.5">
+                        <label className="text-xs font-bold font-tenor text-slate-700 uppercase flex items-center gap-1.5">
                           <Gauge className="w-4 h-4 text-[#C85A2A]" />
                           <span>Odometer Mileage</span>
                         </label>
@@ -320,7 +320,7 @@ export default function HandoverToolPage() {
                     {/* Fuel Level */}
                     <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-200">
                       <div className="flex items-center justify-between mb-2">
-                        <label className="text-xs font-bold font-syne text-slate-700 uppercase flex items-center gap-1.5">
+                        <label className="text-xs font-bold font-tenor text-slate-700 uppercase flex items-center gap-1.5">
                           <Fuel className="w-4 h-4 text-[#C85A2A]" />
                           <span>Fuel Tank Gauge</span>
                         </label>
@@ -350,7 +350,7 @@ export default function HandoverToolPage() {
 
                   {/* 4-Angle Exterior Photo Upload Slots */}
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-2 flex items-center gap-1.5">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-2 flex items-center gap-1.5">
                       <Camera className="w-4 h-4 text-[#C85A2A]" />
                       <span>4-Angle Exterior Photographic Log</span>
                     </label>
@@ -368,7 +368,7 @@ export default function HandoverToolPage() {
                         >
                           <Image src={slot.url} alt={slot.label} fill className="object-cover" />
                           <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-2 text-white">
-                            <span className="text-[10px] font-syne font-bold uppercase truncate">
+                            <span className="text-[10px] font-tenor font-bold uppercase truncate">
                               {slot.label}
                             </span>
                             <span className="text-[9px] text-[#E6D7C3]">✓ Uploaded</span>
@@ -380,7 +380,7 @@ export default function HandoverToolPage() {
 
                   {/* Scratches & Dents Notes Log */}
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-2">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-2">
                       Pre-Existing Scratches & Imperfections
                     </label>
 
@@ -424,7 +424,7 @@ export default function HandoverToolPage() {
                       <button
                         type="button"
                         onClick={addScratch}
-                        className="px-3.5 py-2 bg-[#0D3846] hover:bg-[#C85A2A] text-white text-xs font-syne font-bold rounded-xl flex items-center justify-center gap-1 shrink-0"
+                        className="px-3.5 py-2 bg-[#0D3846] hover:bg-[#C85A2A] text-white text-xs font-tenor font-bold rounded-xl flex items-center justify-center gap-1 shrink-0"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Add Mark</span>
@@ -437,14 +437,14 @@ export default function HandoverToolPage() {
                 <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E6D7C3] shadow-md space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <div>
-                      <h2 className="font-syne font-bold text-xl text-[#0D3846]">
+                      <h2 className="font-tenor font-bold text-xl text-[#0D3846]">
                         Property Handover & Utility Check
                       </h2>
                       <span className="text-xs text-slate-500">
                         {activeTab === 'check_in' ? 'Check-in meter & key log' : 'Departure inspection & turnover'}
                       </span>
                     </div>
-                    <span className="text-xs font-bold font-syne uppercase bg-[#0D3846]/10 text-[#0D3846] px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold font-tenor uppercase bg-[#0D3846]/10 text-[#0D3846] px-3 py-1 rounded-full">
                       Property
                     </span>
                   </div>
@@ -454,7 +454,7 @@ export default function HandoverToolPage() {
                     <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-200">
                       <div className="flex items-center gap-2 mb-2">
                         <Key className="w-4 h-4 text-[#C85A2A]" />
-                        <span className="text-xs font-bold font-syne text-slate-700 uppercase">
+                        <span className="text-xs font-bold font-tenor text-slate-700 uppercase">
                           Keys / Smart Lock
                         </span>
                       </div>
@@ -478,7 +478,7 @@ export default function HandoverToolPage() {
                     <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-slate-200">
                       <div className="flex items-center gap-2 mb-2">
                         <Zap className="w-4 h-4 text-[#C85A2A]" />
-                        <span className="text-xs font-bold font-syne text-slate-700 uppercase">
+                        <span className="text-xs font-bold font-tenor text-slate-700 uppercase">
                           Cash-Power Electricity (kWh)
                         </span>
                       </div>
@@ -497,7 +497,7 @@ export default function HandoverToolPage() {
 
                   {/* Room-by-room condition checklist */}
                   <div>
-                    <label className="block text-xs font-bold font-syne text-slate-700 uppercase mb-2">
+                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-2">
                       Room Condition Sign-off
                     </label>
 
@@ -508,7 +508,7 @@ export default function HandoverToolPage() {
                           className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-[#FAF7F2]"
                         >
                           <div>
-                            <span className="font-syne font-bold text-xs text-[#0D3846] block">
+                            <span className="font-tenor font-bold text-xs text-[#0D3846] block">
                               {room.room}
                             </span>
                             <span className="text-[11px] text-slate-500">{room.notes}</span>
@@ -517,7 +517,7 @@ export default function HandoverToolPage() {
                           <button
                             type="button"
                             onClick={() => toggleRoomStatus(room.id)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-syne font-bold transition-all ${
+                            className={`px-3 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                               room.status === 'ok'
                                 ? 'bg-[#5A6B3C] text-white'
                                 : 'bg-[#C85A2A] text-white'
@@ -536,10 +536,10 @@ export default function HandoverToolPage() {
             {/* Right Sign-off Box (4 cols) */}
             <div className="lg:col-span-4 bg-white rounded-3xl p-6 border border-[#E6D7C3] shadow-md space-y-5 sticky top-24">
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 font-syne">
+                <span className="text-[10px] uppercase font-bold text-slate-400 font-tenor">
                   Inspection Summary
                 </span>
-                <h3 className="font-syne font-bold text-lg text-[#0D3846]">
+                <h3 className="font-tenor font-bold text-lg text-[#0D3846]">
                   Sign & File Handover
                 </h3>
               </div>
@@ -575,7 +575,7 @@ export default function HandoverToolPage() {
               <button
                 type="button"
                 onClick={handleSaveReport}
-                className="w-full bg-[#C85A2A] hover:bg-[#B24F23] text-white py-3 px-4 rounded-xl font-syne font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full bg-[#C85A2A] hover:bg-[#B24F23] text-white py-3 px-4 rounded-xl font-tenor font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>Save Condition Report</span>
@@ -584,7 +584,7 @@ export default function HandoverToolPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('compare')}
-                className="w-full bg-[#FAF7F2] hover:bg-slate-200 text-[#0D3846] py-2.5 px-4 rounded-xl font-syne font-bold text-xs text-center transition-colors"
+                className="w-full bg-[#FAF7F2] hover:bg-slate-200 text-[#0D3846] py-2.5 px-4 rounded-xl font-tenor font-bold text-xs text-center transition-colors"
               >
                 Switch to Comparison View
               </button>
@@ -595,10 +595,10 @@ export default function HandoverToolPage() {
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E6D7C3] shadow-md animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-2 mb-6">
               <div>
-                <span className="text-xs font-bold font-syne uppercase tracking-wider text-[#C85A2A]">
+                <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#C85A2A]">
                   Dispute Elimination Protocol
                 </span>
-                <h2 className="font-syne text-2xl font-extrabold text-[#0D3846]">
+                <h2 className="font-tenor text-2xl font-extrabold text-[#0D3846]">
                   Side-by-Side Condition Comparison (HO-05)
                 </h2>
               </div>
@@ -615,7 +615,7 @@ export default function HandoverToolPage() {
                 {/* Column A: Check-In */}
                 <div className="p-5 rounded-2xl bg-[#FAF7F2] border border-slate-200 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-300 pb-2">
-                    <span className="font-syne font-bold text-sm text-[#0D3846]">
+                    <span className="font-tenor font-bold text-sm text-[#0D3846]">
                       Check-In Status (October 12)
                     </span>
                     <span className="text-xs font-mono bg-white px-2 py-0.5 rounded border border-slate-200">
@@ -657,7 +657,7 @@ export default function HandoverToolPage() {
                 {/* Column B: Check-Out */}
                 <div className="p-5 rounded-2xl bg-white border-2 border-[#5A6B3C]/40 space-y-4 shadow-sm">
                   <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <span className="font-syne font-bold text-sm text-[#0D3846]">
+                    <span className="font-tenor font-bold text-sm text-[#0D3846]">
                       Check-Out Status (Return)
                     </span>
                     <span className="text-xs font-mono bg-[#5A6B3C]/10 text-[#5A6B3C] px-2 py-0.5 rounded font-bold">
@@ -704,7 +704,7 @@ export default function HandoverToolPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Property Comparison */}
                 <div className="p-5 rounded-2xl bg-[#FAF7F2] border border-slate-200 space-y-3">
-                  <h4 className="font-syne font-bold text-sm text-[#0D3846]">Check-in Baseline</h4>
+                  <h4 className="font-tenor font-bold text-sm text-[#0D3846]">Check-in Baseline</h4>
                   <div className="text-xs space-y-1.5 text-slate-600">
                     <div>Electricity: 12,450.8 kWh</div>
                     <div>Water Units: 842.1 m³</div>
@@ -714,7 +714,7 @@ export default function HandoverToolPage() {
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white border-2 border-[#5A6B3C]/40 space-y-3">
-                  <h4 className="font-syne font-bold text-sm text-[#0D3846]">Check-out Departure</h4>
+                  <h4 className="font-tenor font-bold text-sm text-[#0D3846]">Check-out Departure</h4>
                   <div className="text-xs space-y-1.5 text-slate-600">
                     <div>Electricity: {electricityKwh} kWh</div>
                     <div>Water Units: {waterUnits} m³</div>
@@ -739,7 +739,7 @@ export default function HandoverToolPage() {
                 onClick={() => {
                   alert(`Deposit release authorized for ${selectedBooking.customer.fullName}! SMS confirmation sent to ${selectedBooking.customer.phone}.`);
                 }}
-                className="px-6 py-3 skeu-btn-terracotta text-white font-syne font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2"
+                className="px-6 py-3 skeu-btn-terracotta text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Approve Return & Release Deposit</span>

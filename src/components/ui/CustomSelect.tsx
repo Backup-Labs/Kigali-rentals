@@ -128,7 +128,7 @@ export default function CustomSelect({
                 <div className="flex items-center gap-2.5 truncate">
                   {opt.icon && <span className="shrink-0">{opt.icon}</span>}
                   <div className="truncate">
-                    <span className="block font-syne font-semibold text-xs sm:text-sm truncate">
+                    <span className="block font-tenor font-semibold text-xs sm:text-sm truncate">
                       {opt.label}
                     </span>
                     {opt.description && (
