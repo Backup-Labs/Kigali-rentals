@@ -131,7 +131,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-2.5 sm:top-4 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none transition-all">
       {/* Floating Glassmorphic + Skeuomorphic Capsule Bar */}
-      <div className="pointer-events-auto max-w-6xl mx-auto glass-skeu-nav rounded-2xl sm:rounded-full px-4 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between transition-all">
+      <div className="pointer-events-auto max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto glass-skeu-nav rounded-2xl sm:rounded-full px-4 sm:px-6 2xl:px-8 py-2 sm:py-2.5 flex items-center justify-between transition-all">
         {/* Brand Logo with Tactile Bevel */}
         <Link
           href="/"

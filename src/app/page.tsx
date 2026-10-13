@@ -554,8 +554,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 1. HERO SECTION: ZERO-SCROLL GUARANTEED WITH LOWERED FORM PLACEMENT */}
-      <section className="relative h-[100dvh] min-h-[640px] max-h-[1050px] flex flex-col justify-center items-center px-4 sm:px-6 pt-24 sm:pt-28 pb-6 sm:pb-8">
+      {/* 1. HERO SECTION: FULL VIEWPORT RESPONSIVE FROM SMALLEST (280px) TO LARGEST (4K/8K) */}
+      <section className="relative min-h-[100dvh] h-auto flex flex-col justify-center items-center px-3 min-[360px]:px-4 sm:px-6 lg:px-8 2xl:px-12 pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-12 2xl:pb-16 overflow-hidden">
         {/* Full-bleed Background Images Slideshow (Auto-cycles smoothly by default) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           {HERO_SLIDES.map((slide, idx) => (
@@ -593,16 +593,15 @@ export default function HomePage() {
         </div>
 
         {/* Hero Headlines: Positioned with distinct distance from navbar and wide breathing space to form */}
-        <div className="container mx-auto relative z-10 max-w-3xl text-center mb-10 sm:mb-14 mt-4 sm:mt-6">
-          <h1 className="font-tenor text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12] drop-shadow-xl mb-2 sm:mb-2.5">
+        <div className="container mx-auto relative z-10 max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl text-center mb-8 sm:mb-12 2xl:mb-16 mt-2 sm:mt-4">
+          <h1 className="font-tenor text-2xl min-[360px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-white leading-[1.18] sm:leading-[1.15] drop-shadow-xl mb-3 sm:mb-4">
             Rent your luxury 4x4 & executive drive in{' '}
-            <span className="text-[#8CB9CC] relative inline-block">
-              Kigali
-              <span className="absolute bottom-1 left-0 right-0 h-2 sm:h-2.5 bg-[#00638E]/40 -z-10 rounded-full" />
+            <span className="inline-block bg-[#00638E] text-white px-2.5 min-[360px]:px-3 sm:px-4 md:px-5 py-0.5 sm:py-1 rounded-xs sm:rounded-sm shadow-md align-baseline font-bold whitespace-nowrap">
+              Rwanda
             </span>
           </h1>
 
-          <p className="text-xs sm:text-sm lg:text-base text-white/95 font-sans max-w-xl mx-auto leading-relaxed drop-shadow-md">
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg 2xl:text-xl text-white/95 font-sans max-w-xl sm:max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed drop-shadow-md px-2">
             Toyota Land Cruiser Prado TXL, Land Rover Defender 110, and VIP Mercedes-Benz saloons. Expedition-ready for Rwanda’s 1,000 hills, Volcanoes Gorilla trekking, and city protocol.
           </p>
         </div>
@@ -610,7 +609,7 @@ export default function HomePage() {
         {/* High-Frost Luminous Glassmorphic Search Form (Sleek Reduced Height, Zero-Scroll Fit) */}
         <div
           id="search"
-          className="w-full max-w-6xl mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 text-slate-800 scroll-mt-24 transition-all shadow-2xl"
+          className="w-full max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-2.5 sm:p-3.5 2xl:p-5 text-slate-800 scroll-mt-24 transition-all shadow-2xl"
         >
           {/* Dynamic Tab Selector with Tactile Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2 pb-2.5 mb-2.5 border-b border-white/70 overflow-x-auto scrollbar-none">
@@ -808,7 +807,7 @@ export default function HomePage() {
       </section>
 
       {/* 2. VISUAL SHOWCASE STRIP: CURATED CATEGORY BENTO (Visual-First Skeuomorphic Experience) */}
-      <section className="container mx-auto px-4 sm:px-6 py-12">
+      <section className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-10 sm:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
             {
@@ -1029,7 +1028,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. DEDICATED VEHICLES SECTION (VEHICLES FIRST) */}
-      <section id="vehicles" className="container mx-auto px-4 sm:px-6 py-8 scroll-mt-28">
+      <section id="vehicles" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-8 scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#004A6B]/15 text-[#004A6B] text-xs font-tenor font-bold mb-2">
@@ -1085,7 +1084,7 @@ export default function HomePage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
             {vehicleListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} daysCount={daysCount} />
             ))}
@@ -1094,7 +1093,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. DEDICATED APARTMENTS & RESIDENCES SECTION (APARTMENTS SECOND) */}
-      <section id="apartments" className="container mx-auto px-4 sm:px-6 py-8 scroll-mt-28 relative">
+      <section id="apartments" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-8 scroll-mt-28 relative">
         {/* Backward-compatibility anchor for legacy #properties links */}
         <span id="properties" className="absolute -top-28 pointer-events-none" />
 
@@ -1153,7 +1152,7 @@ export default function HomePage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
             {apartmentListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} daysCount={daysCount} />
             ))}
@@ -1162,7 +1161,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. VISUAL STAY & DRIVE COMBO INTERACTIVE BANNER */}
-      <section id="combo" className="container mx-auto px-4 sm:px-6 my-12 scroll-mt-28">
+      <section id="combo" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] my-12 scroll-mt-28">
         <div className="skeu-card-elevated !bg-gradient-to-br !from-[#003060] !via-[#002244] !to-[#141414] rounded-3xl overflow-hidden text-white grid grid-cols-1 lg:grid-cols-12 items-center border border-[#BFD8E3]/20">
           {/* Visual Side: Combined Imagery */}
           <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden">
