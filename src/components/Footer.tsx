@@ -3,9 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
-  ShieldCheck,
-  Zap,
-  Award,
   Phone,
   ArrowUp,
   ChevronRight,
@@ -71,7 +68,7 @@ export default function Footer() {
     <div
       ref={footerRef}
       id="main-footer"
-      className="w-full relative z-10 selection:bg-[#00638E] selection:text-white overflow-hidden bg-gradient-to-b from-[#003060] via-[#002244] to-[#141414] text-white"
+      className="w-full relative z-10 selection:bg-[#00638E] selection:text-white overflow-hidden bg-[#141414] text-white"
     >
       {/* Background Ambient Organic Parallax Glow (Azure & Cyan) */}
       <div
@@ -79,7 +76,7 @@ export default function Footer() {
         style={{ transform: `translate(-50%, ${parallaxOffset * 0.4}px)` }}
       />
       <div
-        className="pointer-events-none absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#004A6B]/30 rounded-full blur-3xl transition-transform duration-100 ease-out"
+        className="pointer-events-none absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#00638E]/20 rounded-full blur-3xl transition-transform duration-100 ease-out"
         style={{ transform: `translateY(${parallaxOffset * -0.3}px)` }}
       />
 
@@ -89,10 +86,10 @@ export default function Footer() {
       ========================================================================= */}
       <section
         id="contact"
-        className="w-full relative scroll-mt-24 py-16 sm:py-20 lg:py-24 bg-white text-[#141414] border-b border-[#BFD8E3]"
+        className="w-full relative scroll-mt-24 py-16 sm:py-20 lg:py-24 bg-white text-[#141414] border-b border-slate-200"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F0F6F9] border border-[#BFD8E3] text-xs font-tenor font-bold text-[#00638E] mb-5 shadow-xs transition-transform hover:scale-105 duration-300">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F0F6F9] border border-slate-200 text-xs font-tenor font-bold text-[#00638E] mb-5 shadow-xs transition-transform hover:scale-105 duration-300">
             <span className="w-2 h-2 rounded-full bg-[#00638E] animate-pulse" />
             <span>Direct Concierge Service • 24/7 Available</span>
           </div>
@@ -118,61 +115,7 @@ export default function Footer() {
       </section>
 
       {/* =========================================================================
-          2. TRUST CREDENTIALS & SERVICE GUARANTEES (DEEP AZURE PALETTE)
-      ========================================================================= */}
-      <section className="w-full py-10 sm:py-12 border-b border-[#BFD8E3]/20 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            {/* Badge 1 */}
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#141414]/90 border border-[#BFD8E3]/20 hover:border-[#BFD8E3]/40 transition-all duration-300 group hover:-translate-y-1">
-              <div className="w-11 h-11 rounded-xl bg-[#003060] border border-[#00638E]/50 flex items-center justify-center text-[#BFD8E3] shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                <Zap className="w-5 h-5 text-[#8CB9CC]" />
-              </div>
-              <div>
-                <h4 className="font-tenor font-bold text-white text-sm sm:text-base">
-                  Uninterrupted Comfort
-                </h4>
-                <p className="text-xs text-[#BFD8E3] mt-1 leading-relaxed">
-                  100% of our properties feature verified automatic backup generators and high-capacity water reserves.
-                </p>
-              </div>
-            </div>
-
-            {/* Badge 2 */}
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#141414]/90 border border-[#BFD8E3]/20 hover:border-[#BFD8E3]/40 transition-all duration-300 group hover:-translate-y-1">
-              <div className="w-11 h-11 rounded-xl bg-[#003060] border border-[#00638E]/50 flex items-center justify-center text-[#BFD8E3] shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                <ShieldCheck className="w-5 h-5 text-[#00638E]" />
-              </div>
-              <div>
-                <h4 className="font-tenor font-bold text-white text-sm sm:text-base">
-                  Zero Surprise Charges
-                </h4>
-                <p className="text-xs text-[#BFD8E3] mt-1 leading-relaxed">
-                  Itemized pricing, refundable security holds via bank or MoMo, and transparent digital condition handovers.
-                </p>
-              </div>
-            </div>
-
-            {/* Badge 3 */}
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#141414]/90 border border-[#BFD8E3]/20 hover:border-[#BFD8E3]/40 transition-all duration-300 group hover:-translate-y-1">
-              <div className="w-11 h-11 rounded-xl bg-[#003060] border border-[#00638E]/50 flex items-center justify-center text-[#BFD8E3] shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                <Award className="w-5 h-5 text-[#8CB9CC]" />
-              </div>
-              <div>
-                <h4 className="font-tenor font-bold text-white text-sm sm:text-base">
-                  Rwanda Certified Fleet
-                </h4>
-                <p className="text-xs text-[#BFD8E3] mt-1 leading-relaxed">
-                  4x4 vehicles inspected for Volcanoes, Akagera, and Nyungwe terrain with 24/7 Rwanda roadside rescue.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          3. MAIN FOOTER CONTENT DIRECTORY (DEEP TEAL PALETTE + ANIMATIONS)
+          2. MAIN FOOTER CONTENT DIRECTORY (DEEP AZURE PALETTE + ANIMATIONS)
              - Newsletter on Left with vertical border
              - 4 link columns on Right
       ========================================================================= */}
@@ -183,27 +126,27 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-0 pb-12 sm:pb-16">
             
             {/* Left Section: Newsletter & Socials (Span 4 cols with vertical divider) */}
-            <div className="lg:col-span-4 lg:pr-12 lg:border-r border-[#BFD8E3]/20 flex flex-col justify-between">
+            <div className="lg:col-span-4 lg:pr-12 lg:border-r border-white/10 flex flex-col justify-between">
               <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#BFD8E3] font-semibold block mb-6">
+                <span className="font-mono text-xs uppercase tracking-widest text-slate-300 font-semibold block mb-6">
                   Newsletter
                 </span>
 
                 {/* Subscription input matching editorial design */}
                 <form onSubmit={handleSubscribe} className="relative w-full max-w-sm mb-4">
-                  <div className="flex items-center border-b border-[#BFD8E3]/40 focus-within:border-white transition-colors pb-2 group">
+                  <div className="flex items-center border-b border-white/20 focus-within:border-white transition-colors pb-2 group">
                     <input
                       type="email"
                       value={newsletterEmail}
                       onChange={(e) => setNewsletterEmail(e.target.value)}
                       placeholder="your@email.com"
                       required
-                      className="w-full bg-transparent text-sm sm:text-base text-white placeholder:text-[#BFD8E3]/60 focus:outline-hidden pr-8 font-sans"
+                      className="w-full bg-transparent text-sm sm:text-base text-white placeholder:text-slate-400 focus:outline-hidden pr-8 font-sans"
                     />
                     <button
                       type="submit"
                       aria-label="Subscribe to newsletter"
-                      className="text-[#BFD8E3] hover:text-white p-1 transition-transform group-hover:translate-x-1 duration-200"
+                      className="text-slate-300 hover:text-white p-1 transition-transform group-hover:translate-x-1 duration-200"
                     >
                       <ArrowRight className="w-4 h-4" />
                     </button>
@@ -211,24 +154,24 @@ export default function Footer() {
                 </form>
 
                 {subscribed ? (
-                  <p className="text-[11px] text-[#8CB9CC] font-medium flex items-center gap-1.5 mb-6 animate-fadeIn">
+                  <p className="text-[11px] text-[#00638E] font-medium flex items-center gap-1.5 mb-6 animate-fadeIn">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#00638E]" />
                     <span>Murakoze! You are now subscribed to Kigali updates.</span>
                   </p>
                 ) : (
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-[#BFD8E3]/70 mb-8">
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-slate-400 mb-8">
                     I agree to terms & concierge notifications
                   </p>
                 )}
               </div>
 
               {/* Social icons matching bottom-left of inspiration */}
-              <div className="flex items-center gap-3 text-[#BFD8E3] pt-4">
+              <div className="flex items-center gap-3 text-slate-300 pt-4">
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full border border-[#BFD8E3]/30 hover:border-white hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
+                  className="w-9 h-9 rounded-full border border-white/20 hover:border-white hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
@@ -237,7 +180,7 @@ export default function Footer() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full border border-[#BFD8E3]/30 hover:border-white hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
+                  className="w-9 h-9 rounded-full border border-white/20 hover:border-white hover:text-white hover:bg-white/10 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-4 h-4" />
@@ -246,7 +189,7 @@ export default function Footer() {
                   href="https://wa.me/250788123456"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full border border-[#BFD8E3]/30 hover:border-[#8CB9CC] hover:text-white hover:bg-[#00638E]/20 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
+                  className="w-9 h-9 rounded-full border border-white/20 hover:border-[#00638E] hover:text-white hover:bg-[#00638E]/20 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -259,10 +202,10 @@ export default function Footer() {
               
               {/* Column 1: Vehicles */}
               <div className="space-y-3">
-                <h5 className="font-mono text-xs uppercase tracking-widest text-[#BFD8E3] font-semibold mb-4">
+                <h5 className="font-mono text-xs uppercase tracking-widest text-slate-300 font-semibold mb-4">
                   Vehicles
                 </h5>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-[#BFD8E3] font-sans">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 font-sans">
                   <li>
                     <Link
                       href="/listings/veh-land-cruiser-prado"
@@ -298,7 +241,7 @@ export default function Footer() {
                   <li>
                     <Link
                       href="/#vehicles"
-                      className="text-[#8CB9CC] font-semibold hover:text-white flex items-center gap-1 pt-1 group"
+                      className="text-[#00638E] font-semibold hover:text-white flex items-center gap-1 pt-1 group"
                     >
                       <span>All 4x4 Fleet</span>
                       <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -309,10 +252,10 @@ export default function Footer() {
 
               {/* Column 2: Apartments */}
               <div className="space-y-3">
-                <h5 className="font-mono text-xs uppercase tracking-widest text-[#BFD8E3] font-semibold mb-4">
+                <h5 className="font-mono text-xs uppercase tracking-widest text-slate-300 font-semibold mb-4">
                   Apartments
                 </h5>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-[#BFD8E3] font-sans">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 font-sans">
                   <li>
                     <Link
                       href="/?neighborhood=Kiyovu"
@@ -348,7 +291,7 @@ export default function Footer() {
                   <li>
                     <Link
                       href="/#apartments"
-                      className="text-[#8CB9CC] font-semibold hover:text-white flex items-center gap-1 pt-1 group"
+                      className="text-[#00638E] font-semibold hover:text-white flex items-center gap-1 pt-1 group"
                     >
                       <span>All Residences</span>
                       <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -359,14 +302,14 @@ export default function Footer() {
 
               {/* Column 3: Experiences */}
               <div className="space-y-3">
-                <h5 className="font-mono text-xs uppercase tracking-widest text-[#BFD8E3] font-semibold mb-4">
+                <h5 className="font-mono text-xs uppercase tracking-widest text-slate-300 font-semibold mb-4">
                   Experiences
                 </h5>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-[#BFD8E3] font-sans">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 font-sans">
                   <li>
                     <Link
                       href="/?type=combo"
-                      className="text-[#8CB9CC] font-medium hover:text-white hover:translate-x-1 inline-block transition-all duration-200 py-0.5"
+                      className="text-[#00638E] font-medium hover:text-white hover:translate-x-1 inline-block transition-all duration-200 py-0.5"
                     >
                       Stay & Drive Combo
                     </Link>
@@ -408,10 +351,10 @@ export default function Footer() {
 
               {/* Column 4: Concierge */}
               <div className="space-y-3">
-                <h5 className="font-mono text-xs uppercase tracking-widest text-[#BFD8E3] font-semibold mb-4">
+                <h5 className="font-mono text-xs uppercase tracking-widest text-slate-300 font-semibold mb-4">
                   Concierge
                 </h5>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-[#BFD8E3] font-sans">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 font-sans">
                   <li>
                     <a
                       href="tel:+250788123456"
@@ -425,7 +368,7 @@ export default function Footer() {
                       href="https://wa.me/250788123456"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200 py-0.5 text-[#8CB9CC] font-medium"
+                      className="hover:text-white hover:translate-x-1 inline-block transition-all duration-200 py-0.5 text-[#00638E] font-medium"
                     >
                       WhatsApp Desk
                     </a>
@@ -449,7 +392,7 @@ export default function Footer() {
                   <li>
                     <Link
                       href="/admin"
-                      className="text-[#BFD8E3] hover:text-white transition-colors flex items-center gap-1.5 py-0.5"
+                      className="text-slate-300 hover:text-white transition-colors flex items-center gap-1.5 py-0.5"
                     >
                       <span>Operations</span>
                       <span className="text-[10px] bg-[#00638E] text-white px-1.5 py-0.5 rounded-sm font-mono font-bold">
@@ -466,13 +409,13 @@ export default function Footer() {
           {/* =========================================================================
               4. COPYRIGHT & REGULATORY BAR (ABOVE "Kigali Rentals")
           ========================================================================= */}
-          <div className="w-full border-t border-[#BFD8E3]/20 pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#BFD8E3] gap-4">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-[#BFD8E3] text-center sm:text-left">
+          <div className="w-full border-t border-white/10 pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-300 gap-4">
+            <div className="font-mono text-[11px] uppercase tracking-wider text-slate-300 text-center sm:text-left">
               COPYRIGHT KGLRENTALS 2026
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-[11px] text-[#BFD8E3]/70">
+              <span className="text-[11px] text-slate-400">
                 Regulated by Rwanda Development Board (RDB)
               </span>
 
@@ -481,7 +424,7 @@ export default function Footer() {
                 type="button"
                 onClick={scrollToTop}
                 aria-label="Back to top"
-                className="w-10 h-10 rounded-full bg-[#003060] hover:bg-[#004A6B] border border-[#BFD8E3]/30 shadow-md flex items-center justify-center text-white hover:text-[#BFD8E3] transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
+                className="w-10 h-10 rounded-full bg-[#00638E] hover:bg-[#00557B] border border-white/20 shadow-md flex items-center justify-center text-white hover:text-slate-300 transition-all duration-300 hover:-translate-y-1 active:translate-y-0"
                 title="Back to Top"
               >
                 <ArrowUp className="w-4 h-4" />
@@ -495,42 +438,42 @@ export default function Footer() {
             5. GIGANTIC BOLD "Kigali Rentals" SLIDING FROM RIGHT TO LEFT
                Continuous smooth marquee in Syne font, extra large & bold
         ========================================================================= */}
-        <div className="w-full overflow-hidden select-none pt-2 sm:pt-3 pb-3 sm:pb-4 border-t border-[#BFD8E3]/20 relative flex items-center">
+        <div className="w-full overflow-hidden select-none pt-2 sm:pt-3 pb-3 sm:pb-4 border-t border-white/10 relative flex items-center">
           <div className="animate-marquee-left flex items-center whitespace-nowrap will-change-transform">
             {/* Repeated Sequence A */}
             <div className="flex items-center gap-8 sm:gap-14 shrink-0 pr-8 sm:pr-14">
               <span
-                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-[#BFD8E3] to-[#8CB9CC]/40 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
+                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-slate-200 to-[#00638E]/30 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
                 style={{ fontFamily: "'Syne', sans-serif" }}
               >
                 Kigali Rentals
               </span>
               <span className="text-[#00638E] text-2xl sm:text-4xl lg:text-5xl font-sans">•</span>
               <span
-                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-[#BFD8E3] to-[#8CB9CC]/40 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
+                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-slate-200 to-[#00638E]/30 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
                 style={{ fontFamily: "'Syne', sans-serif" }}
               >
                 Kigali Rentals
               </span>
-              <span className="text-[#8CB9CC] text-2xl sm:text-4xl lg:text-5xl font-sans">•</span>
+              <span className="text-[#00638E] text-2xl sm:text-4xl lg:text-5xl font-sans">•</span>
             </div>
 
             {/* Repeated Sequence B (Seamless clone for infinite loop) */}
             <div className="flex items-center gap-8 sm:gap-14 shrink-0 pr-8 sm:pr-14">
               <span
-                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-[#BFD8E3] to-[#8CB9CC]/40 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
+                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-slate-200 to-[#00638E]/30 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
                 style={{ fontFamily: "'Syne', sans-serif" }}
               >
                 Kigali Rentals
               </span>
               <span className="text-[#00638E] text-2xl sm:text-4xl lg:text-5xl font-sans">•</span>
               <span
-                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-[#BFD8E3] to-[#8CB9CC]/40 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
+                className="font-syne font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#FFFFFF] via-slate-200 to-[#00638E]/30 drop-shadow-lg text-[13vw] sm:text-[11vw] lg:text-[10vw] leading-[0.82] select-none"
                 style={{ fontFamily: "'Syne', sans-serif" }}
               >
                 Kigali Rentals
               </span>
-              <span className="text-[#8CB9CC] text-2xl sm:text-4xl lg:text-5xl font-sans">•</span>
+              <span className="text-[#00638E] text-2xl sm:text-4xl lg:text-5xl font-sans">•</span>
             </div>
           </div>
         </div>

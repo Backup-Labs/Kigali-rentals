@@ -3,7 +3,6 @@ import './globals.css';
 import { RentalProvider } from '@/lib/rentalContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import MobileBottomNav from '@/components/MobileBottomNav';
 
 import NavigationProgressBar from '@/components/NavigationProgressBar';
 import PageTransition from '@/components/PageTransition';
@@ -46,7 +45,6 @@ export default function RootLayout({
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
-          <MobileBottomNav />
         </RentalProvider>
       </body>
     </html>

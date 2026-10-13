@@ -311,7 +311,7 @@ export default function DatePicker({
               <button
                 type="button"
                 onClick={() => applyPreset(3)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#003060]/10 hover:bg-[#003060]/20 text-[#003060] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#00638E]/10 hover:bg-[#00638E]/20 text-[#00638E] transition-colors"
               >
                 3 Days
               </button>

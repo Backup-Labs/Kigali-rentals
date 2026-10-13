@@ -121,14 +121,14 @@ export default function AdminDashboardPage() {
   return (
     <div className="min-h-screen bg-[#F0F6F9] pb-24 pt-20 sm:pt-24">
       {/* Top Admin Bar */}
-      <div className="bg-[#003060] text-white py-5 border-b border-white/10">
+      <div className="bg-[#00638E] text-white py-5 border-b border-white/10">
         <div className="container mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-[10px] font-bold font-tenor uppercase tracking-wider bg-[#00638E] text-white px-2 py-0.5 rounded">
                 Back-Office AD-01
               </span>
-              <span className="text-xs text-[#8CB9CC] font-mono">
+              <span className="text-xs text-white/80 font-mono">
                 ● Live Operations Console
               </span>
             </div>
@@ -140,14 +140,14 @@ export default function AdminDashboardPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={toggleCurrency}
-              className="px-3 py-1.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-xs font-mono font-bold text-[#BFD8E3]"
+              className="px-3 py-1.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-xs font-mono font-bold text-white/80"
             >
               Currency: {currency} (Click to toggle)
             </button>
 
             <Link
               href="/handover"
-              className="px-4 py-2 rounded-xl bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-tenor font-bold flex items-center gap-1.5 shadow-sm"
+              className="px-4 py-2 rounded-xl bg-[#00638E] hover:bg-[#00557B] text-white text-xs font-tenor font-bold flex items-center gap-1.5 shadow-sm"
             >
               <ClipboardList className="w-3.5 h-3.5" />
               <span>Launch Handover</span>
@@ -186,7 +186,7 @@ export default function AdminDashboardPage() {
               <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Today’s Pickups / Arrivals
               </span>
-              <span className="font-tenor font-extrabold text-3xl text-[#003060] mt-1 block">
+              <span className="font-tenor font-extrabold text-3xl text-[#00638E] mt-1 block">
                 {todayArrivals}
               </span>
               <span className="text-xs text-[#00638E] font-medium mt-1 block">
@@ -220,14 +220,14 @@ export default function AdminDashboardPage() {
               <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Occupancy / Fleet Utilization
               </span>
-              <span className="font-tenor font-extrabold text-3xl text-[#003060] mt-1 block">
+              <span className="font-tenor font-extrabold text-3xl text-[#00638E] mt-1 block">
                 {occupancyRate}%
               </span>
               <span className="text-xs text-slate-500 font-medium mt-1 block">
                 {rentedAssets} of {totalAssets} assets active
               </span>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-[#003060]/10 border border-[#003060]/25 text-[#003060] flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-[#00638E]/10 border border-[#00638E]/25 text-[#00638E] flex items-center justify-center shadow-xs">
               <TrendingUp className="w-5 h-5" />
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function AdminDashboardPage() {
               <span className="text-[11px] font-bold font-tenor text-slate-400 uppercase block">
                 Active Bookings Revenue
               </span>
-              <span className="font-tenor font-extrabold text-2xl text-[#003060] mt-1 block">
+              <span className="font-tenor font-extrabold text-2xl text-[#00638E] mt-1 block">
                 {formatPrice(totalRevenueUsd)}
               </span>
               <span className="text-xs text-[#00638E] font-medium mt-1 block">
@@ -254,10 +254,10 @@ export default function AdminDashboardPage() {
         {activeTab === 'overview' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Recent Reservations Table */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#BFD8E3] shadow-sm">
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="font-tenor font-bold text-lg text-[#003060]">
+                  <h3 className="font-tenor font-bold text-lg text-[#00638E]">
                     Recent Confirmed Reservations
                   </h3>
                   <span className="text-xs text-slate-500">Live feed from customer checkout terminal</span>
@@ -287,7 +287,7 @@ export default function AdminDashboardPage() {
                   <tbody className="divide-y divide-slate-100">
                     {reservations.map((res) => (
                       <tr key={res.id} className="hover:bg-[#F0F6F9] transition-colors">
-                        <td className="py-3 font-mono font-bold text-[#003060]">
+                        <td className="py-3 font-mono font-bold text-[#00638E]">
                           {res.id}
                         </td>
                         <td className="py-3">
@@ -309,7 +309,7 @@ export default function AdminDashboardPage() {
                         <td className="py-3 text-slate-600 font-medium">
                           {res.startDate} → {res.endDate}
                         </td>
-                        <td className="py-3 font-mono font-bold text-[#003060]">
+                        <td className="py-3 font-mono font-bold text-[#00638E]">
                           {formatPrice(res.pricing?.grandTotal || 0)}
                         </td>
                         <td className="py-3">
@@ -321,7 +321,7 @@ export default function AdminDashboardPage() {
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                               res.status === 'confirmed'
-                                ? 'bg-[#003060]/10 text-[#003060]'
+                                ? 'bg-[#00638E]/10 text-[#00638E]'
                                 : res.status === 'active'
                                 ? 'bg-[#00638E]/10 text-[#00638E]'
                                 : 'bg-[#00638E]/10 text-[#00638E]'
@@ -340,8 +340,8 @@ export default function AdminDashboardPage() {
             {/* Quick Operations Snapshot */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Fleet status mini list */}
-              <div className="bg-white rounded-3xl p-6 border border-[#BFD8E3] shadow-sm">
-                <h3 className="font-tenor font-bold text-base text-[#003060] mb-3">
+              <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                <h3 className="font-tenor font-bold text-base text-[#00638E] mb-3">
                   Fleet & Property Availability
                 </h3>
                 <div className="space-y-3">
@@ -354,7 +354,7 @@ export default function AdminDashboardPage() {
                         {item.type === 'car' ? (
                           <Car className="w-4 h-4 text-[#00638E]" />
                         ) : (
-                          <Home className="w-4 h-4 text-[#003060]" />
+                          <Home className="w-4 h-4 text-[#00638E]" />
                         )}
                         <span className="font-bold text-slate-800">{item.title}</span>
                       </div>
@@ -375,9 +375,9 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* Operations Tasks mini list */}
-              <div className="bg-white rounded-3xl p-6 border border-[#BFD8E3] shadow-sm">
+              <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-tenor font-bold text-base text-[#003060]">
+                  <h3 className="font-tenor font-bold text-base text-[#00638E]">
                     Immediate Field Tasks
                   </h3>
                   <button
@@ -424,10 +424,10 @@ export default function AdminDashboardPage() {
 
         {/* TAB 2: UNIFIED SCHEDULE TIMELINE (AD-02) */}
         {activeTab === 'schedule' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#BFD8E3] shadow-md space-y-6 animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6 animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
               <div>
-                <h2 className="font-tenor font-bold text-xl text-[#003060]">
+                <h2 className="font-tenor font-bold text-xl text-[#00638E]">
                   Unified Booking & Handover Timeline
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -437,7 +437,7 @@ export default function AdminDashboardPage() {
 
               <div className="flex items-center gap-3 text-xs">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 rounded bg-[#003060]"></span>
+                  <span className="w-3 h-3 rounded bg-[#00638E]"></span>
                   <span>Properties</span>
                 </span>
                 <span className="flex items-center gap-1.5">
@@ -455,7 +455,7 @@ export default function AdminDashboardPage() {
             <div className="overflow-x-auto">
               <div className="min-w-[700px] border border-slate-200 rounded-2xl overflow-hidden">
                 {/* Timeline Header (Days of October 2026) */}
-                <div className="grid grid-cols-10 bg-[#003060] text-white text-xs font-mono py-2.5 px-4 font-bold border-b border-slate-300">
+                <div className="grid grid-cols-10 bg-[#00638E] text-white text-xs font-mono py-2.5 px-4 font-bold border-b border-slate-300">
                   <div className="col-span-2">Asset Name</div>
                   <div>Oct 12</div>
                   <div>Oct 13</div>
@@ -483,9 +483,9 @@ export default function AdminDashboardPage() {
                           {asset.type === 'car' ? (
                             <Car className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
                           ) : (
-                            <Home className="w-3.5 h-3.5 text-[#003060] shrink-0" />
+                            <Home className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
                           )}
-                          <span className="font-bold text-[#003060] truncate">
+                          <span className="font-bold text-[#00638E] truncate">
                             {asset.title}
                           </span>
                         </div>
@@ -499,7 +499,7 @@ export default function AdminDashboardPage() {
                                   ? 'bg-[#00638E] left-[15%] w-[60%]'
                                   : asset.type === 'car'
                                   ? 'bg-[#00638E] left-[0%] w-[45%]'
-                                  : 'bg-[#003060] left-[25%] w-[65%]'
+                                  : 'bg-[#00638E] left-[25%] w-[65%]'
                               }`}
                             >
                               <span>
@@ -523,10 +523,10 @@ export default function AdminDashboardPage() {
 
         {/* TAB 3: INVENTORY MANAGEMENT & PRICE OVERRIDES (AD-03 to AD-06) */}
         {activeTab === 'inventory' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#BFD8E3] shadow-md space-y-6 animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6 animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <h2 className="font-tenor font-bold text-xl text-[#003060]">
+                <h2 className="font-tenor font-bold text-xl text-[#00638E]">
                   Asset Inventory & Rate Overrides
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -585,7 +585,7 @@ export default function AdminDashboardPage() {
                       </td>
                       <td className="py-3 text-slate-600">{item.neighborhood}</td>
                       <td className="py-3 text-slate-500 font-mono text-[11px]">{item.specs}</td>
-                      <td className="py-3 font-mono font-bold text-[#003060]">
+                      <td className="py-3 font-mono font-bold text-[#00638E]">
                         {formatPrice(item.pricePerDay)}/day
                       </td>
                       <td className="py-3">
@@ -596,7 +596,7 @@ export default function AdminDashboardPage() {
                               : item.status === 'Rented'
                               ? 'bg-[#00638E]/10 text-[#00638E]'
                               : item.status === 'Cleaning'
-                              ? 'bg-[#003060]/10 text-[#003060]'
+                              ? 'bg-[#00638E]/10 text-[#00638E]'
                               : 'bg-slate-200 text-slate-800'
                           }`}
                         >
@@ -607,7 +607,7 @@ export default function AdminDashboardPage() {
                         <button
                           type="button"
                           onClick={() => handleOpenEdit(item)}
-                          className="px-3 py-1.5 bg-[#003060] hover:bg-[#00638E] text-white rounded-lg font-tenor font-bold text-[10px] uppercase transition-colors"
+                          className="px-3 py-1.5 bg-[#00638E] hover:bg-[#00638E] text-white rounded-lg font-tenor font-bold text-[10px] uppercase transition-colors"
                         >
                           Edit Status / Rate
                         </button>
@@ -623,7 +623,7 @@ export default function AdminDashboardPage() {
               <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
                 <div className="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full border border-slate-200 shadow-2xl animate-fadeIn space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 className="font-tenor font-bold text-base text-[#003060]">
+                    <h3 className="font-tenor font-bold text-base text-[#00638E]">
                       Edit {editingAsset.title}
                     </h3>
                     <button
@@ -676,7 +676,7 @@ export default function AdminDashboardPage() {
                     <button
                       type="button"
                       onClick={handleSaveAssetEdit}
-                      className="px-5 py-2 bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-tenor font-bold uppercase rounded-xl shadow-md"
+                      className="px-5 py-2 bg-[#00638E] hover:bg-[#00557B] text-white text-xs font-tenor font-bold uppercase rounded-xl shadow-md"
                     >
                       Save Changes
                     </button>
@@ -689,10 +689,10 @@ export default function AdminDashboardPage() {
 
         {/* TAB 4: OPERATIONS TASK BOARD (AD-07 to AD-11) */}
         {activeTab === 'tasks' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#BFD8E3] shadow-md space-y-6 animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6 animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <h2 className="font-tenor font-bold text-xl text-[#003060]">
+                <h2 className="font-tenor font-bold text-xl text-[#00638E]">
                   Operations Handover & Turnover Tasks
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -703,7 +703,7 @@ export default function AdminDashboardPage() {
               <button
                 type="button"
                 onClick={() => setShowAddTaskModal(true)}
-                className="px-4 py-2.5 bg-[#00638E] hover:bg-[#004A6B] text-white rounded-xl text-xs font-tenor font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md self-start sm:self-auto"
+                className="px-4 py-2.5 bg-[#00638E] hover:bg-[#00557B] text-white rounded-xl text-xs font-tenor font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md self-start sm:self-auto"
               >
                 <Plus className="w-4 h-4" />
                 <span>Create Dispatch Task</span>
@@ -718,7 +718,7 @@ export default function AdminDashboardPage() {
                   className={`p-5 rounded-2xl border transition-all ${
                     task.status === 'completed'
                       ? 'bg-slate-50/70 border-slate-200 opacity-70'
-                      : 'bg-[#F0F6F9] border-[#BFD8E3] shadow-xs'
+                      : 'bg-[#F0F6F9] border-slate-200 shadow-xs'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
@@ -739,7 +739,7 @@ export default function AdminDashboardPage() {
                     </span>
                   </div>
 
-                  <h4 className="font-tenor font-bold text-sm text-[#003060] leading-snug mb-1">
+                  <h4 className="font-tenor font-bold text-sm text-[#00638E] leading-snug mb-1">
                     {task.title}
                   </h4>
 
@@ -770,7 +770,7 @@ export default function AdminDashboardPage() {
                       className={`px-3 py-1 rounded-lg font-tenor font-bold text-[10px] uppercase transition-colors ${
                         task.status === 'completed'
                           ? 'bg-[#00638E]/10 text-[#00638E]'
-                          : 'bg-[#003060] text-white hover:bg-[#00638E]'
+                          : 'bg-[#00638E] text-white hover:bg-[#00638E]'
                       }`}
                     >
                       {task.status === 'completed' ? '✓ Completed' : 'Mark Done'}
@@ -788,7 +788,7 @@ export default function AdminDashboardPage() {
                   className="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full border border-slate-200 shadow-2xl animate-fadeIn space-y-4"
                 >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 className="font-tenor font-bold text-base text-[#003060]">
+                    <h3 className="font-tenor font-bold text-base text-[#00638E]">
                       Assign New Operations Task
                     </h3>
                     <button
@@ -872,7 +872,7 @@ export default function AdminDashboardPage() {
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-tenor font-bold uppercase rounded-xl shadow-md"
+                      className="px-5 py-2 bg-[#00638E] hover:bg-[#00557B] text-white text-xs font-tenor font-bold uppercase rounded-xl shadow-md"
                     >
                       Dispatch Task
                     </button>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Compass, Home, Car, MessageSquare, Phone } from 'lucide-react';
+import { Compass, Home, Car, Sparkles, Phone } from 'lucide-react';
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ export default function MobileBottomNav() {
     { label: 'Explore', href: '/', id: 'explore', icon: Compass, isExternal: false },
     { label: 'Vehicles', href: '/#vehicles', id: 'vehicles', icon: Car, isExternal: false },
     { label: 'Apartments', href: '/#apartments', id: 'apartments', icon: Home, isExternal: false },
-    { label: 'WhatsApp', href: 'https://wa.me/250788123456', id: 'whatsapp', icon: MessageSquare, isExternal: true },
+    { label: 'About', href: '/#about', id: 'about', icon: Sparkles, isExternal: false },
     { label: 'Book Call', href: 'tel:+250788123456', id: 'call', icon: Phone, isExternal: true },
   ];
 
@@ -76,21 +76,17 @@ export default function MobileBottomNav() {
               <>
                 {/* Active Capsule Background */}
                 {isActive && (
-                  <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-[#004A6B] to-[#003060] border border-[#002244] shadow-[0_2px_6px_rgba(0,48,96,0.3),inset_0_1px_1px_rgba(255,255,255,0.4)] -z-10 animate-fadeIn" />
+                  <span className="absolute inset-0 rounded-xl bg-[#00638E] border border-[#00557B] shadow-[0_2px_6px_rgba(0,99,142,0.3),inset_0_1px_1px_rgba(255,255,255,0.4)] -z-10 animate-fadeIn" />
                 )}
 
                 <Icon
                   className={`w-4 h-4 mb-0.5 transition-colors ${
-                    item.id === 'whatsapp'
-                      ? 'text-[#00638E]'
-                      : isActive
-                      ? 'text-[#8CB9CC]'
-                      : 'text-slate-400'
+                    isActive ? 'text-white' : 'text-slate-400'
                   }`}
                 />
                 <span className="text-[10px] font-tenor truncate">{item.label}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8CB9CC] shadow-[0_0_6px_#8CB9CC] animate-pulse mt-0.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_white] animate-pulse mt-0.5" />
                 )}
               </>
             );
@@ -106,8 +102,6 @@ export default function MobileBottomNav() {
                 <a
                   key={item.label}
                   href={item.href}
-                  target={item.id === 'whatsapp' ? '_blank' : undefined}
-                  rel={item.id === 'whatsapp' ? 'noopener noreferrer' : undefined}
                   className={className}
                 >
                   {content}
@@ -129,6 +123,9 @@ export default function MobileBottomNav() {
                   } else if (pathname === '/' && item.id === 'apartments') {
                     const el =
                       document.getElementById('apartments') || document.getElementById('properties');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  } else if (pathname === '/' && item.id === 'about') {
+                    const el = document.getElementById('about');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}

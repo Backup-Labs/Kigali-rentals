@@ -159,18 +159,18 @@ export default function HandoverToolPage() {
   return (
     <div className="min-h-screen bg-[#F0F6F9] pb-24 pt-20 sm:pt-24">
       {/* Header */}
-      <div className="bg-[#003060] text-white py-6 border-b border-white/10">
+      <div className="bg-[#141414] text-white py-6 border-b border-white/10">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold font-tenor uppercase tracking-wider text-[#8CB9CC] bg-white/10 px-2.5 py-0.5 rounded-full mb-1">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold font-tenor uppercase tracking-wider text-white bg-white/10 px-2.5 py-0.5 rounded-full mb-1">
                 <ClipboardCheck className="w-3.5 h-3.5" />
                 <span>Field Operations & Renter Inspection Tool</span>
               </div>
               <h1 className="font-tenor text-2xl sm:text-3xl font-extrabold text-white">
                 Condition Handover Protocol
               </h1>
-              <p className="text-xs text-[#BFD8E3]/80 mt-1">
+              <p className="text-xs text-slate-300 mt-1">
                 Standardized check-in & return inspections to eliminate deposit friction and guarantee zero surprise fees.
               </p>
             </div>
@@ -226,7 +226,7 @@ export default function HandoverToolPage() {
                   {isCarAsset ? 'Vehicle Fleet' : 'Property Asset'}
                 </span>
               </div>
-              <h3 className="font-tenor font-bold text-base text-[#003060]">
+              <h3 className="font-tenor font-bold text-base text-[#00638E]">
                 {selectedBooking?.assetTitle}
               </h3>
               <p className="text-xs text-slate-600">
@@ -277,10 +277,10 @@ export default function HandoverToolPage() {
             <div className="lg:col-span-8 space-y-6">
               {isCarAsset ? (
                 /* CAR INSPECTION FORM */
-                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#BFD8E3] shadow-md space-y-6">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <div>
-                      <h2 className="font-tenor font-bold text-xl text-[#003060]">
+                      <h2 className="font-tenor font-bold text-xl text-[#00638E]">
                         Vehicle Telemetry & Condition
                       </h2>
                       <span className="text-xs text-slate-500">
@@ -301,7 +301,7 @@ export default function HandoverToolPage() {
                           <Gauge className="w-4 h-4 text-[#00638E]" />
                           <span>Odometer Mileage</span>
                         </label>
-                        <span className="text-xs font-mono font-bold text-[#003060]">
+                        <span className="text-xs font-mono font-bold text-[#00638E]">
                           {odometer.toLocaleString()} km
                         </span>
                       </div>
@@ -324,7 +324,7 @@ export default function HandoverToolPage() {
                           <Fuel className="w-4 h-4 text-[#00638E]" />
                           <span>Fuel Tank Gauge</span>
                         </label>
-                        <span className="text-xs font-mono font-bold text-[#003060]">
+                        <span className="text-xs font-mono font-bold text-[#00638E]">
                           {fuelLevel}% {fuelLevel === 100 ? '(Full F)' : fuelLevel < 25 ? '(Low E)' : ''}
                         </span>
                       </div>
@@ -371,7 +371,7 @@ export default function HandoverToolPage() {
                             <span className="text-[10px] font-tenor font-bold uppercase truncate">
                               {slot.label}
                             </span>
-                            <span className="text-[9px] text-[#BFD8E3]">✓ Uploaded</span>
+                            <span className="text-[9px] text-slate-300">✓ Uploaded</span>
                           </div>
                         </div>
                       ))}
@@ -391,7 +391,7 @@ export default function HandoverToolPage() {
                           className="flex items-center justify-between p-3 rounded-xl bg-[#F0F6F9] border border-slate-200 text-xs"
                         >
                           <div>
-                            <span className="font-bold text-[#003060] block">{s.location}</span>
+                            <span className="font-bold text-[#00638E] block">{s.location}</span>
                             <span className="text-slate-500">{s.note}</span>
                           </div>
                           <button
@@ -424,7 +424,7 @@ export default function HandoverToolPage() {
                       <button
                         type="button"
                         onClick={addScratch}
-                        className="px-3.5 py-2 bg-[#003060] hover:bg-rose-600 text-white text-xs font-tenor font-bold rounded-xl flex items-center justify-center gap-1 shrink-0"
+                        className="px-3.5 py-2 bg-[#00638E] hover:bg-rose-600 text-white text-xs font-tenor font-bold rounded-xl flex items-center justify-center gap-1 shrink-0"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Add Mark</span>
@@ -434,17 +434,17 @@ export default function HandoverToolPage() {
                 </div>
               ) : (
                 /* PROPERTY INSPECTION FORM */
-                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#BFD8E3] shadow-md space-y-6">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <div>
-                      <h2 className="font-tenor font-bold text-xl text-[#003060]">
+                      <h2 className="font-tenor font-bold text-xl text-[#00638E]">
                         Property Handover & Utility Check
                       </h2>
                       <span className="text-xs text-slate-500">
                         {activeTab === 'check_in' ? 'Check-in meter & key log' : 'Departure inspection & turnover'}
                       </span>
                     </div>
-                    <span className="text-xs font-bold font-tenor uppercase bg-[#003060]/10 text-[#003060] px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold font-tenor uppercase bg-[#00638E]/10 text-[#00638E] px-3 py-1 rounded-full">
                       Property
                     </span>
                   </div>
@@ -460,7 +460,7 @@ export default function HandoverToolPage() {
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-slate-600">Smart Lock PIN:</span>
-                        <span className="font-mono font-bold text-sm text-[#003060] bg-white px-2 py-0.5 rounded border border-slate-300">
+                        <span className="font-mono font-bold text-sm text-[#00638E] bg-white px-2 py-0.5 rounded border border-slate-300">
                           {keyBoxPin}
                         </span>
                       </div>
@@ -508,7 +508,7 @@ export default function HandoverToolPage() {
                           className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-[#F0F6F9]"
                         >
                           <div>
-                            <span className="font-tenor font-bold text-xs text-[#003060] block">
+                            <span className="font-tenor font-bold text-xs text-[#00638E] block">
                               {room.room}
                             </span>
                             <span className="text-[11px] text-slate-500">{room.notes}</span>
@@ -534,12 +534,12 @@ export default function HandoverToolPage() {
             </div>
 
             {/* Right Sign-off Box (4 cols) */}
-            <div className="lg:col-span-4 bg-white rounded-3xl p-6 border border-[#BFD8E3] shadow-md space-y-5 sticky top-24">
+            <div className="lg:col-span-4 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-5 sticky top-24">
               <div>
                 <span className="text-[10px] uppercase font-bold text-slate-400 font-tenor">
                   Inspection Summary
                 </span>
-                <h3 className="font-tenor font-bold text-lg text-[#003060]">
+                <h3 className="font-tenor font-bold text-lg text-[#00638E]">
                   Sign & File Handover
                 </h3>
               </div>
@@ -575,7 +575,7 @@ export default function HandoverToolPage() {
               <button
                 type="button"
                 onClick={handleSaveReport}
-                className="w-full bg-[#00638E] hover:bg-[#004A6B] text-white py-3 px-4 rounded-xl font-tenor font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full bg-[#00638E] hover:bg-[#00557B] text-white py-3 px-4 rounded-xl font-tenor font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>Save Condition Report</span>
@@ -584,7 +584,7 @@ export default function HandoverToolPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('compare')}
-                className="w-full bg-[#F0F6F9] hover:bg-slate-200 text-[#003060] py-2.5 px-4 rounded-xl font-tenor font-bold text-xs text-center transition-colors"
+                className="w-full bg-[#F0F6F9] hover:bg-slate-200 text-[#00638E] py-2.5 px-4 rounded-xl font-tenor font-bold text-xs text-center transition-colors"
               >
                 Switch to Comparison View
               </button>
@@ -592,13 +592,13 @@ export default function HandoverToolPage() {
           </div>
         ) : (
           /* VIEW 3: COMPARISON VIEW (HO-05) */
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#BFD8E3] shadow-md animate-fadeIn">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md animate-fadeIn">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-2 mb-6">
               <div>
                 <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
                   Dispute Elimination Protocol
                 </span>
-                <h2 className="font-tenor text-2xl font-extrabold text-[#003060]">
+                <h2 className="font-tenor text-2xl font-extrabold text-[#00638E]">
                   Side-by-Side Condition Comparison (HO-05)
                 </h2>
               </div>
@@ -615,7 +615,7 @@ export default function HandoverToolPage() {
                 {/* Column A: Check-In */}
                 <div className="p-5 rounded-2xl bg-[#F0F6F9] border border-slate-200 space-y-4">
                   <div className="flex items-center justify-between border-b border-slate-300 pb-2">
-                    <span className="font-tenor font-bold text-sm text-[#003060]">
+                    <span className="font-tenor font-bold text-sm text-[#00638E]">
                       Check-In Status (October 12)
                     </span>
                     <span className="text-xs font-mono bg-white px-2 py-0.5 rounded border border-slate-200">
@@ -657,7 +657,7 @@ export default function HandoverToolPage() {
                 {/* Column B: Check-Out */}
                 <div className="p-5 rounded-2xl bg-white border-2 border-[#00638E]/40 space-y-4 shadow-sm">
                   <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <span className="font-tenor font-bold text-sm text-[#003060]">
+                    <span className="font-tenor font-bold text-sm text-[#00638E]">
                       Check-Out Status (Return)
                     </span>
                     <span className="text-xs font-mono bg-[#00638E]/10 text-[#00638E] px-2 py-0.5 rounded font-bold">
@@ -704,7 +704,7 @@ export default function HandoverToolPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Property Comparison */}
                 <div className="p-5 rounded-2xl bg-[#F0F6F9] border border-slate-200 space-y-3">
-                  <h4 className="font-tenor font-bold text-sm text-[#003060]">Check-in Baseline</h4>
+                  <h4 className="font-tenor font-bold text-sm text-[#00638E]">Check-in Baseline</h4>
                   <div className="text-xs space-y-1.5 text-slate-600">
                     <div>Electricity: 12,450.8 kWh</div>
                     <div>Water Units: 842.1 m³</div>
@@ -714,7 +714,7 @@ export default function HandoverToolPage() {
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white border-2 border-[#00638E]/40 space-y-3">
-                  <h4 className="font-tenor font-bold text-sm text-[#003060]">Check-out Departure</h4>
+                  <h4 className="font-tenor font-bold text-sm text-[#00638E]">Check-out Departure</h4>
                   <div className="text-xs space-y-1.5 text-slate-600">
                     <div>Electricity: {electricityKwh} kWh</div>
                     <div>Water Units: {waterUnits} m³</div>
@@ -728,7 +728,7 @@ export default function HandoverToolPage() {
             {/* Final Sign-off & Deposit Release */}
             <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-xs text-slate-600">
-                <span className="font-bold text-[#003060] block">
+                <span className="font-bold text-[#00638E] block">
                   Automatic Deposit Unfreeze
                 </span>
                 Triggering sign-off releases the {selectedBooking?.pricing?.securityDepositHold ? `$${selectedBooking.pricing.securityDepositHold}` : '$250'} security hold back to renter’s card or MoMo wallet.
@@ -739,7 +739,7 @@ export default function HandoverToolPage() {
                 onClick={() => {
                   alert(`Deposit release authorized for ${selectedBooking.customer.fullName}! SMS confirmation sent to ${selectedBooking.customer.phone}.`);
                 }}
-                className="px-6 py-3 bg-[#00638E] hover:bg-[#004A6B] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2"
+                className="px-6 py-3 bg-[#00638E] hover:bg-[#00557B] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Approve Return & Release Deposit</span>

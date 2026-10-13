@@ -57,7 +57,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
   };
 
   return (
-    <div className="group bg-white rounded-[26px] p-3 sm:p-3.5 border border-[#BFD8E3]/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,99,142,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+    <div className="group bg-white rounded-[26px] p-3 sm:p-3.5 border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_36px_-6px_rgba(0,99,142,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
       {/* 1. Inset Image Frame with Action Buttons matching Reference Design */}
       <div className="relative aspect-[16/11] rounded-[20px] overflow-hidden bg-slate-900 mb-3.5">
         <Link href={`/listings/${listing.id}`} onClick={handleSelectForDraft} className="block w-full h-full relative">
@@ -74,7 +74,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
 
         {/* Floating Bottom-Left Badge: "● For Rent" (from Reference Design) */}
         <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-[#BFD8E3] shadow-md text-xs font-semibold text-[#141414]">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-md text-xs font-semibold text-[#141414]">
             <span className="w-2 h-2 rounded-full bg-[#00638E] animate-pulse" />
             <span>{isCar ? 'For Rent • Fleet' : 'For Rent'}</span>
           </div>
@@ -89,7 +89,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
               e.stopPropagation();
             }}
             aria-label="View on map"
-            className="w-9 h-9 rounded-full bg-white border border-[#BFD8E3] shadow-md flex items-center justify-center text-slate-700 hover:text-[#00638E] hover:scale-110 active:scale-95 transition-all"
+            className="w-9 h-9 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-[#00638E] hover:scale-110 active:scale-95 transition-all"
             title="Explore neighborhood on map"
           >
             <Compass className="w-4 h-4 text-slate-700" />
@@ -102,7 +102,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
               setIsLiked(!isLiked);
             }}
             aria-label="Save to favorites"
-            className="w-9 h-9 rounded-full bg-white border border-[#BFD8E3] shadow-md flex items-center justify-center text-[#00638E] hover:scale-110 active:scale-95 transition-all"
+            className="w-9 h-9 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-[#00638E] hover:scale-110 active:scale-95 transition-all"
             title="Save to favorites"
           >
             <Heart
@@ -158,7 +158,7 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
         </div>
 
         {/* Rating Pill with Azure Star */}
-        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F0F6F9] border border-[#BFD8E3] shadow-2xs">
+        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F0F6F9] border border-slate-200 shadow-2xs">
           <Star className="w-3.5 h-3.5 fill-[#00638E] text-[#00638E]" />
           <span className="text-xs font-bold text-[#141414]">
             {listing.rating.toFixed(1)}

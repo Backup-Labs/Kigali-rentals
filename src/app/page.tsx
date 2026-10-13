@@ -445,7 +445,7 @@ export default function HomePage() {
       ],
       dateLabel: 'Trip Dates',
       capacityLabel: 'Guests / Capacity',
-      capacityIcon: <Users className="w-3.5 h-3.5 text-[#004A6B]" />,
+      capacityIcon: <Users className="w-3.5 h-3.5 text-[#00638E]" />,
       capacityOptions: [
         { value: 'all', label: 'Any Capacity', description: 'Show all properties and vehicles' },
         { value: '1', label: '1 Guest / Driver', description: 'Studio Loft or City Sedan' },
@@ -478,7 +478,7 @@ export default function HomePage() {
     },
     car: {
       zoneLabel: 'Pickup / Delivery Location',
-      zoneIcon: <MapPin className="w-3.5 h-3.5 text-[#004A6B]" />,
+      zoneIcon: <MapPin className="w-3.5 h-3.5 text-[#00638E]" />,
       zoneOptions: [
         { value: 'all', label: 'All Delivery Desks', description: 'Airport, Kiyovu Hub or Hotel Delivery' },
         { value: 'airport', label: 'Kigali International Airport (KGL)', description: 'Flight meet & greet at arrivals' },
@@ -487,7 +487,7 @@ export default function HomePage() {
       ],
       dateLabel: 'Rental Duration',
       capacityLabel: 'Fleet Model & Chauffeur',
-      capacityIcon: <Car className="w-3.5 h-3.5 text-[#004A6B]" />,
+      capacityIcon: <Car className="w-3.5 h-3.5 text-[#00638E]" />,
       capacityOptions: [
         { value: 'all', label: 'All Vehicle Models', description: 'Explore full 4x4 & sedan inventory' },
         { value: '4x4', label: 'Toyota Land Cruiser Prado TXL', description: 'Safari suspension 4x4, automatic' },
@@ -596,7 +596,7 @@ export default function HomePage() {
         <div className="container mx-auto relative z-10 max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl text-center mb-8 sm:mb-12 2xl:mb-16 mt-2 sm:mt-4">
           <h1 className="font-tenor text-2xl min-[360px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-white leading-[1.18] sm:leading-[1.15] drop-shadow-xl mb-3 sm:mb-4">
             Rent your luxury 4x4 & executive drive in{' '}
-            <span className="inline-block bg-[#00638E] text-white px-2.5 min-[360px]:px-3 sm:px-4 md:px-5 py-0.5 sm:py-1 rounded-xs sm:rounded-sm shadow-md align-baseline font-bold whitespace-nowrap">
+            <span className="inline-block bg-[#00638E] text-white px-2.5 min-[360px]:px-3.5 sm:px-4 md:px-5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl md:rounded-2xl shadow-md align-baseline font-bold whitespace-nowrap">
               Rwanda
             </span>
           </h1>
@@ -634,7 +634,7 @@ export default function HomePage() {
                   : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
               }`}
             >
-              <Car className="w-3.5 h-3.5 text-[#004A6B]" />
+              <Car className="w-3.5 h-3.5 text-[#00638E]" />
               <span>Vehicles & 4x4 Fleet</span>
             </button>
 
@@ -657,7 +657,7 @@ export default function HomePage() {
               className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'combo'
                   ? 'skeu-tab-active-accent text-white shadow-sm'
-                  : 'skeu-btn-frosted text-[#00638E] hover:text-[#004A6B]'
+                  : 'skeu-btn-frosted text-[#00638E] hover:text-[#00638E]'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -722,7 +722,7 @@ export default function HomePage() {
                 >
                   <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between border-b border-slate-100 pb-1.5 mb-1">
                     <span>Database Matches</span>
-                    <span className="font-mono text-[#004A6B] text-[9px] font-bold">Verified DB Inventory</span>
+                    <span className="font-mono text-[#00638E] text-[9px] font-bold">Verified DB Inventory</span>
                   </div>
                   {liveSuggestions.length === 0 ? (
                     <div className="p-3 text-xs text-slate-500 text-center">
@@ -741,11 +741,11 @@ export default function HomePage() {
                       >
                         <div className="flex items-center gap-2 truncate pr-2">
                           {item.type === 'car' ? (
-                            <Car className="w-3.5 h-3.5 text-[#004A6B] shrink-0" />
+                            <Car className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
                           ) : item.type === 'location' ? (
                             <MapPin className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
                           ) : (
-                            <Home className="w-3.5 h-3.5 text-[#003060] shrink-0" />
+                            <Home className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
                           )}
                           <div className="truncate">
                             <span className="font-tenor font-bold text-xs text-slate-900 group-hover:text-[#00638E] block truncate">
@@ -862,7 +862,7 @@ export default function HomePage() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#00638E] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {cat.badge}
                 </span>
-                <h3 className="font-tenor font-bold text-lg text-white group-hover:text-[#BFD8E3] transition-colors">
+                <h3 className="font-tenor font-bold text-lg text-white group-hover:text-white transition-colors">
                   {cat.title}
                 </h3>
                 <p className="text-xs text-white/80 mt-1 line-clamp-2">
@@ -870,7 +870,7 @@ export default function HomePage() {
                 </p>
                 <div className="flex items-center gap-1 text-[11px] font-semibold text-white/90 mt-2 group-hover:translate-x-1 transition-transform">
                   <span>Explore category</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-[#8CB9CC]" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#00638E]" />
                 </div>
               </div>
             </div>
@@ -1031,7 +1031,7 @@ export default function HomePage() {
       <section id="vehicles" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-8 scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#004A6B]/15 text-[#004A6B] text-xs font-tenor font-bold mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00638E]/15 text-[#00638E] text-xs font-tenor font-bold mb-2">
               <Car className="w-3.5 h-3.5" />
               <span>Kigali Fleet & Safari 4x4s</span>
             </div>
@@ -1050,8 +1050,8 @@ export default function HomePage() {
         </div>
 
         {activeTab === 'property' ? (
-          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-[#BFD8E3]">
-            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#004A6B] mb-3">
+          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-slate-200">
+            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#00638E] mb-3">
               <Car className="w-6 h-6" />
             </div>
             <h3 className="font-tenor font-bold text-base text-[#141414]">Currently filtering by Apartments</h3>
@@ -1118,7 +1118,7 @@ export default function HomePage() {
         </div>
 
         {activeTab === 'car' ? (
-          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-[#BFD8E3]">
+          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-slate-200">
             <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#00638E] mb-3">
               <Home className="w-6 h-6" />
             </div>
@@ -1162,7 +1162,7 @@ export default function HomePage() {
 
       {/* 6. VISUAL STAY & DRIVE COMBO INTERACTIVE BANNER */}
       <section id="combo" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] my-12 scroll-mt-28">
-        <div className="skeu-card-elevated !bg-gradient-to-br !from-[#003060] !via-[#002244] !to-[#141414] rounded-3xl overflow-hidden text-white grid grid-cols-1 lg:grid-cols-12 items-center border border-[#BFD8E3]/20">
+        <div className="skeu-card-elevated !bg-[#141414] rounded-3xl overflow-hidden text-white grid grid-cols-1 lg:grid-cols-12 items-center border border-white/10">
           {/* Visual Side: Combined Imagery */}
           <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden">
             <Image
@@ -1171,7 +1171,7 @@ export default function HomePage() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#003060]/40 to-[#003060]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#141414]/40 to-[#141414]" />
             <div className="absolute top-4 left-4 skeu-btn-terracotta text-white px-3 py-1 rounded-full text-xs font-tenor font-bold uppercase tracking-wider">
               Save 20% on Bundle
             </div>
@@ -1179,7 +1179,7 @@ export default function HomePage() {
 
           {/* Copy Side */}
           <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-center">
-            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#8CB9CC] mb-2">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E] mb-2">
               Stay & Drive Experience
             </span>
             <h2 className="font-tenor text-2xl sm:text-3xl font-bold tracking-tight mb-3">
@@ -1211,13 +1211,13 @@ export default function HomePage() {
       </section>
 
       {/* 6. VISUAL 3-STEP JOURNEY: HOW IT WORKS IN PHOTOGRAPHIC FRAMES */}
-      <section id="how-it-works" className="bg-[#F0F6F9] border-y border-[#BFD8E3]/60 py-20 my-16 scroll-mt-24">
+      <section id="how-it-works" className="bg-[#F0F6F9] border-y border-slate-200 py-20 my-16 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-xl mx-auto mb-14">
             <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
               Seamless Experience
             </span>
-            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#003060] mt-1">
+            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#00638E] mt-1">
               How Kigali Rentals Works
             </h2>
             <p className="text-xs sm:text-sm text-[#2B2B2B] mt-2">
@@ -1324,7 +1324,7 @@ export default function HomePage() {
                 <span className="text-[10px] uppercase font-bold tracking-wider text-[#00638E] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {dest.badge}
                 </span>
-                <h3 className="font-tenor font-bold text-lg text-white group-hover:text-[#BFD8E3] transition-colors">
+                <h3 className="font-tenor font-bold text-lg text-white group-hover:text-white transition-colors">
                   {dest.title}
                 </h3>
                 <p className="text-xs text-white/80 mt-1 line-clamp-2">
@@ -1337,13 +1337,13 @@ export default function HomePage() {
       </section>
 
       {/* 8. KIGALI NEIGHBORHOOD CURATION (VISUAL-FIRST) */}
-      <section id="neighborhoods" className="bg-white border-t border-[#BFD8E3]/60 py-16 scroll-mt-28">
+      <section id="neighborhoods" className="bg-white border-t border-slate-200 py-16 scroll-mt-28">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
               Local Insights
             </span>
-            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#003060] mt-1">
+            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#00638E] mt-1">
               Explore Kigali’s Best Neighborhoods
             </h2>
             <p className="text-xs sm:text-sm text-[#2B2B2B] mt-2">
@@ -1394,7 +1394,7 @@ export default function HomePage() {
                   <span className="text-[10px] uppercase font-bold font-tenor tracking-wider text-[#00638E] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                     {n.badge}
                   </span>
-                  <h3 className="font-tenor font-bold text-xl text-white group-hover:text-[#BFD8E3] transition-colors">
+                  <h3 className="font-tenor font-bold text-xl text-white group-hover:text-white transition-colors">
                     {n.title}
                   </h3>
                   <p className="text-xs text-slate-300 mt-1 line-clamp-2">
