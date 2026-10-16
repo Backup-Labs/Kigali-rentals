@@ -80,9 +80,9 @@ export default function ListingDetailPage({ params }: PageProps) {
   if (!listing) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="font-tenor text-2xl font-bold text-[#00638E]">Listing Not Found</h1>
-        <p className="text-sm text-slate-500 mt-2 mb-6">The requested asset ID does not exist in the Kigali inventory.</p>
-        <Link href="/" className="px-5 py-2.5 bg-[#00638E] text-white rounded-xl text-xs font-tenor font-bold">
+        <h1 className="font-tenor text-2xl font-bold text-[#FFC72C]">Listing Not Found</h1>
+        <p className="text-sm text-zinc-400 mt-2 mb-6">The requested asset ID does not exist in the Kigali inventory.</p>
+        <Link href="/" className="px-5 py-2.5 bg-[#FFC72C] text-[#111111] font-bold rounded-xl text-xs font-tenor font-bold">
           Return to All Listings
         </Link>
       </div>
@@ -135,18 +135,18 @@ export default function ListingDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-24 pt-20 sm:pt-24">
+    <div className="min-h-screen bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white pb-24 pt-20 sm:pt-24">
       {/* Breadcrumbs & Direct Concierge Notice Header */}
-      <div className="bg-[#141414] text-white py-3 border-b border-white/10">
+      <div className="bg-white dark:bg-[#141414] text-zinc-900 dark:text-white py-3 border-b border-black/5 dark:border-black/5 dark:border-white/10">
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-slate-300">
-            <Link href="/" className="hover:text-white">Home</Link>
+          <div className="flex items-center gap-2 text-zinc-500 dark:text-slate-300">
+            <Link href="/" className="hover:text-black dark:hover:text-white">Home</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <Link href={`/#${isCar ? 'vehicles' : 'apartments'}`} className="hover:text-white capitalize">
+            <Link href={`/#${isCar ? 'vehicles' : 'apartments'}`} className="hover:text-black dark:hover:text-white capitalize">
               {isCar ? 'Vehicles' : 'Apartments'}
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-white font-medium truncate max-w-[200px] sm:max-w-none">
+            <span className="text-zinc-900 dark:text-white font-medium truncate max-w-[200px] sm:max-w-none">
               {listing.title}
             </span>
           </div>
@@ -155,9 +155,9 @@ export default function ListingDetailPage({ params }: PageProps) {
             href="https://wa.me/250788123456"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-[#00638E]/20 hover:bg-[#00638E]/30 text-slate-300 px-3 py-1 rounded-full border border-[#00638E]/30 font-mono text-[11px] transition-colors"
+            className="flex items-center gap-2 bg-[#FFC72C]/20 hover:bg-[#FFC72C]/30 text-zinc-800 dark:text-zinc-200 px-3 py-1 rounded-full border border-[#FFC72C]/30 font-mono text-[11px] transition-colors"
           >
-            <span className="w-2 h-2 rounded-full bg-[#00638E] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#FFC72C] animate-pulse" />
             <span>Concierge Online • Call / WhatsApp: +250 788 123 456</span>
           </a>
         </div>
@@ -169,8 +169,8 @@ export default function ListingDetailPage({ params }: PageProps) {
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span
-                className={`text-xs font-tenor font-bold px-3 py-1 rounded-full uppercase tracking-wider text-white ${
-                  'bg-[#00638E]'
+                className={`text-xs font-tenor font-bold px-3 py-1 rounded-full uppercase tracking-wider !text-[#111111] ${
+                  'bg-[#FFC72C]'
                 }`}
               >
                 {isCar ? 'Automotive Fleet' : 'Residential Luxury'}
@@ -179,34 +179,34 @@ export default function ListingDetailPage({ params }: PageProps) {
               {listing.badges.map((b) => (
                 <span
                   key={b}
-                  className="text-xs font-medium bg-white text-[#00638E] border border-slate-200 px-2.5 py-1 rounded-full"
+                  className="text-xs font-medium bg-white dark:bg-[#141519] text-[#FFC72C] border border-black/5 dark:border-white/10 px-2.5 py-1 rounded-full"
                 >
                   {b}
                 </span>
               ))}
 
               {listing.isVerified && (
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#00638E] bg-[#00638E]/10 border border-[#00638E]/20 px-2.5 py-1 rounded-full">
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#FFC72C] bg-[#FFC72C]/10 border border-[#FFC72C]/20 px-2.5 py-1 rounded-full">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Kigali Certified</span>
                 </span>
               )}
             </div>
 
-            <h1 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#141414] tracking-tight">
+            <h1 className="font-tenor text-2xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
               {listing.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#2B2B2B] mt-2 font-medium">
-              <div className="flex items-center gap-1 text-[#00638E]">
+            <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-zinc-400 mt-2 font-medium">
+              <div className="flex items-center gap-1 text-[#FFC72C]">
                 <MapPin className="w-4 h-4" />
                 <span>{listing.address}</span>
               </div>
               <span>•</span>
-              <div className="flex items-center gap-1 text-slate-800">
-                <Star className="w-4 h-4 fill-[#00638E] text-[#00638E]" />
+              <div className="flex items-center gap-1 text-zinc-800 dark:text-zinc-200">
+                <Star className="w-4 h-4 fill-[#FFC72C] text-[#FFC72C]" />
                 <span className="font-bold">{listing.rating.toFixed(2)}</span>
-                <span className="text-slate-500">({listing.reviewCount} verified guest reviews)</span>
+                <span className="text-zinc-500 dark:text-zinc-400">({listing.reviewCount} verified guest reviews)</span>
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function ListingDetailPage({ params }: PageProps) {
           <div className="hidden lg:flex items-center gap-3">
             <button
               onClick={() => alert('Link copied to clipboard!')}
-              className="px-4 py-2 bg-white rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 bg-white dark:bg-[#141519] rounded-xl border border-black/10 dark:border-white/15 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#0E0F12] transition-colors"
             >
               Share Listing
             </button>
@@ -224,7 +224,7 @@ export default function ListingDetailPage({ params }: PageProps) {
         {/* 1. MEDIA GALLERY (LS-01) */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
           {/* Main Large Viewer */}
-          <div className="lg:col-span-3 relative aspect-[16/10] sm:aspect-[16/9] rounded-3xl overflow-hidden shadow-md bg-slate-900 border border-slate-200">
+          <div className="lg:col-span-3 relative aspect-[16/10] sm:aspect-[16/9] rounded-3xl overflow-hidden shadow-md bg-slate-900 border border-black/5 dark:border-white/10">
             <Image
               src={listing.images[activePhotoIdx] || listing.images[0]}
               alt={listing.title}
@@ -246,7 +246,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                 onClick={() => setActivePhotoIdx(idx)}
                 className={`relative aspect-[16/10] lg:aspect-auto lg:h-[110px] rounded-2xl overflow-hidden border-2 transition-all ${
                   activePhotoIdx === idx
-                    ? 'border-[#00638E] ring-2 ring-[#00638E]/40'
+                    ? 'border-[#FFC72C] ring-2 ring-[#FFC72C]/40'
                     : 'border-transparent opacity-75 hover:opacity-100'
                 }`}
               >
@@ -261,30 +261,30 @@ export default function ListingDetailPage({ params }: PageProps) {
           {/* Left Column (8 cols): Specifications, Description, Cross-Sell, Map */}
           <div className="lg:col-span-7 space-y-8">
             {/* Quick Specs Highlight Strip */}
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div className="bg-white dark:bg-[#141519] p-5 rounded-2xl border border-black/5 dark:border-white/10 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {isCar ? (
                 <>
                   <div className="p-2">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Passengers</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E]">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C]">
                       {listing.vehicleDetails?.seats} Seats
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Drivetrain</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E] uppercase">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C] uppercase">
                       {listing.vehicleDetails?.category}
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Transmission</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E] capitalize">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C] capitalize">
                       {listing.vehicleDetails?.transmission}
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Efficiency</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E]">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C]">
                       {listing.vehicleDetails?.fuelEfficiency}
                     </span>
                   </div>
@@ -293,25 +293,25 @@ export default function ListingDetailPage({ params }: PageProps) {
                 <>
                   <div className="p-2">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Bedrooms</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E]">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C]">
                       {listing.propertyDetails?.bedrooms} En-Suite
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Bathrooms</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E]">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C]">
                       {listing.propertyDetails?.bathrooms} Baths
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Capacity</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E]">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C]">
                       {listing.propertyDetails?.maxGuests} Guests
                     </span>
                   </div>
                   <div className="p-2 border-l border-slate-100">
                     <span className="block text-[10px] font-bold uppercase text-slate-400 font-tenor">Living Space</span>
-                    <span className="font-tenor font-bold text-base text-[#00638E]">
+                    <span className="font-tenor font-bold text-base text-[#FFC72C]">
                       {listing.propertyDetails?.sqm} m²
                     </span>
                   </div>
@@ -320,19 +320,19 @@ export default function ListingDetailPage({ params }: PageProps) {
             </div>
 
             {/* Description */}
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
-              <h2 className="font-tenor text-xl font-bold text-[#00638E] mb-4">
+            <div className="bg-white dark:bg-[#141519] p-6 sm:p-8 rounded-3xl border border-black/5 dark:border-white/10 shadow-sm">
+              <h2 className="font-tenor text-xl font-bold text-[#FFC72C] mb-4">
                 About this {isCar ? 'Vehicle' : 'Property'}
               </h2>
-              <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+              <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-line">
                 {listing.description}
               </p>
 
               {/* Verified Rwanda Guarantee Banner */}
-              <div className="mt-6 p-4 rounded-2xl bg-[#00638E]/10 border border-[#00638E]/25 flex items-start gap-3">
-                <ShieldCheck className="w-5 h-5 text-[#00638E] shrink-0 mt-0.5" />
-                <div className="text-xs text-slate-800">
-                  <span className="font-bold text-[#00638E] block mb-0.5">
+              <div className="mt-6 p-4 rounded-2xl bg-[#FFC72C]/10 border border-[#FFC72C]/25 flex items-start gap-3">
+                <ShieldCheck className="w-5 h-5 text-[#FFC72C] shrink-0 mt-0.5" />
+                <div className="text-xs text-zinc-800 dark:text-zinc-200">
+                  <span className="font-bold text-[#FFC72C] block mb-0.5">
                     Kigali Rentals Operational Assurance
                   </span>
                   Physical inspection completed on October 2026. Backup generator switches, water tanks, Wi-Fi latency, and vehicle tire tread depths are verified by in-house operations staff prior to every guest check-in.
@@ -341,8 +341,8 @@ export default function ListingDetailPage({ params }: PageProps) {
             </div>
 
             {/* Amenities & Specifications (LS-02) */}
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
-              <h2 className="font-tenor text-xl font-bold text-[#00638E] mb-4">
+            <div className="bg-white dark:bg-[#141519] p-6 sm:p-8 rounded-3xl border border-black/5 dark:border-white/10 shadow-sm">
+              <h2 className="font-tenor text-xl font-bold text-[#FFC72C] mb-4">
                 {isCar ? 'Vehicle Equipment & Safety Features' : 'Included Amenities & Comforts'}
               </h2>
 
@@ -353,9 +353,9 @@ export default function ListingDetailPage({ params }: PageProps) {
                 )?.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2.5 text-xs text-slate-800 p-2.5 rounded-xl bg-white border border-slate-200"
+                    className="flex items-center gap-2.5 text-xs text-zinc-800 dark:text-zinc-200 p-2.5 rounded-xl bg-white dark:bg-[#141519] border border-black/5 dark:border-white/10"
                   >
-                    <CheckCircle className="w-4 h-4 text-[#00638E] shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-[#FFC72C] shrink-0" />
                     <span className="font-medium">{item}</span>
                   </div>
                 ))}
@@ -364,32 +364,32 @@ export default function ListingDetailPage({ params }: PageProps) {
 
             {/* 3. CROSS-SELL CALLOUT MODULE (BK-05, LS-06) */}
             {crossSellAsset && (
-              <div className="bg-gradient-to-br from-white to-[#F0F6F9] rounded-3xl p-6 sm:p-8 border-2 border-[#00638E]/40 shadow-md relative overflow-hidden">
+              <div className="bg-gradient-to-br from-white to-[#F0F6F9] rounded-3xl p-6 sm:p-8 border-2 border-[#FFC72C]/40 shadow-md relative overflow-hidden">
                 <div className="flex flex-col sm:flex-row items-center gap-6">
-                  <div className="relative w-full sm:w-48 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-md border border-slate-200">
+                  <div className="relative w-full sm:w-48 aspect-[4/3] rounded-2xl overflow-hidden shrink-0 shadow-md border border-black/5 dark:border-white/10">
                     <Image
                       src={crossSellAsset.image}
                       alt={crossSellAsset.title}
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute top-2 left-2 bg-[#00638E] text-white text-[10px] font-tenor font-bold px-2 py-0.5 rounded-full uppercase">
+                    <div className="absolute top-2 left-2 bg-[#FFC72C] text-[#111111] font-bold text-[10px] font-tenor font-bold px-2 py-0.5 rounded-full uppercase">
                       Bundle Deal
                     </div>
                   </div>
 
                   <div className="flex-1 text-center sm:text-left">
-                    <div className="inline-flex items-center gap-1 text-[11px] font-bold text-[#00638E] uppercase tracking-wider mb-1">
+                    <div className="inline-flex items-center gap-1 text-[11px] font-bold text-[#FFC72C] uppercase tracking-wider mb-1">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Recommended Pairing</span>
                     </div>
-                    <h3 className="font-tenor font-bold text-lg text-[#00638E]">
+                    <h3 className="font-tenor font-bold text-lg text-[#FFC72C]">
                       {crossSellAsset.title}
                     </h3>
-                    <p className="text-xs text-slate-600 mt-1 mb-3">
+                    <p className="text-xs text-zinc-400 mt-1 mb-3">
                       {crossSellAsset.tagline}
                     </p>
-                    <div className="text-xs text-slate-500 font-mono mb-4">
+                    <div className="text-xs text-zinc-400 font-mono mb-4">
                       {crossSellAsset.specs}
                     </div>
 
@@ -398,19 +398,19 @@ export default function ListingDetailPage({ params }: PageProps) {
                         <span className="text-xs text-slate-400 line-through mr-1.5">
                           {formatPrice(crossSellAsset.originalDailyRate)}/day
                         </span>
-                        <span className="font-tenor font-extrabold text-lg text-[#00638E]">
+                        <span className="font-tenor font-extrabold text-lg text-[#FFC72C]">
                           +{formatPrice(crossSellAsset.discountDailyRate)}
                         </span>
-                        <span className="text-xs text-slate-500"> /day</span>
+                        <span className="text-xs text-zinc-400"> /day</span>
                       </div>
 
                       <button
                         type="button"
                         onClick={() => setIncludeCrossSell(!includeCrossSell)}
-                        className={`px-4 py-2 rounded-xl text-xs font-tenor font-bold transition-all shadow-sm ${
+                        className={`px-4 py-2 rounded-xl text-xs font-tenor font-bold transition-all ${
                           includeCrossSell
-                            ? 'bg-[#00638E] text-white hover:bg-[#00557B]'
-                            : 'bg-[#00638E] text-white hover:bg-[#00557B]'
+                            ? 'bg-[#FFC72C] text-[#111111] font-bold hover:bg-[#E5B224]'
+                            : 'bg-[#FFC72C] text-[#111111] font-bold hover:bg-[#E5B224]'
                         }`}
                       >
                         {includeCrossSell ? '✓ Added to Booking' : '+ Add to My Booking'}
@@ -422,25 +422,25 @@ export default function ListingDetailPage({ params }: PageProps) {
             )}
 
             {/* Mock Kigali Map Placeholder */}
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
-              <h2 className="font-tenor text-xl font-bold text-[#00638E] mb-2">
+            <div className="bg-white dark:bg-[#141519] p-6 sm:p-8 rounded-3xl border border-black/5 dark:border-white/10 shadow-sm">
+              <h2 className="font-tenor text-xl font-bold text-[#FFC72C] mb-2">
                 Location & Neighborhood Access
               </h2>
-              <p className="text-xs text-slate-500 mb-4">
+              <p className="text-xs text-zinc-400 mb-4">
                 Exact coordinates provided upon confirmation. Centrally positioned in {listing.neighborhood}.
               </p>
 
-              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-slate-200 bg-[#F0F6F9] flex flex-col items-center justify-center p-6 text-center">
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-black/5 dark:border-white/10 bg-slate-100 dark:bg-[#0B0C0E] flex flex-col items-center justify-center p-6 text-center">
                 {/* Simulated map background grid */}
-                <div className="absolute inset-0 bg-[radial-gradient(#00638E_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
+                <div className="absolute inset-0 bg-[radial-gradient(#FFC72C_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
                 <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-[#00638E] text-white flex items-center justify-center shadow-lg shadow-[#00638E]/40 mb-3 animate-bounce">
+                  <div className="w-12 h-12 rounded-full bg-[#FFC72C] text-[#111111] font-bold flex items-center justify-center mb-3 animate-bounce">
                     <MapPin className="w-6 h-6" />
                   </div>
-                  <h4 className="font-tenor font-bold text-base text-[#00638E]">
+                  <h4 className="font-tenor font-bold text-base text-[#FFC72C]">
                     {listing.address}
                   </h4>
-                  <p className="text-xs text-slate-600 max-w-sm mt-1">
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm mt-1">
                     5 mins to Kigali Heights & KCC • 12 mins to Kigali International Airport (KGL) • 24/7 paved dual-lane access
                   </p>
                 </div>
@@ -452,21 +452,21 @@ export default function ListingDetailPage({ params }: PageProps) {
           <div className="lg:col-span-5 sticky top-28 space-y-4">
             <div className="skeu-card-elevated rounded-3xl p-6 sm:p-7">
               {/* Daily Rate Header */}
-              <div className="flex items-baseline justify-between border-b border-slate-200 pb-4 mb-4">
+              <div className="flex items-baseline justify-between border-b border-black/5 dark:border-white/10 pb-4 mb-4">
                 <div>
                   <span className="text-xs text-slate-400 font-medium block">Starting from</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="font-tenor font-extrabold text-3xl text-[#00638E]">
+                    <span className="font-tenor font-extrabold text-3xl text-[#FFC72C]">
                       {formatPrice(listing.pricePerDay)}
                     </span>
-                    <span className="text-xs text-slate-500 font-normal">
+                    <span className="text-xs text-zinc-400 font-normal">
                       {isCar ? '/ day' : '/ night'}
                     </span>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-[#00638E] bg-[#00638E]/10 px-2.5 py-1 rounded-full border border-[#00638E]/20 shadow-xs">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-[#FFC72C] bg-[#FFC72C]/10 px-2.5 py-1 rounded-full border border-[#FFC72C]/20 shadow-xs">
                     <Check className="w-3.5 h-3.5" />
                     <span>Instant Booking</span>
                   </span>
@@ -491,7 +491,7 @@ export default function ListingDetailPage({ params }: PageProps) {
                     <span className="block text-[10px] font-bold uppercase font-tenor text-slate-400">
                       {isCar ? 'Passengers' : 'Total Guests'}
                     </span>
-                    <span className="text-xs font-bold text-[#141414]">
+                    <span className="text-xs font-bold text-zinc-900 dark:text-white">
                       {guestsCount} {guestsCount === 1 ? 'Person' : 'People'}
                     </span>
                   </div>
@@ -499,14 +499,14 @@ export default function ListingDetailPage({ params }: PageProps) {
                     <button
                       type="button"
                       onClick={() => setGuestsCount(Math.max(1, guestsCount - 1))}
-                      className="w-7 h-7 rounded-lg skeu-btn-frosted flex items-center justify-center text-slate-700"
+                      className="w-7 h-7 rounded-lg skeu-btn-frosted flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
                     <button
                       type="button"
                       onClick={() => setGuestsCount(guestsCount + 1)}
-                      className="w-7 h-7 rounded-lg skeu-btn-frosted flex items-center justify-center text-slate-700"
+                      className="w-7 h-7 rounded-lg skeu-btn-frosted flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
@@ -516,59 +516,59 @@ export default function ListingDetailPage({ params }: PageProps) {
 
               {/* Add-ons Checkboxes */}
               <div className="space-y-2 mb-6">
-                <span className="block text-xs font-bold font-tenor text-slate-600 uppercase">
+                <span className="block text-xs font-bold font-tenor text-zinc-500 dark:text-zinc-400 uppercase">
                   Add-on Services
                 </span>
 
-                <label className="flex items-center justify-between text-xs p-2.5 rounded-xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer transition-all">
+                <label className="flex items-center justify-between text-xs p-2.5 rounded-xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-all">
                   <div className="flex items-center gap-2">
                     <input
                       type="checkbox"
                       checked={addAirportPickup}
                       onChange={(e) => setAddAirportPickup(e.target.checked)}
-                      className="rounded accent-[#00638E]"
+                      className="rounded accent-[#FFC72C]"
                     />
-                    <span className="text-[#141414]">Kigali Airport VIP Meet & Greet</span>
+                    <span className="text-zinc-900 dark:text-white">Kigali Airport VIP Meet & Greet</span>
                   </div>
-                  <span className="font-semibold text-slate-700">+{formatPrice(30)}</span>
+                  <span className="font-semibold text-zinc-700 dark:text-zinc-300">+{formatPrice(30)}</span>
                 </label>
 
                 {isCar && (
-                  <label className="flex items-center justify-between text-xs p-2.5 rounded-xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer transition-all">
+                  <label className="flex items-center justify-between text-xs p-2.5 rounded-xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-all">
                     <div className="flex items-center gap-2">
                       <input
                         type="checkbox"
                         checked={addDedicatedDriver}
                         onChange={(e) => setAddDedicatedDriver(e.target.checked)}
-                        className="rounded accent-[#00638E]"
+                        className="rounded accent-[#FFC72C]"
                       />
-                      <span className="text-[#141414]">Professional Chauffeur</span>
+                      <span className="text-zinc-900 dark:text-white">Professional Chauffeur</span>
                     </div>
-                    <span className="font-semibold text-slate-700">
+                    <span className="font-semibold text-zinc-700 dark:text-zinc-300">
                       +{formatPrice((listing.vehicleDetails?.driverCostPerDay || 25) * daysCount)}
                     </span>
                   </label>
                 )}
 
-                <label className="flex items-center justify-between text-xs p-2.5 rounded-xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer transition-all">
+                <label className="flex items-center justify-between text-xs p-2.5 rounded-xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-all">
                   <div className="flex items-center gap-2">
                     <input
                       type="checkbox"
                       checked={addWifiHotspot}
                       onChange={(e) => setAddWifiHotspot(e.target.checked)}
-                      className="rounded accent-[#00638E]"
+                      className="rounded accent-[#FFC72C]"
                     />
-                    <span className="text-[#141414]">5G High-Speed Pocket MiFi</span>
+                    <span className="text-zinc-900 dark:text-white">5G High-Speed Pocket MiFi</span>
                   </div>
-                  <span className="font-semibold text-slate-700">+{formatPrice(10)}</span>
+                  <span className="font-semibold text-zinc-700 dark:text-zinc-300">+{formatPrice(10)}</span>
                 </label>
 
                 {crossSellAsset && (
                   <label
                     className={`flex items-center justify-between text-xs p-2.5 rounded-xl border transition-all cursor-pointer ${
                       includeCrossSell
-                        ? 'border-[#00638E] bg-[#00638E]/10 shadow-[inset_0_1px_2px_rgba(0,99,142,0.1)]'
-                        : 'border-slate-200 hover:bg-[#F0F6F9]'
+                        ? 'border-[#FFC72C] bg-[#FFC72C]/10 shadow-[inset_0_1px_2px_rgba(0,99,142,0.1)]'
+                        : 'border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E]'
                     }`}
                   >
                     <div className="flex items-center gap-2 truncate pr-2">
@@ -576,13 +576,13 @@ export default function ListingDetailPage({ params }: PageProps) {
                         type="checkbox"
                         checked={includeCrossSell}
                         onChange={(e) => setIncludeCrossSell(e.target.checked)}
-                        className="rounded accent-[#00638E]"
+                        className="rounded accent-[#FFC72C]"
                       />
-                      <span className="text-[#141414] font-medium truncate">
+                      <span className="text-zinc-900 dark:text-white font-medium truncate">
                         Bundle: {crossSellAsset.title}
                       </span>
                     </div>
-                    <span className="font-bold text-[#00638E] shrink-0">
+                    <span className="font-bold text-[#FFC72C] shrink-0">
                       +{formatPrice(comboTotal)}
                     </span>
                   </label>
@@ -590,16 +590,16 @@ export default function ListingDetailPage({ params }: PageProps) {
               </div>
 
               {/* Price Itemization Breakdown (BK-02, PY-03) */}
-              <div className="space-y-2 border-t border-slate-100 pt-4 mb-6 text-xs text-slate-600">
+              <div className="space-y-2 border-t border-black/5 dark:border-white/10 pt-4 mb-6 text-xs text-zinc-600 dark:text-zinc-400">
                 <div className="flex justify-between">
                   <span>
                     {formatPrice(listing.pricePerDay)} × {daysCount} {isCar ? 'days' : 'nights'}
                   </span>
-                  <span className="font-semibold text-slate-800">{formatPrice(baseTotal)}</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{formatPrice(baseTotal)}</span>
                 </div>
 
                 {includeCrossSell && (
-                  <div className="flex justify-between text-[#00638E]">
+                  <div className="flex justify-between text-[#FFC72C]">
                     <span>Pairing: {crossSellAsset?.title}</span>
                     <span className="font-semibold">{formatPrice(comboTotal)}</span>
                   </div>
@@ -607,36 +607,36 @@ export default function ListingDetailPage({ params }: PageProps) {
 
                 <div className="flex justify-between">
                   <span>Cleaning & Prep fee</span>
-                  <span className="font-semibold text-slate-800">{formatPrice(cleaningFee)}</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{formatPrice(cleaningFee)}</span>
                 </div>
 
                 {addOnsTotal > 0 && (
                   <div className="flex justify-between">
                     <span>Selected add-ons</span>
-                    <span className="font-semibold text-slate-800">{formatPrice(addOnsTotal)}</span>
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-200">{formatPrice(addOnsTotal)}</span>
                   </div>
                 )}
 
-                <div className="flex justify-between text-[11px] text-slate-500">
+                <div className="flex justify-between text-[11px] text-zinc-500 dark:text-zinc-400">
                   <span>Rwanda Tourism & Municipal Levy (5%)</span>
                   <span>{formatPrice(taxesAndTourismLevy)}</span>
                 </div>
 
-                <div className="flex justify-between text-slate-500 pt-1 border-t border-dashed border-slate-200">
+                <div className="flex justify-between text-zinc-400 pt-1 border-t border-dashed border-black/5 dark:border-white/10">
                   <span className="flex items-center gap-1">
                     <span>Refundable Deposit Hold</span>
                     <span title="Held via MoMo or Card, released upon handover">
                       <Info className="w-3 h-3" />
                     </span>
                   </span>
-                  <span className="font-mono text-[#00638E] font-medium">
+                  <span className="font-mono text-[#FFC72C] font-medium">
                     {formatPrice(securityDepositHold)} (Hold)
                   </span>
                 </div>
 
-                <div className="flex justify-between items-baseline pt-3 border-t border-slate-200">
-                  <span className="font-tenor font-bold text-sm text-[#00638E]">Total Estimated</span>
-                  <span className="font-tenor font-extrabold text-xl text-[#00638E]">
+                <div className="flex justify-between items-baseline pt-3 border-t border-black/5 dark:border-white/10">
+                  <span className="font-tenor font-bold text-sm text-[#FFC72C]">Total Estimated</span>
+                  <span className="font-tenor font-extrabold text-xl text-[#FFC72C]">
                     {formatPrice(grandTotal)}
                   </span>
                 </div>
@@ -659,7 +659,7 @@ Is this available?`;
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full skeu-btn-terracotta active:scale-[0.99] text-white py-3.5 px-6 rounded-2xl font-tenor font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg transition-all"
+                      className="w-full skeu-btn-terracotta active:scale-[0.99] !text-[#111111] py-3.5 px-6 rounded-2xl font-tenor font-extrabold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
                     >
                       <MessageSquare className="w-4 h-4 fill-current shrink-0" />
                       <span>Chat on WhatsApp to Book</span>
@@ -668,14 +668,14 @@ Is this available?`;
                     {/* Secondary Action: Direct Phone Call */}
                     <a
                       href={phoneUrl}
-                      className="w-full skeu-btn-teal text-white py-3 px-6 rounded-2xl font-tenor font-bold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
+                      className="w-full skeu-btn-teal !text-[#111111] py-3 px-6 rounded-2xl font-tenor font-extrabold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
                     >
                       <Phone className="w-4 h-4 shrink-0" />
                       <span>Call Concierge (+250 788 123 456)</span>
                     </a>
 
-                    <div className="pt-3 border-t border-slate-100 text-center space-y-1">
-                      <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#00638E]">
+                    <div className="pt-3 border-t border-black/5 dark:border-white/10 text-center space-y-1">
+                      <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#FFC72C]">
                         <CheckCircle className="w-3.5 h-3.5" />
                         <span>Direct Booking • Zero Intermediary Fees</span>
                       </div>
@@ -689,11 +689,11 @@ Is this available?`;
             </div>
 
             {/* Assistance card */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 flex items-center gap-3 text-xs text-slate-700 shadow-xs">
-              <Phone className="w-4 h-4 text-[#00638E] shrink-0" />
+            <div className="bg-white dark:bg-[#141519] rounded-2xl p-4 border border-black/5 dark:border-white/10 flex items-center gap-3 text-xs text-zinc-300 shadow-xs">
+              <Phone className="w-4 h-4 text-[#FFC72C] shrink-0" />
               <div>
-                <span className="font-bold text-[#00638E]">Have special delegation or safari questions?</span>
-                <span className="block text-slate-500">Call our Kigali office at +250 788 123 456</span>
+                <span className="font-bold text-[#FFC72C]">Have special delegation or safari questions?</span>
+                <span className="block text-zinc-400">Call our Kigali office at +250 788 123 456</span>
               </div>
             </div>
           </div>

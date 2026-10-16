@@ -434,7 +434,7 @@ export default function HomePage() {
   > = {
     all: {
       zoneLabel: 'Kigali Zone',
-      zoneIcon: <MapPin className="w-3.5 h-3.5 text-[#00638E]" />,
+      zoneIcon: <MapPin className="w-3.5 h-3.5 text-[#FFC72C]" />,
       zoneOptions: [
         { value: 'all', label: 'All Neighborhoods', description: 'Across Greater Kigali' },
         ...KIGALI_NEIGHBORHOODS.filter((n) => n.value !== 'all').map((nh) => ({
@@ -445,7 +445,7 @@ export default function HomePage() {
       ],
       dateLabel: 'Trip Dates',
       capacityLabel: 'Guests / Capacity',
-      capacityIcon: <Users className="w-3.5 h-3.5 text-[#00638E]" />,
+      capacityIcon: <Users className="w-3.5 h-3.5 text-[#FFC72C]" />,
       capacityOptions: [
         { value: 'all', label: 'Any Capacity', description: 'Show all properties and vehicles' },
         { value: '1', label: '1 Guest / Driver', description: 'Studio Loft or City Sedan' },
@@ -457,7 +457,7 @@ export default function HomePage() {
     },
     property: {
       zoneLabel: 'Property District',
-      zoneIcon: <Home className="w-3.5 h-3.5 text-[#00638E]" />,
+      zoneIcon: <Home className="w-3.5 h-3.5 text-[#FFC72C]" />,
       zoneOptions: [
         { value: 'all', label: 'All Kigali Locations', description: 'Diplomatic Villas, Penthouses & Lofts' },
         { value: 'Kiyovu', label: 'Kiyovu Diplomatic Hill', description: 'Embassies, Penthouses & City Views' },
@@ -467,7 +467,7 @@ export default function HomePage() {
       ],
       dateLabel: 'Check-in / Check-out',
       capacityLabel: 'Bedrooms & Residence',
-      capacityIcon: <Home className="w-3.5 h-3.5 text-[#00638E]" />,
+      capacityIcon: <Home className="w-3.5 h-3.5 text-[#FFC72C]" />,
       capacityOptions: [
         { value: 'all', label: 'All Property Classes', description: 'Show all available residences' },
         { value: 'penthouse', label: '2-Bed Penthouse (Up to 4 Guests)', description: 'Kiyovu luxury heights & infinity pool' },
@@ -478,7 +478,7 @@ export default function HomePage() {
     },
     car: {
       zoneLabel: 'Pickup / Delivery Location',
-      zoneIcon: <MapPin className="w-3.5 h-3.5 text-[#00638E]" />,
+      zoneIcon: <MapPin className="w-3.5 h-3.5 text-[#FFC72C]" />,
       zoneOptions: [
         { value: 'all', label: 'All Delivery Desks', description: 'Airport, Kiyovu Hub or Hotel Delivery' },
         { value: 'airport', label: 'Kigali International Airport (KGL)', description: 'Flight meet & greet at arrivals' },
@@ -487,7 +487,7 @@ export default function HomePage() {
       ],
       dateLabel: 'Rental Duration',
       capacityLabel: 'Fleet Model & Chauffeur',
-      capacityIcon: <Car className="w-3.5 h-3.5 text-[#00638E]" />,
+      capacityIcon: <Car className="w-3.5 h-3.5 text-[#FFC72C]" />,
       capacityOptions: [
         { value: 'all', label: 'All Vehicle Models', description: 'Explore full 4x4 & sedan inventory' },
         { value: '4x4', label: 'Toyota Land Cruiser Prado TXL', description: 'Safari suspension 4x4, automatic' },
@@ -499,7 +499,7 @@ export default function HomePage() {
     },
     combo: {
       zoneLabel: 'Base Sanctuary District',
-      zoneIcon: <Sparkles className="w-3.5 h-3.5 text-[#00638E]" />,
+      zoneIcon: <Sparkles className="w-3.5 h-3.5 text-[#FFC72C]" />,
       zoneOptions: [
         { value: 'all', label: 'All Curated Bundles (-20%)', description: 'Combined single invoice & deposit hold' },
         { value: 'Kiyovu', label: 'Diplomatic Kiyovu + Prado Fleet', description: 'Hilltop Penthouse with Land Cruiser' },
@@ -508,7 +508,7 @@ export default function HomePage() {
       ],
       dateLabel: 'Bundle Stay & Drive Dates',
       capacityLabel: 'Curated Package Tier',
-      capacityIcon: <Layers className="w-3.5 h-3.5 text-[#00638E]" />,
+      capacityIcon: <Layers className="w-3.5 h-3.5 text-[#FFC72C]" />,
       capacityOptions: [
         { value: 'all', label: 'All Curated Packages', description: 'Show all 20% discounted pairings' },
         { value: 'penthouse', label: 'Penthouse + Prado 4x4 (-20%)', description: 'Kiyovu 2-Bed + Land Cruiser Prado TXL' },
@@ -553,7 +553,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white transition-colors duration-200">
       {/* 1. HERO SECTION: FULL VIEWPORT RESPONSIVE FROM SMALLEST (280px) TO LARGEST (4K/8K) */}
       <section className="relative min-h-[100dvh] h-auto flex flex-col justify-center items-center px-3 min-[360px]:px-4 sm:px-6 lg:px-8 2xl:px-12 pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-12 2xl:pb-16 overflow-hidden">
         {/* Full-bleed Background Images Slideshow (Auto-cycles smoothly by default) */}
@@ -579,13 +579,13 @@ export default function HomePage() {
         </div>
 
         {/* Slideshow Progress Dots Indicator */}
-        <div className="absolute bottom-3 right-4 sm:right-8 z-30 flex items-center gap-1.5 glass-skeu-card px-2.5 py-1 rounded-full pointer-events-auto">
+        <div className="absolute bottom-3 right-4 sm:right-8 z-30 flex items-center gap-1.5 glass-skeu-card px-2.5 py-1 rounded-full pointer-events-auto border border-black/10 dark:border-zinc-800 bg-white/80 dark:bg-[#141519]/80 backdrop-blur-md">
           {HERO_SLIDES.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlideIndex(idx)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                idx === currentSlideIndex ? 'w-5 bg-[#00638E]' : 'w-1.5 bg-slate-400/50 hover:bg-slate-600'
+                idx === currentSlideIndex ? 'w-5 bg-[#FFC72C]' : 'w-1.5 bg-zinc-400 dark:bg-zinc-600 hover:bg-zinc-600 dark:hover:bg-zinc-400'
               }`}
               aria-label={`Slide ${idx + 1}`}
             />
@@ -596,12 +596,12 @@ export default function HomePage() {
         <div className="container mx-auto relative z-10 max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl text-center mb-8 sm:mb-12 2xl:mb-16 mt-2 sm:mt-4">
           <h1 className="font-tenor text-2xl min-[360px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-white leading-[1.18] sm:leading-[1.15] drop-shadow-xl mb-3 sm:mb-4">
             Rent your luxury 4x4 & executive drive in{' '}
-            <span className="inline-block bg-[#00638E] text-white px-2.5 min-[360px]:px-3.5 sm:px-4 md:px-5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl md:rounded-2xl shadow-md align-baseline font-bold whitespace-nowrap">
+            <span className="inline-block bg-[#FFC72C] text-[#111111] px-2.5 min-[360px]:px-3.5 sm:px-4 md:px-5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl md:rounded-2xl align-baseline font-black whitespace-nowrap">
               Rwanda
             </span>
           </h1>
 
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg 2xl:text-xl text-white/95 font-sans max-w-xl sm:max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed drop-shadow-md px-2">
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg 2xl:text-xl text-zinc-300 font-sans max-w-xl sm:max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed drop-shadow-md px-2">
             Toyota Land Cruiser Prado TXL, Land Rover Defender 110, and VIP Mercedes-Benz saloons. Expedition-ready for Rwanda’s 1,000 hills, Volcanoes Gorilla trekking, and city protocol.
           </p>
         </div>
@@ -609,17 +609,17 @@ export default function HomePage() {
         {/* High-Frost Luminous Glassmorphic Search Form (Sleek Reduced Height, Zero-Scroll Fit) */}
         <div
           id="search"
-          className="w-full max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-2.5 sm:p-3.5 2xl:p-5 text-slate-800 scroll-mt-24 transition-all shadow-2xl"
+          className="w-full max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-2.5 sm:p-3.5 2xl:p-5 text-zinc-900 dark:text-white scroll-mt-24 transition-all border border-black/5 dark:border-white/10 bg-white/95 dark:bg-[#141519]/95 backdrop-blur-xl"
         >
           {/* Dynamic Tab Selector with Tactile Buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2 pb-2.5 mb-2.5 border-b border-white/70 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-1.5 sm:gap-2 pb-2.5 mb-2.5 border-b border-zinc-200 dark:border-zinc-800 overflow-x-auto scrollbar-none">
             <button
               type="button"
               onClick={() => handleTabChange('all')}
               className={`px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'all'
-                  ? 'skeu-tab-active text-white shadow-sm'
-                  : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
+                  ? 'skeu-tab-active text-[#111111]'
+                  : 'skeu-btn-frosted text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white'
               }`}
             >
               All Assets
@@ -630,11 +630,11 @@ export default function HomePage() {
               onClick={() => handleTabChange('car')}
               className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'car'
-                  ? 'skeu-tab-active text-white shadow-sm'
-                  : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
+                  ? 'skeu-tab-active text-[#111111]'
+                  : 'skeu-btn-frosted text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white'
               }`}
             >
-              <Car className="w-3.5 h-3.5 text-[#00638E]" />
+              <Car className="w-3.5 h-3.5 text-[#FFC72C]" />
               <span>Vehicles & 4x4 Fleet</span>
             </button>
 
@@ -643,11 +643,11 @@ export default function HomePage() {
               onClick={() => handleTabChange('property')}
               className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'property'
-                  ? 'skeu-tab-active text-white shadow-sm'
-                  : 'skeu-btn-frosted text-slate-700 hover:text-slate-900'
+                  ? 'skeu-tab-active text-[#111111]'
+                  : 'skeu-btn-frosted text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white'
               }`}
             >
-              <Home className="w-3.5 h-3.5 text-[#00638E]" />
+              <Home className="w-3.5 h-3.5 text-[#FFC72C]" />
               <span>Apartments</span>
             </button>
 
@@ -656,13 +656,13 @@ export default function HomePage() {
               onClick={() => handleTabChange('combo')}
               className={`flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-xl text-xs sm:text-sm font-tenor font-bold transition-all shrink-0 ${
                 activeTab === 'combo'
-                  ? 'skeu-tab-active-accent text-white shadow-sm'
-                  : 'skeu-btn-frosted text-[#00638E] hover:text-[#00638E]'
+                  ? 'skeu-tab-active text-[#111111]'
+                  : 'skeu-btn-frosted text-[#FFC72C] hover:text-[#d4a017]'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
               <span>Stay & Drive Combo</span>
-              <span className="text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full font-bold">
+              <span className="text-[10px] bg-[#FFC72C] text-[#111111] px-1.5 py-0.5 rounded-full font-extrabold">
                 -20%
               </span>
             </button>
@@ -673,9 +673,9 @@ export default function HomePage() {
             {/* Field 1: Custom Input with live suggestions retrieved directly from DB */}
             <div ref={searchContainerRef} className="lg:col-span-4 relative">
               <div className="relative flex items-center h-11 sm:h-12 px-3 sm:px-3.5 rounded-xl skeu-input-cell">
-                <Search className="w-4 h-4 text-[#00638E] shrink-0 mr-2" />
+                <Search className="w-4 h-4 text-[#FFC72C] shrink-0 mr-2" />
                 <div className="flex-1 min-w-0">
-                  <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">
+                  <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-400 block leading-tight">
                     {activeTab === 'car'
                       ? 'FLEET MODEL & CHAUFFEUR'
                       : activeTab === 'property'
@@ -697,7 +697,7 @@ export default function HomePage() {
                         ? 'Kiyovu Villa, Nyarutarama...'
                         : 'Prado 4x4, Penthouse...'
                     }
-                    className="w-full bg-transparent font-tenor font-bold text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 placeholder:font-normal focus:outline-none leading-tight truncate"
+                    className="w-full bg-transparent font-tenor font-bold text-xs sm:text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 placeholder:font-normal focus:outline-none leading-tight truncate"
                   />
                 </div>
                 {customSearchQuery && (
@@ -707,7 +707,7 @@ export default function HomePage() {
                       setCustomSearchQuery('');
                       setShowSuggestions(false);
                     }}
-                    className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors shrink-0 ml-1"
+                    className="p-1 rounded-full text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors shrink-0 ml-1"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -717,15 +717,15 @@ export default function HomePage() {
               {/* Live Database Suggestions Dropdown */}
               {showSuggestions && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 z-50 glass-high-frost-dropdown rounded-2xl p-2 shadow-2xl animate-fadeIn border border-white/90 max-h-64 overflow-y-auto"
+                  className="absolute top-full left-0 right-0 mt-2 z-50 glass-high-frost-dropdown rounded-2xl p-2 shadow-2xl animate-fadeIn border border-black/10 dark:border-zinc-700/80 max-h-64 overflow-y-auto bg-white dark:bg-[#16171E] text-zinc-900 dark:text-white"
                   onMouseDown={(e) => e.preventDefault()}
                 >
-                  <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between border-b border-slate-100 pb-1.5 mb-1">
+                  <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center justify-between border-b border-black/10 dark:border-zinc-800 pb-1.5 mb-1">
                     <span>Database Matches</span>
-                    <span className="font-mono text-[#00638E] text-[9px] font-bold">Verified DB Inventory</span>
+                    <span className="font-mono text-[#FFC72C] text-[9px] font-bold">Verified DB Inventory</span>
                   </div>
                   {liveSuggestions.length === 0 ? (
-                    <div className="p-3 text-xs text-slate-500 text-center">
+                    <div className="p-3 text-xs text-zinc-500 dark:text-zinc-400 text-center">
                       No matching assets found in DB. Press search to browse all inventory.
                     </div>
                   ) : (
@@ -737,26 +737,26 @@ export default function HomePage() {
                           setCustomSearchQuery(item.title);
                           setShowSuggestions(false);
                         }}
-                        className="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-[#F0F6F9] transition-colors flex items-center justify-between group"
+                        className="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors flex items-center justify-between group"
                       >
                         <div className="flex items-center gap-2 truncate pr-2">
                           {item.type === 'car' ? (
-                            <Car className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
+                            <Car className="w-3.5 h-3.5 text-[#FFC72C] shrink-0" />
                           ) : item.type === 'location' ? (
-                            <MapPin className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
+                            <MapPin className="w-3.5 h-3.5 text-[#FFC72C] shrink-0" />
                           ) : (
-                            <Home className="w-3.5 h-3.5 text-[#00638E] shrink-0" />
+                            <Home className="w-3.5 h-3.5 text-[#FFC72C] shrink-0" />
                           )}
                           <div className="truncate">
-                            <span className="font-tenor font-bold text-xs text-slate-900 group-hover:text-[#00638E] block truncate">
+                            <span className="font-tenor font-bold text-xs text-zinc-900 dark:text-white group-hover:text-[#FFC72C] block truncate">
                               {item.title}
                             </span>
-                            <span className="text-[10px] text-slate-400 block truncate">
+                            <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block truncate">
                               {item.badge}
                             </span>
                           </div>
                         </div>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-tenor shrink-0">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-tenor shrink-0">
                           {item.category}
                         </span>
                       </button>
@@ -796,9 +796,9 @@ export default function HomePage() {
             <div className="lg:col-span-2">
               <button
                 type="submit"
-                className="w-full h-11 sm:h-12 skeu-btn-terracotta text-white rounded-xl font-tenor font-bold text-xs sm:text-sm tracking-tight flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
+                className="w-full h-11 sm:h-12 skeu-btn-terracotta text-[#111111] rounded-xl font-tenor font-extrabold text-xs sm:text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
               >
-                <Search className="w-4 h-4 shrink-0" />
+                <Search className="w-4 h-4 shrink-0 text-[#111111]" />
                 <span className="truncate">{tabConfigs[activeTab].buttonText}</span>
               </button>
             </div>
@@ -859,7 +859,7 @@ export default function HomePage() {
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-5 flex flex-col justify-end text-white">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-[#00638E] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-[#FFC72C] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {cat.badge}
                 </span>
                 <h3 className="font-tenor font-bold text-lg text-white group-hover:text-white transition-colors">
@@ -870,7 +870,7 @@ export default function HomePage() {
                 </p>
                 <div className="flex items-center gap-1 text-[11px] font-semibold text-white/90 mt-2 group-hover:translate-x-1 transition-transform">
                   <span>Explore category</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-[#00638E]" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#FFC72C]" />
                 </div>
               </div>
             </div>
@@ -884,7 +884,7 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* Quick Subcategory Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none text-xs">
-              <span className="font-tenor font-bold text-slate-500 uppercase text-[11px] shrink-0 mr-1">
+              <span className="font-tenor font-bold text-zinc-500 dark:text-zinc-400 uppercase text-[11px] shrink-0 mr-1">
                 Asset:
               </span>
               {[
@@ -902,8 +902,8 @@ export default function HomePage() {
                   onClick={() => setSelectedAssetSubtype(pill.value)}
                   className={`px-3 py-1.5 rounded-xl font-medium transition-all shrink-0 text-xs ${
                     selectedAssetSubtype === pill.value
-                      ? 'skeu-tab-active text-white font-semibold'
-                      : 'skeu-btn-frosted text-slate-700'
+                      ? 'skeu-tab-active !text-[#111111] font-extrabold'
+                      : 'skeu-btn-frosted text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white'
                   }`}
                 >
                   {pill.label}
@@ -918,14 +918,14 @@ export default function HomePage() {
                 onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold font-tenor transition-all ${
                   showAdvancedFilters
-                    ? 'skeu-btn-terracotta text-white'
-                    : 'skeu-btn-frosted text-slate-700'
+                    ? 'skeu-btn-terracotta !text-[#111111]'
+                    : 'skeu-btn-frosted text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white'
                 }`}
               >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span>Filters</span>
                 {(filterWithDriverOnly || filter4x4Only || filterHasPool || filterHasGenerator || maxPrice < 350) && (
-                  <span className="w-2 h-2 rounded-full bg-[#00638E]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#FFC72C]"></span>
                 )}
               </button>
 
@@ -942,11 +942,11 @@ export default function HomePage() {
 
           {/* Expanded Filter Panel */}
           {showAdvancedFilters && (
-            <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fadeIn">
+            <div className="mt-4 pt-4 border-t border-black/10 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fadeIn">
               <div>
-                <div className="flex items-center justify-between text-xs font-bold font-tenor text-slate-800 mb-1.5">
+                <div className="flex items-center justify-between text-xs font-bold font-tenor text-zinc-800 dark:text-zinc-200 mb-1.5">
                   <span>Max Daily Rate:</span>
-                  <span className="text-[#00638E] font-mono text-sm">{formatPrice(maxPrice)}</span>
+                  <span className="text-[#FFC72C] font-mono text-sm">{formatPrice(maxPrice)}</span>
                 </div>
                 <input
                   type="range"
@@ -955,9 +955,9 @@ export default function HomePage() {
                   step="25"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  className="w-full accent-[#00638E] cursor-pointer"
+                  className="w-full accent-[#FFC72C] cursor-pointer"
                 />
-                <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                <div className="flex justify-between text-[10px] text-zinc-500 dark:text-zinc-400 mt-1">
                   <span>$50</span>
                   <span>$250</span>
                   <span>$450+</span>
@@ -965,14 +965,14 @@ export default function HomePage() {
               </div>
 
               <div>
-                <span className="text-xs font-bold font-tenor text-slate-800 block mb-2">Properties:</span>
-                <div className="space-y-1.5 text-xs text-slate-700">
+                <span className="text-xs font-bold font-tenor text-zinc-800 dark:text-zinc-200 block mb-2">Properties:</span>
+                <div className="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={filterHasPool}
                       onChange={(e) => setFilterHasPool(e.target.checked)}
-                      className="rounded accent-[#00638E]"
+                      className="rounded accent-[#FFC72C]"
                     />
                     <span>Swimming Pool</span>
                   </label>
@@ -981,7 +981,7 @@ export default function HomePage() {
                       type="checkbox"
                       checked={filterHasGenerator}
                       onChange={(e) => setFilterHasGenerator(e.target.checked)}
-                      className="rounded accent-[#00638E]"
+                      className="rounded accent-[#FFC72C]"
                     />
                     <span>Backup Generator</span>
                   </label>
@@ -989,14 +989,14 @@ export default function HomePage() {
               </div>
 
               <div>
-                <span className="text-xs font-bold font-tenor text-slate-800 block mb-2">Vehicles:</span>
-                <div className="space-y-1.5 text-xs text-slate-700">
+                <span className="text-xs font-bold font-tenor text-zinc-800 dark:text-zinc-200 block mb-2">Vehicles:</span>
+                <div className="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={filter4x4Only}
                       onChange={(e) => setFilter4x4Only(e.target.checked)}
-                      className="rounded accent-[#00638E]"
+                      className="rounded accent-[#FFC72C]"
                     />
                     <span>Four-Wheel Drive (4x4)</span>
                   </label>
@@ -1005,7 +1005,7 @@ export default function HomePage() {
                       type="checkbox"
                       checked={filterWithDriverOnly}
                       onChange={(e) => setFilterWithDriverOnly(e.target.checked)}
-                      className="rounded accent-[#00638E]"
+                      className="rounded accent-[#FFC72C]"
                     />
                     <span>Chauffeur Included</span>
                   </label>
@@ -1016,7 +1016,7 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={resetFilters}
-                  className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-[#00638E] font-semibold py-2 px-3 rounded-lg hover:bg-[#F0F6F9] transition-colors"
+                  className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 hover:text-[#FFC72C] dark:hover:text-[#FFC72C] font-semibold py-2 px-3 rounded-lg hover:bg-white/5 transition-colors"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Reset Filters</span>
@@ -1031,54 +1031,54 @@ export default function HomePage() {
       <section id="vehicles" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-8 scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00638E]/15 text-[#00638E] text-xs font-tenor font-bold mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC72C]/15 text-[#FFC72C] text-xs font-tenor font-bold mb-2">
               <Car className="w-3.5 h-3.5" />
               <span>Kigali Fleet & Safari 4x4s</span>
             </div>
-            <h2 className="font-tenor text-2xl sm:text-3xl font-extrabold text-[#141414] tracking-tight">
+            <h2 className="font-tenor text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
               Available Vehicles & 4x4 Fleet in Kigali
             </h2>
-            <p className="text-xs sm:text-sm text-[#2B2B2B] mt-1">
+            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
               Toyota Land Cruiser Prado TXL, Safari AWDs, and VIP Mercedes-Benz executive sedans.
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl skeu-badge text-[#00638E]">
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl skeu-badge text-[#FFC72C]">
               {vehicleListings.length} Vehicles Available
             </span>
           </div>
         </div>
 
         {activeTab === 'property' ? (
-          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-slate-200">
-            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#00638E] mb-3">
+          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-black/10 dark:border-white/10">
+            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#FFC72C] mb-3">
               <Car className="w-6 h-6" />
             </div>
-            <h3 className="font-tenor font-bold text-base text-[#141414]">Currently filtering by Apartments</h3>
-            <p className="text-xs text-[#2B2B2B] mt-1.5 mb-4">
+            <h3 className="font-tenor font-bold text-base text-zinc-900 dark:text-white">Currently filtering by Apartments</h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1.5 mb-4">
               Explore our Kigali Land Cruiser Prado fleet, Safari AWDs, and executive chauffeurs.
             </p>
             <button
               type="button"
               onClick={() => setActiveTab('all')}
-              className="px-5 py-2 rounded-xl skeu-btn-teal text-white text-xs font-tenor font-bold"
+              className="px-5 py-2 rounded-xl skeu-btn-teal !text-[#111111] text-xs font-tenor font-extrabold"
             >
               Show All Vehicles & Fleets
             </button>
           </div>
         ) : vehicleListings.length === 0 ? (
           <div className="skeu-card rounded-3xl p-12 text-center max-w-lg mx-auto my-6">
-            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-slate-400 mb-4">
+            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-zinc-500 dark:text-zinc-400 mb-4">
               <Search className="w-8 h-8" />
             </div>
-            <h3 className="font-tenor font-bold text-lg text-slate-900">No vehicles match your criteria</h3>
-            <p className="text-xs text-slate-500 mt-2 mb-6">
+            <h3 className="font-tenor font-bold text-lg text-zinc-900 dark:text-white">No vehicles match your criteria</h3>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 mb-6">
               Try adjusting your price ceiling or reset filters to see all available vehicles.
             </p>
             <button
               type="button"
               onClick={resetFilters}
-              className="px-5 py-2.5 rounded-xl skeu-btn-teal text-white text-xs font-tenor font-bold"
+              className="px-5 py-2.5 rounded-xl skeu-btn-teal !text-[#111111] text-xs font-tenor font-extrabold"
             >
               Reset Filters
             </button>
@@ -1099,54 +1099,54 @@ export default function HomePage() {
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00638E]/15 text-[#00638E] text-xs font-tenor font-bold mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC72C]/15 text-[#FFC72C] text-xs font-tenor font-bold mb-2">
               <Home className="w-3.5 h-3.5" />
               <span>Luxury Kigali Residences</span>
             </div>
-            <h2 className="font-tenor text-2xl sm:text-3xl font-extrabold text-[#141414] tracking-tight">
+            <h2 className="font-tenor text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
               Luxury Apartments & Diplomatic Stays in Kigali
             </h2>
-            <p className="text-xs sm:text-sm text-[#2B2B2B] mt-1">
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
               Gated diplomatic villas in Nyarutarama, panoramic penthouses in Kiyovu, and serviced modern lofts.
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl skeu-badge text-[#00638E]">
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl skeu-badge text-[#FFC72C]">
               {apartmentListings.length} Apartments Available
             </span>
           </div>
         </div>
 
         {activeTab === 'car' ? (
-          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-slate-200">
-            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#00638E] mb-3">
+          <div className="skeu-card rounded-2xl p-6 sm:p-8 text-center max-w-xl mx-auto my-6 border border-black/10 dark:border-white/10">
+            <div className="w-12 h-12 rounded-xl skeu-tray flex items-center justify-center mx-auto text-[#FFC72C] mb-3">
               <Home className="w-6 h-6" />
             </div>
-            <h3 className="font-tenor font-bold text-base text-[#141414]">Currently filtering by Vehicles</h3>
-            <p className="text-xs text-[#2B2B2B] mt-1.5 mb-4">
+            <h3 className="font-tenor font-bold text-base text-zinc-900 dark:text-white">Currently filtering by Vehicles</h3>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1.5 mb-4">
               Explore our luxury serviced apartments, Kiyovu penthouses, and Nyarutarama villas.
             </p>
             <button
               type="button"
               onClick={() => setActiveTab('all')}
-              className="px-5 py-2 rounded-xl skeu-btn-terracotta text-white text-xs font-tenor font-bold"
+              className="px-5 py-2 rounded-xl skeu-btn-terracotta !text-[#111111] text-xs font-tenor font-extrabold"
             >
               Show All Apartments & Stays
             </button>
           </div>
         ) : apartmentListings.length === 0 ? (
           <div className="skeu-card rounded-3xl p-12 text-center max-w-lg mx-auto my-6">
-            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-slate-400 mb-4">
+            <div className="w-16 h-16 rounded-2xl skeu-tray flex items-center justify-center mx-auto text-zinc-500 dark:text-zinc-400 mb-4">
               <Search className="w-8 h-8" />
             </div>
-            <h3 className="font-tenor font-bold text-lg text-slate-900">No residences match your criteria</h3>
-            <p className="text-xs text-slate-500 mt-2 mb-6">
+            <h3 className="font-tenor font-bold text-lg text-zinc-900 dark:text-white">No residences match your criteria</h3>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 mb-6">
               Try adjusting your price ceiling or reset filters to see all available properties.
             </p>
             <button
               type="button"
               onClick={resetFilters}
-              className="px-5 py-2.5 rounded-xl skeu-btn-teal text-white text-xs font-tenor font-bold"
+              className="px-5 py-2.5 rounded-xl skeu-btn-teal !text-[#111111] text-xs font-tenor font-extrabold"
             >
               Reset Filters
             </button>
@@ -1162,7 +1162,7 @@ export default function HomePage() {
 
       {/* 6. VISUAL STAY & DRIVE COMBO INTERACTIVE BANNER */}
       <section id="combo" className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] my-12 scroll-mt-28">
-        <div className="skeu-card-elevated !bg-[#141414] rounded-3xl overflow-hidden text-white grid grid-cols-1 lg:grid-cols-12 items-center border border-white/10">
+        <div className="skeu-card-elevated bg-white dark:bg-[#141414] rounded-3xl overflow-hidden text-zinc-900 dark:text-white grid grid-cols-1 lg:grid-cols-12 items-center border border-black/10 dark:border-white/10 shadow-xl">
           {/* Visual Side: Combined Imagery */}
           <div className="lg:col-span-7 relative h-72 sm:h-96 w-full overflow-hidden">
             <Image
@@ -1171,28 +1171,28 @@ export default function HomePage() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#141414]/40 to-[#141414]" />
-            <div className="absolute top-4 left-4 skeu-btn-terracotta text-white px-3 py-1 rounded-full text-xs font-tenor font-bold uppercase tracking-wider">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-white dark:via-[#141414]/40 dark:to-[#141414]" />
+            <div className="absolute top-4 left-4 skeu-btn-terracotta text-[#111111] px-3 py-1 rounded-full text-xs font-tenor font-bold uppercase tracking-wider">
               Save 20% on Bundle
             </div>
           </div>
 
           {/* Copy Side */}
           <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-center">
-            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E] mb-2">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#FFC72C] mb-2">
               Stay & Drive Experience
             </span>
-            <h2 className="font-tenor text-2xl sm:text-3xl font-bold tracking-tight mb-3">
+            <h2 className="font-tenor text-2xl sm:text-3xl font-bold tracking-tight mb-3 text-zinc-900 dark:text-white">
               Kiyovu Penthouse + Prado 4x4
             </h2>
-            <p className="text-sm text-slate-300 leading-relaxed mb-6">
+            <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-6">
               Pair any luxury villa with a Toyota Land Cruiser and unlock an automatic 20% bundle discount. Includes airport greeting, unified digital agreement, and 24/7 concierge.
             </p>
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => setActiveTab('combo')}
-                className="px-5 py-2.5 rounded-xl skeu-btn-terracotta text-white font-tenor font-bold text-xs uppercase tracking-wider"
+                className="px-5 py-2.5 rounded-xl skeu-btn-terracotta !text-[#111111] font-tenor font-extrabold text-xs uppercase tracking-wider"
               >
                 View Combos
               </button>
@@ -1200,9 +1200,9 @@ export default function HomePage() {
                 href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20am%20inquiring%20about%20the%20Stay%20%26%20Drive%20Combo%20package."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#00638E] font-tenor font-semibold text-xs flex items-center gap-1.5"
+                className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#FFC72C] font-tenor font-semibold text-xs flex items-center gap-1.5"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-[#00638E]" />
+                <MessageSquare className="w-3.5 h-3.5 text-[#FFC72C]" />
                 <span>WhatsApp Concierge</span>
               </a>
             </div>
@@ -1211,16 +1211,16 @@ export default function HomePage() {
       </section>
 
       {/* 6. VISUAL 3-STEP JOURNEY: HOW IT WORKS IN PHOTOGRAPHIC FRAMES */}
-      <section id="how-it-works" className="bg-[#F0F6F9] border-y border-slate-200 py-20 my-16 scroll-mt-24">
+      <section id="how-it-works" className="bg-[#F1F3F6] dark:bg-[#0E0F12] border-y border-black/5 dark:border-white/10 py-20 my-16 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#FFC72C]">
               Seamless Experience
             </span>
-            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#00638E] mt-1">
+            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#FFC72C] mt-1">
               How Kigali Rentals Works
             </h2>
-            <p className="text-xs sm:text-sm text-[#2B2B2B] mt-2">
+            <p className="text-xs sm:text-sm text-zinc-400 mt-2">
               Three simple steps to unlock your serviced home and vehicle in Rwanda.
             </p>
           </div>
@@ -1254,15 +1254,15 @@ export default function HomePage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 w-9 h-9 rounded-xl skeu-btn-teal text-white flex items-center justify-center font-tenor font-bold text-xs">
+                  <div className="absolute top-4 left-4 w-9 h-9 rounded-xl skeu-btn-teal !text-[#111111] flex items-center justify-center font-tenor font-extrabold text-xs">
                     {step.step}
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-tenor font-bold text-lg text-slate-900 mb-2">
+                  <h3 className="font-tenor font-bold text-lg text-zinc-900 dark:text-white mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
@@ -1275,13 +1275,13 @@ export default function HomePage() {
       {/* 7. VISUAL RWANDA SAFARI & SCENIC EXPEDITIONS (Inspiring Photographic Journey) */}
       <section id="about" className="container mx-auto px-4 sm:px-6 py-12 scroll-mt-24">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
+          <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#FFC72C]">
             Beyond the City
           </span>
-          <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#141414] mt-1">
+          <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white mt-1">
             Traverse Rwanda from Your Kigali Base
           </h2>
-          <p className="text-xs sm:text-sm text-[#2B2B2B] mt-2">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-2">
             Every vehicle in our fleet is fully serviced for cross-country exploration across Rwanda’s national parks and lakeside hills.
           </p>
         </div>
@@ -1321,7 +1321,7 @@ export default function HomePage() {
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent p-5 flex flex-col justify-end text-white">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-[#00638E] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-[#FFC72C] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                   {dest.badge}
                 </span>
                 <h3 className="font-tenor font-bold text-lg text-white group-hover:text-white transition-colors">
@@ -1337,16 +1337,16 @@ export default function HomePage() {
       </section>
 
       {/* 8. KIGALI NEIGHBORHOOD CURATION (VISUAL-FIRST) */}
-      <section id="neighborhoods" className="bg-white border-t border-slate-200 py-16 scroll-mt-28">
+      <section id="neighborhoods" className="bg-[#F8F9FB] dark:bg-[#0B0C0E] border-t border-black/5 dark:border-white/10 py-16 scroll-mt-28">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
+            <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#FFC72C]">
               Local Insights
             </span>
-            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#00638E] mt-1">
+            <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold text-[#FFC72C] mt-1">
               Explore Kigali’s Best Neighborhoods
             </h2>
-            <p className="text-xs sm:text-sm text-[#2B2B2B] mt-2">
+            <p className="text-xs sm:text-sm text-zinc-400 mt-2">
               From diplomatic embassies on Kiyovu hill to nightlife in Kimihurura, choose the ideal setting for your Rwanda stay.
             </p>
           </div>
@@ -1391,13 +1391,13 @@ export default function HomePage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-6 flex flex-col justify-end text-white">
-                  <span className="text-[10px] uppercase font-bold font-tenor tracking-wider text-[#00638E] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
+                  <span className="text-[10px] uppercase font-bold font-tenor tracking-wider text-[#FFC72C] glass-skeu-card px-2.5 py-0.5 rounded-full w-fit mb-2 shadow-xs">
                     {n.badge}
                   </span>
                   <h3 className="font-tenor font-bold text-xl text-white group-hover:text-white transition-colors">
                     {n.title}
                   </h3>
-                  <p className="text-xs text-slate-300 mt-1 line-clamp-2">
+                  <p className="text-xs text-zinc-300 mt-1 line-clamp-2">
                     {n.desc}
                   </p>
                 </div>

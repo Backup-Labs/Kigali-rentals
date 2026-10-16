@@ -172,18 +172,18 @@ export default function DatePicker({
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full text-left skeu-input-cell rounded-xl px-3 sm:px-3.5 transition-all duration-200 group focus:outline-none flex items-center justify-between ${
           compact ? 'h-11 sm:h-12' : 'py-2 sm:py-2.5 rounded-xl sm:rounded-2xl'
-        } ${isOpen ? 'border-[#00638E] ring-2 ring-[#00638E]/20 bg-white' : ''}`}
+        } ${isOpen ? 'border-[#FFC72C] ring-2 ring-[#FFC72C]/20 bg-slate-50 dark:bg-[#141519]' : ''}`}
       >
         {compact ? (
           <div className="flex items-center gap-2 truncate pr-1">
-            <CalendarIcon className="w-4 h-4 text-[#00638E] shrink-0" />
+            <CalendarIcon className="w-4 h-4 text-[#FFC72C] shrink-0" />
             <div className="truncate">
               {label && (
-                <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 block leading-tight">
+                <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400 block leading-tight">
                   {label}
                 </span>
               )}
-              <span className="font-tenor font-bold text-xs sm:text-sm text-slate-900 truncate block leading-tight">
+              <span className="font-tenor font-bold text-xs sm:text-sm text-zinc-900 dark:text-white truncate block leading-tight">
                 {formatDisplayDate(tempStart)} — {tempEnd ? formatDisplayDate(tempEnd) : 'Departure'}
               </span>
             </div>
@@ -191,39 +191,39 @@ export default function DatePicker({
         ) : (
           <div className="w-full">
             {/* Upper Micro-Label with Calendar Icon */}
-            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tenor font-bold uppercase tracking-wider text-slate-500 mb-0.5">
-              <CalendarIcon className="w-3.5 h-3.5 text-[#00638E]" />
+            <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-tenor font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-0.5">
+              <CalendarIcon className="w-3.5 h-3.5 text-[#FFC72C]" />
               <span className="truncate">{label}</span>
             </div>
 
             {/* Primary Date Range & Duration Pill */}
             <div className="flex items-center justify-between gap-1.5">
               <div className="truncate pr-1">
-                <span className="font-tenor font-bold text-xs sm:text-sm text-slate-900 block truncate">
+                <span className="font-tenor font-bold text-xs sm:text-sm text-zinc-900 dark:text-white block truncate">
                   {formatDisplayDate(tempStart)} — {tempEnd ? formatDisplayDate(tempEnd) : 'Pick departure'}
                 </span>
               </div>
             </div>
 
             {/* Supporting Hint */}
-            <div className="text-[10px] sm:text-[11px] text-slate-400 font-sans truncate mt-0.5">
+            <div className="text-[10px] sm:text-[11px] text-zinc-500 dark:text-zinc-400 font-sans truncate mt-0.5">
               {tempEnd ? 'Instant dates confirmation' : 'Click to select trip dates'}
             </div>
           </div>
         )}
 
-        <span className="text-[10px] font-bold text-[#00638E] bg-[#00638E]/10 border border-[#00638E]/20 px-2 py-0.5 rounded-full shrink-0 group-hover:bg-[#00638E]/20 transition-colors ml-1">
+        <span className="text-[10px] font-extrabold text-[#111111] bg-[#FFC72C] border border-[#FFC72C] px-2 py-0.5 rounded-full shrink-0 shadow-sm ml-1">
           {tempEnd ? `${daysDiff()}d` : 'Pick'}
         </span>
       </button>
 
       {/* High-Frost Calendar Popover */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 z-[100] glass-high-frost-dropdown rounded-3xl p-4 sm:p-5 w-[320px] sm:w-[350px] animate-fadeIn shadow-2xl">
+        <div className="absolute top-full left-0 mt-2 z-[100] glass-high-frost-dropdown rounded-3xl p-4 sm:p-5 w-[320px] sm:w-[350px] animate-fadeIn shadow-2xl bg-white dark:bg-[#16171E] border border-black/10 dark:border-zinc-700/80 text-zinc-900 dark:text-white">
           {/* Header Month / Year & Navigation */}
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/5 dark:border-zinc-800">
             <div className="flex items-center gap-2">
-              <span className="font-tenor font-bold text-sm sm:text-base text-slate-900">
+              <span className="font-tenor font-bold text-sm sm:text-base text-zinc-900 dark:text-white">
                 {monthNames[viewMonth]} {viewYear}
               </span>
             </div>
@@ -232,7 +232,7 @@ export default function DatePicker({
               <button
                 type="button"
                 onClick={prevMonth}
-                className="w-8 h-8 rounded-xl hover:bg-slate-100 text-slate-600 flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors"
                 title="Previous Month"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -240,7 +240,7 @@ export default function DatePicker({
               <button
                 type="button"
                 onClick={nextMonth}
-                className="w-8 h-8 rounded-xl hover:bg-slate-100 text-slate-600 flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 text-zinc-700 dark:text-zinc-300 flex items-center justify-center transition-colors"
                 title="Next Month"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -248,7 +248,7 @@ export default function DatePicker({
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center ml-1"
+                className="w-8 h-8 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white flex items-center justify-center ml-1"
                 title="Close"
               >
                 <X className="w-4 h-4" />
@@ -259,7 +259,7 @@ export default function DatePicker({
           {/* Weekday Labels */}
           <div className="grid grid-cols-7 gap-1 text-center mb-2">
             {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((day) => (
-              <span key={day} className="text-[11px] font-bold text-slate-400 font-tenor uppercase">
+              <span key={day} className="text-[11px] font-bold text-zinc-500 dark:text-zinc-400 font-tenor uppercase">
                 {day}
               </span>
             ))}
@@ -292,10 +292,10 @@ export default function DatePicker({
                   onClick={() => handleDayClick(dayNum)}
                   className={`h-8 rounded-xl text-xs font-semibold transition-all relative flex items-center justify-center ${
                     isStart || isEnd
-                      ? 'bg-[#00638E] text-white shadow-md font-bold z-10'
+                      ? 'bg-[#FFC72C] text-[#111111] font-extrabold z-10'
                       : isInRange
-                      ? 'bg-[#00638E]/15 text-[#00638E] rounded-none'
-                      : 'text-slate-700 hover:bg-[#F0F6F9]'
+                      ? 'bg-[#FFC72C]/20 text-[#B45309] dark:text-[#FFC72C] rounded-none'
+                      : 'text-zinc-700 dark:text-zinc-300 hover:bg-black/5 dark:hover:bg-white/10'
                   }`}
                 >
                   {dayNum}
@@ -305,27 +305,27 @@ export default function DatePicker({
           </div>
 
           {/* Quick Presets */}
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
-            <span className="text-[10px] font-bold text-slate-400 font-tenor uppercase">Quick:</span>
+          <div className="mt-4 pt-3 border-t border-black/5 dark:border-zinc-800 flex items-center justify-between gap-1.5">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 font-tenor uppercase">Quick:</span>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => applyPreset(3)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#00638E]/10 hover:bg-[#00638E]/20 text-[#00638E] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 text-[#B45309] dark:text-[#FFC72C] transition-colors"
               >
                 3 Days
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset(7)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#00638E]/10 hover:bg-[#00638E]/20 text-[#00638E] transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 text-[#B45309] dark:text-[#FFC72C] transition-colors"
               >
                 1 Week
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset(14)}
-                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-tenor font-bold bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-300 transition-colors"
               >
                 2 Weeks
               </button>

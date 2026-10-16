@@ -11,6 +11,7 @@ import {
   Phone,
   Globe,
 } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface NavItem {
   label: string;
@@ -135,9 +136,9 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={(e) => handleNavClick(e, navItems[0])}
-          className="flex items-center gap-2.5 sm:gap-3 group"
+          className="flex items-center gap-2.5 sm:gap-3 group shrink-0"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#00638E] flex items-center justify-center text-white shadow-md border border-slate-200/40 transition-transform group-hover:scale-105 active:scale-95 shrink-0">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#FFD54F] via-[#FFC72C] to-[#E5B224] flex items-center justify-center text-[#111111] border border-[#FFC72C]/50 transition-transform group-hover:scale-105 active:scale-95 shrink-0">
             {/* Bespoke Luxury Crest & "K" Monogram */}
             <svg
               className="w-5 h-5 sm:w-5.5 sm:h-5.5"
@@ -147,33 +148,33 @@ export default function Navbar() {
             >
               <path
                 d="M16 3.5L28 9.5V22.5L16 28.5L4 22.5V9.5L16 3.5Z"
-                stroke="rgba(255, 255, 255, 0.6)"
+                stroke="#111111"
                 strokeWidth="1.75"
                 strokeLinejoin="round"
               />
               <path
                 d="M11 9.5V22.5M11 16H15.5L21 10M15.5 16L21 22"
-                stroke="#FFFFFF"
+                stroke="#111111"
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <circle cx="15.5" cy="16" r="1.5" fill="#FFFFFF" />
+              <circle cx="15.5" cy="16" r="1.5" fill="#111111" />
             </svg>
           </div>
 
           <div className="flex flex-col">
-            <span className="font-tenor text-base sm:text-lg font-extrabold tracking-tight text-[#141414] leading-tight">
-              Kigali<span className="text-[#00638E]">Rentals</span>
+            <span className="font-tenor text-base sm:text-lg font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
+              Kigali<span className="text-[#FFC72C]">Rentals</span>
             </span>
-            <span className="text-[9px] text-[#2B2B2B] font-sans tracking-wide hidden sm:inline -mt-0.5">
+            <span className="text-[9px] text-[#FFC72C] font-mono uppercase tracking-wider hidden sm:inline -mt-0.5">
               Rwanda Living & Mobility
             </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation Links with Animated Highlighting Pill (Visible on lg: 1024px and up) */}
-        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2">
+        {/* Desktop Navigation Links (Visible on lg: 1024px and up) */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
 
@@ -182,15 +183,15 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
-                className={`h-9 px-3 xl:px-3.5 rounded-full text-xs xl:text-sm font-tenor transition-all duration-200 flex items-center justify-center gap-1.5 shrink-0 ${
+                className={`h-9 px-2.5 xl:px-3.5 rounded-full text-xs xl:text-sm font-tenor transition-all duration-200 flex items-center justify-center gap-1.5 shrink-0 ${
                   isActive
-                    ? 'bg-[#00638E] text-white font-bold shadow-md'
-                    : 'text-[#2B2B2B] hover:text-[#00638E] font-medium hover:bg-[#F0F6F9]'
+                    ? 'bg-gradient-to-r from-[#FFD54F] to-[#FFC72C] text-[#111111] font-extrabold'
+                    : 'text-zinc-700 dark:text-zinc-300 hover:text-[#FFC72C] font-medium hover:bg-black/5 dark:hover:bg-white/5'
                 }`}
               >
                 <span>{item.label}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_white] animate-pulse shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#111111] shrink-0" />
                 )}
               </Link>
             );
@@ -199,28 +200,31 @@ export default function Navbar() {
 
         {/* Right Side Actions with Responsive Scaling */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          {/* Dual Segmented Theme Switcher (Light / Dark) */}
+          <ThemeToggle variant="nav" />
+
           {/* Elegant Currency Selector Pill (Visible on desktop lg: screens; accessible in mobile drawer) */}
           <button
             onClick={toggleCurrency}
-            className="hidden lg:flex h-9 px-3 rounded-xl skeu-btn-frosted items-center justify-center gap-2 text-xs font-tenor shrink-0 transition-all hover:bg-white/90 group"
+            className="hidden lg:flex h-9 px-3 rounded-xl skeu-btn-frosted items-center justify-center gap-2 text-xs font-tenor shrink-0 transition-all group"
             title={`Active: ${currency} (Click to toggle USD / RWF)`}
           >
-            <Globe className="w-3.5 h-3.5 text-[#00638E] transition-colors shrink-0" />
+            <Globe className="w-3.5 h-3.5 text-[#FFC72C] transition-colors shrink-0" />
             <div className="flex items-center text-[11px] font-bold tracking-tight">
-              <span className={currency === 'USD' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
+              <span className={currency === 'USD' ? 'text-[#FFC72C] font-extrabold' : 'text-zinc-500 dark:text-zinc-400 font-medium'}>
                 USD
               </span>
-              <span className="text-slate-300 mx-1">|</span>
-              <span className={currency === 'RWF' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
+              <span className="text-zinc-400 dark:text-zinc-600 mx-1">|</span>
+              <span className={currency === 'RWF' ? 'text-[#FFC72C] font-extrabold' : 'text-zinc-500 dark:text-zinc-400 font-medium'}>
                 RWF
               </span>
             </div>
           </button>
 
-          {/* Primary Phone Call CTA (Visible on desktop lg: screens; accessible in mobile drawer) */}
+          {/* Primary Phone Call CTA (Visible on wide screens; accessible in mobile drawer) */}
           <a
             href="tel:+250788123456"
-            className="hidden lg:inline-flex h-9 items-center justify-center gap-1.5 px-3.5 sm:px-4 rounded-xl skeu-btn-teal text-white font-tenor font-semibold text-xs sm:text-sm tracking-tight shrink-0 shadow-md hover:shadow-lg transition-all"
+            className="hidden xl:inline-flex h-9 items-center justify-center gap-1.5 px-3.5 sm:px-4 rounded-xl skeu-btn-teal text-[#111111] font-tenor font-extrabold text-xs sm:text-sm tracking-tight shrink-0 transition-all"
           >
             <Phone className="w-3.5 h-3.5 shrink-0" />
             <span>Book Call</span>
@@ -229,7 +233,7 @@ export default function Navbar() {
           {/* Mobile/Tablet Hamburger Button (Shown on < lg screens) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden h-9 w-9 flex items-center justify-center rounded-xl text-slate-700 hover:text-slate-900 skeu-btn-frosted shrink-0 transition-all"
+            className="lg:hidden h-9 w-9 flex items-center justify-center rounded-xl text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white skeu-btn-frosted shrink-0 transition-all"
             aria-label="Toggle navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -237,17 +241,17 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Clean Solid White Mobile Drawer with Active Highlighting */}
+      {/* Clean Mobile Drawer with Active Highlighting */}
       {mobileMenuOpen && (
         <>
           {/* Backdrop overlay to close when clicking outside */}
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 lg:hidden pointer-events-auto"
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 lg:hidden pointer-events-auto"
             onClick={() => setMobileMenuOpen(false)}
           />
 
           {/* Mobile Drawer Container */}
-          <div className="pointer-events-auto relative z-50 max-w-6xl mx-auto lg:hidden mt-2 bg-white border border-slate-200 shadow-2xl rounded-2xl p-4 sm:p-5 animate-fadeIn space-y-2">
+          <div className="pointer-events-auto relative z-50 max-w-6xl mx-auto lg:hidden mt-2 bg-white dark:bg-[#141519] border border-black/10 dark:border-zinc-800 shadow-2xl rounded-2xl p-4 sm:p-5 animate-fadeIn space-y-2">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
 
@@ -261,15 +265,15 @@ export default function Navbar() {
                   }}
                   className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-tenor font-semibold transition-all ${
                     isActive
-                      ? 'bg-[#00638E] text-white shadow-md'
-                      : 'text-slate-700 hover:text-[#00638E] hover:bg-[#F0F6F9]'
+                      ? 'bg-gradient-to-r from-[#FFD54F] to-[#FFC72C] text-[#111111] font-bold'
+                      : 'text-zinc-800 dark:text-zinc-300 hover:text-[#FFC72C] hover:bg-black/5 dark:hover:bg-white/5'
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    {isActive && <span className="w-2 h-2 rounded-full bg-white animate-pulse" />}
+                    {isActive && <span className="w-2 h-2 rounded-full bg-[#111111] animate-pulse" />}
                     <span>{item.label}</span>
                   </div>
-                  <ChevronRight className={`w-4 h-4 ${isActive ? 'text-white/80' : 'text-slate-400'}`} />
+                  <ChevronRight className={`w-4 h-4 ${isActive ? 'text-[#111111]' : 'text-zinc-400 dark:text-zinc-500'}`} />
                 </Link>
               );
             })}
@@ -278,31 +282,35 @@ export default function Navbar() {
             <div className="pt-2">
               <a
                 href="tel:+250788123456"
-                className="w-full h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-[#00638E] text-white text-xs sm:text-sm font-tenor font-bold shadow-md hover:shadow-lg transition-all"
+                className="w-full h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-gradient-to-r from-[#FFD54F] to-[#FFC72C] text-[#111111] text-xs sm:text-sm font-tenor font-extrabold transition-all"
               >
                 <Phone className="w-4 h-4" />
                 <span>Call Concierge (+250 788 123 456)</span>
               </a>
             </div>
 
-            {/* Currency Selector inside drawer */}
-            <div className="pt-3 border-t border-slate-200/60 flex items-center justify-between">
-              <span className="text-xs text-slate-600 font-tenor flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-[#00638E]" />
-                <span>Currency</span>
-              </span>
-              <button
-                onClick={toggleCurrency}
-                className="h-8 px-3 rounded-lg skeu-btn-frosted text-xs font-tenor font-bold flex items-center gap-2 border border-slate-200"
-              >
-                <span className={currency === 'USD' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
-                  USD
+            {/* Currency Selector & Theme Selector inside drawer */}
+            <div className="pt-3 border-t border-black/10 dark:border-zinc-800 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-zinc-700 dark:text-zinc-300 font-tenor flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-[#FFC72C]" />
+                  <span>Currency</span>
                 </span>
-                <span className="text-slate-300">|</span>
-                <span className={currency === 'RWF' ? 'text-[#00638E] font-extrabold' : 'text-slate-400 font-medium'}>
-                  RWF
-                </span>
-              </button>
+                <button
+                  onClick={toggleCurrency}
+                  className="h-8 px-3 rounded-lg skeu-btn-frosted text-xs font-tenor font-bold flex items-center gap-2 border border-black/10 dark:border-zinc-700"
+                >
+                  <span className={currency === 'USD' ? 'text-[#FFC72C] font-extrabold' : 'text-zinc-500 dark:text-zinc-400 font-medium'}>
+                    USD
+                  </span>
+                  <span className="text-zinc-400 dark:text-zinc-600">|</span>
+                  <span className={currency === 'RWF' ? 'text-[#FFC72C] font-extrabold' : 'text-zinc-500 dark:text-zinc-400 font-medium'}>
+                    RWF
+                  </span>
+                </button>
+              </div>
+
+              <ThemeToggle variant="drawer" />
             </div>
           </div>
         </>

@@ -134,7 +134,7 @@ export default function CheckoutPage() {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        ctx.strokeStyle = '#00638E';
+        ctx.strokeStyle = '#FFC72C';
         ctx.lineWidth = 2.5;
         ctx.lineCap = 'round';
       }
@@ -262,16 +262,16 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F6F9] pb-24 pt-20 sm:pt-24">
+    <div className="min-h-screen bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white pb-24 pt-20 sm:pt-24">
       {/* Top Lock Banner */}
-      <div className="bg-[#141414] text-slate-300 py-2.5 border-b border-white/10">
+      <div className="bg-white dark:bg-[#141414] text-zinc-600 dark:text-slate-300 py-2.5 border-b border-black/5 dark:border-black/5 dark:border-white/10">
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#00638E]" />
-            <span className="font-semibold text-white">SSL Encrypted Rwandan Checkout</span>
+            <ShieldCheck className="w-4 h-4 text-[#FFC72C]" />
+            <span className="font-semibold text-zinc-900 dark:text-white">SSL Encrypted Rwandan Checkout</span>
           </div>
           <div className="flex items-center gap-2 font-mono text-xs bg-white/10 px-3 py-1 rounded-full border border-white/20">
-            <Lock className="w-3.5 h-3.5 text-[#00638E] animate-pulse" />
+            <Lock className="w-3.5 h-3.5 text-[#FFC72C] animate-pulse" />
             <span>Price Guaranteed for: {formatTimer(lockSecondsLeft)}</span>
           </div>
         </div>
@@ -295,13 +295,15 @@ export default function CheckoutPage() {
                   disabled={s.num > currentStep}
                   className={`p-2.5 rounded-xl transition-all flex flex-col items-center gap-1 ${
                     currentStep === s.num
-                      ? 'skeu-tab-active text-white'
+                      ? 'skeu-tab-active !text-[#111111] font-extrabold'
                       : currentStep > s.num
-                      ? 'bg-[#00638E]/10 text-[#00638E] border border-[#00638E]/30 shadow-xs'
-                      : 'skeu-btn-frosted !text-slate-400 opacity-60'
+                      ? 'bg-[#FFC72C]/10 text-[#FFC72C] border border-[#FFC72C]/30 shadow-xs'
+                      : 'skeu-btn-frosted !text-zinc-500 dark:!text-zinc-400 opacity-60'
                   }`}
                 >
-                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-white/20">
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
+                    currentStep === s.num ? 'bg-black/15 text-[#111111] font-bold' : 'bg-black/5 dark:bg-white/20'
+                  }`}>
                     {currentStep > s.num ? '✓' : s.num}
                   </span>
                   <span className="truncate">{s.label}</span>
@@ -320,51 +322,51 @@ export default function CheckoutPage() {
               {currentStep === 1 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#00638E]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#FFC72C]">
                       Guest Identification & Verification
                     </h2>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-zinc-400 mt-1">
                       Required by Rwanda Directorate General of Immigration and Emigration.
                     </p>
                   </div>
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
+                      <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-1">
                         Full Legal Name (as on Passport / ID)
                       </label>
                       <input
                         type="text"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-slate-900 focus:outline-none"
+                        className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none"
                         placeholder="e.g. David Mugisha"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
+                        <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-1">
                           Email Address
                         </label>
                         <input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-slate-900 focus:outline-none"
+                          className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none"
                           placeholder="name@organization.rw"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
+                        <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-1">
                           Phone Number (WhatsApp / MoMo)
                         </label>
                         <input
                           type="tel"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-slate-900 focus:outline-none"
+                          className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none"
                           placeholder="+250 788 000 000"
                         />
                       </div>
@@ -383,14 +385,14 @@ export default function CheckoutPage() {
                         />
 
                       <div>
-                        <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
+                        <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-1">
                           Document / Passport Number
                         </label>
                         <input
                           type="text"
                           value={idNumber}
                           onChange={(e) => setIdNumber(e.target.value)}
-                          className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-slate-900 focus:outline-none"
+                          className="w-full skeu-input rounded-xl px-4 py-2.5 text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none"
                           placeholder="e.g. 1 1990 8 00..."
                         />
                       </div>
@@ -398,18 +400,18 @@ export default function CheckoutPage() {
 
                     {/* Document Upload Slot */}
                     <div>
-                      <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-1">
+                      <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-1">
                         Upload Photo ID / Passport Copy
                       </label>
-                      <div className="border-2 border-dashed border-slate-200 hover:border-[#00638E] rounded-2xl p-6 text-center skeu-tray transition-colors relative cursor-pointer">
+                      <div className="border-2 border-dashed border-black/5 dark:border-white/10 hover:border-[#FFC72C] rounded-2xl p-6 text-center skeu-tray transition-colors relative cursor-pointer">
                         <input
                           type="file"
                           onChange={handleMockUpload}
                           aria-label="Upload Photo ID or Passport Copy"
                           className="absolute inset-0 opacity-0 cursor-pointer"
                         />
-                        <UploadCloud className="w-8 h-8 text-[#00638E] mx-auto mb-2" />
-                        <span className="text-xs font-bold font-tenor text-[#00638E] block">
+                        <UploadCloud className="w-8 h-8 text-[#FFC72C] mx-auto mb-2" />
+                        <span className="text-xs font-bold font-tenor text-[#FFC72C] block">
                           {isUploading
                             ? 'Verifying file integrity...'
                             : uploadedDocName
@@ -427,7 +429,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(2)}
-                      className="px-6 py-3 skeu-btn-teal text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl flex items-center gap-2"
+                      className="px-6 py-3 skeu-btn-teal !text-[#111111] font-tenor font-extrabold text-xs uppercase tracking-wider rounded-xl flex items-center gap-2"
                     >
                       <span>Continue to Add-ons</span>
                       <ArrowRight className="w-4 h-4" />
@@ -440,124 +442,124 @@ export default function CheckoutPage() {
               {currentStep === 2 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#00638E]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#FFC72C]">
                       Curate Your Experience
                     </h2>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-zinc-400 mt-1">
                       Select optional services to tailor your Rwanda journey.
                     </p>
                   </div>
 
                   <div className="space-y-3">
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-colors">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={airportPickup}
                           onChange={(e) => setAirportPickup(e.target.checked)}
-                          className="mt-1 rounded accent-[#00638E]"
+                          className="mt-1 rounded accent-[#FFC72C]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#00638E] block">
+                          <span className="font-tenor font-bold text-sm text-[#FFC72C] block">
                             Kigali Airport VIP Meet & Greet
                           </span>
-                          <span className="text-xs text-slate-500 leading-relaxed">
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                             Terminal sign greeting, luggage handling, and direct transit to your address.
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#00638E] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#FFC72C] shrink-0">
                         +{formatPrice(30)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-colors">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={dedicatedDriver}
                           onChange={(e) => setDedicatedDriver(e.target.checked)}
-                          className="mt-1 rounded accent-[#00638E]"
+                          className="mt-1 rounded accent-[#FFC72C]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#00638E] block">
+                          <span className="font-tenor font-bold text-sm text-[#FFC72C] block">
                             Professional Executive Chauffeur
                           </span>
-                          <span className="text-xs text-slate-500 leading-relaxed">
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                             Experienced English/French driver for 10 hours daily. Eliminates navigation stress.
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#00638E] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#FFC72C] shrink-0">
                         +{formatPrice(25 * days)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-colors">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={childSeat}
                           onChange={(e) => setChildSeat(e.target.checked)}
-                          className="mt-1 rounded accent-[#00638E]"
+                          className="mt-1 rounded accent-[#FFC72C]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#00638E] block">
+                          <span className="font-tenor font-bold text-sm text-[#FFC72C] block">
                             Sanitized Child Safety Booster Seat
                           </span>
-                          <span className="text-xs text-slate-500 leading-relaxed">
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                             ISOFIX-certified infant or toddler seat pre-installed before arrival.
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#00638E] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#FFC72C] shrink-0">
                         +{formatPrice(15)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border border-slate-200 hover:bg-[#F0F6F9] cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border border-black/5 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E] cursor-pointer transition-colors">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={wifiHotspot}
                           onChange={(e) => setWifiHotspot(e.target.checked)}
-                          className="mt-1 rounded accent-[#00638E]"
+                          className="mt-1 rounded accent-[#FFC72C]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#00638E] block">
+                          <span className="font-tenor font-bold text-sm text-[#FFC72C] block">
                             5G High-Speed Pocket MiFi Device
                           </span>
-                          <span className="text-xs text-slate-500 leading-relaxed">
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                             Unlimited nationwide data on MTN Rwanda network. Connect up to 8 devices anywhere.
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#00638E] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#FFC72C] shrink-0">
                         +{formatPrice(10)}
                       </span>
                     </label>
 
-                    <label className="flex items-start justify-between p-4 rounded-2xl border-2 border-[#00638E]/40 bg-[#00638E]/10 cursor-pointer">
+                    <label className="flex items-start justify-between p-4 rounded-2xl border-2 border-[#FFC72C]/40 bg-[#FFC72C]/10 cursor-pointer">
                       <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
                           checked={damageWaiver}
                           onChange={(e) => setDamageWaiver(e.target.checked)}
-                          className="mt-1 rounded accent-[#00638E]"
+                          className="mt-1 rounded accent-[#FFC72C]"
                         />
                         <div>
-                          <span className="font-tenor font-bold text-sm text-[#00638E] flex items-center gap-2">
+                          <span className="font-tenor font-bold text-sm text-[#FFC72C] flex items-center gap-2">
                             <span>Zero-Deductible Damage Waiver</span>
-                            <span className="text-[10px] bg-[#00638E] text-white px-2 py-0.5 rounded font-mono">
+                            <span className="text-[10px] bg-[#FFC72C] text-[#111111] font-bold px-2 py-0.5 rounded font-mono">
                               RECOMMENDED
                             </span>
                           </span>
-                          <span className="text-xs text-slate-700 leading-relaxed">
+                          <span className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
                             Protects against minor windshield chips, door dings, and appliance mishaps without deposit deduction.
                           </span>
                         </div>
                       </div>
-                      <span className="font-tenor font-bold text-xs text-[#00638E] shrink-0">
+                      <span className="font-tenor font-bold text-xs text-[#FFC72C] shrink-0">
                         +{formatPrice(12 * days)}
                       </span>
                     </label>
@@ -567,7 +569,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(1)}
-                      className="px-4 py-2.5 text-xs font-tenor font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
+                      className="px-4 py-2.5 text-xs font-tenor font-bold text-zinc-400 hover:text-white flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -576,7 +578,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(3)}
-                      className="px-6 py-3 bg-[#00638E] hover:bg-[#00638E] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
+                      className="px-6 py-3 bg-[#FFC72C] hover:bg-[#FFC72C] text-[#111111] font-bold font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
                     >
                       <span>Review Digital Agreement</span>
                       <ArrowRight className="w-4 h-4" />
@@ -589,21 +591,21 @@ export default function CheckoutPage() {
               {currentStep === 3 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#00638E]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#FFC72C]">
                       Rental Agreement & Digital Signature
                     </h2>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-zinc-400 mt-1">
                       Review key terms and sign electronically (HO-01 compliant).
                     </p>
                   </div>
 
                   {/* Contract Scrollbox */}
-                  <div className="h-64 overflow-y-auto bg-[#F0F6F9] p-4 rounded-2xl border border-slate-300 text-xs text-slate-700 space-y-3 font-sans leading-relaxed">
-                    <div className="border-b border-slate-200 pb-2">
-                      <span className="font-tenor font-bold text-sm text-[#00638E] block">
+                  <div className="h-64 overflow-y-auto bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/10 dark:border-white/15 text-xs text-zinc-700 dark:text-zinc-300 space-y-3 font-sans leading-relaxed">
+                    <div className="border-b border-black/10 dark:border-white/10 pb-2">
+                      <span className="font-tenor font-bold text-sm text-[#FFC72C] block">
                         KIGALI RENTALS MASTER RENTAL AGREEMENT #KGL-AGR-2026
                       </span>
-                      <span className="text-[11px] text-slate-500">
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
                         Between Kigali Rentals SARL and {fullName}
                       </span>
                     </div>
@@ -629,7 +631,7 @@ export default function CheckoutPage() {
                   {/* Signature Pad */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold font-tenor text-slate-700 uppercase">
+                      <label className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase">
                         Legal Signature
                       </label>
                       <div className="flex items-center gap-2 text-xs">
@@ -638,8 +640,8 @@ export default function CheckoutPage() {
                           onClick={() => setSignatureType('type')}
                           className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                             signatureType === 'type'
-                              ? 'bg-[#00638E] text-white'
-                              : 'text-slate-500 hover:bg-slate-100'
+                              ? 'bg-[#FFC72C] text-[#111111] font-bold'
+                              : 'text-zinc-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800'
                           }`}
                         >
                           Type Name
@@ -649,8 +651,8 @@ export default function CheckoutPage() {
                           onClick={() => setSignatureType('draw')}
                           className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                             signatureType === 'draw'
-                              ? 'bg-[#00638E] text-white'
-                              : 'text-slate-500 hover:bg-slate-100'
+                              ? 'bg-[#FFC72C] text-[#111111] font-bold'
+                              : 'text-zinc-600 dark:text-zinc-400 hover:bg-slate-200 dark:hover:bg-zinc-800'
                           }`}
                         >
                           Draw Pad
@@ -667,10 +669,10 @@ export default function CheckoutPage() {
                             setTypedSignature(e.target.value);
                             setHasSignature(e.target.value.length > 2);
                           }}
-                          className="w-full bg-[#F0F6F9] border-2 border-slate-300 rounded-2xl p-4 font-serif italic text-2xl text-[#00638E] focus:outline-none focus:border-[#00638E]"
+                          className="w-full bg-slate-50 dark:bg-[#0B0C0E] border-2 border-zinc-200 dark:border-white/15 rounded-2xl p-4 font-serif italic text-2xl text-[#FFC72C] focus:outline-none focus:border-[#FFC72C]"
                           placeholder="Type your full legal name"
                         />
-                        <span className="text-[11px] text-slate-400 mt-1 block">
+                        <span className="text-[11px] text-zinc-500 dark:text-slate-400 mt-1 block">
                           Electronically binding signature representation
                         </span>
                       </div>
@@ -684,16 +686,16 @@ export default function CheckoutPage() {
                           onMouseMove={draw}
                           onMouseUp={stopDrawing}
                           onMouseLeave={stopDrawing}
-                          className="w-full h-32 bg-white border-2 border-dashed border-slate-300 rounded-2xl cursor-crosshair shadow-inner"
+                          className="w-full h-32 bg-white dark:bg-[#141519] border-2 border-dashed border-zinc-300 dark:border-white/15 rounded-2xl cursor-crosshair shadow-inner"
                         />
                         <div className="flex justify-between items-center mt-1">
-                          <span className="text-[11px] text-slate-400">
+                          <span className="text-[11px] text-zinc-500 dark:text-slate-400">
                             Draw your signature inside the box
                           </span>
                           <button
                             type="button"
                             onClick={clearCanvas}
-                            className="text-xs text-[#00638E] hover:underline font-bold"
+                            className="text-xs text-[#FFC72C] hover:underline font-bold"
                           >
                             Clear
                           </button>
@@ -706,7 +708,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(2)}
-                      className="px-4 py-2.5 text-xs font-tenor font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
+                      className="px-4 py-2.5 text-xs font-tenor font-bold text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white flex items-center gap-1.5 transition-colors"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -716,7 +718,7 @@ export default function CheckoutPage() {
                       type="button"
                       disabled={!hasSignature}
                       onClick={() => setCurrentStep(4)}
-                      className="px-6 py-3 bg-[#00638E] hover:bg-[#00638E] disabled:opacity-50 text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
+                      className="px-6 py-3 bg-[#FFC72C] hover:bg-[#FFD54F] disabled:opacity-50 !text-[#111111] font-tenor font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
                     >
                       <span>Agree & Proceed to Payment</span>
                       <ArrowRight className="w-4 h-4" />
@@ -729,10 +731,10 @@ export default function CheckoutPage() {
               {currentStep === 4 && (
                 <div className="space-y-6 animate-fadeIn">
                   <div>
-                    <h2 className="font-tenor text-2xl font-bold text-[#00638E]">
+                    <h2 className="font-tenor text-2xl font-bold text-[#FFC72C]">
                       Rwanda Payment Terminal
                     </h2>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-zinc-400 mt-1">
                       Choose Mobile Money or International Card.
                     </p>
                   </div>
@@ -744,17 +746,17 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentPlan('pay_full')}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         paymentPlan === 'pay_full'
-                          ? 'border-[#00638E] bg-[#00638E]/5 ring-2 ring-[#00638E]/20'
-                          : 'border-slate-200 hover:bg-[#F0F6F9]'
+                          ? 'border-[#FFC72C] bg-[#FFC72C]/10 ring-2 ring-[#FFC72C]/30'
+                          : 'border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E]'
                       }`}
                     >
-                      <span className="text-xs font-tenor font-bold text-[#00638E] block">
+                      <span className="text-xs font-tenor font-bold text-[#FFC72C] block">
                         Pay 100% Today
                       </span>
-                      <span className="text-[11px] text-slate-500 block mt-0.5">
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block mt-0.5">
                         {formatPrice(grandTotal)}
                       </span>
-                      <span className="text-[10px] text-[#00638E] font-semibold block mt-1">
+                      <span className="text-[10px] text-[#FFC72C] font-semibold block mt-1">
                         Zero check-in balance
                       </span>
                     </button>
@@ -764,17 +766,17 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentPlan('deposit_30')}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         paymentPlan === 'deposit_30'
-                          ? 'border-[#00638E] bg-[#00638E]/5 ring-2 ring-[#00638E]/20'
-                          : 'border-slate-200 hover:bg-[#F0F6F9]'
+                          ? 'border-[#FFC72C] bg-[#FFC72C]/10 ring-2 ring-[#FFC72C]/30'
+                          : 'border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E]'
                       }`}
                     >
-                      <span className="text-xs font-tenor font-bold text-[#00638E] block">
+                      <span className="text-xs font-tenor font-bold text-[#FFC72C] block">
                         Pay 30% Deposit
                       </span>
-                      <span className="text-[11px] text-slate-500 block mt-0.5">
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block mt-0.5">
                         {formatPrice(Math.round(grandTotal * 0.3))} today
                       </span>
-                      <span className="text-[10px] text-[#00638E] font-semibold block mt-1">
+                      <span className="text-[10px] text-[#FFC72C] font-semibold block mt-1">
                         Balance at check-in
                       </span>
                     </button>
@@ -784,17 +786,17 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentPlan('hold_card')}
                       className={`p-3 rounded-2xl border text-left transition-all ${
                         paymentPlan === 'hold_card'
-                          ? 'border-[#00638E] bg-[#00638E]/5 ring-2 ring-[#00638E]/20'
-                          : 'border-slate-200 hover:bg-[#F0F6F9]'
+                          ? 'border-[#FFC72C] bg-[#FFC72C]/10 ring-2 ring-[#FFC72C]/30'
+                          : 'border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0B0C0E]'
                       }`}
                     >
-                      <span className="text-xs font-tenor font-bold text-[#00638E] block">
+                      <span className="text-xs font-tenor font-bold text-[#FFC72C] block">
                         Hold with Card
                       </span>
-                      <span className="text-[11px] text-slate-500 block mt-0.5">
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block mt-0.5">
                         {formatPrice(securityDepositHold)} hold
                       </span>
-                      <span className="text-[10px] text-slate-500 block mt-1">
+                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block mt-1">
                         Pay rent upon arrival
                       </span>
                     </button>
@@ -802,7 +804,7 @@ export default function CheckoutPage() {
 
                   {/* Payment Method Selector */}
                   <div className="space-y-4">
-                    <span className="block text-xs font-bold font-tenor text-slate-700 uppercase">
+                    <span className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase">
                       Select Method
                     </span>
 
@@ -812,14 +814,14 @@ export default function CheckoutPage() {
                         onClick={() => setPaymentMethod('momo_mtn')}
                         className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${
                           paymentMethod === 'momo_mtn'
-                            ? 'border-amber-400 bg-amber-50/50 ring-2 ring-amber-400/40'
-                            : 'border-slate-200 hover:bg-slate-50'
+                            ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/20 ring-2 ring-amber-500/30'
+                            : 'border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0E0F12]'
                         }`}
                       >
                         <div className="w-9 h-9 rounded-full bg-[#FFCC00] flex items-center justify-center font-bold text-xs text-black shadow-sm">
                           MoMo
                         </div>
-                        <span className="text-xs font-bold text-slate-900">MTN MoMo</span>
+                        <span className="text-xs font-bold text-zinc-900 dark:text-white">MTN MoMo</span>
                       </button>
 
                       <button
@@ -827,14 +829,14 @@ export default function CheckoutPage() {
                         onClick={() => setPaymentMethod('momo_airtel')}
                         className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${
                           paymentMethod === 'momo_airtel'
-                            ? 'border-red-400 bg-red-50/50 ring-2 ring-red-400/40'
-                            : 'border-slate-200 hover:bg-slate-50'
+                            ? 'border-red-500 bg-red-50 dark:bg-red-950/20 ring-2 ring-red-500/30'
+                            : 'border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0E0F12]'
                         }`}
                       >
                         <div className="w-9 h-9 rounded-full bg-[#ED1C24] flex items-center justify-center font-bold text-xs text-white shadow-sm">
                           Airtel
                         </div>
-                        <span className="text-xs font-bold text-slate-900">Airtel Money</span>
+                        <span className="text-xs font-bold text-zinc-900 dark:text-white">Airtel Money</span>
                       </button>
 
                       <button
@@ -842,43 +844,43 @@ export default function CheckoutPage() {
                         onClick={() => setPaymentMethod('card')}
                         className={`p-3 rounded-2xl border flex flex-col items-center gap-2 transition-all ${
                           paymentMethod === 'card'
-                            ? 'border-[#00638E] bg-slate-50 ring-2 ring-[#00638E]/20'
-                            : 'border-slate-200 hover:bg-slate-50'
+                            ? 'border-[#FFC72C] bg-amber-50/50 dark:bg-[#0E0F12] ring-2 ring-[#FFC72C]/30'
+                            : 'border-black/10 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-[#0E0F12]'
                         }`}
                       >
-                        <div className="w-9 h-9 rounded-full bg-[#00638E] flex items-center justify-center text-white shadow-sm">
+                        <div className="w-9 h-9 rounded-full bg-[#FFC72C] flex items-center justify-center text-[#111111] shadow-sm">
                           <CreditCard className="w-4 h-4" />
                         </div>
-                        <span className="text-xs font-bold text-slate-900">Credit / Debit</span>
+                        <span className="text-xs font-bold text-zinc-900 dark:text-white">Credit / Debit</span>
                       </button>
                     </div>
 
                     {/* Method details input */}
                     {paymentMethod.startsWith('momo') ? (
-                      <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-300 space-y-3">
-                        <label className="block text-xs font-bold font-tenor text-slate-700">
+                      <div className="bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/10 dark:border-white/15 space-y-3">
+                        <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300">
                           Enter Rwandan Mobile Money Number
                         </label>
                         <div className="flex gap-2">
-                          <span className="px-3 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-bold font-mono text-slate-700">
+                          <span className="px-3 py-2.5 bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl text-xs font-bold font-mono text-zinc-700 dark:text-zinc-300">
                             +250
                           </span>
                           <input
                             type="tel"
                             value={momoNumber}
                             onChange={(e) => setMomoNumber(e.target.value)}
-                            className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-900"
+                            className="flex-1 bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl px-3 py-2.5 text-xs font-semibold text-zinc-900 dark:text-white"
                             placeholder="788 123 456"
                           />
                         </div>
-                        <p className="text-[11px] text-slate-500">
+                        <p className="text-[11px] text-zinc-500 dark:text-zinc-400">
                           A prompt will appear instantly on your phone requesting your 4-digit MoMo PIN.
                         </p>
 
                         {isSimulatingPayment && (
-                          <div className="p-3 rounded-xl bg-[#00638E]/10 border border-[#00638E]/30 flex items-center gap-3 animate-pulse">
-                            <RefreshCw className="w-4 h-4 text-[#00638E] animate-spin" />
-                            <span className="text-xs text-[#00638E] font-medium">
+                          <div className="p-3 rounded-xl bg-[#FFC72C]/10 border border-[#FFC72C]/30 flex items-center gap-3 animate-pulse">
+                            <RefreshCw className="w-4 h-4 text-[#FFC72C] animate-spin" />
+                            <span className="text-xs text-[#FFC72C] font-medium">
                               {momoPromptStep === 'prompt_sent'
                                 ? 'Dial *182*7*1# prompt sent to phone. Waiting for PIN confirmation...'
                                 : 'PIN accepted! Finalizing instant reservation...'}
@@ -887,36 +889,36 @@ export default function CheckoutPage() {
                         )}
                       </div>
                     ) : (
-                      <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-300 space-y-3">
+                      <div className="bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/10 dark:border-white/15 space-y-3">
                         <div>
-                          <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
+                          <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 mb-1">
                             Card Number
                           </label>
                           <input
                             type="text"
                             defaultValue="4124 •••• •••• 8829"
-                            className="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-xs font-mono font-medium"
+                            className="w-full bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl p-2.5 text-xs font-mono font-medium text-zinc-900 dark:text-white"
                           />
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
+                            <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 mb-1">
                               Expiry Date
                             </label>
                             <input
                               type="text"
                               defaultValue="12/28"
-                              className="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-xs font-mono font-medium"
+                              className="w-full bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl p-2.5 text-xs font-mono font-medium text-zinc-900 dark:text-white"
                             />
                           </div>
                           <div>
-                            <label className="block text-xs font-bold font-tenor text-slate-700 mb-1">
+                            <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 mb-1">
                               CVV / CVC
                             </label>
                             <input
                               type="password"
                               defaultValue="842"
-                              className="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-xs font-mono font-medium"
+                              className="w-full bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl p-2.5 text-xs font-mono font-medium text-zinc-900 dark:text-white"
                             />
                           </div>
                         </div>
@@ -928,7 +930,7 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(3)}
-                      className="px-4 py-2.5 text-xs font-tenor font-bold text-slate-500 hover:text-slate-900 flex items-center gap-1.5"
+                      className="px-4 py-2.5 text-xs font-tenor font-bold text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white flex items-center gap-1.5 transition-colors"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -938,7 +940,7 @@ export default function CheckoutPage() {
                       type="button"
                       disabled={isSimulatingPayment}
                       onClick={handlePaymentSubmit}
-                      className="px-8 py-3.5 bg-[#00638E] hover:bg-[#00557B] disabled:opacity-50 text-white font-tenor font-bold text-sm tracking-tight rounded-2xl shadow-xl shadow-[#00638E]/25 transition-all flex items-center gap-2"
+                      className="px-8 py-3.5 bg-[#FFC72C] hover:bg-[#E5B224] disabled:opacity-50 !text-[#111111] font-tenor font-extrabold text-sm tracking-tight rounded-2xl transition-all flex items-center gap-2"
                     >
                       {isSimulatingPayment ? (
                         <>
@@ -958,24 +960,24 @@ export default function CheckoutPage() {
             </div>
 
             {/* Right Summary Sticky Card (5 cols) */}
-            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-lg sticky top-24">
-              <h3 className="font-tenor font-bold text-base text-[#00638E] mb-4">
+            <div className="lg:col-span-5 bg-white dark:bg-[#141519] rounded-3xl p-6 sm:p-7 border border-black/5 dark:border-white/10 shadow-lg sticky top-24">
+              <h3 className="font-tenor font-bold text-base text-[#FFC72C] mb-4">
                 Booking Summary
               </h3>
 
               {/* Main Asset Mini Card */}
               <div className="flex items-center gap-3.5 pb-4 border-b border-slate-100">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-slate-200">
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-black/5 dark:border-white/10">
                   <Image src={asset.images[0]} alt={asset.title} fill className="object-cover" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#00638E]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#FFC72C]">
                     {asset.type === 'car' ? 'Vehicle' : 'Property'}
                   </span>
-                  <h4 className="font-tenor font-bold text-sm text-[#00638E] line-clamp-1">
+                  <h4 className="font-tenor font-bold text-sm text-[#FFC72C] line-clamp-1">
                     {asset.title}
                   </h4>
-                  <div className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
+                  <div className="text-xs text-zinc-400 flex items-center gap-1 mt-0.5">
                     <MapPin className="w-3 h-3 text-slate-400" />
                     <span>{asset.neighborhood}, Kigali</span>
                   </div>
@@ -985,17 +987,17 @@ export default function CheckoutPage() {
               {/* Paired Asset if Combo */}
               {pairedAsset && (
                 <div className="flex items-center gap-3.5 py-3 border-b border-slate-100">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-slate-200">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-black/5 dark:border-white/10">
                     <Image src={pairedAsset.images[0]} alt={pairedAsset.title} fill className="object-cover" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#00638E]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#FFC72C]">
                       Paired Bundle (-20%)
                     </span>
-                    <h4 className="font-tenor font-bold text-xs text-[#00638E] line-clamp-1">
+                    <h4 className="font-tenor font-bold text-xs text-[#FFC72C] line-clamp-1">
                       {pairedAsset.title}
                     </h4>
-                    <span className="text-[11px] text-slate-500 font-mono">
+                    <span className="text-[11px] text-zinc-400 font-mono">
                       +{formatPrice(pairedDailyRate)}/day
                     </span>
                   </div>
@@ -1003,28 +1005,28 @@ export default function CheckoutPage() {
               )}
 
               {/* Trip Dates */}
-              <div className="py-4 border-b border-slate-100 space-y-1 text-xs">
-                <div className="flex justify-between text-slate-600">
+              <div className="py-4 border-b border-black/5 dark:border-white/10 space-y-1 text-xs">
+                <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                   <span>Dates:</span>
-                  <span className="font-semibold text-slate-800">
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">
                     {draftBooking.startDate} to {draftBooking.endDate} ({days} days)
                   </span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                   <span>Guest:</span>
-                  <span className="font-semibold text-slate-800">{fullName}</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{fullName}</span>
                 </div>
               </div>
 
               {/* Price Calculation Itemization */}
-              <div className="py-4 space-y-2 text-xs border-b border-slate-100 text-slate-600">
+              <div className="py-4 space-y-2 text-xs border-b border-black/5 dark:border-white/10 text-zinc-600 dark:text-zinc-400">
                 <div className="flex justify-between">
                   <span>Base rate ({formatPrice(baseRate)} × {days}d)</span>
-                  <span className="font-semibold text-slate-800">{formatPrice(baseTotal)}</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{formatPrice(baseTotal)}</span>
                 </div>
 
                 {pairedAsset && (
-                  <div className="flex justify-between text-[#00638E]">
+                  <div className="flex justify-between text-[#FFC72C]">
                     <span>Combo vehicle ({formatPrice(pairedDailyRate)} × {days}d)</span>
                     <span className="font-semibold">{formatPrice(pairedTotal)}</span>
                   </div>
@@ -1032,24 +1034,24 @@ export default function CheckoutPage() {
 
                 <div className="flex justify-between">
                   <span>Cleaning & turnover</span>
-                  <span className="font-semibold text-slate-800">{formatPrice(cleaningFee)}</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{formatPrice(cleaningFee)}</span>
                 </div>
 
                 {addOnsTotal > 0 && (
                   <div className="flex justify-between">
                     <span>Add-on services</span>
-                    <span className="font-semibold text-slate-800">{formatPrice(addOnsTotal)}</span>
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-200">{formatPrice(addOnsTotal)}</span>
                   </div>
                 )}
 
-                <div className="flex justify-between text-[11px] text-slate-500">
+                <div className="flex justify-between text-[11px] text-zinc-500 dark:text-zinc-400">
                   <span>Rwanda Tourism & Municipal Levy (5%)</span>
                   <span>{formatPrice(taxesAndTourismLevy)}</span>
                 </div>
 
-                <div className="flex justify-between text-slate-500 pt-1">
+                <div className="flex justify-between text-zinc-400 pt-1">
                   <span>Refundable Deposit Hold</span>
-                  <span className="font-mono text-[#00638E]">
+                  <span className="font-mono text-[#FFC72C]">
                     {formatPrice(securityDepositHold)} (Hold)
                   </span>
                 </div>
@@ -1058,23 +1060,23 @@ export default function CheckoutPage() {
               {/* Grand Total & Payable Now */}
               <div className="pt-4 space-y-2">
                 <div className="flex justify-between items-baseline">
-                  <span className="text-xs font-tenor font-bold text-slate-500 uppercase">
+                  <span className="text-xs font-tenor font-bold text-zinc-500 dark:text-zinc-400 uppercase">
                     Grand Total
                   </span>
-                  <span className="font-tenor font-extrabold text-lg text-slate-700">
+                  <span className="font-tenor font-extrabold text-lg text-zinc-900 dark:text-zinc-300">
                     {formatPrice(grandTotal)}
                   </span>
                 </div>
 
-                <div className="flex justify-between items-baseline p-3 rounded-2xl bg-[#F0F6F9] border border-slate-200">
-                  <span className="font-tenor font-bold text-sm text-[#00638E]">Payable Now</span>
-                  <span className="font-tenor font-extrabold text-2xl text-[#00638E]">
+                <div className="flex justify-between items-baseline p-3 rounded-2xl bg-slate-100 dark:bg-[#0B0C0E] border border-black/5 dark:border-white/10">
+                  <span className="font-tenor font-bold text-sm text-[#FFC72C]">Payable Now</span>
+                  <span className="font-tenor font-extrabold text-2xl text-[#FFC72C]">
                     {formatPrice(payableToday)}
                   </span>
                 </div>
 
                 {dueAtCheckIn > 0 && (
-                  <div className="text-right text-[11px] text-slate-500">
+                  <div className="text-right text-[11px] text-zinc-500 dark:text-zinc-400">
                     Remaining {formatPrice(dueAtCheckIn)} due upon arrival handover
                   </div>
                 )}
@@ -1083,71 +1085,71 @@ export default function CheckoutPage() {
           </div>
         ) : (
           /* STEP 5: SUCCESS STATE WITH PRINTABLE PDF RECEIPT & HANDOVER CTA */
-          <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-2xl animate-fadeIn">
+          <div className="max-w-3xl mx-auto bg-white dark:bg-[#141519] rounded-3xl p-6 sm:p-10 border border-black/5 dark:border-white/10 shadow-2xl animate-fadeIn">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 rounded-full bg-[#00638E]/15 text-[#00638E] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#00638E]/20">
+              <div className="w-16 h-16 rounded-full bg-[#FFC72C]/15 text-[#FFC72C] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#FFC72C]/20">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
-              <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E] bg-[#00638E]/10 px-3 py-1 rounded-full border border-[#00638E]/20">
+              <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#FFC72C] bg-[#FFC72C]/10 px-3 py-1 rounded-full border border-[#FFC72C]/20">
                 Payment Authorized & Inventory Confirmed
               </span>
 
-              <h1 className="font-tenor text-3xl font-extrabold text-[#00638E] mt-3">
+              <h1 className="font-tenor text-3xl font-extrabold text-[#FFC72C] mt-3">
                 Murakaza Neza! Your Kigali Booking is Ready.
               </h1>
 
-              <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2">
+              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-lg mx-auto mt-2">
                 A confirmation SMS and digital agreement have been dispatched to {phone}. Your operations concierge is notified.
               </p>
             </div>
 
             {/* Printable Digital Receipt / Voucher Card (PY-04) */}
-            <div className="bg-[#F0F6F9] rounded-2xl p-6 border-2 border-dashed border-slate-300 mb-8 font-sans">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-300 gap-2">
+            <div className="bg-slate-50 dark:bg-[#0B0C0E] rounded-2xl p-6 border-2 border-dashed border-zinc-300 dark:border-white/15 mb-8 font-sans">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-black/10 dark:border-white/15 gap-2">
                 <div>
-                  <span className="font-tenor font-extrabold text-lg text-[#00638E] tracking-tight">
-                    Kigali<span className="text-[#00638E]">Rentals</span> Voucher
+                  <span className="font-tenor font-extrabold text-lg text-zinc-900 dark:text-white tracking-tight">
+                    Kigali<span className="text-[#FFC72C]">Rentals</span> Voucher
                   </span>
-                  <span className="text-xs text-slate-500 block">
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 block">
                     Issued: {new Date().toLocaleDateString('en-GB')}
                   </span>
                 </div>
                 <div className="text-left sm:text-right">
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block font-tenor">
+                  <span className="text-[10px] uppercase font-bold text-zinc-500 dark:text-slate-400 block font-tenor">
                     Booking Reference Code
                   </span>
-                  <span className="font-mono text-base font-bold text-[#00638E] bg-white px-2 py-0.5 rounded border border-slate-200">
+                  <span className="font-mono text-base font-bold text-[#FFC72C] bg-white dark:bg-[#141519] px-2 py-0.5 rounded border border-black/10 dark:border-white/10">
                     {confirmedReservation?.id || 'KGL-2026-8942'}
                   </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-b border-slate-300 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-b border-black/10 dark:border-white/15 text-xs">
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Renter</span>
-                  <span className="font-semibold text-slate-800">{fullName}</span>
+                  <span className="text-zinc-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Renter</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{fullName}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Check-in</span>
-                  <span className="font-semibold text-slate-800">{draftBooking.startDate}</span>
+                  <span className="text-zinc-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Check-in</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{draftBooking.startDate}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Check-out</span>
-                  <span className="font-semibold text-slate-800">{draftBooking.endDate}</span>
+                  <span className="text-zinc-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Check-out</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">{draftBooking.endDate}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Total Paid</span>
-                  <span className="font-mono font-bold text-[#00638E]">{formatPrice(payableToday)}</span>
+                  <span className="text-zinc-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Total Paid</span>
+                  <span className="font-mono font-bold text-[#FFC72C]">{formatPrice(payableToday)}</span>
                 </div>
               </div>
 
-              <div className="pt-4 flex items-center justify-between text-xs text-slate-500">
+              <div className="pt-4 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
                 <span>Verification ID: {idNumber}</span>
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="flex items-center gap-1.5 text-[#00638E] hover:text-[#00638E] font-bold"
+                  className="flex items-center gap-1.5 text-[#FFC72C] hover:text-[#d4a017] font-bold"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Print PDF Receipt</span>
@@ -1157,10 +1159,10 @@ export default function CheckoutPage() {
 
             {/* Next Steps & Action Buttons */}
             <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 flex items-start gap-3">
-                <Sparkles className="w-5 h-5 text-[#00638E] shrink-0 mt-0.5" />
-                <div className="text-xs text-slate-700">
-                  <span className="font-bold text-[#00638E] block mb-0.5">
+              <div className="p-4 rounded-2xl bg-white dark:bg-[#141519] border border-black/5 dark:border-white/10 flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-[#FFC72C] shrink-0 mt-0.5" />
+                <div className="text-xs text-zinc-700 dark:text-zinc-300">
+                  <span className="font-bold text-[#FFC72C] block mb-0.5">
                     Next Step: Digital Handover & Inspection
                   </span>
                   When receiving the vehicle or property keys, launch the mobile Condition Tool to sign off on odometer, fuel level, and key exchange.
@@ -1170,7 +1172,7 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Link
                   href="/handover"
-                  className="w-full bg-[#00638E] hover:bg-[#00638E] text-white py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center shadow-lg transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#FFC72C] hover:bg-[#FFC72C] text-[#111111] font-bold py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center shadow-lg transition-all flex items-center justify-center gap-2"
                 >
                   <FileCheck className="w-4 h-4" />
                   <span>Open Handover Inspection Tool</span>
@@ -1178,7 +1180,7 @@ export default function CheckoutPage() {
 
                 <Link
                   href="/admin"
-                  className="w-full bg-[#F0F6F9] hover:bg-slate-200 text-[#00638E] border border-slate-200 py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-slate-100 dark:bg-[#0B0C0E] hover:bg-slate-200 dark:hover:bg-zinc-800 text-[#FFC72C] border border-black/5 dark:border-white/10 py-3.5 px-6 rounded-2xl font-tenor font-bold text-xs uppercase tracking-wider text-center transition-all flex items-center justify-center gap-2"
                 >
                   <span>View in Admin Back-Office</span>
                   <ArrowRight className="w-4 h-4" />

@@ -9,12 +9,29 @@
   --font-syne: 'Syne', sans-serif;
   --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-outfit: 'Outfit', sans-serif;
+
+  --bg-canvas: #0B0C0E;
+  --bg-surface: #141519;
+  --bg-surface-elevated: #16171E;
+  --bg-input: #0E0F12;
+  --text-main: #FFFFFF;
+  --text-muted: #A1A1AA;
+}
+
+html.light, :root[data-theme='light'] {
+  --bg-canvas: #F8F9FB;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-input: #F1F3F6;
+  --text-main: #111111;
+  --text-muted: #4B5563;
 }
 
 body {
   font-family: var(--font-jakarta);
-  background-color: #FFFFFF;
-  color: #141414;
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
+  transition: background-color 0.2s ease, color 0.2s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -35,256 +52,336 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
   letter-spacing: -0.03em;
 }
 
-/* Custom scrollbars in Dark Azure & soft tint */
+/* Custom scrollbars in Luxury Gold & Obsidian */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F0F6F9;
+  background: #141519;
 }
 ::-webkit-scrollbar-thumb {
-  background: #00638E;
+  background: #FFC72C;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00557B;
+  background: #E5B224;
 }
 
 /* =========================================================
-   CLEAN LUXURY DESIGN SYSTEM TOKENS (SOLID WHITE SURFACES)
-   Crisp physical clarity, zero glassmorphism, elegant borders
+   LUXURY DARK & GOLD DESIGN SYSTEM TOKENS (OBSIDIAN SURFACES)
+   Prestige automotive aesthetic, crisp typography & tactile gold
    ========================================================= */
 
-/* Solid Crisp White Panel */
+/* Elevated Dark Luxury Panel */
 .glass-satin-frost,
 .glass-high-frost {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #141519;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 12px 32px -6px rgba(0, 99, 142, 0.08),
-    0 4px 12px -2px rgba(20, 20, 20, 0.04);
+    0 16px 36px -6px rgba(0, 0, 0, 0.65),
+    0 4px 12px -2px rgba(0, 0, 0, 0.4);
 }
 
-/* Solid White Tactile Card Panel */
+/* Solid Tactile Card Panel */
 .glass-skeu-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #141519;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
-    0 8px 24px -4px rgba(0, 99, 142, 0.06),
-    0 2px 6px -1px rgba(20, 20, 20, 0.03);
+    0 8px 24px -4px rgba(0, 0, 0, 0.5),
+    0 2px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-/* High-Clarity Solid White Popovers / Dropdowns */
+/* High-Clarity Dark Popovers / Dropdowns */
 .glass-high-frost-dropdown {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #16171D;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
-    0 24px 50px -10px rgba(0, 99, 142, 0.16),
-    0 8px 20px -4px rgba(20, 20, 20, 0.06);
+    0 24px 50px -10px rgba(0, 0, 0, 0.8),
+    0 8px 20px -4px rgba(255, 199, 44, 0.1);
 }
 
-/* Floating Navigation Capsule in Solid Crisp White */
+/* Floating Navigation Capsule in Obsidian Glass */
 .glass-skeu-nav {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: rgba(16, 17, 21, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    0 10px 30px -5px rgba(0, 99, 142, 0.08),
-    0 2px 8px -2px rgba(20, 20, 20, 0.04);
+    0 12px 32px -5px rgba(0, 0, 0, 0.6),
+    0 2px 8px -2px rgba(255, 199, 44, 0.08);
 }
 
-/* Luxury Tactile Input Cell in Solid Crisp White */
+/* Luxury Tactile Input Cell */
 .skeu-input-cell {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow:
-    0 1px 3px 0 rgba(0, 99, 142, 0.04);
+  background: #0E0F12;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .skeu-input-cell:hover {
-  border-color: #00638E;
-  background: rgba(255, 255, 255, 0.98);
+  border-color: #FFC72C;
+  background: #141519;
   transform: translateY(-1px);
   box-shadow:
-    0 4px 12px -2px rgba(0, 99, 142, 0.14),
-    inset 0 1px 2px 0 rgba(0, 99, 142, 0.02);
+    0 4px 12px -2px rgba(255, 199, 44, 0.2),
+    inset 0 1px 2px 0 rgba(0, 0, 0, 0.4);
 }
 .skeu-input-cell:focus, .skeu-input-cell:focus-within {
-  border-color: #00638E;
-  background: #FFFFFF;
+  border-color: #FFC72C;
+  background: #141519;
   box-shadow:
-    0 0 0 3px rgba(0, 99, 142, 0.2),
-    0 4px 12px -2px rgba(0, 99, 142, 0.15),
-    inset 0 1px 2px 0 rgba(0, 99, 142, 0.03);
+    0 0 0 3px rgba(255, 199, 44, 0.25),
+    0 4px 12px -2px rgba(255, 199, 44, 0.3);
 }
 
-/* Skeuomorphic Dark Azure Tactile Button */
-.skeu-btn-terracotta {
-  background: linear-gradient(180deg, #0077AB 0%, #00638E 60%, #00557B 100%);
-  border: 1px solid #00557B;
-  box-shadow:
-    0 4px 12px -1px rgba(0, 99, 142, 0.4),
-    0 2px 4px 0 rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
-  transition: all 0.15s ease-in-out;
-}
-.skeu-btn-terracotta:hover {
-  background: linear-gradient(180deg, #0084BD 0%, #006CA0 60%, #00557B 100%);
-  box-shadow:
-    0 6px 16px -1px rgba(0, 99, 142, 0.48),
-    0 3px 6px 0 rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.22);
-  transform: translateY(-1px);
-}
-.skeu-btn-terracotta:active {
-  background: linear-gradient(180deg, #00557B 0%, #00638E 100%);
-  box-shadow:
-    inset 0 2px 4px 0 rgba(0, 0, 0, 0.35),
-    0 1px 2px 0 rgba(0, 0, 0, 0.1);
-  transform: translateY(1px);
-}
-
-/* Skeuomorphic Deep Azure Tactile Button */
+/* Skeuomorphic Luxury Gold Tactile Button */
+.skeu-btn-terracotta,
 .skeu-btn-teal {
-  background: linear-gradient(180deg, #00557B 0%, #00638E 65%, #00557B 100%);
-  border: 1px solid #00557B;
-  box-shadow:
-    0 4px 12px -1px rgba(0, 99, 142, 0.35),
-    0 2px 4px 0 rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.4);
+  background: linear-gradient(180deg, #FFD54F 0%, #FFC72C 55%, #E5B224 100%);
+  border: 1px solid #D4A017;
+  color: #111111 !important;
+  font-weight: 800;
+  box-shadow: none !important;
   transition: all 0.15s ease-in-out;
 }
+.skeu-btn-terracotta:hover,
 .skeu-btn-teal:hover {
-  background: linear-gradient(180deg, #0077AB 0%, #00638E 65%, #00557B 100%);
-  box-shadow:
-    0 6px 16px -1px rgba(0, 99, 142, 0.45),
-    0 3px 6px 0 rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.32),
-    inset 0 -2px 0 0 rgba(0, 0, 0, 0.45);
+  background: linear-gradient(180deg, #FFE082 0%, #FFD043 55%, #EDB827 100%);
+  color: #111111 !important;
+  box-shadow: none !important;
   transform: translateY(-1px);
 }
+.skeu-btn-terracotta:active,
 .skeu-btn-teal:active {
-  background: linear-gradient(180deg, #00557B 0%, #00638E 100%);
-  box-shadow:
-    inset 0 2px 4px 0 rgba(0, 0, 0, 0.45),
-    0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #E5B224 0%, #FFC72C 100%);
+  color: #111111 !important;
+  box-shadow: none !important;
   transform: translateY(1px);
 }
 
-/* Crisp White Tactile Button */
+/* Frosted Dark Tactile Button */
 .skeu-btn-frosted {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow:
-    0 2px 6px -1px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+  background: #1A1B20;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  box-shadow: none !important;
   transition: all 0.15s ease-in-out;
 }
 .skeu-btn-frosted:hover {
-  background: #F0F6F9;
-  border-color: #00638E;
-  box-shadow:
-    0 4px 12px -2px rgba(0, 99, 142, 0.15),
-    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+  background: #22242B;
+  border-color: #FFC72C;
+  color: #FFC72C;
+  box-shadow: none !important;
   transform: translateY(-1px);
 }
 .skeu-btn-frosted:active {
-  background: #E1EEF4;
-  box-shadow:
-    inset 0 2px 3px 0 rgba(0, 0, 0, 0.08),
-    0 1px 1px 0 rgba(255, 255, 255, 0.8);
+  background: #141519;
+  box-shadow: none !important;
   transform: translateY(1px);
 }
 
-/* Debossed / Inset Skeuomorphic Field (inputs, selectors) */
+/* Debossed / Inset Skeuomorphic Field */
 .skeu-input {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #0E0F12;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
   box-shadow:
-    inset 0 2px 4px 0 rgba(0, 99, 142, 0.06),
-    inset 0 1px 2px 0 rgba(0, 0, 0, 0.04),
-    0 1px 0 0 rgba(255, 255, 255, 0.9);
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.4),
+    0 1px 0 0 rgba(255, 255, 255, 0.05);
   transition: all 0.15s ease;
 }
 .skeu-input:hover {
-  border-color: #00638E;
-  background: #F0F6F9;
+  border-color: #FFC72C;
+  background: #141519;
 }
 .skeu-input:focus, .skeu-input:focus-within {
-  border-color: #00638E;
-  background: #FFFFFF;
+  border-color: #FFC72C;
+  background: #141519;
+  color: #FFFFFF;
   box-shadow:
-    0 0 0 3px rgba(0, 99, 142, 0.18),
-    inset 0 1.5px 3px 0 rgba(0, 99, 142, 0.05);
+    0 0 0 3px rgba(255, 199, 44, 0.25),
+    inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.4);
 }
 
 /* Physical Card Surface with Tactile Depth */
 .skeu-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #141519;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 12px 30px -8px rgba(0, 99, 142, 0.08),
-    0 4px 10px -2px rgba(20, 20, 20, 0.04),
-    inset 0 1px 0 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
+    0 12px 30px -8px rgba(0, 0, 0, 0.6),
+    0 4px 10px -2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
 }
 .skeu-card-elevated {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: #16171E;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    0 20px 40px -10px rgba(0, 99, 142, 0.12),
-    0 8px 16px -4px rgba(20, 20, 20, 0.06),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.04);
+    0 20px 40px -10px rgba(0, 0, 0, 0.8),
+    0 8px 16px -4px rgba(255, 199, 44, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Debossed Inset Tray / Container */
 .skeu-tray {
-  background: linear-gradient(180deg, #F0F6F9 0%, #E8F2F7 100%);
-  border: 1px solid #E2E8F0;
+  background: #0E0F12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    inset 0 2px 4px 0 rgba(0, 99, 142, 0.08),
-    inset 0 1px 2px 0 rgba(0, 0, 0, 0.05),
-    0 1px 0 0 rgba(255, 255, 255, 0.95);
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.5),
+    0 1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
 /* Tactile Active Pill / Tab */
-.skeu-tab-active {
-  background: linear-gradient(180deg, #00557B 0%, #00638E 100%);
-  border: 1px solid #00557B;
-  box-shadow:
-    0 3px 8px -1px rgba(0, 99, 142, 0.35),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
-}
-
+.skeu-tab-active,
 .skeu-tab-active-accent {
-  background: linear-gradient(180deg, #0077AB 0%, #00638E 100%);
-  border: 1px solid #00557B;
-  box-shadow:
-    0 3px 8px -1px rgba(0, 99, 142, 0.4),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.25);
+  background: linear-gradient(180deg, #FFD54F 0%, #FFC72C 100%);
+  border: 1px solid #D4A017;
+  color: #111111 !important;
+  font-weight: 800;
+  box-shadow: none !important;
 }
 
 /* Tactile Badge */
 .skeu-badge {
-  background: #F0F6F9;
-  border: 1px solid #E2E8F0;
+  background: #1A1B20;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFC72C;
   box-shadow:
-    0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    0 2px 4px -1px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Subtle dot texture */
 .bg-subtle-pattern {
-  background-color: #FFFFFF;
-  background-image: radial-gradient(#00638E 0.65px, transparent 0.65px), radial-gradient(#00638E 0.65px, #FFFFFF 0.65px);
+  background-color: #0B0C0E;
+  background-image: radial-gradient(rgba(255, 199, 44, 0.1) 0.65px, transparent 0.65px), radial-gradient(rgba(255, 255, 255, 0.04) 0.65px, #0B0C0E 0.65px);
   background-size: 28px 28px;
   background-position: 0 0, 14px 14px;
+}
+
+html.light .bg-subtle-pattern {
+  background-color: #F8F9FB;
+  background-image: radial-gradient(rgba(255, 199, 44, 0.15) 0.75px, transparent 0.75px), radial-gradient(rgba(0, 0, 0, 0.04) 0.75px, #F8F9FB 0.75px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* =========================================================
+   LUXURY LIGHT THEME TOKENS (PEARL & CRISP SURFACES WITH GOLD)
+   ========================================================= */
+
+html.light ::-webkit-scrollbar-track {
+  background: #F1F3F6;
+}
+
+html.light .glass-satin-frost,
+html.light .glass-high-frost {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 16px 36px -6px rgba(0, 0, 0, 0.08),
+    0 4px 12px -2px rgba(0, 0, 0, 0.04);
+}
+
+html.light .glass-skeu-card,
+html.light .skeu-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 8px 24px -4px rgba(0, 0, 0, 0.06),
+    0 2px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+html.light .skeu-card-elevated {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.08),
+    0 8px 16px -4px rgba(255, 199, 44, 0.1),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+html.light .glass-high-frost-dropdown {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 24px 50px -10px rgba(0, 0, 0, 0.12),
+    0 8px 20px -4px rgba(255, 199, 44, 0.15);
+}
+
+html.light .glass-skeu-nav {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 12px 32px -5px rgba(0, 0, 0, 0.07),
+    0 2px 8px -2px rgba(255, 199, 44, 0.12);
+}
+
+html.light .skeu-input-cell {
+  background: #F4F6F9;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+html.light .skeu-input-cell:hover {
+  border-color: #FFC72C;
+  background: #FFFFFF;
+  box-shadow:
+    0 4px 12px -2px rgba(255, 199, 44, 0.2),
+    inset 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+html.light .skeu-input-cell:focus,
+html.light .skeu-input-cell:focus-within {
+  border-color: #FFC72C;
+  background: #FFFFFF;
+  box-shadow:
+    0 0 0 3px rgba(255, 199, 44, 0.25),
+    0 4px 12px -2px rgba(255, 199, 44, 0.2);
+}
+
+html.light .skeu-btn-frosted {
+  background: #F1F3F6;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  color: #111111;
+  box-shadow: none !important;
+}
+html.light .skeu-btn-frosted:hover {
+  background: #FFFFFF;
+  border-color: #FFC72C;
+  color: #111111;
+  box-shadow: none !important;
+}
+
+html.light .skeu-input {
+  background: #F4F6F9;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  color: #111111;
+  box-shadow:
+    inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.06),
+    0 1px 0 0 rgba(255, 255, 255, 0.8);
+}
+html.light .skeu-input:hover {
+  border-color: #FFC72C;
+  background: #FFFFFF;
+}
+html.light .skeu-input:focus,
+html.light .skeu-input:focus-within {
+  border-color: #FFC72C;
+  background: #FFFFFF;
+  color: #111111;
+}
+
+html.light .skeu-tray {
+  background: #F1F4F8;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.04),
+    0 1px 0 0 rgba(255, 255, 255, 0.8);
+}
+
+html.light .skeu-badge {
+  background: #FFF9E6;
+  border: 1px solid rgba(255, 199, 44, 0.4);
+  color: #B45309;
 }
 
 /* =========================================================
@@ -313,11 +410,11 @@ html {
 @keyframes topNavGlow {
   0%, 100% {
     opacity: 0.85;
-    filter: drop-shadow(0 0 6px rgba(200, 90, 42, 0.4));
+    filter: drop-shadow(0 0 6px rgba(255, 199, 44, 0.3));
   }
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 14px rgba(200, 90, 42, 0.7));
+    filter: drop-shadow(0 0 14px rgba(255, 199, 44, 0.6));
   }
 }
 
@@ -345,4 +442,3 @@ html {
 .animate-marquee-left:hover {
   animation-play-state: paused;
 }
-

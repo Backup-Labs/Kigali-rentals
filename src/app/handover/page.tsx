@@ -157,20 +157,20 @@ export default function HandoverToolPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F6F9] pb-24 pt-20 sm:pt-24">
+    <div className="min-h-screen bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white pb-24 pt-20 sm:pt-24">
       {/* Header */}
-      <div className="bg-[#141414] text-white py-6 border-b border-white/10">
+      <div className="bg-white dark:bg-[#141414] text-zinc-900 dark:text-white py-6 border-b border-black/5 dark:border-black/5 dark:border-white/10">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold font-tenor uppercase tracking-wider text-white bg-white/10 px-2.5 py-0.5 rounded-full mb-1">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-bold font-tenor uppercase tracking-wider text-zinc-900 dark:text-white bg-black/5 dark:bg-white/10 px-2.5 py-0.5 rounded-full mb-1">
                 <ClipboardCheck className="w-3.5 h-3.5" />
                 <span>Field Operations & Renter Inspection Tool</span>
               </div>
-              <h1 className="font-tenor text-2xl sm:text-3xl font-extrabold text-white">
+              <h1 className="font-tenor text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white">
                 Condition Handover Protocol
               </h1>
-              <p className="text-xs text-slate-300 mt-1">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
                 Standardized check-in & return inspections to eliminate deposit friction and guarantee zero surprise fees.
               </p>
             </div>
@@ -209,7 +209,7 @@ export default function HandoverToolPage() {
         {/* Selected Booking Mini Info Card */}
         <div className="skeu-card-elevated rounded-2xl p-4 sm:p-5 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-inner">
+            <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-black/5 dark:border-white/10 shadow-inner">
               <Image
                 src={selectedBooking?.assetImage || 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80'}
                 alt={selectedBooking?.assetTitle || ''}
@@ -219,18 +219,18 @@ export default function HandoverToolPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold text-[#00638E] bg-[#00638E]/10 px-2 py-0.5 rounded shadow-[inset_0_1px_1px_rgba(200,90,42,0.15)]">
+                <span className="font-mono text-xs font-bold text-[#FFC72C] bg-[#FFC72C]/10 px-2 py-0.5 rounded shadow-[inset_0_1px_1px_rgba(200,90,42,0.15)]">
                   {selectedBooking?.id}
                 </span>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-zinc-400">
                   {isCarAsset ? 'Vehicle Fleet' : 'Property Asset'}
                 </span>
               </div>
-              <h3 className="font-tenor font-bold text-base text-[#00638E]">
+              <h3 className="font-tenor font-bold text-base text-[#FFC72C]">
                 {selectedBooking?.assetTitle}
               </h3>
-              <p className="text-xs text-slate-600">
-                Renter: <span className="font-semibold text-slate-800">{selectedBooking?.customer.fullName}</span> ({selectedBooking?.customer.phone})
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                Renter: <span className="font-semibold text-zinc-900 dark:text-zinc-200">{selectedBooking?.customer.fullName}</span> ({selectedBooking?.customer.phone})
               </p>
             </div>
           </div>
@@ -241,8 +241,8 @@ export default function HandoverToolPage() {
               onClick={() => setActiveTab('check_in')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                 activeTab === 'check_in'
-                  ? 'skeu-tab-active text-white'
-                  : 'skeu-btn-frosted text-slate-600'
+                  ? 'skeu-tab-active !text-[#111111] font-extrabold'
+                  : 'skeu-btn-frosted text-zinc-700 dark:text-zinc-400 hover:text-black dark:hover:text-white'
               }`}
             >
               1. Check-In (Arrival)
@@ -251,8 +251,8 @@ export default function HandoverToolPage() {
               onClick={() => setActiveTab('check_out')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                 activeTab === 'check_out'
-                  ? 'skeu-tab-active text-white'
-                  : 'skeu-btn-frosted text-slate-600'
+                  ? 'skeu-tab-active !text-[#111111] font-extrabold'
+                  : 'skeu-btn-frosted text-zinc-700 dark:text-zinc-400 hover:text-black dark:hover:text-white'
               }`}
             >
               2. Check-Out (Departure)
@@ -261,8 +261,8 @@ export default function HandoverToolPage() {
               onClick={() => setActiveTab('compare')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-tenor font-bold transition-all ${
                 activeTab === 'compare'
-                  ? 'skeu-tab-active-accent text-white'
-                  : 'skeu-btn-frosted text-[#00638E]'
+                  ? 'skeu-tab-active-accent !text-[#111111] font-extrabold'
+                  : 'skeu-btn-frosted text-[#FFC72C] hover:text-[#d4a017]'
               }`}
             >
               3. Compare Both (HO-05)
@@ -277,17 +277,17 @@ export default function HandoverToolPage() {
             <div className="lg:col-span-8 space-y-6">
               {isCarAsset ? (
                 /* CAR INSPECTION FORM */
-                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
+                <div className="bg-white dark:bg-[#141519] rounded-3xl p-6 sm:p-8 border border-black/5 dark:border-white/10 shadow-md space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <div>
-                      <h2 className="font-tenor font-bold text-xl text-[#00638E]">
+                      <h2 className="font-tenor font-bold text-xl text-[#FFC72C]">
                         Vehicle Telemetry & Condition
                       </h2>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-zinc-400">
                         {activeTab === 'check_in' ? 'Pre-rental baseline verification' : 'Post-rental return verification'}
                       </span>
                     </div>
-                    <span className="text-xs font-bold font-tenor uppercase bg-[#00638E]/10 text-[#00638E] px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold font-tenor uppercase bg-[#FFC72C]/10 text-[#FFC72C] px-3 py-1 rounded-full">
                       Automotive
                     </span>
                   </div>
@@ -295,13 +295,13 @@ export default function HandoverToolPage() {
                   {/* Odometer & Fuel Gauge Sliders */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Odometer */}
-                    <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-200">
+                    <div className="bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/5 dark:border-white/10">
                       <div className="flex items-center justify-between mb-2">
-                        <label className="text-xs font-bold font-tenor text-slate-700 uppercase flex items-center gap-1.5">
-                          <Gauge className="w-4 h-4 text-[#00638E]" />
+                        <label className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase flex items-center gap-1.5">
+                          <Gauge className="w-4 h-4 text-[#FFC72C]" />
                           <span>Odometer Mileage</span>
                         </label>
-                        <span className="text-xs font-mono font-bold text-[#00638E]">
+                        <span className="text-xs font-mono font-bold text-[#FFC72C]">
                           {odometer.toLocaleString()} km
                         </span>
                       </div>
@@ -310,21 +310,21 @@ export default function HandoverToolPage() {
                         value={odometer}
                         onChange={(e) => setOdometer(parseInt(e.target.value, 10) || 0)}
                         aria-label="Odometer mileage reading"
-                        className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-mono font-bold text-slate-800"
+                        className="w-full bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl px-3 py-2 text-sm font-mono font-bold text-zinc-900 dark:text-zinc-200"
                       />
-                      <span className="text-[10px] text-slate-400 mt-1 block">
+                      <span className="text-[10px] text-zinc-500 dark:text-slate-400 mt-1 block">
                         Verify dashboard cluster display
                       </span>
                     </div>
 
                     {/* Fuel Level */}
-                    <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-200">
+                    <div className="bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/5 dark:border-white/10">
                       <div className="flex items-center justify-between mb-2">
-                        <label className="text-xs font-bold font-tenor text-slate-700 uppercase flex items-center gap-1.5">
-                          <Fuel className="w-4 h-4 text-[#00638E]" />
+                        <label className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase flex items-center gap-1.5">
+                          <Fuel className="w-4 h-4 text-[#FFC72C]" />
                           <span>Fuel Tank Gauge</span>
                         </label>
-                        <span className="text-xs font-mono font-bold text-[#00638E]">
+                        <span className="text-xs font-mono font-bold text-[#FFC72C]">
                           {fuelLevel}% {fuelLevel === 100 ? '(Full F)' : fuelLevel < 25 ? '(Low E)' : ''}
                         </span>
                       </div>
@@ -336,9 +336,9 @@ export default function HandoverToolPage() {
                         value={fuelLevel}
                         onChange={(e) => setFuelLevel(parseInt(e.target.value, 10))}
                         aria-label="Fuel tank gauge percentage"
-                        className="w-full accent-[#00638E] cursor-pointer"
+                        className="w-full accent-[#FFC72C] cursor-pointer"
                       />
-                      <div className="flex justify-between text-[10px] font-mono font-bold text-slate-500 mt-1">
+                      <div className="flex justify-between text-[10px] font-mono font-bold text-zinc-400 mt-1">
                         <span>E (Empty)</span>
                         <span>1/4</span>
                         <span>1/2</span>
@@ -350,8 +350,8 @@ export default function HandoverToolPage() {
 
                   {/* 4-Angle Exterior Photo Upload Slots */}
                   <div>
-                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-2 flex items-center gap-1.5">
-                      <Camera className="w-4 h-4 text-[#00638E]" />
+                    <label className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-2 flex items-center gap-1.5">
+                      <Camera className="w-4 h-4 text-[#FFC72C]" />
                       <span>4-Angle Exterior Photographic Log</span>
                     </label>
 
@@ -364,7 +364,7 @@ export default function HandoverToolPage() {
                       ].map((slot) => (
                         <div
                           key={slot.key}
-                          className="relative aspect-[4/3] rounded-2xl overflow-hidden border-2 border-slate-200 group bg-slate-900"
+                          className="relative aspect-[4/3] rounded-2xl overflow-hidden border-2 border-black/5 dark:border-white/10 group bg-slate-900"
                         >
                           <Image src={slot.url} alt={slot.label} fill className="object-cover" />
                           <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-2 text-white">
@@ -380,7 +380,7 @@ export default function HandoverToolPage() {
 
                   {/* Scratches & Dents Notes Log */}
                   <div>
-                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-2">
+                    <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-2">
                       Pre-Existing Scratches & Imperfections
                     </label>
 
@@ -388,16 +388,16 @@ export default function HandoverToolPage() {
                       {carScratches.map((s) => (
                         <div
                           key={s.id}
-                          className="flex items-center justify-between p-3 rounded-xl bg-[#F0F6F9] border border-slate-200 text-xs"
+                          className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#0B0C0E] border border-black/5 dark:border-white/10 text-xs"
                         >
                           <div>
-                            <span className="font-bold text-[#00638E] block">{s.location}</span>
-                            <span className="text-slate-500">{s.note}</span>
+                            <span className="font-bold text-[#FFC72C] block">{s.location}</span>
+                            <span className="text-zinc-600 dark:text-zinc-400">{s.note}</span>
                           </div>
                           <button
                             type="button"
                             onClick={() => removeScratch(s.id)}
-                            className="text-slate-400 hover:text-[#00638E] p-1"
+                            className="text-slate-400 hover:text-[#FFC72C] p-1"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -412,19 +412,19 @@ export default function HandoverToolPage() {
                         placeholder="Location (e.g. Left wing mirror)"
                         value={newScratchLoc}
                         onChange={(e) => setNewScratchLoc(e.target.value)}
-                        className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs flex-1"
+                        className="bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl px-3 py-2 text-xs flex-1 text-zinc-900 dark:text-white placeholder:text-zinc-400"
                       />
                       <input
                         type="text"
                         placeholder="Note (e.g. Minor paint chip)"
                         value={newScratchNote}
                         onChange={(e) => setNewScratchNote(e.target.value)}
-                        className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs flex-1"
+                        className="bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl px-3 py-2 text-xs flex-1 text-zinc-900 dark:text-white placeholder:text-zinc-400"
                       />
                       <button
                         type="button"
                         onClick={addScratch}
-                        className="px-3.5 py-2 bg-[#00638E] hover:bg-rose-600 text-white text-xs font-tenor font-bold rounded-xl flex items-center justify-center gap-1 shrink-0"
+                        className="px-3.5 py-2 bg-[#FFC72C] hover:bg-[#FFD54F] !text-[#111111] text-xs font-tenor font-extrabold rounded-xl flex items-center justify-center gap-1 shrink-0 transition-colors"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Add Mark</span>
@@ -434,51 +434,51 @@ export default function HandoverToolPage() {
                 </div>
               ) : (
                 /* PROPERTY INSPECTION FORM */
-                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
+                <div className="bg-white dark:bg-[#141519] rounded-3xl p-6 sm:p-8 border border-black/5 dark:border-white/10 shadow-md space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                     <div>
-                      <h2 className="font-tenor font-bold text-xl text-[#00638E]">
+                      <h2 className="font-tenor font-bold text-xl text-[#FFC72C]">
                         Property Handover & Utility Check
                       </h2>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-zinc-400">
                         {activeTab === 'check_in' ? 'Check-in meter & key log' : 'Departure inspection & turnover'}
                       </span>
                     </div>
-                    <span className="text-xs font-bold font-tenor uppercase bg-[#00638E]/10 text-[#00638E] px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold font-tenor uppercase bg-[#FFC72C]/10 text-[#FFC72C] px-3 py-1 rounded-full">
                       Property
                     </span>
                   </div>
 
                   {/* Key Exchange & Smart Lock PIN */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-200">
+                    <div className="bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/5 dark:border-white/10">
                       <div className="flex items-center gap-2 mb-2">
-                        <Key className="w-4 h-4 text-[#00638E]" />
-                        <span className="text-xs font-bold font-tenor text-slate-700 uppercase">
+                        <Key className="w-4 h-4 text-[#FFC72C]" />
+                        <span className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase">
                           Keys / Smart Lock
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-600">Smart Lock PIN:</span>
-                        <span className="font-mono font-bold text-sm text-[#00638E] bg-white px-2 py-0.5 rounded border border-slate-300">
+                        <span className="text-xs text-zinc-500 dark:text-zinc-400">Smart Lock PIN:</span>
+                        <span className="font-mono font-bold text-sm text-[#FFC72C] bg-white dark:bg-[#141519] px-2 py-0.5 rounded border border-black/10 dark:border-white/15">
                           {keyBoxPin}
                         </span>
                       </div>
-                      <label className="flex items-center gap-2 mt-3 text-xs text-slate-700 cursor-pointer">
+                      <label className="flex items-center gap-2 mt-3 text-xs text-zinc-700 dark:text-zinc-300 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={keysHandedOver}
                           onChange={(e) => setKeysHandedOver(e.target.checked)}
-                          className="rounded accent-[#00638E]"
+                          className="rounded accent-[#FFC72C]"
                         />
                         <span>Physical Gate Remote Handed Over</span>
                       </label>
                     </div>
 
-                    <div className="bg-[#F0F6F9] p-4 rounded-2xl border border-slate-200">
+                    <div className="bg-slate-50 dark:bg-[#0B0C0E] p-4 rounded-2xl border border-black/5 dark:border-white/10">
                       <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-4 h-4 text-[#00638E]" />
-                        <span className="text-xs font-bold font-tenor text-slate-700 uppercase">
+                        <Zap className="w-4 h-4 text-[#FFC72C]" />
+                        <span className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase">
                           Cash-Power Electricity (kWh)
                         </span>
                       </div>
@@ -487,9 +487,9 @@ export default function HandoverToolPage() {
                         value={electricityKwh}
                         onChange={(e) => setElectricityKwh(parseFloat(e.target.value) || 0)}
                         aria-label="Cash-power electricity meter in kilowatt hours"
-                        className="w-full bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-slate-800"
+                        className="w-full bg-white dark:bg-[#141519] border border-black/10 dark:border-white/15 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-zinc-900 dark:text-zinc-200"
                       />
-                      <span className="text-[10px] text-slate-400 mt-1 block">
+                      <span className="text-[10px] text-zinc-500 dark:text-slate-400 mt-1 block">
                         EUCL Prepaid Token Meter reading
                       </span>
                     </div>
@@ -497,7 +497,7 @@ export default function HandoverToolPage() {
 
                   {/* Room-by-room condition checklist */}
                   <div>
-                    <label className="block text-xs font-bold font-tenor text-slate-700 uppercase mb-2">
+                    <label className="block text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase mb-2">
                       Room Condition Sign-off
                     </label>
 
@@ -505,13 +505,13 @@ export default function HandoverToolPage() {
                       {rooms.map((room) => (
                         <div
                           key={room.id}
-                          className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-[#F0F6F9]"
+                          className="flex items-center justify-between p-3.5 rounded-2xl border border-black/5 dark:border-white/10 bg-slate-50 dark:bg-[#0B0C0E]"
                         >
                           <div>
-                            <span className="font-tenor font-bold text-xs text-[#00638E] block">
+                            <span className="font-tenor font-bold text-xs text-[#FFC72C] block">
                               {room.room}
                             </span>
-                            <span className="text-[11px] text-slate-500">{room.notes}</span>
+                            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">{room.notes}</span>
                           </div>
 
                           <button
@@ -534,48 +534,48 @@ export default function HandoverToolPage() {
             </div>
 
             {/* Right Sign-off Box (4 cols) */}
-            <div className="lg:col-span-4 bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-5 sticky top-24">
+            <div className="lg:col-span-4 bg-white dark:bg-[#141519] rounded-3xl p-6 border border-black/5 dark:border-white/10 shadow-md space-y-5 sticky top-24">
               <div>
-                <span className="text-[10px] uppercase font-bold text-slate-400 font-tenor">
+                <span className="text-[10px] uppercase font-bold text-zinc-500 dark:text-zinc-400 font-tenor">
                   Inspection Summary
                 </span>
-                <h3 className="font-tenor font-bold text-lg text-[#00638E]">
+                <h3 className="font-tenor font-bold text-lg text-[#FFC72C]">
                   Sign & File Handover
                 </h3>
               </div>
 
-              <div className="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
+              <div className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400 border-t border-black/5 dark:border-white/10 pt-3">
                 <div className="flex justify-between">
                   <span>Booking ID:</span>
-                  <span className="font-mono font-bold text-slate-800">{selectedBooking.id}</span>
+                  <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200">{selectedBooking.id}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Inspector:</span>
-                  <span className="font-semibold text-slate-800">Patrick Mugabo (KGL Ops)</span>
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-200">Patrick Mugabo (KGL Ops)</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Stage:</span>
-                  <span className="capitalize font-bold text-[#00638E]">
+                  <span className="capitalize font-bold text-[#FFC72C]">
                     {activeTab === 'check_in' ? 'Check-In Baseline' : 'Check-Out Return'}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Timestamp:</span>
-                  <span className="font-mono text-slate-500">
+                  <span className="font-mono text-zinc-600 dark:text-zinc-400">
                     {new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} (CAT)
                   </span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-[#00638E]/10 border border-[#00638E]/30 text-xs text-slate-700">
-                <ShieldCheck className="w-4 h-4 text-[#00638E] mb-1" />
+              <div className="p-3 rounded-2xl bg-[#FFC72C]/10 border border-[#FFC72C]/30 text-xs text-zinc-700 dark:text-zinc-300">
+                <ShieldCheck className="w-4 h-4 text-[#FFC72C] mb-1" />
                 Both renter and operations coordinator verify the above entries. Digital copy dispatched to renter email.
               </div>
 
               <button
                 type="button"
                 onClick={handleSaveReport}
-                className="w-full bg-[#00638E] hover:bg-[#00557B] text-white py-3 px-4 rounded-xl font-tenor font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full bg-[#FFC72C] hover:bg-[#FFD54F] text-[#111111] font-bold py-3 px-4 rounded-xl font-tenor font-extrabold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>Save Condition Report</span>
@@ -584,7 +584,7 @@ export default function HandoverToolPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('compare')}
-                className="w-full bg-[#F0F6F9] hover:bg-slate-200 text-[#00638E] py-2.5 px-4 rounded-xl font-tenor font-bold text-xs text-center transition-colors"
+                className="w-full bg-slate-100 dark:bg-[#0B0C0E] hover:bg-slate-200 dark:hover:bg-zinc-800 text-[#FFC72C] py-2.5 px-4 rounded-xl font-tenor font-bold text-xs text-center transition-colors border border-black/5 dark:border-white/10"
               >
                 Switch to Comparison View
               </button>
@@ -592,18 +592,18 @@ export default function HandoverToolPage() {
           </div>
         ) : (
           /* VIEW 3: COMPARISON VIEW (HO-05) */
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md animate-fadeIn">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-2 mb-6">
+          <div className="bg-white dark:bg-[#141519] rounded-3xl p-6 sm:p-8 border border-black/5 dark:border-white/10 shadow-md animate-fadeIn">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-black/5 dark:border-white/10 gap-2 mb-6">
               <div>
-                <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#00638E]">
+                <span className="text-xs font-bold font-tenor uppercase tracking-wider text-[#FFC72C]">
                   Dispute Elimination Protocol
                 </span>
-                <h2 className="font-tenor text-2xl font-extrabold text-[#00638E]">
+                <h2 className="font-tenor text-2xl font-extrabold text-[#FFC72C]">
                   Side-by-Side Condition Comparison (HO-05)
                 </h2>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold bg-[#00638E]/10 text-[#00638E] px-3 py-1 rounded-full border border-[#00638E]/30">
+                <span className="text-xs font-bold bg-[#FFC72C]/10 text-[#FFC72C] px-3 py-1 rounded-full border border-[#FFC72C]/30">
                   Zero Deductions • Full Deposit Release Eligible
                 </span>
               </div>
@@ -613,41 +613,41 @@ export default function HandoverToolPage() {
             {isCarAsset ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Column A: Check-In */}
-                <div className="p-5 rounded-2xl bg-[#F0F6F9] border border-slate-200 space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-300 pb-2">
-                    <span className="font-tenor font-bold text-sm text-[#00638E]">
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0B0C0E] border border-black/5 dark:border-white/10 space-y-4">
+                  <div className="flex items-center justify-between border-b border-black/10 dark:border-white/15 pb-2">
+                    <span className="font-tenor font-bold text-sm text-[#FFC72C]">
                       Check-In Status (October 12)
                     </span>
-                    <span className="text-xs font-mono bg-white px-2 py-0.5 rounded border border-slate-200">
+                    <span className="text-xs font-mono bg-white dark:bg-[#141519] px-2 py-0.5 rounded border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white">
                       Baseline
                     </span>
                   </div>
 
                   <div className="space-y-2 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Odometer:</span>
-                      <span className="font-mono font-bold text-slate-800">34,120 km</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">Odometer:</span>
+                      <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200">34,120 km</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Fuel Level:</span>
-                      <span className="font-mono font-bold text-slate-800">100% (Full)</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">Fuel Level:</span>
+                      <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200">100% (Full)</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Exterior Scratches:</span>
-                      <span className="font-bold text-slate-800">1 Logged (Rear bumper)</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">Exterior Scratches:</span>
+                      <span className="font-bold text-zinc-900 dark:text-zinc-200">1 Logged (Rear bumper)</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Cleanliness:</span>
-                      <span className="font-bold text-[#00638E]">Pristine</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">Cleanliness:</span>
+                      <span className="font-bold text-[#FFC72C]">Pristine</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 pt-2">
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-slate-300">
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-black/10 dark:border-white/15">
                       <Image src={exteriorPhotos.front} alt="Front checkin" fill className="object-cover" />
                       <span className="absolute bottom-1 left-1 text-[9px] bg-black/60 text-white px-1 rounded">Front In</span>
                     </div>
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-slate-300">
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-black/10 dark:border-white/15">
                       <Image src={exteriorPhotos.back} alt="Back checkin" fill className="object-cover" />
                       <span className="absolute bottom-1 left-1 text-[9px] bg-black/60 text-white px-1 rounded">Back In</span>
                     </div>
@@ -655,45 +655,45 @@ export default function HandoverToolPage() {
                 </div>
 
                 {/* Column B: Check-Out */}
-                <div className="p-5 rounded-2xl bg-white border-2 border-[#00638E]/40 space-y-4 shadow-sm">
-                  <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                    <span className="font-tenor font-bold text-sm text-[#00638E]">
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#141519] border-2 border-[#FFC72C]/40 space-y-4 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-black/5 dark:border-white/10 pb-2">
+                    <span className="font-tenor font-bold text-sm text-[#FFC72C]">
                       Check-Out Status (Return)
                     </span>
-                    <span className="text-xs font-mono bg-[#00638E]/10 text-[#00638E] px-2 py-0.5 rounded font-bold">
+                    <span className="text-xs font-mono bg-[#FFC72C]/10 text-[#FFC72C] px-2 py-0.5 rounded font-bold">
                       Match Verified
                     </span>
                   </div>
 
                   <div className="space-y-2 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Odometer:</span>
-                      <span className="font-mono font-bold text-slate-800">
+                      <span className="text-zinc-500 dark:text-zinc-400">Odometer:</span>
+                      <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200">
                         {odometer.toLocaleString()} km (+{(odometer - 34120)} km driven)
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Fuel Level:</span>
-                      <span className="font-mono font-bold text-slate-800">
+                      <span className="text-zinc-500 dark:text-zinc-400">Fuel Level:</span>
+                      <span className="font-mono font-bold text-zinc-900 dark:text-zinc-200">
                         {fuelLevel}% {fuelLevel >= 95 ? '(Returned Full ✓)' : '(Needs Top-up)'}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">New Scratches:</span>
-                      <span className="font-bold text-[#00638E]">None detected ✓</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">New Scratches:</span>
+                      <span className="font-bold text-[#FFC72C]">None detected ✓</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Cleanliness:</span>
-                      <span className="font-bold text-slate-800 capitalize">{carCleanliness}</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">Cleanliness:</span>
+                      <span className="font-bold text-zinc-900 dark:text-zinc-200 capitalize">{carCleanliness}</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 pt-2">
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-slate-300">
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-black/10 dark:border-white/15">
                       <Image src={exteriorPhotos.front} alt="Front checkout" fill className="object-cover" />
                       <span className="absolute bottom-1 left-1 text-[9px] bg-black/60 text-white px-1 rounded">Front Out</span>
                     </div>
-                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-slate-300">
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-black/10 dark:border-white/15">
                       <Image src={exteriorPhotos.back} alt="Back checkout" fill className="object-cover" />
                       <span className="absolute bottom-1 left-1 text-[9px] bg-black/60 text-white px-1 rounded">Back Out</span>
                     </div>
@@ -703,9 +703,9 @@ export default function HandoverToolPage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Property Comparison */}
-                <div className="p-5 rounded-2xl bg-[#F0F6F9] border border-slate-200 space-y-3">
-                  <h4 className="font-tenor font-bold text-sm text-[#00638E]">Check-in Baseline</h4>
-                  <div className="text-xs space-y-1.5 text-slate-600">
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0B0C0E] border border-black/5 dark:border-white/10 space-y-3">
+                  <h4 className="font-tenor font-bold text-sm text-[#FFC72C]">Check-in Baseline</h4>
+                  <div className="text-xs space-y-1.5 text-zinc-600 dark:text-zinc-400">
                     <div>Electricity: 12,450.8 kWh</div>
                     <div>Water Units: 842.1 m³</div>
                     <div>Keys: Smart Lock PIN + 2 gate remotes</div>
@@ -713,9 +713,9 @@ export default function HandoverToolPage() {
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-white border-2 border-[#00638E]/40 space-y-3">
-                  <h4 className="font-tenor font-bold text-sm text-[#00638E]">Check-out Departure</h4>
-                  <div className="text-xs space-y-1.5 text-slate-600">
+                <div className="p-5 rounded-2xl bg-white dark:bg-[#141519] border-2 border-[#FFC72C]/40 space-y-3">
+                  <h4 className="font-tenor font-bold text-sm text-[#FFC72C]">Check-out Departure</h4>
+                  <div className="text-xs space-y-1.5 text-zinc-600 dark:text-zinc-400">
                     <div>Electricity: {electricityKwh} kWh</div>
                     <div>Water Units: {waterUnits} m³</div>
                     <div>Keys returned in full ✓</div>
@@ -726,9 +726,9 @@ export default function HandoverToolPage() {
             )}
 
             {/* Final Sign-off & Deposit Release */}
-            <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="text-xs text-slate-600">
-                <span className="font-bold text-[#00638E] block">
+            <div className="mt-8 pt-6 border-t border-black/5 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-xs text-zinc-600 dark:text-zinc-400">
+                <span className="font-bold text-[#FFC72C] block">
                   Automatic Deposit Unfreeze
                 </span>
                 Triggering sign-off releases the {selectedBooking?.pricing?.securityDepositHold ? `$${selectedBooking.pricing.securityDepositHold}` : '$250'} security hold back to renter’s card or MoMo wallet.
@@ -739,7 +739,7 @@ export default function HandoverToolPage() {
                 onClick={() => {
                   alert(`Deposit release authorized for ${selectedBooking.customer.fullName}! SMS confirmation sent to ${selectedBooking.customer.phone}.`);
                 }}
-                className="px-6 py-3 bg-[#00638E] hover:bg-[#00557B] text-white font-tenor font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center gap-2"
+                className="px-6 py-3 bg-[#FFC72C] hover:bg-[#FFD54F] !text-[#111111] font-tenor font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Approve Return & Release Deposit</span>

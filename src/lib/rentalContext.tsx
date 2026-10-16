@@ -36,6 +36,10 @@ interface RentalContextType {
   setCurrency: (c: 'USD' | 'RWF') => void;
   toggleCurrency: () => void;
   formatPrice: (usdAmount: number) => string;
+
+  theme: 'dark' | 'light';
+  setTheme: (t: 'dark' | 'light') => void;
+  toggleTheme: () => void;
   
   listings: Listing[];
   getListingById: (id: string) => Listing | undefined;
@@ -81,6 +85,53 @@ const RentalContext = createContext<RentalContextType | undefined>(undefined);
 
 export function RentalProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrency] = useState<'USD' | 'RWF'>('USD');
+  const [theme, setThemeState] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('kgl_theme') as 'dark' | 'light' | null;
+      if (saved === 'light' || saved === 'dark') {
+        setThemeState(saved);
+        applyTheme(saved);
+      } else {
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const initial = prefersLight ? 'light' : 'dark';
+        setThemeState(initial);
+        applyTheme(initial);
+      }
+    } catch {
+      applyTheme('dark');
+    }
+  }, []);
+
+  const applyTheme = (t: 'dark' | 'light') => {
+    if (typeof document !== 'undefined') {
+      const root = document.documentElement;
+      if (t === 'light') {
+        root.classList.add('light');
+        root.classList.remove('dark');
+        root.setAttribute('data-theme', 'light');
+      } else {
+        root.classList.add('dark');
+        root.classList.remove('light');
+        root.setAttribute('data-theme', 'dark');
+      }
+      root.style.colorScheme = t;
+    }
+  };
+
+  const setTheme = (t: 'dark' | 'light') => {
+    setThemeState(t);
+    try {
+      localStorage.setItem('kgl_theme', t);
+    } catch {}
+    applyTheme(t);
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   const [listings] = useState<Listing[]>(INITIAL_LISTINGS);
   const [reservations, setReservations] = useState<Reservation[]>(() => {
     if (typeof window !== 'undefined') {
@@ -297,6 +348,9 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
         setCurrency,
         toggleCurrency,
         formatPrice,
+        theme,
+        setTheme,
+        toggleTheme,
         listings,
         getListingById,
         reservations,
