@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { sanitizePlainText, sanitizeEmail, isValidEmail } from '@/lib/sanitize';
 import { getWhatsAppUrl, WHATSAPP_RAW_NUMBER, WHATSAPP_DISPLAY_NUMBER } from '@/lib/constants';
+import { AdminSelect } from '@/components/admin/AdminCustomControls';
 
 const CONCIERGE_EMAIL = 'concierge@kigalirentals.rw';
 const CALCOM_BOOKING_URL = 'https://cal.com/kigali-rentals/30min';
@@ -370,28 +371,18 @@ export default function Footer() {
                   >
                     Inquiry Topic
                   </label>
-                  <select
-                    id="contact-subject"
+                  <AdminSelect
+                    options={[
+                      { value: 'Vehicle & Residence Inquiry', label: 'Vehicle & Residence Inquiry' },
+                      { value: '4x4 Prado / Defender Fleet Booking', label: '4x4 Prado / Defender Fleet Booking' },
+                      { value: 'Luxury Villa / Penthouse Stay', label: 'Luxury Villa / Penthouse Stay' },
+                      { value: 'Stay & Drive Combo (-20% Bundle)', label: 'Stay & Drive Combo (-20% Bundle)' },
+                      { value: 'VIP Airport Chauffeur Protocol', label: 'VIP Airport Chauffeur Protocol' },
+                    ]}
                     value={contactSubject}
-                    onChange={(e) => setContactSubject(e.target.value)}
-                    className="w-full h-10 px-3.5 rounded-xl bg-white dark:bg-[#0B0C0E] border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
-                  >
-                    <option value="Vehicle & Residence Inquiry">
-                      Vehicle & Residence Inquiry
-                    </option>
-                    <option value="4x4 Prado / Defender Fleet Booking">
-                      4x4 Prado / Defender Fleet Booking
-                    </option>
-                    <option value="Luxury Villa / Penthouse Stay">
-                      Luxury Villa / Penthouse Stay
-                    </option>
-                    <option value="Stay & Drive Combo (-20% Bundle)">
-                      Stay & Drive Combo (-20% Bundle)
-                    </option>
-                    <option value="VIP Airport Chauffeur Protocol">
-                      VIP Airport Chauffeur Protocol
-                    </option>
-                  </select>
+                    onChange={setContactSubject}
+                    size="lg"
+                  />
                 </div>
 
                 <div>

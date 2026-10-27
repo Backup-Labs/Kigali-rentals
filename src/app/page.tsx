@@ -556,7 +556,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white transition-colors duration-200">
       {/* 1. HERO SECTION: FULL VIEWPORT RESPONSIVE FROM SMALLEST (280px) TO LARGEST (4K/8K) */}
-      <section className="relative min-h-[100dvh] h-auto flex flex-col justify-center items-center px-3 min-[360px]:px-4 sm:px-6 lg:px-8 2xl:px-12 pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-12 2xl:pb-16 overflow-hidden">
+      <section className="relative z-30 min-h-[100dvh] h-auto flex flex-col justify-center items-center px-3 min-[360px]:px-4 sm:px-6 lg:px-8 2xl:px-12 pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-12 2xl:pb-16">
         {/* Full-bleed Background Images Slideshow (Auto-cycles smoothly by default) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           {HERO_SLIDES.map((slide, idx) => (
@@ -631,7 +631,7 @@ export default function HomePage() {
         {/* High-Frost Luminous Glassmorphic Search Form (Sleek Reduced Height, Zero-Scroll Fit) */}
         <div
           id="search"
-          className="w-full max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto relative z-20 glass-high-frost rounded-2xl sm:rounded-3xl p-2.5 sm:p-3.5 2xl:p-5 text-zinc-900 dark:text-white scroll-mt-24 transition-all border border-black/5 dark:border-white/10 bg-white/95 dark:bg-[#141519]/95 backdrop-blur-xl"
+          className="w-full max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto relative z-30 glass-high-frost rounded-2xl sm:rounded-3xl p-2.5 sm:p-3.5 2xl:p-5 text-zinc-900 dark:text-white scroll-mt-24 transition-all border border-black/5 dark:border-white/10 bg-white/95 dark:bg-[#141519]/95 backdrop-blur-xl"
         >
           {/* Dynamic Tab Selector with Tactile Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2 pb-2.5 mb-2.5 border-b border-zinc-200 dark:border-zinc-800 overflow-x-auto scrollbar-none">
@@ -691,9 +691,9 @@ export default function HomePage() {
           </div>
 
           {/* Luxury Form Inputs Grid with Reduced Height (h-11 sm:h-12) & Dynamic DB Search */}
-          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-2.5 items-center">
+          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-2.5 items-center relative z-20">
             {/* Field 1: Custom Input with live suggestions retrieved directly from DB */}
-            <div ref={searchContainerRef} className="lg:col-span-4 relative">
+            <div ref={searchContainerRef} className={`lg:col-span-4 relative ${showSuggestions ? 'z-50' : 'z-20'}`}>
               <div className="relative flex items-center h-11 sm:h-12 px-3 sm:px-3.5 rounded-xl skeu-input-cell">
                 <Search className="w-4 h-4 text-[#FFC72C] shrink-0 mr-2" />
                 <div className="flex-1 min-w-0">
@@ -739,7 +739,7 @@ export default function HomePage() {
               {/* Live Database Suggestions Dropdown */}
               {showSuggestions && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 z-50 glass-high-frost-dropdown rounded-2xl p-2 shadow-2xl animate-fadeIn border border-black/10 dark:border-zinc-700/80 max-h-64 overflow-y-auto bg-white dark:bg-[#16171E] text-zinc-900 dark:text-white"
+                  className="absolute top-full left-0 right-0 mt-2 z-[110] glass-high-frost-dropdown rounded-2xl p-2 shadow-2xl animate-fadeIn border border-black/10 dark:border-zinc-700/80 max-h-64 overflow-y-auto bg-white dark:bg-[#16171E] text-zinc-900 dark:text-white"
                   onMouseDown={(e) => e.preventDefault()}
                 >
                   <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center justify-between border-b border-black/10 dark:border-zinc-800 pb-1.5 mb-1">
@@ -789,7 +789,7 @@ export default function HomePage() {
             </div>
 
             {/* Field 2: Trip / Rental Dates (Reduced compact height h-11 sm:h-12) */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 relative">
               <DatePicker
                 label={tabConfigs[activeTab].dateLabel}
                 startDate={startDate}
@@ -803,7 +803,7 @@ export default function HomePage() {
             </div>
 
             {/* Field 3: Dynamic Category / Fleet from DB (Reduced compact height h-11 sm:h-12) */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 relative">
               <CustomSelect
                 label={tabConfigs[activeTab].capacityLabel}
                 icon={tabConfigs[activeTab].capacityIcon}
@@ -829,7 +829,7 @@ export default function HomePage() {
       </section>
 
       {/* 2. VISUAL SHOWCASE STRIP: CURATED CATEGORY BENTO (Visual-First Skeuomorphic Experience) */}
-      <section className="container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-10 sm:py-14">
+      <section className="relative z-10 container mx-auto px-3 min-[360px]:px-4 sm:px-6 2xl:px-8 max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1800px] py-10 sm:py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
             {

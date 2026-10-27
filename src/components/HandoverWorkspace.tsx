@@ -22,6 +22,7 @@ import {
   ArrowLeftRight,
 } from 'lucide-react';
 import CustomSelect from '@/components/ui/CustomSelect';
+import { AdminSelect } from '@/components/admin/AdminCustomControls';
 import { sanitizePlainText } from '@/lib/sanitize';
 
 export default function HandoverWorkspace() {
@@ -875,19 +876,18 @@ export default function HandoverWorkspace() {
                     <label className="text-xs font-bold font-tenor text-zinc-700 dark:text-zinc-300 uppercase block mb-2">
                       Cleanliness
                     </label>
-                    <select
+                    <AdminSelect
+                      options={[
+                        { value: 'pristine', label: 'Pristine (Showroom Detail)' },
+                        { value: 'standard', label: 'Standard (Clean & Tidy)' },
+                        { value: 'muddy', label: 'Muddy (Needs Housekeeping / Wash)' },
+                      ]}
                       value={currentCarCleanliness}
-                      onChange={(e) =>
-                        setCurrentCarCleanliness(
-                          e.target.value as 'pristine' | 'standard' | 'muddy'
-                        )
+                      onChange={(val) =>
+                        setCurrentCarCleanliness(val as 'pristine' | 'standard' | 'muddy')
                       }
-                      className="w-full h-9 px-3 rounded-xl bg-white dark:bg-[#141519] border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-900 dark:text-white"
-                    >
-                      <option value="pristine">Pristine</option>
-                      <option value="standard">Standard</option>
-                      <option value="muddy">Muddy / Needs Wash</option>
-                    </select>
+                      size="md"
+                    />
                   </div>
                 </div>
 

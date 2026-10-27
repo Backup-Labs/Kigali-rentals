@@ -67,6 +67,131 @@ import {
   FileCheck,
 } from 'lucide-react';
 import HandoverWorkspace from '@/components/HandoverWorkspace';
+import {
+  AdminSelect,
+  AdminStatusBadgeSelect,
+  AdminSingleDatePicker,
+  AdminDateRangePicker,
+  StatusBadgeOption,
+  AdminSelectOption,
+} from '@/components/admin/AdminCustomControls';
+
+const ASSET_STATUS_BADGE_OPTIONS: StatusBadgeOption[] = [
+  {
+    value: 'Available',
+    label: 'Available',
+    dotColor: 'bg-emerald-500',
+    badgeClasses: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
+    description: 'Ready for guest check-in',
+  },
+  {
+    value: 'Rented',
+    label: 'Rented',
+    dotColor: 'bg-[#FFC72C]',
+    badgeClasses: 'bg-[#FFC72C]/20 text-amber-900 dark:text-[#FFC72C] border-[#FFC72C]/40',
+    description: 'Currently occupied or on trip',
+  },
+  {
+    value: 'Cleaning',
+    label: 'Cleaning',
+    dotColor: 'bg-sky-500',
+    badgeClasses: 'bg-sky-500/15 text-sky-700 dark:text-sky-400 border-sky-500/30',
+    description: 'Turnover & housekeeping',
+  },
+  {
+    value: 'Maintenance',
+    label: 'Maintenance',
+    dotColor: 'bg-rose-500',
+    badgeClasses: 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
+    description: 'Under service or inspection',
+  },
+];
+
+const RESERVATION_STATUS_BADGE_OPTIONS: StatusBadgeOption[] = [
+  {
+    value: 'confirmed',
+    label: 'Confirmed',
+    dotColor: 'bg-emerald-500',
+    badgeClasses: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
+    description: 'Deposit paid & booking locked',
+  },
+  {
+    value: 'active',
+    label: 'Active',
+    dotColor: 'bg-[#FFC72C]',
+    badgeClasses: 'bg-[#FFC72C]/20 text-amber-900 dark:text-[#FFC72C] border-[#FFC72C]/40',
+    description: 'Guest currently checked in',
+  },
+  {
+    value: 'pending_handover',
+    label: 'Pending Handover',
+    dotColor: 'bg-purple-500',
+    badgeClasses: 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/30',
+    description: 'Awaiting check-in/out inspection',
+  },
+  {
+    value: 'completed',
+    label: 'Completed',
+    dotColor: 'bg-zinc-400',
+    badgeClasses: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700',
+    description: 'Stay concluded & returned',
+  },
+  {
+    value: 'cancelled',
+    label: 'Cancelled',
+    dotColor: 'bg-rose-500',
+    badgeClasses: 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
+    description: 'Booking voided or refunded',
+  },
+];
+
+const LISTING_FILTER_OPTIONS: AdminSelectOption[] = [
+  { value: 'all', label: 'All Statuses' },
+  { value: 'Available', label: 'Available', badge: 'Ready' },
+  { value: 'Rented', label: 'Rented', badge: 'Active' },
+  { value: 'Cleaning', label: 'Cleaning', badge: 'Turnover' },
+  { value: 'Maintenance', label: 'Maintenance', badge: 'Service' },
+];
+
+const PROPERTY_CATEGORY_OPTIONS: AdminSelectOption[] = [
+  { value: 'penthouse', label: 'Penthouse', description: 'Top floor panoramic suites' },
+  { value: 'villa', label: 'Villa', description: 'Private compound with garden' },
+  { value: 'apartment', label: 'Apartment', description: 'Multi-room residential unit' },
+  { value: 'studio', label: 'Studio Loft', description: 'Compact open-plan living' },
+];
+
+const VEHICLE_CATEGORY_OPTIONS: AdminSelectOption[] = [
+  { value: '4x4', label: '4x4 Expedition', description: 'Rugged all-terrain Safari spec' },
+  { value: 'suv', label: 'Full-Size SUV', description: 'Premium family & group cruiser' },
+  { value: 'luxury', label: 'VIP Executive', description: 'Chauffeured luxury saloons' },
+  { value: 'hybrid', label: 'Hybrid AWD', description: 'Eco-conscious city driving' },
+  { value: 'sedan', label: 'Executive Saloon', description: 'Comfortable business travel' },
+];
+
+const TRANSMISSION_OPTIONS: AdminSelectOption[] = [
+  { value: 'automatic', label: 'Automatic Transmission' },
+  { value: 'manual', label: 'Manual Transmission' },
+];
+
+const FUEL_TYPE_OPTIONS: AdminSelectOption[] = [
+  { value: 'diesel', label: 'Diesel Engine' },
+  { value: 'petrol', label: 'Petrol (Gasoline)' },
+  { value: 'hybrid', label: 'Hybrid Drive' },
+  { value: 'electric', label: '100% Electric EV' },
+];
+
+const DRIVER_OPTIONS: AdminSelectOption[] = [
+  { value: 'both', label: 'Self Drive & Chauffeur Available' },
+  { value: 'chauffeur_only', label: 'Dedicated Chauffeur Included' },
+  { value: 'self_drive', label: 'Self-Drive Only' },
+];
+
+const TASK_PRIORITY_OPTIONS: AdminSelectOption[] = [
+  { value: 'urgent', label: 'Urgent Priority', description: 'Needs immediate dispatch' },
+  { value: 'high', label: 'High Priority', description: 'Complete before guest check-in' },
+  { value: 'medium', label: 'Medium Priority', description: 'Standard daily operation' },
+  { value: 'low', label: 'Low Priority', description: 'General fleet upkeep' },
+];
 
 const SocialFlyerModal = dynamic(() => import('@/components/SocialFlyerModal'), {
   ssr: false,
@@ -222,6 +347,8 @@ export default function AdminDashboardPage() {
   // Filters for Bookings
   const [bookingSearch, setBookingSearch] = useState('');
   const [bookingStatusFilter, setBookingStatusFilter] = useState<string>('all');
+  const [bookingStartDateFilter, setBookingStartDateFilter] = useState<string>('');
+  const [bookingEndDateFilter, setBookingEndDateFilter] = useState<string>('');
 
   // Filters for Tasks
   const [taskStatusFilter, setTaskStatusFilter] = useState<string>('all');
@@ -231,6 +358,7 @@ export default function AdminDashboardPage() {
   const [newTaskAssignee, setNewTaskAssignee] = useState('Jean-Paul Nsengiyumva');
   const [newTaskType, setNewTaskType] = useState<AdminTask['type']>('cleaning');
   const [newTaskPriority, setNewTaskPriority] = useState<AdminTask['priority']>('high');
+  const [newTaskDate, setNewTaskDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [newTaskNotes, setNewTaskNotes] = useState('');
 
   // Listing Studio Modal (Create / Edit with Photo Upload & Descriptions)
@@ -641,6 +769,8 @@ export default function AdminDashboardPage() {
 
   const filteredReservations = reservations.filter((res) => {
     if (bookingStatusFilter !== 'all' && res.status !== bookingStatusFilter) return false;
+    if (bookingStartDateFilter && res.endDate < bookingStartDateFilter) return false;
+    if (bookingEndDateFilter && res.startDate > bookingEndDateFilter) return false;
     if (bookingSearch.trim()) {
       const q = bookingSearch.toLowerCase();
       const matchId = res.id.toLowerCase().includes(q);
@@ -669,7 +799,7 @@ export default function AdminDashboardPage() {
       assignee: newTaskAssignee.trim() || 'Operations Team',
       assigneeRole: 'Field Specialist',
       time: '10:00 AM',
-      date: new Date().toISOString().split('T')[0],
+      date: newTaskDate || new Date().toISOString().split('T')[0],
       status: 'pending',
       priority: newTaskPriority,
       notes: newTaskNotes.trim() || undefined,
@@ -1301,32 +1431,16 @@ export default function AdminDashboardPage() {
                               {item.subtitle}
                             </div>
                             <div className="pt-2 border-t border-zinc-200/70 dark:border-zinc-800/80 flex items-center justify-between gap-2">
-                              <select
+                              <AdminStatusBadgeSelect
                                 value={status}
-                                onChange={(e) => {
+                                options={ASSET_STATUS_BADGE_OPTIONS}
+                                onChange={(val) => {
                                   updateInventoryItem(item.id, {
-                                    status: e.target.value as AssetInventoryItem['status'],
+                                    status: val as AssetInventoryItem['status'],
                                   });
                                   showToast(`Status updated for ${item.title}`);
                                 }}
-                                aria-label={`Status for ${item.title}`}
-                                className={`px-2.5 py-1 rounded-full text-[11px] font-bold border focus:outline-none cursor-pointer ${getStatusBadgeClasses(
-                                  status
-                                )}`}
-                              >
-                                <option value="Available" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Available
-                                </option>
-                                <option value="Rented" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Rented
-                                </option>
-                                <option value="Cleaning" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Cleaning
-                                </option>
-                                <option value="Maintenance" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Maintenance
-                                </option>
-                              </select>
+                              />
 
                               <div className="inline-flex items-center gap-1.5">
                                 <button
@@ -1418,32 +1532,16 @@ export default function AdminDashboardPage() {
                                 {formatPrice(item.pricePerDay)}
                               </td>
                               <td className="py-3.5 px-4">
-                                <select
+                                <AdminStatusBadgeSelect
                                   value={status}
-                                  onChange={(e) => {
+                                  options={ASSET_STATUS_BADGE_OPTIONS}
+                                  onChange={(val) => {
                                     updateInventoryItem(item.id, {
-                                      status: e.target.value as AssetInventoryItem['status'],
+                                      status: val as AssetInventoryItem['status'],
                                     });
                                     showToast(`Status updated for ${item.title}`);
                                   }}
-                                  aria-label={`Status for ${item.title}`}
-                                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold border focus:outline-none cursor-pointer ${getStatusBadgeClasses(
-                                    status
-                                  )}`}
-                                >
-                                  <option value="Available" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Available
-                                  </option>
-                                  <option value="Rented" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Rented
-                                  </option>
-                                  <option value="Cleaning" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Cleaning
-                                  </option>
-                                  <option value="Maintenance" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Maintenance
-                                  </option>
-                                </select>
+                                />
                               </td>
                               <td className="py-3.5 px-5 text-right">
                                 <div className="inline-flex items-center gap-1.5">
@@ -1569,18 +1667,14 @@ export default function AdminDashboardPage() {
                   ))}
 
                   {/* Status Filter */}
-                  <select
-                    value={listingStatusFilter}
-                    onChange={(e) => setListingStatusFilter(e.target.value)}
-                    aria-label="Filter by operational status"
-                    className="h-9 px-3 rounded-xl bg-zinc-100 dark:bg-zinc-800/70 border border-transparent focus:border-[#FFC72C] text-xs font-semibold text-zinc-700 dark:text-zinc-300 focus:outline-none"
-                  >
-                    <option value="all">All Statuses</option>
-                    <option value="Available">Available</option>
-                    <option value="Rented">Rented</option>
-                    <option value="Cleaning">Cleaning</option>
-                    <option value="Maintenance">Maintenance</option>
-                  </select>
+                  <div className="w-36">
+                    <AdminSelect
+                      options={LISTING_FILTER_OPTIONS}
+                      value={listingStatusFilter}
+                      onChange={setListingStatusFilter}
+                      size="md"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2.5">
@@ -1729,32 +1823,16 @@ export default function AdminDashboardPage() {
                                 {formatPrice(item.pricePerDay)}
                               </td>
                               <td className="py-3.5 px-4">
-                                <select
+                                <AdminStatusBadgeSelect
                                   value={status}
-                                  onChange={(e) => {
+                                  options={ASSET_STATUS_BADGE_OPTIONS}
+                                  onChange={(val) => {
                                     updateInventoryItem(item.id, {
-                                      status: e.target.value as AssetInventoryItem['status'],
+                                      status: val as AssetInventoryItem['status'],
                                     });
                                     showToast(`Status updated for ${item.title}`);
                                   }}
-                                  aria-label={`Status for ${item.title}`}
-                                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold border focus:outline-none cursor-pointer ${getStatusBadgeClasses(
-                                    status
-                                  )}`}
-                                >
-                                  <option value="Available" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Available
-                                  </option>
-                                  <option value="Rented" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Rented
-                                  </option>
-                                  <option value="Cleaning" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Cleaning
-                                  </option>
-                                  <option value="Maintenance" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                    Maintenance
-                                  </option>
-                                </select>
+                                />
                               </td>
                               <td className="py-3.5 px-5 text-right">
                                 <div className="inline-flex items-center gap-1.5">
@@ -1882,32 +1960,16 @@ export default function AdminDashboardPage() {
                               <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">
                                 Status:
                               </span>
-                              <select
+                              <AdminStatusBadgeSelect
                                 value={status}
-                                onChange={(e) => {
+                                options={ASSET_STATUS_BADGE_OPTIONS}
+                                onChange={(val) => {
                                   updateInventoryItem(item.id, {
-                                    status: e.target.value as AssetInventoryItem['status'],
+                                    status: val as AssetInventoryItem['status'],
                                   });
-                                  showToast(`Status updated to ${e.target.value}`);
+                                  showToast(`Status updated to ${val}`);
                                 }}
-                                aria-label={`Status for ${item.title}`}
-                                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border focus:outline-none cursor-pointer ${getStatusBadgeClasses(
-                                  status
-                                )}`}
-                              >
-                                <option value="Available" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Available
-                                </option>
-                                <option value="Rented" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Rented
-                                </option>
-                                <option value="Cleaning" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Cleaning
-                                </option>
-                                <option value="Maintenance" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
-                                  Maintenance
-                                </option>
-                              </select>
+                              />
                             </div>
 
                             <div className="flex items-center gap-2">
@@ -1991,15 +2053,27 @@ export default function AdminDashboardPage() {
                   )}
                 </div>
 
-                <div className="relative sm:w-64">
-                  <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={bookingSearch}
-                    onChange={(e) => setBookingSearch(e.target.value)}
-                    placeholder="Search guest, ref ID, asset..."
-                    className="w-full h-9 pl-9 pr-3 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#FFC72C]"
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <AdminDateRangePicker
+                    startDate={bookingStartDateFilter}
+                    endDate={bookingEndDateFilter}
+                    onChange={(s, e) => {
+                      setBookingStartDateFilter(s);
+                      setBookingEndDateFilter(e);
+                    }}
+                    placeholder="Filter trip dates..."
                   />
+
+                  <div className="relative sm:w-64">
+                    <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={bookingSearch}
+                      onChange={(e) => setBookingSearch(e.target.value)}
+                      placeholder="Search guest, ref ID, asset..."
+                      className="w-full h-9 pl-9 pr-3 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#FFC72C]"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -2063,24 +2137,17 @@ export default function AdminDashboardPage() {
                             {formatPrice(res.pricing?.grandTotal || 0)}
                           </td>
                           <td className="py-4 px-5">
-                            <select
+                            <AdminStatusBadgeSelect
                               value={res.status}
-                              onChange={(e) => {
+                              options={RESERVATION_STATUS_BADGE_OPTIONS}
+                              onChange={(val) => {
                                 updateReservationStatus(
                                   res.id,
-                                  e.target.value as Reservation['status']
+                                  val as Reservation['status']
                                 );
-                                showToast(`Reservation ${res.id} marked as ${e.target.value}`);
+                                showToast(`Reservation ${res.id} marked as ${val}`);
                               }}
-                              aria-label={`Booking status for ${res.id}`}
-                              className="px-2.5 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
-                            >
-                              <option value="confirmed">Confirmed</option>
-                              <option value="active">Active Stay / Rental</option>
-                              <option value="pending_handover">Pending Handover</option>
-                              <option value="completed">Completed</option>
-                              <option value="cancelled">Cancelled</option>
-                            </select>
+                            />
                           </td>
                         </tr>
                       ))}
@@ -2422,21 +2489,21 @@ export default function AdminDashboardPage() {
                     <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 block mb-1">
                       Current Operational Status
                     </span>
-                    <select
+                    <AdminSelect
+                      options={ASSET_STATUS_BADGE_OPTIONS.map((o) => ({
+                        value: o.value,
+                        label: o.label,
+                        description: o.description,
+                      }))}
                       value={formState.status}
-                      onChange={(e) =>
+                      onChange={(val) =>
                         setFormState((prev) => ({
                           ...prev,
-                          status: e.target.value as AssetInventoryItem['status'],
+                          status: val as AssetInventoryItem['status'],
                         }))
                       }
-                      className="w-full h-9 px-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-900 dark:text-white"
-                    >
-                      <option value="Available">Available (Ready to Book)</option>
-                      <option value="Rented">Rented (Occupied / Out on Trip)</option>
-                      <option value="Cleaning">Cleaning & Turnover</option>
-                      <option value="Maintenance">Maintenance & Inspection</option>
-                    </select>
+                      size="md"
+                    />
                   </div>
 
                   <div className="flex flex-wrap gap-4 pt-1">
@@ -2544,19 +2611,14 @@ export default function AdminDashboardPage() {
                       <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 block mb-1">
                         Neighborhood
                       </span>
-                      <select
+                      <AdminSelect
+                        options={NEIGHBORHOOD_OPTIONS.map((nb) => ({ value: nb, label: nb }))}
                         value={formState.neighborhood}
-                        onChange={(e) =>
-                          setFormState((prev) => ({ ...prev, neighborhood: e.target.value }))
+                        onChange={(val) =>
+                          setFormState((prev) => ({ ...prev, neighborhood: val }))
                         }
-                        className="w-full h-9 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-900 dark:text-white"
-                      >
-                        {NEIGHBORHOOD_OPTIONS.map((nb) => (
-                          <option key={nb} value={nb}>
-                            {nb}
-                          </option>
-                        ))}
-                      </select>
+                        size="md"
+                      />
                     </div>
                     <div>
                       <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400 block mb-1">
@@ -2648,21 +2710,17 @@ export default function AdminDashboardPage() {
                     <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
                       <div>
                         <span className="text-[10px] text-zinc-500 block mb-1">Category</span>
-                        <select
+                        <AdminSelect
+                          options={PROPERTY_CATEGORY_OPTIONS}
                           value={formState.propertyCategory}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             setFormState((prev) => ({
                               ...prev,
-                              propertyCategory: e.target.value as PropertyCategory,
+                              propertyCategory: val as PropertyCategory,
                             }))
                           }
-                          className="w-full h-9 px-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                        >
-                          <option value="penthouse">Penthouse</option>
-                          <option value="villa">Villa</option>
-                          <option value="apartment">Apartment</option>
-                          <option value="studio">Studio Loft</option>
-                        </select>
+                          size="md"
+                        />
                       </div>
                       <div>
                         <span className="text-[10px] text-zinc-500 block mb-1">Bedrooms</span>
@@ -2852,25 +2910,20 @@ export default function AdminDashboardPage() {
                       7. Vehicle Specifications & Fleet Features
                     </label>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
                       <div>
                         <span className="text-[10px] text-zinc-500 block mb-1">Category</span>
-                        <select
+                        <AdminSelect
+                          options={VEHICLE_CATEGORY_OPTIONS}
                           value={formState.vehicleCategory}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             setFormState((prev) => ({
                               ...prev,
-                              vehicleCategory: e.target.value as VehicleCategory,
+                              vehicleCategory: val as VehicleCategory,
                             }))
                           }
-                          className="w-full h-9 px-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                        >
-                          <option value="4x4">4x4 Expedition</option>
-                          <option value="suv">SUV</option>
-                          <option value="luxury">VIP Executive</option>
-                          <option value="hybrid">Hybrid AWD</option>
-                          <option value="sedan">Saloon</option>
-                        </select>
+                          size="md"
+                        />
                       </div>
                       <div>
                         <span className="text-[10px] text-zinc-500 block mb-1">Seats</span>
@@ -2884,42 +2937,36 @@ export default function AdminDashboardPage() {
                               seats: Number(e.target.value) || 5,
                             }))
                           }
-                          className="w-full h-9 px-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-900 dark:text-white"
+                          className="w-full h-9 px-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-900 dark:text-white"
                         />
                       </div>
                       <div>
                         <span className="text-[10px] text-zinc-500 block mb-1">Transmission</span>
-                        <select
+                        <AdminSelect
+                          options={TRANSMISSION_OPTIONS}
                           value={formState.transmission}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             setFormState((prev) => ({
                               ...prev,
-                              transmission: e.target.value as Transmission,
+                              transmission: val as Transmission,
                             }))
                           }
-                          className="w-full h-9 px-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                        >
-                          <option value="automatic">Automatic</option>
-                          <option value="manual">Manual</option>
-                        </select>
+                          size="md"
+                        />
                       </div>
                       <div>
                         <span className="text-[10px] text-zinc-500 block mb-1">Fuel Type</span>
-                        <select
+                        <AdminSelect
+                          options={FUEL_TYPE_OPTIONS}
                           value={formState.fuelType}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             setFormState((prev) => ({
                               ...prev,
-                              fuelType: e.target.value as FuelType,
+                              fuelType: val as FuelType,
                             }))
                           }
-                          className="w-full h-9 px-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                        >
-                          <option value="diesel">Diesel</option>
-                          <option value="petrol">Petrol</option>
-                          <option value="hybrid">Hybrid</option>
-                          <option value="electric">Electric</option>
-                        </select>
+                          size="md"
+                        />
                       </div>
                     </div>
 
@@ -2928,20 +2975,17 @@ export default function AdminDashboardPage() {
                         <span className="text-[10px] text-zinc-500 block mb-1">
                           Driver / Chauffeur Mode
                         </span>
-                        <select
+                        <AdminSelect
+                          options={DRIVER_OPTIONS}
                           value={formState.driverOption}
-                          onChange={(e) =>
+                          onChange={(val) =>
                             setFormState((prev) => ({
                               ...prev,
-                              driverOption: e.target.value as DriverOption,
+                              driverOption: val as DriverOption,
                             }))
                           }
-                          className="w-full h-9 px-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                        >
-                          <option value="both">Self-Drive or Chauffeur</option>
-                          <option value="chauffeur">Chauffeur Included Only</option>
-                          <option value="self-drive">Self-Drive Only</option>
-                        </select>
+                          size="md"
+                        />
                       </div>
                       <div className="flex items-center gap-4 pt-4">
                         <label className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300 cursor-pointer">
@@ -3132,17 +3176,24 @@ export default function AdminDashboardPage() {
                 <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
                   Target Asset
                 </label>
-                <select
+                <AdminSelect
+                  options={listings.map((l) => ({
+                    value: l.id,
+                    label: l.title,
+                    description: `${l.type === 'car' ? 'Vehicle' : 'Property'} • ${l.neighborhood}`,
+                  }))}
                   value={newTaskAssetId}
-                  onChange={(e) => setNewTaskAssetId(e.target.value)}
-                  className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                >
-                  {listings.map((l) => (
-                    <option key={l.id} value={l.id}>
-                      {l.title} ({l.neighborhood})
-                    </option>
-                  ))}
-                </select>
+                  onChange={setNewTaskAssetId}
+                  size="md"
+                />
+              </div>
+
+              <div>
+                <AdminSingleDatePicker
+                  value={newTaskDate}
+                  onChange={setNewTaskDate}
+                  label="Target Due Date (Calendar)"
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -3162,16 +3213,12 @@ export default function AdminDashboardPage() {
                   <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
                     Priority
                   </label>
-                  <select
+                  <AdminSelect
+                    options={TASK_PRIORITY_OPTIONS}
                     value={newTaskPriority}
-                    onChange={(e) => setNewTaskPriority(e.target.value as AdminTask['priority'])}
-                    className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-                  >
-                    <option value="urgent">Urgent</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                  </select>
+                    onChange={(val) => setNewTaskPriority(val as AdminTask['priority'])}
+                    size="lg"
+                  />
                 </div>
               </div>
 

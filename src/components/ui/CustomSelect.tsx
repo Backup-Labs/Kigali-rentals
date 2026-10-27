@@ -56,7 +56,7 @@ export default function CustomSelect({
   };
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${isOpen ? 'z-[100]' : 'z-10'} ${className}`}>
       {/* Luxury Tactile Trigger Cell */}
       <button
         type="button"
@@ -111,7 +111,7 @@ export default function CustomSelect({
 
       {/* High-Frost Glass Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 z-[100] glass-high-frost-dropdown rounded-2xl p-1.5 max-h-72 overflow-y-auto animate-fadeIn shadow-2xl bg-white dark:bg-[#16171E] border border-black/10 dark:border-zinc-700/80">
+        <div className="absolute top-full left-0 right-0 mt-2 z-[110] glass-high-frost-dropdown rounded-2xl p-1.5 max-h-72 overflow-y-auto animate-fadeIn shadow-2xl bg-white dark:bg-[#16171E] border border-black/10 dark:border-zinc-700/80">
           {options.map((opt) => {
             const isSelected = opt.value === value;
             return (

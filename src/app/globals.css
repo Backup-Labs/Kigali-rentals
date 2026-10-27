@@ -99,6 +99,7 @@ h1, h2, h3, h4, h5, h6, .font-tenor {
   box-shadow:
     0 24px 50px -10px rgba(0, 0, 0, 0.8),
     0 8px 20px -4px rgba(255, 199, 44, 0.1);
+  z-index: 120;
 }
 
 /* Floating Navigation Capsule in Obsidian Glass */

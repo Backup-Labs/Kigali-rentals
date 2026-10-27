@@ -165,7 +165,7 @@ export default function DatePicker({
   };
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${isOpen ? 'z-[100]' : 'z-10'} ${className}`}>
       {/* Luxury Tactile Trigger Cell */}
       <button
         type="button"
@@ -219,7 +219,7 @@ export default function DatePicker({
 
       {/* High-Frost Calendar Popover */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 z-[100] glass-high-frost-dropdown rounded-3xl p-4 sm:p-5 w-[320px] sm:w-[350px] animate-fadeIn shadow-2xl bg-white dark:bg-[#16171E] border border-black/10 dark:border-zinc-700/80 text-zinc-900 dark:text-white">
+        <div className="absolute top-full left-0 mt-2 z-[110] glass-high-frost-dropdown rounded-3xl p-4 sm:p-5 w-[320px] sm:w-[350px] animate-fadeIn shadow-2xl bg-white dark:bg-[#16171E] border border-black/10 dark:border-zinc-700/80 text-zinc-900 dark:text-white">
           {/* Header Month / Year & Navigation */}
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/5 dark:border-zinc-800">
             <div className="flex items-center gap-2">
