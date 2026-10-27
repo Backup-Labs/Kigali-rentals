@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -12,16 +12,169 @@ import {
   Facebook,
   MessageCircle,
   CheckCircle2,
+  Mail,
+  Copy,
+  Check,
+  Calendar,
+  Send,
+  ShieldCheck,
+  RefreshCw,
+  AlertCircle,
 } from 'lucide-react';
+import { sanitizePlainText, sanitizeEmail, isValidEmail } from '@/lib/sanitize';
+
+const CONCIERGE_EMAIL = 'concierge@kigalirentals.rw';
+const CALCOM_BOOKING_URL = 'https://cal.com/kigali-rentals/30min';
 
 export default function Footer() {
   const pathname = usePathname();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
+  // Copyable email state
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  // Direct Email Form State (Sanitized & Protected)
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactSubject, setContactSubject] = useState('Vehicle & Residence Inquiry');
+  const [contactMessage, setContactMessage] = useState('');
+  const [honeypotWebsite, setHoneypotWebsite] = useState('');
+
+  // Anti-Robot Verification State
+  const [notRobotChecked, setNotRobotChecked] = useState(false);
+  const [numA, setNumA] = useState(4);
+  const [numB, setNumB] = useState(5);
+  const [challengeInput, setChallengeInput] = useState('');
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const [contactStatus, setContactStatus] = useState<{
+    type: 'success' | 'error';
+    text: string;
+  } | null>(null);
+
+  const regenerateChallenge = () => {
+    setNumA(Math.floor(Math.random() * 7) + 2);
+    setNumB(Math.floor(Math.random() * 7) + 2);
+    setChallengeInput('');
+  };
+
+  useEffect(() => {
+    regenerateChallenge();
+  }, []);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONCIERGE_EMAIL);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 3000);
+    } catch {
+      // Fallback copy
+      const el = document.createElement('textarea');
+      el.value = CONCIERGE_EMAIL;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 3000);
+    }
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactStatus(null);
+
+    if (honeypotWebsite.trim().length > 0) {
+      return;
+    }
+
+    const cleanName = sanitizePlainText(contactName, 100);
+    const cleanEmail = sanitizeEmail(contactEmail);
+    const cleanSubject = sanitizePlainText(contactSubject, 140);
+    const cleanMessage = sanitizePlainText(contactMessage, 1500);
+
+    if (cleanName.length < 2) {
+      setContactStatus({
+        type: 'error',
+        text: 'Please enter your full name (at least 2 characters).',
+      });
+      return;
+    }
+
+    if (!isValidEmail(cleanEmail)) {
+      setContactStatus({
+        type: 'error',
+        text: 'Please enter a valid email address.',
+      });
+      return;
+    }
+
+    if (cleanMessage.length < 10) {
+      setContactStatus({
+        type: 'error',
+        text: 'Please write a message of at least 10 characters.',
+      });
+      return;
+    }
+
+    if (!notRobotChecked || Number(challengeInput) !== numA + numB) {
+      setContactStatus({
+        type: 'error',
+        text: 'Please check "I am not a robot" and solve the security check.',
+      });
+      return;
+    }
+
+    setIsSubmittingContact(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: cleanName,
+          email: cleanEmail,
+          subject: cleanSubject,
+          message: cleanMessage,
+          website: honeypotWebsite,
+          notRobotChecked,
+          numA,
+          numB,
+          challengeAnswer: Number(challengeInput),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setContactStatus({
+          type: 'error',
+          text: data.error || 'Could not send message. Please try again.',
+        });
+        return;
+      }
+
+      setContactStatus({
+        type: 'success',
+        text: `Message sent to ${CONCIERGE_EMAIL} (Ref: ${data.inquiryId}). Our concierge will reply shortly.`,
+      });
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+      setNotRobotChecked(false);
+      regenerateChallenge();
+    } catch {
+      setContactStatus({
+        type: 'error',
+        text: 'Network error while sending message. Please try again.',
+      });
+    } finally {
+      setIsSubmittingContact(false);
+    }
+  };
+
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newsletterEmail.trim()) {
+    const clean = sanitizeEmail(newsletterEmail);
+    if (isValidEmail(clean)) {
       setSubscribed(true);
       setTimeout(() => setSubscribed(false), 5000);
       setNewsletterEmail('');
@@ -48,34 +201,289 @@ export default function Footer() {
       <div className="pointer-events-none absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#FFC72C]/5 rounded-full blur-3xl" />
 
       {/* =========================================================================
-          1. PRE-FOOTER CTA SECTION (LUXURY DARK & GOLD)
+          1. PRE-FOOTER CTA & DIRECT EMAIL SECTION (LEFT: EMAIL + CAL.COM | RIGHT: SANITIZED FORM)
       ========================================================================= */}
       <section
         id="contact"
-        className="w-full relative scroll-mt-24 py-16 sm:py-20 lg:py-24 bg-white dark:bg-[#101114] text-zinc-900 dark:text-white border-b border-black/10 dark:border-zinc-800"
+        className="w-full relative scroll-mt-24 py-14 sm:py-20 bg-white dark:bg-[#101114] text-zinc-900 dark:text-white border-b border-black/10 dark:border-zinc-800"
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFC72C]/10 border border-[#FFC72C]/30 text-xs font-tenor font-bold text-[#FFC72C] mb-5 shadow-xs transition-transform hover:scale-105 duration-300">
-            <span className="w-2 h-2 rounded-full bg-[#FFC72C] animate-pulse" />
-            <span>Direct Concierge Service • 24/7 Available</span>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+            {/* LEFT COLUMN: Clickable & Copyable Email + Cal.com Booking */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFC72C]/10 border border-[#FFC72C]/30 text-xs font-tenor font-bold text-[#FFC72C]">
+                <span className="w-2 h-2 rounded-full bg-[#FFC72C] animate-pulse" />
+                <span>Direct Concierge Service • 24/7 Available</span>
+              </div>
 
-          <h2 className="font-tenor text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight mb-4">
-            Ready to Explore Kigali in Supreme Comfort?
-          </h2>
+              <h2 className="font-tenor text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
+                Ready to Explore Kigali in Supreme Comfort?
+              </h2>
 
-          <p className="text-xs sm:text-base text-zinc-600 dark:text-zinc-300 max-w-xl mx-auto leading-relaxed mb-8 sm:mb-10">
-            Connect directly with our Kigali reservation manager to confirm vehicle availability, dates, and bespoke arrangements.
-          </p>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                Connect directly with our Kigali reservation manager to confirm vehicle availability, dates, and bespoke diplomatic or safari arrangements.
+              </p>
 
-          <div className="flex justify-center items-center">
-            <a
-              href="tel:+250788123456"
-              className="min-h-[48px] px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl skeu-btn-teal text-[#111111] font-tenor font-extrabold text-sm sm:text-base tracking-tight flex items-center justify-center gap-2.5 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
-            >
-              <Phone className="w-4 h-4 shrink-0 text-[#111111]" />
-              <span>Book Call</span>
-            </a>
+              {/* Clickable & Copyable Official Email Box */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50 dark:bg-[#141519] border border-zinc-200 dark:border-zinc-800 space-y-2.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block">
+                  Official Concierge Email (Click to Mail or Copy)
+                </span>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <a
+                    href={`mailto:${CONCIERGE_EMAIL}?subject=Kigali%20Rentals%20Reservation%20Inquiry`}
+                    className="inline-flex items-center gap-2 font-tenor font-extrabold text-sm sm:text-base text-zinc-900 dark:text-white hover:text-[#FFC72C] dark:hover:text-[#FFC72C] transition-colors break-all"
+                  >
+                    <Mail className="w-4 h-4 text-[#FFC72C] shrink-0" />
+                    <span>{CONCIERGE_EMAIL}</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className={`h-8 px-3 rounded-xl text-xs font-tenor font-bold flex items-center gap-1.5 border transition-all ${
+                      emailCopied
+                        ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
+                        : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-[#FFC72C]'
+                    }`}
+                    title="Copy email address"
+                  >
+                    {emailCopied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5" />
+                        <span>Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-[#FFC72C]" />
+                        <span>Copy Email</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Cal.com Schedule Call CTA + Direct Phone */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <a
+                  href={CALCOM_BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-12 px-6 rounded-xl bg-[#FFC72C] hover:bg-[#FFD54F] text-[#111111] font-tenor font-extrabold text-xs sm:text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
+                >
+                  <Calendar className="w-4 h-4 shrink-0 text-[#111111]" />
+                  <span>Book Call on Cal.com</span>
+                </a>
+
+                <a
+                  href="tel:+250788123456"
+                  className="h-12 px-5 rounded-xl bg-zinc-100 dark:bg-[#141519] hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-800 font-tenor font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
+                >
+                  <Phone className="w-4 h-4 text-[#FFC72C]" />
+                  <span>+250 788 123 456</span>
+                </a>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: Sanitized Direct Email Inquiry Form with Anti-Robot Check */}
+            <div className="lg:col-span-7">
+              <form
+                onSubmit={handleContactSubmit}
+                noValidate
+                className="p-5 sm:p-7 rounded-3xl bg-zinc-50 dark:bg-[#141519] border border-zinc-200 dark:border-zinc-800 space-y-4"
+              >
+                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                  <div>
+                    <h3 className="font-tenor font-extrabold text-base sm:text-lg text-zinc-900 dark:text-white">
+                      Message Our Concierge by Email
+                    </h3>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                      Protected & sanitized direct dispatch to {CONCIERGE_EMAIL}
+                    </p>
+                  </div>
+                  <ShieldCheck className="w-5 h-5 text-[#FFC72C] shrink-0" />
+                </div>
+
+                {/* Hidden Honeypot Input for Bot Mitigation */}
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="kgl-website-hp">Website</label>
+                  <input
+                    id="kgl-website-hp"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypotWebsite}
+                    onChange={(e) => setHoneypotWebsite(e.target.value)}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label
+                      htmlFor="contact-name"
+                      className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1"
+                    >
+                      Full Name *
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      required
+                      maxLength={100}
+                      value={contactName}
+                      onChange={(e) =>
+                        setContactName(e.target.value.replace(/[<>`]/g, ''))
+                      }
+                      placeholder="e.g. Jean-Luc Habimana"
+                      className="w-full h-10 px-3.5 rounded-xl bg-white dark:bg-[#0B0C0E] border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="contact-email"
+                      className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1"
+                    >
+                      Your Email Address *
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      required
+                      maxLength={120}
+                      value={contactEmail}
+                      onChange={(e) =>
+                        setContactEmail(e.target.value.replace(/[<>`\s]/g, ''))
+                      }
+                      placeholder="you@organization.org"
+                      className="w-full h-10 px-3.5 rounded-xl bg-white dark:bg-[#0B0C0E] border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="contact-subject"
+                    className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1"
+                  >
+                    Inquiry Topic
+                  </label>
+                  <select
+                    id="contact-subject"
+                    value={contactSubject}
+                    onChange={(e) => setContactSubject(e.target.value)}
+                    className="w-full h-10 px-3.5 rounded-xl bg-white dark:bg-[#0B0C0E] border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
+                  >
+                    <option value="Vehicle & Residence Inquiry">
+                      Vehicle & Residence Inquiry
+                    </option>
+                    <option value="4x4 Prado / Defender Fleet Booking">
+                      4x4 Prado / Defender Fleet Booking
+                    </option>
+                    <option value="Luxury Villa / Penthouse Stay">
+                      Luxury Villa / Penthouse Stay
+                    </option>
+                    <option value="Stay & Drive Combo (-20% Bundle)">
+                      Stay & Drive Combo (-20% Bundle)
+                    </option>
+                    <option value="VIP Airport Chauffeur Protocol">
+                      VIP Airport Chauffeur Protocol
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="contact-message"
+                    className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1"
+                  >
+                    Your Message *
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    rows={3}
+                    required
+                    maxLength={1500}
+                    value={contactMessage}
+                    onChange={(e) =>
+                      setContactMessage(e.target.value.replace(/[<>`]/g, ''))
+                    }
+                    placeholder="Share your preferred dates, vehicle/apartment interest, or any special requests..."
+                    className="w-full p-3.5 rounded-xl bg-white dark:bg-[#0B0C0E] border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
+                  />
+                </div>
+
+                {/* Human / Anti-Robot Verification Bar */}
+                <div className="p-3.5 rounded-2xl bg-white dark:bg-[#0B0C0E] border border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <label className="flex items-center gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={notRobotChecked}
+                      onChange={(e) => setNotRobotChecked(e.target.checked)}
+                      className="w-4 h-4 rounded accent-[#FFC72C] cursor-pointer"
+                    />
+                    <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
+                      I am not a robot
+                    </span>
+                  </label>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800">
+                      Verify: {numA} + {numB} =
+                    </span>
+                    <input
+                      type="number"
+                      required
+                      value={challengeInput}
+                      onChange={(e) => setChallengeInput(e.target.value)}
+                      placeholder="?"
+                      aria-label="Security math challenge answer"
+                      className="w-14 h-8 px-2 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-xs font-mono font-bold text-center text-zinc-900 dark:text-white focus:outline-none focus:border-[#FFC72C]"
+                    />
+                    <button
+                      type="button"
+                      onClick={regenerateChallenge}
+                      title="New security check"
+                      className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
+                {contactStatus && (
+                  <div
+                    className={`p-3 rounded-xl text-xs font-medium flex items-center gap-2 ${
+                      contactStatus.type === 'success'
+                        ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
+                        : 'bg-rose-500/15 border border-rose-500/30 text-rose-600 dark:text-rose-400'
+                    }`}
+                  >
+                    {contactStatus.type === 'success' ? (
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    ) : (
+                      <AlertCircle className="w-4 h-4 shrink-0" />
+                    )}
+                    <span>{contactStatus.text}</span>
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between gap-3 pt-1">
+                  <span className="text-[10px] text-zinc-400">
+                    Inputs sanitized against XSS & injection
+                  </span>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingContact}
+                    className="h-10 px-6 rounded-xl bg-[#FFC72C] hover:bg-[#FFD54F] disabled:opacity-50 text-[#111111] font-tenor font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition-all"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>{isSubmittingContact ? 'Sending...' : 'Send Email Message'}</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -348,22 +756,21 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <Link
-                      href="/handover"
-                      className="hover:text-black dark:hover:text-white hover:translate-x-1 inline-block transition-all duration-200 py-0.5"
+                    <a
+                      href={CALCOM_BOOKING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[#FFC72C] hover:translate-x-1 inline-block transition-all duration-200 py-0.5"
                     >
-                      Handover Protocol
-                    </Link>
+                      Book Call (Cal.com)
+                    </a>
                   </li>
                   <li>
                     <Link
                       href="/admin"
                       className="text-zinc-600 dark:text-white/80 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 py-0.5"
                     >
-                      <span>Operations</span>
-                      <span className="text-[10px] bg-black/10 dark:bg-white/20 text-zinc-800 dark:text-white px-1.5 py-0.5 rounded-sm font-mono font-bold">
-                        AD-01
-                      </span>
+                      <span>Admin Portal</span>
                     </Link>
                   </li>
                 </ul>

@@ -7,18 +7,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed:admin": "node scripts/seed-admin.mjs"
+    "seed:admin": "node scripts/seed-admin.mjs",
+    "seed:db": "node scripts/seed-db.mjs"
   },
   "dependencies": {
+    "cloudinary": "^2.11.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
     "next": "^15.1.0",
+    "pg": "^8.23.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.20",
@@ -27,4 +31,3 @@
     "typescript": "^5.7.2"
   }
 }
-

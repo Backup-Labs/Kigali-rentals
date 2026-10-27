@@ -31,6 +31,7 @@ export default function Navbar() {
     { label: 'Apartments', href: '/#apartments', id: 'apartments' },
     { label: 'How It Works', href: '/#how-it-works', id: 'how-it-works' },
     { label: 'About', href: '/#about', id: 'about' },
+    { label: 'Contact', href: '/#contact', id: 'contact' },
   ];
 
   // Real-time Scroll Spy that highlights active section continuously as user scrolls
@@ -210,17 +211,16 @@ export default function Navbar() {
             <ThemeToggle variant="nav" />
           </div>
 
-          {/* Single Primary CTA Button */}
-          <Link
-            href="/#contact"
-            onClick={(e) =>
-              handleNavClick(e, { label: 'Contact', href: '/#contact', id: 'contact' })
-            }
+          {/* Single Primary CTA Button (Cal.com Booking Link) */}
+          <a
+            href="https://cal.com/kigali-rentals/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:inline-flex h-9 items-center justify-center gap-1.5 px-4 rounded-full bg-[#FFC72C] hover:bg-[#FFD54F] text-[#111111] font-tenor font-extrabold text-xs tracking-wide shrink-0 transition-colors"
           >
             <Phone className="w-3.5 h-3.5 shrink-0" />
-            <span>Contact</span>
-          </Link>
+            <span>Book Call</span>
+          </a>
 
           {/* Mobile/Tablet Menu Button */}
           <button
@@ -271,14 +271,16 @@ export default function Navbar() {
               );
             })}
 
-            {/* Direct Call Concierge Button */}
+            {/* Cal.com Schedule Call Concierge Button */}
             <div className="pt-2">
               <a
-                href="tel:+250788123456"
+                href="https://cal.com/kigali-rentals/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-gradient-to-r from-[#FFD54F] to-[#FFC72C] text-[#111111] text-xs sm:text-sm font-tenor font-extrabold transition-all"
               >
                 <Phone className="w-4 h-4" />
-                <span>Call Concierge (+250 788 123 456)</span>
+                <span>Book a Call on Cal.com</span>
               </a>
             </div>
 

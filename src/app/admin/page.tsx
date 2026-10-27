@@ -62,13 +62,17 @@ import {
   Tag,
   FileText,
   Layers,
+  LayoutGrid,
+  List,
+  FileCheck,
 } from 'lucide-react';
+import HandoverWorkspace from '@/components/HandoverWorkspace';
 
 const SocialFlyerModal = dynamic(() => import('@/components/SocialFlyerModal'), {
   ssr: false,
 });
 
-type DashboardSection = 'overview' | 'listings' | 'bookings' | 'tasks';
+type DashboardSection = 'overview' | 'listings' | 'bookings' | 'tasks' | 'handover';
 
 interface ListingFormState {
   id: string;
@@ -205,7 +209,8 @@ export default function AdminDashboardPage() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Navigation & UI state
-  const [activeSection, setActiveSection] = useState<DashboardSection>('listings');
+  const [activeSection, setActiveSection] = useState<DashboardSection>('overview');
+  const [portfolioViewMode, setPortfolioViewMode] = useState<'grid' | 'list'>('grid');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -234,6 +239,7 @@ export default function AdminDashboardPage() {
   const [formState, setFormState] = useState<ListingFormState>(DEFAULT_FORM_STATE);
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const [isUploadingPhotos, setIsUploadingPhotos] = useState(false);
   const [newBadgeInput, setNewBadgeInput] = useState('');
   const [newAmenityInput, setNewAmenityInput] = useState('');
   const [newRuleInput, setNewRuleInput] = useState('');
@@ -400,33 +406,99 @@ export default function AdminDashboardPage() {
     const validFiles = Array.from(files).filter((f) => f.type.startsWith('image/'));
     if (validFiles.length === 0) return;
 
-    const uploadedUrls: string[] = [];
-    for (const file of validFiles) {
-      try {
-        const dataUrl = await processImageFile(file);
-        uploadedUrls.push(dataUrl);
-      } catch {
-        // ignore failed file
+    setIsUploadingPhotos(true);
+    try {
+      const formData = new FormData();
+      for (const file of validFiles) {
+        formData.append('files', file);
       }
-    }
 
-    if (uploadedUrls.length > 0) {
-      setFormState((prev) => ({
-        ...prev,
-        images: [...prev.images, ...uploadedUrls],
-      }));
-      showToast(`Uploaded ${uploadedUrls.length} photo${uploadedUrls.length > 1 ? 's' : ''}`);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const cloudUrls: string[] = Array.isArray(data.urls)
+          ? data.urls
+          : data.url
+          ? [data.url]
+          : [];
+        if (cloudUrls.length > 0) {
+          setFormState((prev) => ({
+            ...prev,
+            images: [...prev.images, ...cloudUrls],
+          }));
+          showToast(
+            `Uploaded ${cloudUrls.length} photo${cloudUrls.length > 1 ? 's' : ''} to Cloudinary`
+          );
+          return;
+        }
+      }
+
+      // Fallback if offline
+      const fallbackUrls: string[] = [];
+      for (const file of validFiles) {
+        try {
+          const dataUrl = await processImageFile(file);
+          fallbackUrls.push(dataUrl);
+        } catch {
+          // ignore
+        }
+      }
+      if (fallbackUrls.length > 0) {
+        setFormState((prev) => ({
+          ...prev,
+          images: [...prev.images, ...fallbackUrls],
+        }));
+        showToast(`Attached ${fallbackUrls.length} photo${fallbackUrls.length > 1 ? 's' : ''}`);
+      }
+    } finally {
+      setIsUploadingPhotos(false);
     }
   };
 
-  const handleAddImageUrl = () => {
+  const handleAddImageUrl = async () => {
     const trimmed = imageUrlInput.trim();
     if (!trimmed) return;
+    setImageUrlInput('');
+
+    if (trimmed.includes('res.cloudinary.com')) {
+      setFormState((prev) => ({
+        ...prev,
+        images: [...prev.images, trimmed],
+      }));
+      return;
+    }
+
+    setIsUploadingPhotos(true);
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: trimmed }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const finalUrl = data.url || trimmed;
+        setFormState((prev) => ({
+          ...prev,
+          images: [...prev.images, finalUrl],
+        }));
+        showToast('Imported & hosted image on Cloudinary');
+        return;
+      }
+    } catch {
+      // Fallback to direct URL
+    } finally {
+      setIsUploadingPhotos(false);
+    }
+
     setFormState((prev) => ({
       ...prev,
       images: [...prev.images, trimmed],
     }));
-    setImageUrlInput('');
   };
 
   const handleSetCoverImage = (idx: number) => {
@@ -456,8 +528,8 @@ export default function AdminDashboardPage() {
 
     const fallbackImage =
       formState.type === 'car'
-        ? 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80'
-        : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80';
+        ? 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090849/kigali-rentals/seed/asset_0053259b5db2.jpg'
+        : 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090843/kigali-rentals/seed/asset_6aa983a785db.jpg';
 
     const finalImages =
       formState.images.length > 0 ? formState.images : [fallbackImage];
@@ -745,44 +817,6 @@ export default function AdminDashboardPage() {
               <span>Sign In to Dashboard</span>
             </button>
           </form>
-
-          {/* Seeded Admin Credentials Helper Box */}
-          <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-bold uppercase text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-                <KeyRound className="w-3.5 h-3.5 text-[#FFC72C]" />
-                <span>Seeded Admin Account</span>
-              </span>
-              <button
-                type="button"
-                onClick={handleFillSeededAdmin}
-                className="px-2.5 py-1 rounded-lg bg-[#FFC72C]/15 hover:bg-[#FFC72C] text-zinc-900 dark:text-[#FFC72C] hover:text-[#111111] dark:hover:text-[#111111] text-[11px] font-bold transition-colors"
-              >
-                Auto-Fill Credentials
-              </button>
-            </div>
-
-            <div className="p-3 rounded-xl bg-zinc-50 dark:bg-[#0B0C0E] border border-zinc-200/70 dark:border-zinc-800/80 text-[11px] font-mono space-y-1 text-zinc-600 dark:text-zinc-400">
-              <div className="flex justify-between">
-                <span>Email:</span>
-                <strong className="text-zinc-900 dark:text-zinc-200">
-                  {SEEDED_ADMIN_CREDENTIALS.email}
-                </strong>
-              </div>
-              <div className="flex justify-between">
-                <span>Username:</span>
-                <strong className="text-zinc-900 dark:text-zinc-200">
-                  {SEEDED_ADMIN_CREDENTIALS.username}
-                </strong>
-              </div>
-              <div className="flex justify-between">
-                <span>Password:</span>
-                <strong className="text-zinc-900 dark:text-zinc-200">
-                  {SEEDED_ADMIN_CREDENTIALS.password}
-                </strong>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Bottom Copyright */}
@@ -880,6 +914,12 @@ export default function AdminDashboardPage() {
               badge: reservations.length,
             },
             {
+              id: 'handover' as const,
+              label: 'Handovers & Reports',
+              icon: FileCheck,
+              badge: null,
+            },
+            {
               id: 'tasks' as const,
               label: 'Field Tasks',
               icon: ClipboardCheck,
@@ -944,16 +984,19 @@ export default function AdminDashboardPage() {
             <span>+ New Vehicle / 4x4</span>
           </button>
 
-          <Link
-            href="/handover"
+          <button
+            onClick={() => {
+              setActiveSection('handover');
+              setSidebarOpen(false);
+            }}
             className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 hover:text-zinc-900 dark:hover:text-white transition-colors"
           >
             <div className="flex items-center gap-3">
-              <ShieldCheck className="w-4 h-4 text-zinc-400" />
-              <span>Handover Terminal</span>
+              <ShieldCheck className="w-4 h-4 text-[#FFC72C]" />
+              <span>Arrival & Departure Reports</span>
             </div>
             <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
-          </Link>
+          </button>
         </nav>
 
         {/* Sidebar Footer */}
@@ -1016,6 +1059,7 @@ export default function AdminDashboardPage() {
                 {activeSection === 'overview' && 'Executive Overview'}
                 {activeSection === 'listings' && 'Listings, Photos & Descriptions'}
                 {activeSection === 'bookings' && 'Reservations & Guest Ledger'}
+                {activeSection === 'handover' && 'Handover Inspections & Downloadable Reports'}
                 {activeSection === 'tasks' && 'Field Operations & Dispatch'}
               </h1>
               <p className="text-[11px] text-zinc-500 dark:text-zinc-400 hidden sm:block">
@@ -1025,6 +1069,8 @@ export default function AdminDashboardPage() {
                   'Upload photos, edit descriptions, manage amenities, and update daily rates'}
                 {activeSection === 'bookings' &&
                   'Track guest reservations, payment verification, and check-in schedules'}
+                {activeSection === 'handover' &&
+                  'Save & download Arrival (Check-In), Departure (Check-Out), and Side-by-Side Comparison reports'}
                 {activeSection === 'tasks' &&
                   'Coordinate housekeeping, chauffeur dispatches, and property inspections'}
               </p>
@@ -1135,7 +1181,7 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              {/* Quick Portfolio Management Table */}
+              {/* Quick Portfolio Management (Grid View or List View) */}
               <div className="bg-white dark:bg-[#141519] rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden">
                 <div className="p-5 border-b border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
@@ -1143,10 +1189,44 @@ export default function AdminDashboardPage() {
                       Portfolio Catalog & Quick Actions
                     </h2>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                      Click any asset to upload new photos, update descriptions, or adjust pricing
+                      Switch between Grid View and List View, or click any asset to upload photos and edit details
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {/* Grid / List View Switcher */}
+                    <div
+                      className="inline-flex items-center p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
+                      role="group"
+                      aria-label="Portfolio view mode"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setPortfolioViewMode('grid')}
+                        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-1.5 transition-all ${
+                          portfolioViewMode === 'grid'
+                            ? 'bg-[#FFC72C] text-[#111111] shadow-sm'
+                            : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                        }`}
+                        title="Grid View"
+                      >
+                        <LayoutGrid className="w-3.5 h-3.5" />
+                        <span>Grid</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPortfolioViewMode('list')}
+                        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-1.5 transition-all ${
+                          portfolioViewMode === 'list'
+                            ? 'bg-[#FFC72C] text-[#111111] shadow-sm'
+                            : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                        }`}
+                        title="List View"
+                      >
+                        <List className="w-3.5 h-3.5" />
+                        <span>List</span>
+                      </button>
+                    </div>
+
                     <button
                       onClick={() => setActiveSection('listings')}
                       className="px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:border-[#FFC72C] transition-colors"
@@ -1163,49 +1243,25 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs">
-                    <thead>
-                      <tr className="border-b border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 uppercase text-[10px] font-mono bg-zinc-50/50 dark:bg-zinc-900/40">
-                        <th className="py-3 px-5">Listing</th>
-                        <th className="py-3 px-4">Type</th>
-                        <th className="py-3 px-4">Location</th>
-                        <th className="py-3 px-4">Photos</th>
-                        <th className="py-3 px-4">Rate / Day</th>
-                        <th className="py-3 px-4">Status</th>
-                        <th className="py-3 px-5 text-right">Manage</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-zinc-200/60 dark:divide-zinc-800/70">
-                      {listings.map((item) => {
-                        const status = getAssetStatus(item.id);
-                        return (
-                          <tr
-                            key={item.id}
-                            className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
-                          >
-                            <td className="py-3.5 px-5">
-                              <div className="flex items-center gap-3">
-                                <div className="relative w-12 h-9 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 shrink-0 border border-black/5 dark:border-white/10">
-                                  <Image
-                                    src={item.images[0] || ''}
-                                    alt={item.title}
-                                    fill
-                                    className="object-cover"
-                                  />
-                                </div>
-                                <div>
-                                  <div className="font-bold text-zinc-900 dark:text-white line-clamp-1">
-                                    {item.title}
-                                  </div>
-                                  <div className="text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-1 max-w-xs">
-                                    {item.subtitle}
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="py-3.5 px-4">
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium capitalize">
+                {portfolioViewMode === 'grid' ? (
+                  <div className="p-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    {listings.map((item) => {
+                      const status = getAssetStatus(item.id);
+                      return (
+                        <div
+                          key={item.id}
+                          className="bg-zinc-50/70 dark:bg-[#0F1014] rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden flex flex-col hover:border-[#FFC72C]/50 transition-all"
+                        >
+                          <div className="relative aspect-[16/10] bg-zinc-900 overflow-hidden group">
+                            <Image
+                              src={item.images[0] || ''}
+                              alt={item.title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                            <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                              <span className="px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 border border-white/10">
                                 {item.type === 'car' ? (
                                   <Car className="w-3 h-3 text-[#FFC72C]" />
                                 ) : (
@@ -1213,20 +1269,38 @@ export default function AdminDashboardPage() {
                                 )}
                                 {item.type === 'car' ? 'Vehicle' : 'Property'}
                               </span>
-                            </td>
-                            <td className="py-3.5 px-4 text-zinc-600 dark:text-zinc-300 font-medium">
-                              {item.neighborhood}
-                            </td>
-                            <td className="py-3.5 px-4">
-                              <span className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 font-mono">
-                                <ImageIcon className="w-3.5 h-3.5 text-[#FFC72C]" />
-                                {item.images.length}
-                              </span>
-                            </td>
-                            <td className="py-3.5 px-4 font-mono font-bold text-zinc-900 dark:text-white">
-                              {formatPrice(item.pricePerDay)}
-                            </td>
-                            <td className="py-3.5 px-4">
+                            </div>
+                            <button
+                              onClick={() => handleOpenEditModal(item)}
+                              className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 hover:bg-[#FFC72C] text-white hover:text-[#111111] text-[11px] font-mono font-bold flex items-center gap-1.5 backdrop-blur-md border border-white/15 transition-colors"
+                            >
+                              <ImageIcon className="w-3.5 h-3.5" />
+                              <span>{item.images.length} Photos</span>
+                            </button>
+                            <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                              <div>
+                                <span className="text-[11px] text-zinc-300 flex items-center gap-1">
+                                  <MapPin className="w-3 h-3 text-[#FFC72C]" />
+                                  {item.neighborhood}
+                                </span>
+                                <h3 className="font-tenor font-bold text-sm text-white line-clamp-1">
+                                  {item.title}
+                                </h3>
+                              </div>
+                              <div className="text-right shrink-0">
+                                <span className="font-price font-extrabold text-base text-[#FFC72C] leading-none block">
+                                  {formatPrice(item.pricePerDay)}
+                                </span>
+                                <span className="text-[10px] text-zinc-300">per day</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                            <div className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-1">
+                              {item.subtitle}
+                            </div>
+                            <div className="pt-2 border-t border-zinc-200/70 dark:border-zinc-800/80 flex items-center justify-between gap-2">
                               <select
                                 value={status}
                                 onChange={(e) => {
@@ -1253,35 +1327,153 @@ export default function AdminDashboardPage() {
                                   Maintenance
                                 </option>
                               </select>
-                            </td>
-                            <td className="py-3.5 px-5 text-right">
+
                               <div className="inline-flex items-center gap-1.5">
                                 <button
                                   onClick={() => {
                                     setFlyerListing(item);
                                     setIsFlyerNewlyCreated(false);
                                   }}
-                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFC72C]/15 hover:bg-[#FFC72C] text-zinc-900 dark:text-[#FFC72C] hover:text-[#111111] dark:hover:text-[#111111] border border-[#FFC72C]/30 font-semibold transition-colors"
-                                  title="Generate social media flyer"
+                                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#FFC72C]/15 hover:bg-[#FFC72C] text-zinc-900 dark:text-[#FFC72C] hover:text-[#111111] dark:hover:text-[#111111] border border-[#FFC72C]/30 text-xs font-semibold transition-colors"
                                 >
                                   <Share2 className="w-3.5 h-3.5" />
                                   <span>Flyer</span>
                                 </button>
                                 <button
                                   onClick={() => handleOpenEditModal(item)}
-                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-[#FFC72C] dark:bg-zinc-800 dark:hover:bg-[#FFC72C] text-zinc-800 dark:text-zinc-200 hover:text-[#111111] dark:hover:text-[#111111] font-semibold transition-colors"
+                                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-zinc-200/70 hover:bg-[#FFC72C] dark:bg-zinc-800 dark:hover:bg-[#FFC72C] text-zinc-800 dark:text-zinc-200 hover:text-[#111111] dark:hover:text-[#111111] text-xs font-semibold transition-colors"
                                 >
                                   <Edit3 className="w-3.5 h-3.5" />
                                   <span>Edit</span>
                                 </button>
                               </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 uppercase text-[10px] font-mono bg-zinc-50/50 dark:bg-zinc-900/40">
+                          <th className="py-3 px-5">Listing</th>
+                          <th className="py-3 px-4">Type</th>
+                          <th className="py-3 px-4">Location</th>
+                          <th className="py-3 px-4">Photos</th>
+                          <th className="py-3 px-4">Rate / Day</th>
+                          <th className="py-3 px-4">Status</th>
+                          <th className="py-3 px-5 text-right">Manage</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-zinc-200/60 dark:divide-zinc-800/70">
+                        {listings.map((item) => {
+                          const status = getAssetStatus(item.id);
+                          return (
+                            <tr
+                              key={item.id}
+                              className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+                            >
+                              <td className="py-3.5 px-5">
+                                <div className="flex items-center gap-3">
+                                  <div className="relative w-12 h-9 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 shrink-0 border border-black/5 dark:border-white/10">
+                                    <Image
+                                      src={item.images[0] || ''}
+                                      alt={item.title}
+                                      fill
+                                      className="object-cover"
+                                    />
+                                  </div>
+                                  <div>
+                                    <div className="font-bold text-zinc-900 dark:text-white line-clamp-1">
+                                      {item.title}
+                                    </div>
+                                    <div className="text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-1 max-w-xs">
+                                      {item.subtitle}
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium capitalize">
+                                  {item.type === 'car' ? (
+                                    <Car className="w-3 h-3 text-[#FFC72C]" />
+                                  ) : (
+                                    <Building2 className="w-3 h-3 text-[#FFC72C]" />
+                                  )}
+                                  {item.type === 'car' ? 'Vehicle' : 'Property'}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 text-zinc-600 dark:text-zinc-300 font-medium">
+                                {item.neighborhood}
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <span className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 font-mono">
+                                  <ImageIcon className="w-3.5 h-3.5 text-[#FFC72C]" />
+                                  {item.images.length}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 font-mono font-bold text-zinc-900 dark:text-white">
+                                {formatPrice(item.pricePerDay)}
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <select
+                                  value={status}
+                                  onChange={(e) => {
+                                    updateInventoryItem(item.id, {
+                                      status: e.target.value as AssetInventoryItem['status'],
+                                    });
+                                    showToast(`Status updated for ${item.title}`);
+                                  }}
+                                  aria-label={`Status for ${item.title}`}
+                                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold border focus:outline-none cursor-pointer ${getStatusBadgeClasses(
+                                    status
+                                  )}`}
+                                >
+                                  <option value="Available" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Available
+                                  </option>
+                                  <option value="Rented" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Rented
+                                  </option>
+                                  <option value="Cleaning" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Cleaning
+                                  </option>
+                                  <option value="Maintenance" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Maintenance
+                                  </option>
+                                </select>
+                              </td>
+                              <td className="py-3.5 px-5 text-right">
+                                <div className="inline-flex items-center gap-1.5">
+                                  <button
+                                    onClick={() => {
+                                      setFlyerListing(item);
+                                      setIsFlyerNewlyCreated(false);
+                                    }}
+                                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFC72C]/15 hover:bg-[#FFC72C] text-zinc-900 dark:text-[#FFC72C] hover:text-[#111111] dark:hover:text-[#111111] border border-[#FFC72C]/30 font-semibold transition-colors"
+                                    title="Generate social media flyer"
+                                  >
+                                    <Share2 className="w-3.5 h-3.5" />
+                                    <span>Flyer</span>
+                                  </button>
+                                  <button
+                                    onClick={() => handleOpenEditModal(item)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-[#FFC72C] dark:bg-zinc-800 dark:hover:bg-[#FFC72C] text-zinc-800 dark:text-zinc-200 hover:text-[#111111] dark:hover:text-[#111111] font-semibold transition-colors"
+                                  >
+                                    <Edit3 className="w-3.5 h-3.5" />
+                                    <span>Edit</span>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
 
               {/* Recent Reservations Preview */}
@@ -1392,6 +1584,38 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2.5">
+                  {/* Grid / List View Switcher */}
+                  <div
+                    className="inline-flex items-center p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800"
+                    role="group"
+                    aria-label="Listings view mode"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setPortfolioViewMode('grid')}
+                      className={`px-2.5 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-1.5 transition-all ${
+                        portfolioViewMode === 'grid'
+                          ? 'bg-[#FFC72C] text-[#111111] shadow-sm'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                      <span>Grid</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPortfolioViewMode('list')}
+                      className={`px-2.5 py-1.5 rounded-lg text-xs font-bold inline-flex items-center gap-1.5 transition-all ${
+                        portfolioViewMode === 'list'
+                          ? 'bg-[#FFC72C] text-[#111111] shadow-sm'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                      }`}
+                    >
+                      <List className="w-3.5 h-3.5" />
+                      <span>List</span>
+                    </button>
+                  </div>
+
                   {/* Search Input */}
                   <div className="relative flex-1 sm:w-64">
                     <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -1422,7 +1646,7 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              {/* Listings Cards Grid */}
+              {/* Listings Cards Grid or List Table */}
               {filteredListings.length === 0 ? (
                 <div className="bg-white dark:bg-[#141519] rounded-2xl p-12 text-center border border-zinc-200/80 dark:border-zinc-800/80">
                   <ImageIcon className="w-10 h-10 text-zinc-400 mx-auto mb-3" />
@@ -1438,6 +1662,134 @@ export default function AdminDashboardPage() {
                   >
                     + Create New Listing
                   </button>
+                </div>
+              ) : portfolioViewMode === 'list' ? (
+                <div className="bg-white dark:bg-[#141519] rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 uppercase text-[10px] font-mono bg-zinc-50/50 dark:bg-zinc-900/40">
+                          <th className="py-3 px-5">Listing</th>
+                          <th className="py-3 px-4">Type</th>
+                          <th className="py-3 px-4">Location</th>
+                          <th className="py-3 px-4">Photos</th>
+                          <th className="py-3 px-4">Rate / Day</th>
+                          <th className="py-3 px-4">Status</th>
+                          <th className="py-3 px-5 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-zinc-200/60 dark:divide-zinc-800/70">
+                        {filteredListings.map((item) => {
+                          const status = getAssetStatus(item.id);
+                          return (
+                            <tr
+                              key={item.id}
+                              className="hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors"
+                            >
+                              <td className="py-3.5 px-5">
+                                <div className="flex items-center gap-3">
+                                  <div className="relative w-12 h-9 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 shrink-0 border border-black/5 dark:border-white/10">
+                                    <Image
+                                      src={item.images[0] || ''}
+                                      alt={item.title}
+                                      fill
+                                      className="object-cover"
+                                    />
+                                  </div>
+                                  <div>
+                                    <div className="font-bold text-zinc-900 dark:text-white line-clamp-1">
+                                      {item.title}
+                                    </div>
+                                    <div className="text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-1 max-w-xs">
+                                      {item.subtitle}
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium capitalize">
+                                  {item.type === 'car' ? (
+                                    <Car className="w-3 h-3 text-[#FFC72C]" />
+                                  ) : (
+                                    <Building2 className="w-3 h-3 text-[#FFC72C]" />
+                                  )}
+                                  {item.type === 'car' ? 'Vehicle' : 'Property'}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 text-zinc-600 dark:text-zinc-300 font-medium">
+                                {item.neighborhood}
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <span className="inline-flex items-center gap-1 text-zinc-600 dark:text-zinc-400 font-mono">
+                                  <ImageIcon className="w-3.5 h-3.5 text-[#FFC72C]" />
+                                  {item.images.length}
+                                </span>
+                              </td>
+                              <td className="py-3.5 px-4 font-mono font-bold text-zinc-900 dark:text-white">
+                                {formatPrice(item.pricePerDay)}
+                              </td>
+                              <td className="py-3.5 px-4">
+                                <select
+                                  value={status}
+                                  onChange={(e) => {
+                                    updateInventoryItem(item.id, {
+                                      status: e.target.value as AssetInventoryItem['status'],
+                                    });
+                                    showToast(`Status updated for ${item.title}`);
+                                  }}
+                                  aria-label={`Status for ${item.title}`}
+                                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold border focus:outline-none cursor-pointer ${getStatusBadgeClasses(
+                                    status
+                                  )}`}
+                                >
+                                  <option value="Available" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Available
+                                  </option>
+                                  <option value="Rented" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Rented
+                                  </option>
+                                  <option value="Cleaning" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Cleaning
+                                  </option>
+                                  <option value="Maintenance" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                                    Maintenance
+                                  </option>
+                                </select>
+                              </td>
+                              <td className="py-3.5 px-5 text-right">
+                                <div className="inline-flex items-center gap-1.5">
+                                  <button
+                                    onClick={() => handleOpenEditModal(item)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FFC72C] text-[#111111] font-bold transition-colors"
+                                  >
+                                    <Edit3 className="w-3.5 h-3.5" />
+                                    <span>Edit</span>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setFlyerListing(item);
+                                      setIsFlyerNewlyCreated(false);
+                                    }}
+                                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFC72C]/15 hover:bg-[#FFC72C] text-zinc-900 dark:text-[#FFC72C] hover:text-[#111111] dark:hover:text-[#111111] border border-[#FFC72C]/30 font-semibold transition-colors"
+                                  >
+                                    <Share2 className="w-3.5 h-3.5" />
+                                    <span>Flyer</span>
+                                  </button>
+                                  <Link
+                                    href={`/listings/${item.id}`}
+                                    className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-[#FFC72C] text-zinc-600 dark:text-zinc-400"
+                                    title="Preview live listing"
+                                  >
+                                    <Eye className="w-3.5 h-3.5" />
+                                  </Link>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -1850,6 +2202,15 @@ export default function AdminDashboardPage() {
               </div>
             </div>
           )}
+
+          {/* =========================================================
+              SECTION 5: HANDOVERS, INSPECTIONS & DOWNLOADABLE REPORTS
+             ========================================================= */}
+          {activeSection === 'handover' && (
+            <div className="animate-fadeIn">
+              <HandoverWorkspace />
+            </div>
+          )}
         </main>
       </div>
 
@@ -1972,13 +2333,15 @@ export default function AdminDashboardPage() {
                     }`}
                   >
                     <div className="w-10 h-10 rounded-xl bg-[#FFC72C]/15 text-[#FFC72C] flex items-center justify-center mx-auto mb-2">
-                      <Upload className="w-5 h-5" />
+                      <Upload className={`w-5 h-5 ${isUploadingPhotos ? 'animate-bounce' : ''}`} />
                     </div>
                     <p className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
-                      Click to upload photos or drag & drop
+                      {isUploadingPhotos
+                        ? 'Uploading photos to Cloudinary...'
+                        : 'Click to upload photos to Cloudinary or drag & drop'}
                     </p>
                     <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
-                      PNG, JPG, WEBP — multiple photos supported
+                      PNG, JPG, WEBP — stored on Cloudinary CDN & Aiven PostgreSQL
                     </p>
                   </div>
 

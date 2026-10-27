@@ -37,35 +37,35 @@ import {
 
 const HERO_SLIDES = [
   {
-    url: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=2400&q=85',
+    url: 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090849/kigali-rentals/seed/asset_0053259b5db2.jpg',
     title: 'Toyota Land Cruiser Prado TXL 4x4 Fleet',
     badge: 'Safari & Volcanoes Expedition Ready',
     neighborhood: 'Full-Time 4WD • Automatic',
     tab: 'car' as const,
   },
   {
-    url: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=2400&q=85',
+    url: 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090860/kigali-rentals/seed/asset_91b150fa96d3.jpg',
     title: 'Land Rover Defender 110 Expedition 4x4',
     badge: 'Adaptive Air Suspension & Roof Rack',
     neighborhood: 'Akagera & Virunga Ready',
     tab: 'car' as const,
   },
   {
-    url: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=2400&q=85',
+    url: 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090855/kigali-rentals/seed/asset_df0ef6305e8f.jpg',
     title: 'Mercedes-Benz E-Class VIP Saloon',
     badge: 'Executive Diplomatic Chauffeur',
     neighborhood: 'Kigali Airport & Protocol',
     tab: 'car' as const,
   },
   {
-    url: 'https://images.unsplash.com/photo-1581540222194-0def2dda95b8?auto=format&fit=crop&w=2400&q=85',
+    url: 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090858/kigali-rentals/seed/asset_a30000e12b87.jpg',
     title: 'Toyota RAV4 Hybrid Eco AWD',
     badge: 'Intelligent AWD City & Lake Kivu Cruiser',
     neighborhood: 'Eco Hybrid • Smooth AWD',
     tab: 'car' as const,
   },
   {
-    url: 'https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=2400&q=85',
+    url: 'https://res.cloudinary.com/dlf3koulm/image/upload/v1793090867/kigali-rentals/seed/asset_48fe077bb1fd.jpg',
     title: 'Rugged 4x4 Overland & Cross-Country Fleet',
     badge: 'Certified Rwanda Roadside Rescue 24/7',
     neighborhood: 'Self-Drive or Licensed Chauffeur',
@@ -578,8 +578,8 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/50" />
         </div>
 
-        {/* Slideshow Progress Dots Indicator */}
-        <div className="absolute bottom-3 right-4 sm:right-8 z-30 flex items-center gap-1.5 glass-skeu-card px-2.5 py-1 rounded-full pointer-events-auto border border-black/10 dark:border-zinc-800 bg-white/80 dark:bg-[#141519]/80 backdrop-blur-md">
+        {/* Slideshow Progress Dots Indicator (Centered at bottom) */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 glass-skeu-card px-2.5 py-1 rounded-full pointer-events-auto border border-black/10 dark:border-zinc-800 bg-white/80 dark:bg-[#141519]/80 backdrop-blur-md">
           {HERO_SLIDES.map((_, idx) => (
             <button
               key={idx}
@@ -591,6 +591,27 @@ export default function HomePage() {
             />
           ))}
         </div>
+
+        {/* Real WhatsApp Button on Bottom Right of Hero Section */}
+        <a
+          href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20would%20like%20to%20inquire%20about%20a%20vehicle%20or%20apartment%20in%20Kigali."
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 z-30 pointer-events-auto group flex items-center gap-2.5 pl-3 pr-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl border border-white/25 transition-all duration-300 hover:scale-105 active:scale-95"
+        >
+          <svg
+            viewBox="0 0 32 32"
+            fill="currentColor"
+            className="w-5 h-5 sm:w-5.5 sm:h-5.5 shrink-0 text-white"
+            aria-hidden="true"
+          >
+            <path d="M16.004 3.2c-7.072 0-12.8 5.728-12.8 12.8 0 2.256.592 4.464 1.712 6.416L3.2 28.8l6.56-1.712a12.74 12.74 0 0 0 6.244 1.632h.005c7.067 0 12.795-5.728 12.795-12.8 0-3.424-1.328-6.64-3.744-9.056A12.715 12.715 0 0 0 16.004 3.2zm0 23.36h-.004a10.59 10.59 0 0 1-5.408-1.488l-.384-.224-4.016 1.056 1.072-3.92-.256-.4a10.576 10.576 0 0 1-1.648-5.664c0-5.856 4.768-10.624 10.64-10.624 2.848 0 5.52 1.104 7.52 3.12a10.56 10.56 0 0 1 3.12 7.52c0 5.856-4.768 10.624-10.636 10.624zm5.828-7.952c-.32-.16-1.888-.928-2.176-1.04-.288-.112-.5-.16-.72.16-.208.32-.816 1.04-1.008 1.248-.176.208-.368.24-.688.08-.32-.16-1.344-.496-2.56-1.584-.944-.848-1.584-1.888-1.776-2.208-.176-.32-.016-.496.144-.656.144-.144.32-.368.48-.56.16-.176.208-.32.32-.528.112-.208.048-.4-.032-.56-.08-.16-.72-1.728-.992-2.368-.256-.624-.528-.544-.72-.544-.176-.016-.4-.016-.608-.016s-.56.08-.848.4c-.288.32-1.12 1.088-1.12 2.656s1.152 3.088 1.312 3.296c.16.208 2.256 3.44 5.472 4.832.768.336 1.36.528 1.824.672.768.24 1.472.208 2.032.128.624-.096 1.888-.768 2.16-1.52.272-.752.272-1.392.192-1.52-.08-.128-.288-.208-.608-.368z" />
+          </svg>
+          <span className="font-tenor font-extrabold text-xs tracking-wide">
+            WhatsApp Us
+          </span>
+        </a>
 
         {/* Hero Headlines: Positioned with distinct distance from navbar and wide breathing space to form */}
         <div className="container mx-auto relative z-10 max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl text-center mb-8 sm:mb-12 2xl:mb-16 mt-2 sm:mt-4">
