@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -241,6 +242,20 @@ export default function AdminDashboardPage() {
   // Social Media Flyer & Card Studio state
   const [flyerListing, setFlyerListing] = useState<Listing | null>(null);
   const [isFlyerNewlyCreated, setIsFlyerNewlyCreated] = useState(false);
+  const [portalReady, setPortalReady] = useState(false);
+
+  useEffect(() => {
+    setPortalReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isStudioOpen && !showAddTaskModal) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isStudioOpen, showAddTaskModal]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -1841,44 +1856,51 @@ export default function AdminDashboardPage() {
       {/* =====================================================================
           LISTING & MEDIA STUDIO MODAL (UPLOAD PHOTOS, DESCRIPTIONS, SPECS)
          ===================================================================== */}
-      {isStudioOpen && (
-        <div className="fixed inset-0 z-[70] bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="bg-white dark:bg-[#141519] w-full max-w-5xl rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
-            {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/60 dark:bg-[#111318]">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#FFC72C]/15 border border-[#FFC72C]/30 flex items-center justify-center text-[#FFC72C]">
-                  {formState.type === 'car' ? (
-                    <Car className="w-5 h-5" />
-                  ) : (
-                    <Building2 className="w-5 h-5" />
-                  )}
-                </div>
-                <div>
-                  <h2 className="font-tenor font-bold text-base sm:text-lg text-zinc-900 dark:text-white">
-                    {editingListingId
-                      ? `Edit Listing: ${formState.title}`
-                      : 'Create New Listing & Upload Media'}
-                  </h2>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Upload photos, write descriptions, and configure pricing & specifications
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsStudioOpen(false)}
-                className="w-8 h-8 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Modal Scrollable Form Body */}
+      {portalReady &&
+        isStudioOpen &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[999] w-screen h-dvh bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-hidden"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setIsStudioOpen(false);
+            }}
+          >
             <form
               onSubmit={handleSaveListing}
-              className="flex-1 overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6"
+              className="bg-white dark:bg-[#141519] w-full max-w-5xl rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden max-h-[88dvh] flex flex-col"
             >
+              {/* Pinned Modal Header */}
+              <div className="shrink-0 px-5 sm:px-6 py-3.5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between bg-zinc-50/80 dark:bg-[#111318]">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-[#FFC72C]/15 border border-[#FFC72C]/30 flex items-center justify-center text-[#FFC72C]">
+                    {formState.type === 'car' ? (
+                      <Car className="w-5 h-5" />
+                    ) : (
+                      <Building2 className="w-5 h-5" />
+                    )}
+                  </div>
+                  <div>
+                    <h2 className="font-tenor font-bold text-base sm:text-lg text-zinc-900 dark:text-white">
+                      {editingListingId
+                        ? `Edit Listing: ${formState.title}`
+                        : 'Create New Listing & Upload Media'}
+                    </h2>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                      Upload photos, write descriptions, and configure pricing & specifications
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsStudioOpen(false)}
+                  className="w-8 h-8 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Modal Scrollable Form Body */}
+              <div className="flex-1 min-h-0 overflow-y-auto p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
               {/* LEFT COLUMN (5 cols): PHOTO UPLOADER & GALLERY */}
               <div className="lg:col-span-5 space-y-5">
                 <div>
@@ -2656,13 +2678,21 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                 )}
+              </div>
+              </div>
 
-                {/* Modal Action Buttons */}
-                <div className="pt-2 flex items-center justify-end gap-3 border-t border-zinc-200 dark:border-zinc-800">
+              {/* Pinned Bottom Action Bar (Always Visible Without Scrolling) */}
+              <div className="shrink-0 px-5 sm:px-6 py-3.5 flex items-center justify-between gap-3 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/90 dark:bg-[#111318]">
+                <span className="text-[11px] text-zinc-500 dark:text-zinc-400 hidden sm:inline">
+                  {formState.images.length} photo{formState.images.length === 1 ? '' : 's'} attached
+                  {' · '}
+                  ${formState.pricePerDay}/day
+                </span>
+                <div className="flex items-center justify-end gap-2.5 ml-auto">
                   <button
                     type="button"
                     onClick={() => setIsStudioOpen(false)}
-                    className="h-10 px-5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                    className="h-10 px-5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
                   >
                     Cancel
                   </button>
@@ -2678,9 +2708,9 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
 
       {/* =====================================================================
           SOCIAL MEDIA FLYER & CARD GENERATOR MODAL
@@ -2695,117 +2725,125 @@ export default function AdminDashboardPage() {
       {/* =====================================================================
           CREATE FIELD TASK MODAL
          ===================================================================== */}
-      {showAddTaskModal && (
-        <div className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <form
-            onSubmit={handleCreateTask}
-            className="bg-white dark:bg-[#141519] rounded-3xl p-6 max-w-md w-full border border-zinc-200 dark:border-zinc-800 shadow-2xl space-y-4"
+      {portalReady &&
+        showAddTaskModal &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-[999] w-screen h-dvh bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-hidden"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowAddTaskModal(false);
+            }}
           >
-            <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
-              <h3 className="font-tenor font-bold text-base text-zinc-900 dark:text-white">
-                Assign Field Task
-              </h3>
-              <button
-                type="button"
-                onClick={() => setShowAddTaskModal(false)}
-                className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            <form
+              onSubmit={handleCreateTask}
+              className="bg-white dark:bg-[#141519] rounded-3xl p-6 max-w-md w-full max-h-[88dvh] overflow-y-auto border border-zinc-200 dark:border-zinc-800 shadow-2xl space-y-4"
+            >
+              <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                <h3 className="font-tenor font-bold text-base text-zinc-900 dark:text-white">
+                  Assign Field Task
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setShowAddTaskModal(false)}
+                  className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
 
-            <div>
-              <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                Task Title *
-              </label>
-              <input
-                type="text"
-                required
-                value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
-                placeholder="e.g. Deep clean penthouse & restock coffee bar"
-                className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                Target Asset
-              </label>
-              <select
-                value={newTaskAssetId}
-                onChange={(e) => setNewTaskAssetId(e.target.value)}
-                className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-              >
-                {listings.map((l) => (
-                  <option key={l.id} value={l.id}>
-                    {l.title} ({l.neighborhood})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                  Assignee
+                  Task Title *
                 </label>
                 <input
                   type="text"
                   required
-                  value={newTaskAssignee}
-                  onChange={(e) => setNewTaskAssignee(e.target.value)}
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  placeholder="e.g. Deep clean penthouse & restock coffee bar"
                   className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
                 />
               </div>
+
               <div>
                 <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                  Priority
+                  Target Asset
                 </label>
                 <select
-                  value={newTaskPriority}
-                  onChange={(e) => setNewTaskPriority(e.target.value as AdminTask['priority'])}
+                  value={newTaskAssetId}
+                  onChange={(e) => setNewTaskAssetId(e.target.value)}
                   className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
                 >
-                  <option value="urgent">Urgent</option>
-                  <option value="high">High</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
+                  {listings.map((l) => (
+                    <option key={l.id} value={l.id}>
+                      {l.title} ({l.neighborhood})
+                    </option>
+                  ))}
                 </select>
               </div>
-            </div>
 
-            <div>
-              <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
-                Instructions / Notes
-              </label>
-              <textarea
-                rows={2}
-                value={newTaskNotes}
-                onChange={(e) => setNewTaskNotes(e.target.value)}
-                placeholder="Optional instructions for field staff..."
-                className="w-full p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
-              />
-            </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
+                    Assignee
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newTaskAssignee}
+                    onChange={(e) => setNewTaskAssignee(e.target.value)}
+                    className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
+                    Priority
+                  </label>
+                  <select
+                    value={newTaskPriority}
+                    onChange={(e) => setNewTaskPriority(e.target.value as AdminTask['priority'])}
+                    className="w-full h-10 px-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
+                  >
+                    <option value="urgent">Urgent</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </div>
+              </div>
 
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setShowAddTaskModal(false)}
-                className="h-9 px-4 rounded-xl text-xs font-bold text-zinc-500"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="h-9 px-5 rounded-xl bg-[#FFC72C] text-[#111111] text-xs font-extrabold"
-              >
-                Dispatch Task
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+              <div>
+                <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 mb-1">
+                  Instructions / Notes
+                </label>
+                <textarea
+                  rows={2}
+                  value={newTaskNotes}
+                  onChange={(e) => setNewTaskNotes(e.target.value)}
+                  placeholder="Optional instructions for field staff..."
+                  className="w-full p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-900 dark:text-white"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddTaskModal(false)}
+                  className="h-9 px-4 rounded-xl text-xs font-bold text-zinc-500"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="h-9 px-5 rounded-xl bg-[#FFC72C] text-[#111111] text-xs font-extrabold"
+                >
+                  Dispatch Task
+                </button>
+              </div>
+            </form>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
