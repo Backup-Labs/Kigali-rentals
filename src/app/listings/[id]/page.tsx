@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRental } from '@/lib/rentalContext';
+import { getWhatsAppUrl, WHATSAPP_RAW_NUMBER, WHATSAPP_DISPLAY_NUMBER } from '@/lib/constants';
 import {
   Star,
   MapPin,
@@ -152,13 +153,13 @@ export default function ListingDetailPage({ params }: PageProps) {
           </div>
 
           <a
-            href="https://wa.me/250788123456"
+            href={getWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-[#FFC72C]/20 hover:bg-[#FFC72C]/30 text-zinc-800 dark:text-zinc-200 px-3 py-1 rounded-full border border-[#FFC72C]/30 font-mono text-[11px] transition-colors"
           >
             <span className="w-2 h-2 rounded-full bg-[#FFC72C] animate-pulse" />
-            <span>Concierge Online • Call / WhatsApp: +250 788 123 456</span>
+            <span>Concierge Online • Call / WhatsApp: {WHATSAPP_DISPLAY_NUMBER}</span>
           </a>
         </div>
       </div>
@@ -649,8 +650,8 @@ Dates: ${startDate} to ${endDate} (${daysCount} ${isCar ? 'days' : 'nights'})
 Guests: ${guestsCount} ${guestsCount === 1 ? 'person' : 'people'}
 Estimated total: ${formatPrice(grandTotal)}
 Is this available?`;
-                const whatsappUrl = `https://wa.me/250788123456?text=${encodeURIComponent(whatsappMessage)}`;
-                const phoneUrl = `tel:+250788123456`;
+                const whatsappUrl = getWhatsAppUrl(whatsappMessage);
+                const phoneUrl = `tel:+${WHATSAPP_RAW_NUMBER}`;
 
                 return (
                   <div className="space-y-2.5">
@@ -671,7 +672,7 @@ Is this available?`;
                       className="w-full skeu-btn-teal !text-[#111111] py-3 px-6 rounded-2xl font-tenor font-extrabold text-sm tracking-tight flex items-center justify-center gap-2 transition-all"
                     >
                       <Phone className="w-4 h-4 shrink-0" />
-                      <span>Call Concierge (+250 788 123 456)</span>
+                      <span>Call Concierge ({WHATSAPP_DISPLAY_NUMBER})</span>
                     </a>
 
                     <div className="pt-3 border-t border-black/5 dark:border-white/10 text-center space-y-1">

@@ -22,6 +22,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { sanitizePlainText, sanitizeEmail, isValidEmail } from '@/lib/sanitize';
+import { getWhatsAppUrl, WHATSAPP_RAW_NUMBER, WHATSAPP_DISPLAY_NUMBER } from '@/lib/constants';
 
 const CONCIERGE_EMAIL = 'concierge@kigalirentals.rw';
 const CALCOM_BOOKING_URL = 'https://cal.com/kigali-rentals/30min';
@@ -276,11 +277,11 @@ export default function Footer() {
                 </a>
 
                 <a
-                  href="tel:+250788123456"
+                  href={`tel:+${WHATSAPP_RAW_NUMBER}`}
                   className="h-12 px-5 rounded-xl bg-zinc-100 dark:bg-[#141519] hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-800 font-tenor font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
                 >
                   <Phone className="w-4 h-4 text-[#FFC72C]" />
-                  <span>+250 788 123 456</span>
+                  <span>{WHATSAPP_DISPLAY_NUMBER}</span>
                 </a>
               </div>
             </div>
@@ -560,7 +561,7 @@ export default function Footer() {
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://wa.me/250788123456"
+                  href={getWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full border border-black/20 dark:border-white/30 hover:border-[#FFC72C] text-zinc-700 dark:text-white hover:text-[#FFC72C] hover:bg-[#FFC72C]/10 flex items-center justify-center transition-all duration-300 hover:-translate-y-1"
@@ -731,15 +732,15 @@ export default function Footer() {
                 <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-600 dark:text-white/85 font-sans">
                   <li>
                     <a
-                      href="tel:+250788123456"
+                      href={`tel:+${WHATSAPP_RAW_NUMBER}`}
                       className="hover:text-[#FFC72C] hover:translate-x-1 inline-block transition-all duration-200 py-0.5 font-medium text-zinc-900 dark:text-white"
                     >
-                      +250 788 123 456
+                      {WHATSAPP_DISPLAY_NUMBER}
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://wa.me/250788123456"
+                      href={getWhatsAppUrl()}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-[#FFC72C] hover:translate-x-1 inline-block transition-all duration-200 py-0.5 text-zinc-900 dark:text-white font-medium"

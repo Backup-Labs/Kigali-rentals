@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Listing } from '@/lib/types';
 import { USD_TO_RWF_RATE } from '@/lib/mockData';
+import { WHATSAPP_DISPLAY_NUMBER } from '@/lib/constants';
 import {
   X,
   Download,
@@ -66,7 +67,7 @@ export default function SocialFlyerModal({
   const [showCollage, setShowCollage] = useState<boolean>(true);
   const [priceMode, setPriceMode] = useState<PriceDisplayMode>('usd');
   const [badgeText, setBadgeText] = useState<string>('NEW LISTING - KIGALI');
-  const [contactPhone, setContactPhone] = useState<string>('+250 788 123 456');
+  const [contactPhone, setContactPhone] = useState<string>(WHATSAPP_DISPLAY_NUMBER);
   const [websiteUrl, setWebsiteUrl] = useState<string>('kigalirentals.rw');
   const [ctaText, setCtaText] = useState<string>('Book Instant Stay or Chauffeur');
   const [isRendering, setIsRendering] = useState<boolean>(false);

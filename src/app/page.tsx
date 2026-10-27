@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRental } from '@/lib/rentalContext';
+import { getWhatsAppUrl } from '@/lib/constants';
 import ListingCard from '@/components/ListingCard';
 import { KIGALI_NEIGHBORHOODS } from '@/lib/mockData';
 import DatePicker from '@/components/ui/DatePicker';
@@ -594,7 +595,7 @@ export default function HomePage() {
 
         {/* Real WhatsApp Button on Bottom Right of Hero Section */}
         <a
-          href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20would%20like%20to%20inquire%20about%20a%20vehicle%20or%20apartment%20in%20Kigali."
+          href={getWhatsAppUrl("Hello Kigali Rentals, I would like to inquire about a vehicle or apartment in Kigali.")}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
@@ -1218,7 +1219,7 @@ export default function HomePage() {
                 View Combos
               </button>
               <a
-                href="https://wa.me/250788123456?text=Hello%20Kigali%20Rentals,%20I%20am%20inquiring%20about%20the%20Stay%20%26%20Drive%20Combo%20package."
+                href={getWhatsAppUrl("Hello Kigali Rentals, I am inquiring about the Stay & Drive Combo package.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2.5 rounded-xl skeu-btn-frosted !text-[#FFC72C] font-tenor font-semibold text-xs flex items-center gap-1.5"

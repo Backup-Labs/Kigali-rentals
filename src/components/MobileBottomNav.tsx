@@ -14,7 +14,7 @@ export default function MobileBottomNav() {
     { label: 'Vehicles', href: '/#vehicles', id: 'vehicles', icon: Car, isExternal: false },
     { label: 'Apartments', href: '/#apartments', id: 'apartments', icon: Home, isExternal: false },
     { label: 'About', href: '/#about', id: 'about', icon: Sparkles, isExternal: false },
-    { label: 'Book Call', href: 'tel:+250788123456', id: 'call', icon: Phone, isExternal: true },
+    { label: 'Book Call', href: 'https://cal.com/kigali-rentals/30min', id: 'call', icon: Phone, isExternal: true },
   ];
 
   useEffect(() => {
