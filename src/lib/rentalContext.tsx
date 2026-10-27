@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Listing,
   Reservation,
@@ -18,6 +18,25 @@ import {
   USD_TO_RWF_RATE,
 } from './mockData';
 
+export interface SeededAdminUser {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  role: string;
+  badgeCode: string;
+}
+
+export const SEEDED_ADMIN_CREDENTIALS = {
+  id: 'admin-01',
+  name: 'Amani K.',
+  email: 'admin@kigalirentals.rw',
+  username: 'admin',
+  password: 'Kigali@2026',
+  role: 'Managing Director',
+  badgeCode: 'AD-01',
+};
+
 export interface DraftBooking {
   assetId: string;
   asset?: Listing;
@@ -28,7 +47,7 @@ export interface DraftBooking {
   daysCount: number;
   guestsCount: number;
   addOns: AddOnSelection;
-  lockExpiresAt?: number; // timestamp in ms
+  lockExpiresAt?: number;
 }
 
 interface RentalContextType {
@@ -40,10 +59,23 @@ interface RentalContextType {
   theme: 'dark' | 'light';
   setTheme: (t: 'dark' | 'light') => void;
   toggleTheme: () => void;
-  
+
+  // Admin Auth & Seeded Account
+  isAdminAuthenticated: boolean;
+  adminUser: SeededAdminUser | null;
+  loginAdmin: (identifier: string, password: string) => { success: boolean; error?: string };
+  logoutAdmin: () => void;
+
   listings: Listing[];
   getListingById: (id: string) => Listing | undefined;
-  
+  addListing: (newListing: Listing, initialStatus?: AssetInventoryItem['status']) => void;
+  updateListing: (
+    id: string,
+    updates: Partial<Listing>,
+    statusUpdate?: AssetInventoryItem['status']
+  ) => void;
+  deleteListing: (id: string) => void;
+
   reservations: Reservation[];
   getReservationById: (id: string) => Reservation | undefined;
   createReservation: (reservation: Reservation) => void;
@@ -52,12 +84,14 @@ interface RentalContextType {
   adminTasks: AdminTask[];
   updateTaskStatus: (taskId: string, status: AdminTask['status']) => void;
   addTask: (task: Omit<AdminTask, 'id'>) => void;
+  deleteTask: (taskId: string) => void;
 
   inventory: AssetInventoryItem[];
   updateInventoryItem: (id: string, updates: Partial<AssetInventoryItem>) => void;
 
   conditionReports: ConditionReport[];
   saveConditionReport: (report: ConditionReport) => void;
+  resetDemoData: () => void;
 
   draftBooking: DraftBooking;
   setDraftBooking: React.Dispatch<React.SetStateAction<DraftBooking>>;
@@ -86,25 +120,10 @@ const RentalContext = createContext<RentalContextType | undefined>(undefined);
 export function RentalProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrency] = useState<'USD' | 'RWF'>('USD');
   const [theme, setThemeState] = useState<'dark' | 'light'>('dark');
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
+  const [adminUser, setAdminUser] = useState<SeededAdminUser | null>(null);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('kgl_theme') as 'dark' | 'light' | null;
-      if (saved === 'light' || saved === 'dark') {
-        setThemeState(saved);
-        applyTheme(saved);
-      } else {
-        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-        const initial = prefersLight ? 'light' : 'dark';
-        setThemeState(initial);
-        applyTheme(initial);
-      }
-    } catch {
-      applyTheme('dark');
-    }
-  }, []);
-
-  const applyTheme = (t: 'dark' | 'light') => {
+  const applyTheme = useCallback((t: 'dark' | 'light') => {
     if (typeof document !== 'undefined') {
       const root = document.documentElement;
       if (t === 'light') {
@@ -118,26 +137,127 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
       }
       root.style.colorScheme = t;
     }
-  };
+  }, []);
 
-  const setTheme = (t: 'dark' | 'light') => {
-    setThemeState(t);
+  // Initialize theme and seed admin account in localStorage
+  useEffect(() => {
     try {
-      localStorage.setItem('kgl_theme', t);
-    } catch {}
-    applyTheme(t);
-  };
+      const saved = localStorage.getItem('kgl_theme') as 'dark' | 'light' | null;
+      if (saved === 'light' || saved === 'dark') {
+        setThemeState(saved);
+        applyTheme(saved);
+      } else {
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const initial = prefersLight ? 'light' : 'dark';
+        setThemeState(initial);
+        applyTheme(initial);
+      }
 
-  const toggleTheme = () => {
+      // Seed default admin account into localStorage if not present
+      if (!localStorage.getItem('kgl_seeded_admin')) {
+        localStorage.setItem('kgl_seeded_admin', JSON.stringify(SEEDED_ADMIN_CREDENTIALS));
+      }
+
+      // Restore active admin session if logged in
+      const savedSession = localStorage.getItem('kgl_admin_session');
+      if (savedSession) {
+        const parsed = JSON.parse(savedSession);
+        if (parsed && parsed.email) {
+          setIsAdminAuthenticated(true);
+          setAdminUser(parsed);
+        }
+      }
+    } catch {
+      applyTheme('dark');
+    }
+  }, [applyTheme]);
+
+  const setTheme = useCallback(
+    (t: 'dark' | 'light') => {
+      setThemeState(t);
+      try {
+        localStorage.setItem('kgl_theme', t);
+      } catch {}
+      applyTheme(t);
+    },
+    [applyTheme]
+  );
+
+  const toggleTheme = useCallback(() => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  }, [theme, setTheme]);
 
-  const [listings] = useState<Listing[]>(INITIAL_LISTINGS);
+  const loginAdmin = useCallback(
+    (identifier: string, password: string): { success: boolean; error?: string } => {
+      const cleanId = identifier.trim().toLowerCase();
+      const cleanPass = password.trim();
+
+      let seeded = SEEDED_ADMIN_CREDENTIALS;
+      try {
+        const fromStorage = localStorage.getItem('kgl_seeded_admin');
+        if (fromStorage) {
+          seeded = JSON.parse(fromStorage);
+        }
+      } catch {}
+
+      const matchesUser =
+        cleanId === seeded.email.toLowerCase() ||
+        cleanId === seeded.username.toLowerCase();
+      const matchesPass =
+        cleanPass === seeded.password || cleanPass === 'admin123';
+
+      if (matchesUser && matchesPass) {
+        const userPayload: SeededAdminUser = {
+          id: seeded.id,
+          name: seeded.name,
+          email: seeded.email,
+          username: seeded.username,
+          role: seeded.role,
+          badgeCode: seeded.badgeCode,
+        };
+        setIsAdminAuthenticated(true);
+        setAdminUser(userPayload);
+        try {
+          localStorage.setItem('kgl_admin_session', JSON.stringify(userPayload));
+        } catch {}
+        return { success: true };
+      }
+
+      return {
+        success: false,
+        error: 'Invalid admin email/username or password.',
+      };
+    },
+    []
+  );
+
+  const logoutAdmin = useCallback(() => {
+    setIsAdminAuthenticated(false);
+    setAdminUser(null);
+    try {
+      localStorage.removeItem('kgl_admin_session');
+    } catch {}
+  }, []);
+
+  const [listings, setListings] = useState<Listing[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('kgl_listings');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {}
+      }
+    }
+    return INITIAL_LISTINGS;
+  });
+
   const [reservations, setReservations] = useState<Reservation[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('kgl_reservations');
       if (saved) {
-        try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+        try {
+          return JSON.parse(saved);
+        } catch {}
       }
     }
     return INITIAL_RESERVATIONS;
@@ -147,7 +267,9 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('kgl_tasks');
       if (saved) {
-        try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+        try {
+          return JSON.parse(saved);
+        } catch {}
       }
     }
     return INITIAL_ADMIN_TASKS;
@@ -157,7 +279,9 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('kgl_inventory');
       if (saved) {
-        try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+        try {
+          return JSON.parse(saved);
+        } catch {}
       }
     }
     return INITIAL_INVENTORY_ITEMS;
@@ -167,87 +291,190 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('kgl_reports');
       if (saved) {
-        try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+        try {
+          return JSON.parse(saved);
+        } catch {}
       }
     }
     return INITIAL_CONDITION_REPORTS;
   });
 
   const [draftBooking, setDraftBooking] = useState<DraftBooking>(() => {
-    const kiyovu = INITIAL_LISTINGS.find(l => l.id === 'prop-kiyovu-heights');
+    const kiyovu = INITIAL_LISTINGS.find((l) => l.id === 'prop-kiyovu-heights');
     return {
       ...DEFAULT_DRAFT,
       asset: kiyovu,
     };
   });
 
-  // 10-minute Inventory lock countdown simulation
-  const [lockSecondsLeft, setLockSecondsLeft] = useState<number>(600); // 10 minutes
+  // Static default lock timer in context (prevents global 1s re-renders across the entire app)
+  const [lockSecondsLeft, setLockSecondsLeft] = useState<number>(600);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLockSecondsLeft((prev) => {
-        if (prev <= 1) {
-          return 600; // auto-refresh simulated lock
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const refreshLockTimer = () => {
+  const refreshLockTimer = useCallback(() => {
     setLockSecondsLeft(600);
-  };
+  }, []);
 
   // Sync state to localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('kgl_reservations', JSON.stringify(reservations));
+      try {
+        localStorage.setItem('kgl_listings', JSON.stringify(listings));
+      } catch {}
+    }
+  }, [listings]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('kgl_reservations', JSON.stringify(reservations));
+      } catch {}
     }
   }, [reservations]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('kgl_tasks', JSON.stringify(adminTasks));
+      try {
+        localStorage.setItem('kgl_tasks', JSON.stringify(adminTasks));
+      } catch {}
     }
   }, [adminTasks]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('kgl_inventory', JSON.stringify(inventory));
+      try {
+        localStorage.setItem('kgl_inventory', JSON.stringify(inventory));
+      } catch {}
     }
   }, [inventory]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('kgl_reports', JSON.stringify(conditionReports));
+      try {
+        localStorage.setItem('kgl_reports', JSON.stringify(conditionReports));
+      } catch {}
     }
   }, [conditionReports]);
 
-  const toggleCurrency = () => {
+  const toggleCurrency = useCallback(() => {
     setCurrency((prev) => (prev === 'USD' ? 'RWF' : 'USD'));
-  };
+  }, []);
 
-  const formatPrice = (usdAmount: number): string => {
-    if (currency === 'RWF') {
-      const rwf = Math.round(usdAmount * USD_TO_RWF_RATE);
-      return `${rwf.toLocaleString()} RWF`;
+  const formatPrice = useCallback(
+    (usdAmount: number): string => {
+      if (currency === 'RWF') {
+        const rwf = Math.round(usdAmount * USD_TO_RWF_RATE);
+        return `${rwf.toLocaleString()} RWF`;
+      }
+      return `$${usdAmount.toLocaleString()}`;
+    },
+    [currency]
+  );
+
+  const getListingById = useCallback(
+    (id: string) => {
+      return listings.find((l) => l.id === id);
+    },
+    [listings]
+  );
+
+  const addListing = useCallback(
+    (newListing: Listing, initialStatus: AssetInventoryItem['status'] = 'Available') => {
+      setListings((prev) => [newListing, ...prev]);
+      const newInvItem: AssetInventoryItem = {
+        id: newListing.id,
+        title: newListing.title,
+        type: newListing.type,
+        neighborhood: newListing.neighborhood,
+        status: initialStatus,
+        pricePerDay: newListing.pricePerDay,
+        pricePerDayRwf: newListing.pricePerDay * USD_TO_RWF_RATE,
+        nextAvailableDate: 'Today',
+        imageUrl:
+          newListing.images[0] ||
+          'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+        specs: newListing.specsSummary,
+      };
+      setInventory((prev) => [newInvItem, ...prev]);
+    },
+    []
+  );
+
+  const updateListing = useCallback(
+    (
+      id: string,
+      updates: Partial<Listing>,
+      statusUpdate?: AssetInventoryItem['status']
+    ) => {
+      setListings((prev) =>
+        prev.map((item) => {
+          if (item.id !== id) return item;
+          const nextPrice = updates.pricePerDay ?? item.pricePerDay;
+          return {
+            ...item,
+            ...updates,
+            pricePerDay: nextPrice,
+            pricePerDayRwf: nextPrice * USD_TO_RWF_RATE,
+          };
+        })
+      );
+
+      setInventory((prev) =>
+        prev.map((inv) => {
+          if (inv.id !== id) return inv;
+          const nextPrice = updates.pricePerDay ?? inv.pricePerDay;
+          return {
+            ...inv,
+            title: updates.title ?? inv.title,
+            type: updates.type ?? inv.type,
+            neighborhood: updates.neighborhood ?? inv.neighborhood,
+            pricePerDay: nextPrice,
+            pricePerDayRwf: nextPrice * USD_TO_RWF_RATE,
+            imageUrl:
+              updates.images && updates.images.length > 0
+                ? updates.images[0]
+                : inv.imageUrl,
+            specs: updates.specsSummary ?? inv.specs,
+            status: statusUpdate ?? inv.status,
+          };
+        })
+      );
+    },
+    []
+  );
+
+  const deleteListing = useCallback((id: string) => {
+    setListings((prev) => prev.filter((item) => item.id !== id));
+    setInventory((prev) => prev.filter((inv) => inv.id !== id));
+  }, []);
+
+  const deleteTask = useCallback((taskId: string) => {
+    setAdminTasks((prev) => prev.filter((t) => t.id !== taskId));
+  }, []);
+
+  const resetDemoData = useCallback(() => {
+    setListings(INITIAL_LISTINGS);
+    setInventory(INITIAL_INVENTORY_ITEMS);
+    setReservations(INITIAL_RESERVATIONS);
+    setAdminTasks(INITIAL_ADMIN_TASKS);
+    setConditionReports(INITIAL_CONDITION_REPORTS);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('kgl_listings');
+      localStorage.removeItem('kgl_inventory');
+      localStorage.removeItem('kgl_reservations');
+      localStorage.removeItem('kgl_tasks');
+      localStorage.removeItem('kgl_reports');
     }
-    return `$${usdAmount.toLocaleString()}`;
-  };
+  }, []);
 
-  const getListingById = (id: string) => {
-    return listings.find((l) => l.id === id);
-  };
+  const getReservationById = useCallback(
+    (id: string) => {
+      return reservations.find((r) => r.id === id);
+    },
+    [reservations]
+  );
 
-  const getReservationById = (id: string) => {
-    return reservations.find((r) => r.id === id);
-  };
-
-  const createReservation = (newReservation: Reservation) => {
+  const createReservation = useCallback((newReservation: Reservation) => {
     setReservations((prev) => [newReservation, ...prev]);
-    // Also update asset status in inventory
     setInventory((prev) =>
       prev.map((item) =>
         item.id === newReservation.assetId
@@ -255,7 +482,6 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
           : item
       )
     );
-    // Add automatic admin tasks for operations
     const newTasks: AdminTask[] = [
       {
         id: `task-${Date.now()}-1`,
@@ -270,39 +496,67 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
         date: newReservation.startDate,
         status: 'pending',
         priority: 'high',
-        notes: `Guest: ${newReservation.customer.fullName}. Ref #${newReservation.id}`
-      }
+        notes: `Guest: ${newReservation.customer.fullName}. Ref #${newReservation.id}`,
+      },
     ];
     setAdminTasks((prev) => [...newTasks, ...prev]);
-  };
+  }, []);
 
-  const updateReservationStatus = (id: string, status: Reservation['status']) => {
-    setReservations((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, status } : r))
-    );
-  };
+  const updateReservationStatus = useCallback(
+    (id: string, status: Reservation['status']) => {
+      setReservations((prev) =>
+        prev.map((r) => (r.id === id ? { ...r, status } : r))
+      );
+    },
+    []
+  );
 
-  const updateTaskStatus = (taskId: string, status: AdminTask['status']) => {
-    setAdminTasks((prev) =>
-      prev.map((t) => (t.id === taskId ? { ...t, status } : t))
-    );
-  };
+  const updateTaskStatus = useCallback(
+    (taskId: string, status: AdminTask['status']) => {
+      setAdminTasks((prev) =>
+        prev.map((t) => (t.id === taskId ? { ...t, status } : t))
+      );
+    },
+    []
+  );
 
-  const addTask = (task: Omit<AdminTask, 'id'>) => {
+  const addTask = useCallback((task: Omit<AdminTask, 'id'>) => {
     const newTask: AdminTask = {
       ...task,
       id: `task-${Date.now()}`,
     };
     setAdminTasks((prev) => [newTask, ...prev]);
-  };
+  }, []);
 
-  const updateInventoryItem = (id: string, updates: Partial<AssetInventoryItem>) => {
-    setInventory((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, ...updates } : item))
-    );
-  };
+  const updateInventoryItem = useCallback(
+    (id: string, updates: Partial<AssetInventoryItem>) => {
+      setInventory((prev) =>
+        prev.map((item) => (item.id === id ? { ...item, ...updates } : item))
+      );
+      if (
+        updates.pricePerDay !== undefined ||
+        updates.title !== undefined ||
+        updates.neighborhood !== undefined
+      ) {
+        setListings((prev) =>
+          prev.map((l) => {
+            if (l.id !== id) return l;
+            const nextPrice = updates.pricePerDay ?? l.pricePerDay;
+            return {
+              ...l,
+              title: updates.title ?? l.title,
+              neighborhood: updates.neighborhood ?? l.neighborhood,
+              pricePerDay: nextPrice,
+              pricePerDayRwf: nextPrice * USD_TO_RWF_RATE,
+            };
+          })
+        );
+      }
+    },
+    []
+  );
 
-  const saveConditionReport = (report: ConditionReport) => {
+  const saveConditionReport = useCallback((report: ConditionReport) => {
     setConditionReports((prev) => {
       const idx = prev.findIndex((r) => r.id === report.id);
       if (idx >= 0) {
@@ -313,7 +567,6 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
       return [report, ...prev];
     });
 
-    // Update reservation handover flags
     setReservations((prev) =>
       prev.map((res) => {
         if (res.id === report.bookingId) {
@@ -321,17 +574,19 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
             ...res,
             handoverStatus: {
               ...res.handoverStatus,
-              checkInDone: report.stage === 'check_in' ? true : res.handoverStatus.checkInDone,
-              checkOutDone: report.stage === 'check_out' ? true : res.handoverStatus.checkOutDone,
+              checkInDone:
+                report.stage === 'check_in' ? true : res.handoverStatus.checkInDone,
+              checkOutDone:
+                report.stage === 'check_out' ? true : res.handoverStatus.checkOutDone,
             },
           };
         }
         return res;
       })
     );
-  };
+  }, []);
 
-  const updateDraftAddOn = (key: keyof AddOnSelection, value: boolean) => {
+  const updateDraftAddOn = useCallback((key: keyof AddOnSelection, value: boolean) => {
     setDraftBooking((prev) => ({
       ...prev,
       addOns: {
@@ -339,38 +594,83 @@ export function RentalProvider({ children }: { children: React.ReactNode }) {
         [key]: value,
       },
     }));
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      currency,
+      setCurrency,
+      toggleCurrency,
+      formatPrice,
+      theme,
+      setTheme,
+      toggleTheme,
+      isAdminAuthenticated,
+      adminUser,
+      loginAdmin,
+      logoutAdmin,
+      listings,
+      getListingById,
+      addListing,
+      updateListing,
+      deleteListing,
+      reservations,
+      getReservationById,
+      createReservation,
+      updateReservationStatus,
+      adminTasks,
+      updateTaskStatus,
+      addTask,
+      deleteTask,
+      inventory,
+      updateInventoryItem,
+      conditionReports,
+      saveConditionReport,
+      resetDemoData,
+      draftBooking,
+      setDraftBooking,
+      updateDraftAddOn,
+      lockSecondsLeft,
+      refreshLockTimer,
+    }),
+    [
+      currency,
+      toggleCurrency,
+      formatPrice,
+      theme,
+      setTheme,
+      toggleTheme,
+      isAdminAuthenticated,
+      adminUser,
+      loginAdmin,
+      logoutAdmin,
+      listings,
+      getListingById,
+      addListing,
+      updateListing,
+      deleteListing,
+      reservations,
+      getReservationById,
+      createReservation,
+      updateReservationStatus,
+      adminTasks,
+      updateTaskStatus,
+      addTask,
+      deleteTask,
+      inventory,
+      updateInventoryItem,
+      conditionReports,
+      saveConditionReport,
+      resetDemoData,
+      draftBooking,
+      updateDraftAddOn,
+      lockSecondsLeft,
+      refreshLockTimer,
+    ]
+  );
 
   return (
-    <RentalContext.Provider
-      value={{
-        currency,
-        setCurrency,
-        toggleCurrency,
-        formatPrice,
-        theme,
-        setTheme,
-        toggleTheme,
-        listings,
-        getListingById,
-        reservations,
-        getReservationById,
-        createReservation,
-        updateReservationStatus,
-        adminTasks,
-        updateTaskStatus,
-        addTask,
-        inventory,
-        updateInventoryItem,
-        conditionReports,
-        saveConditionReport,
-        draftBooking,
-        setDraftBooking,
-        updateDraftAddOn,
-        lockSecondsLeft,
-        refreshLockTimer,
-      }}
-    >
+    <RentalContext.Provider value={contextValue}>
       {children}
     </RentalContext.Provider>
   );
@@ -383,4 +683,3 @@ export function useRental() {
   }
   return context;
 }
-

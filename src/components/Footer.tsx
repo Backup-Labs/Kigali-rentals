@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Phone,
   ArrowUp,
@@ -14,40 +15,9 @@ import {
 } from 'lucide-react';
 
 export default function Footer() {
+  const pathname = usePathname();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-  const [parallaxOffset, setParallaxOffset] = useState(0);
-  const footerRef = useRef<HTMLDivElement>(null);
-
-  // Smooth Parallax Effect on Scroll for Footer & Giant Wordmark
-  useEffect(() => {
-    let animationFrameId: number;
-
-    const handleScroll = () => {
-      animationFrameId = requestAnimationFrame(() => {
-        if (!footerRef.current) return;
-        const rect = footerRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        // When footer is visible or entering the viewport
-        if (rect.top < windowHeight && rect.bottom > 0) {
-          const totalDistance = windowHeight + rect.height;
-          const currentProgress = (windowHeight - rect.top) / totalDistance;
-          // Smooth parallax shift from -28px to +28px
-          const offset = (currentProgress - 0.5) * 45;
-          setParallaxOffset(offset);
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,21 +34,18 @@ export default function Footer() {
     }
   };
 
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <div
-      ref={footerRef}
       id="main-footer"
       className="w-full relative z-10 selection:bg-[#FFC72C] selection:text-[#111111] overflow-hidden bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white border-t border-black/10 dark:border-zinc-800/80"
     >
-      {/* Background Ambient Organic Parallax Glow (Gold) */}
-      <div
-        className="pointer-events-none absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] sm:w-[1000px] h-[350px] bg-[#FFC72C]/10 rounded-full blur-3xl transition-transform duration-100 ease-out"
-        style={{ transform: `translate(-50%, ${parallaxOffset * 0.4}px)` }}
-      />
-      <div
-        className="pointer-events-none absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#FFC72C]/5 rounded-full blur-3xl transition-transform duration-100 ease-out"
-        style={{ transform: `translateY(${parallaxOffset * -0.3}px)` }}
-      />
+      {/* Background Ambient Organic Glow (Gold) */}
+      <div className="pointer-events-none absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] sm:w-[1000px] h-[350px] bg-[#FFC72C]/10 rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#FFC72C]/5 rounded-full blur-3xl" />
 
       {/* =========================================================================
           1. PRE-FOOTER CTA SECTION (LUXURY DARK & GOLD)

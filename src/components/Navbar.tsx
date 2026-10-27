@@ -52,13 +52,13 @@ export default function Navbar() {
 
       // Bottom of page -> contact CTA
       if (windowHeight + scrollY >= docHeight - 140) {
-        setActiveTab('contact');
+        setActiveTab((prev) => (prev === 'contact' ? prev : 'contact'));
         return;
       }
 
       // Very top of page in hero section
       if (scrollY < 380) {
-        setActiveTab('home');
+        setActiveTab((prev) => (prev === 'home' ? prev : 'home'));
         return;
       }
 
@@ -77,7 +77,7 @@ export default function Navbar() {
         if (sec.el) {
           const rect = sec.el.getBoundingClientRect();
           if (rect.top <= triggerLine && rect.bottom > triggerLine) {
-            setActiveTab(sec.id);
+            setActiveTab((prev) => (prev === sec.id ? prev : sec.id));
             return;
           }
         }
@@ -127,6 +127,10 @@ export default function Navbar() {
       }
     }
   };
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <header className="fixed top-2.5 sm:top-4 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none transition-all">
