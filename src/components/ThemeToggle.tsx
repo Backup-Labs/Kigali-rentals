@@ -56,43 +56,23 @@ export default function ThemeToggle({ variant = 'nav', className = '' }: ThemeTo
     );
   }
 
-  // Desktop Capsule Variant: Sleek, compact tactile dual slider (icon-only for clean navbar fit)
-  return (
-    <div
-      className={`relative inline-flex items-center p-0.5 sm:p-1 rounded-xl bg-slate-200/90 dark:bg-[#0E0F12] border border-black/10 dark:border-white/10 select-none transition-all ${className}`}
-      role="group"
-      aria-label="Theme mode switcher"
-    >
-      <button
-        type="button"
-        onClick={() => setTheme('light')}
-        title="Switch to Light Theme"
-        aria-pressed={theme === 'light'}
-        className={`relative z-10 flex items-center justify-center p-1.5 rounded-lg text-xs font-tenor font-bold transition-all duration-200 ${
-          theme === 'light'
-            ? 'bg-white text-[#111111]'
-            : 'text-zinc-500 hover:text-black dark:text-zinc-400'
-        }`}
-      >
-        <Sun className={`w-3.5 h-3.5 ${theme === 'light' ? 'text-[#D4A017]' : 'text-zinc-400'}`} />
-        <span className="sr-only">Light</span>
-      </button>
+  // Desktop Capsule Variant: Single clean icon toggle for an uncluttered navbar
+  const isDark = theme === 'dark';
 
-      <button
-        type="button"
-        onClick={() => setTheme('dark')}
-        title="Switch to Dark Theme"
-        aria-pressed={theme === 'dark'}
-        className={`relative z-10 flex items-center justify-center p-1.5 rounded-lg text-xs font-tenor font-bold transition-all duration-200 ${
-          theme === 'dark'
-            ? 'bg-[#FFC72C] text-[#111111]'
-            : 'text-zinc-500 hover:text-white dark:text-zinc-400'
-        }`}
-      >
-        <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? 'text-[#111111]' : 'text-zinc-400'}`} />
-        <span className="sr-only">Dark</span>
-      </button>
-    </div>
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      className={`h-7 w-7 rounded-full flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-[#FFC72C] hover:bg-black/5 dark:hover:bg-white/10 transition-colors select-none ${className}`}
+    >
+      {isDark ? (
+        <Sun className="w-3.5 h-3.5 text-[#FFC72C]" />
+      ) : (
+        <Moon className="w-3.5 h-3.5 text-zinc-700" />
+      )}
+    </button>
   );
 }
 

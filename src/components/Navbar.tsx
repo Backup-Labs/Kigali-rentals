@@ -29,9 +29,8 @@ export default function Navbar() {
     { label: 'Home', href: '/', id: 'home' },
     { label: 'Vehicles', href: '/#vehicles', id: 'vehicles' },
     { label: 'Apartments', href: '/#apartments', id: 'apartments' },
-    { label: 'How it works', href: '/#how-it-works', id: 'how-it-works' },
+    { label: 'How It Works', href: '/#how-it-works', id: 'how-it-works' },
     { label: 'About', href: '/#about', id: 'about' },
-    { label: 'Contact', href: '/#contact', id: 'contact' },
   ];
 
   // Real-time Scroll Spy that highlights active section continuously as user scrolls
@@ -133,19 +132,18 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed top-2.5 sm:top-4 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none transition-all">
-      {/* Floating Glassmorphic + Skeuomorphic Capsule Bar */}
-      <div className="pointer-events-auto max-w-6xl 2xl:max-w-7xl 3xl:max-w-[1600px] mx-auto glass-skeu-nav rounded-2xl sm:rounded-full px-4 sm:px-6 2xl:px-8 py-2 sm:py-2.5 flex items-center justify-between transition-all">
-        {/* Brand Logo with Tactile Bevel */}
+    <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
+      {/* Refined Minimal Floating Capsule Bar */}
+      <div className="pointer-events-auto max-w-5xl xl:max-w-6xl mx-auto glass-skeu-nav rounded-full px-3.5 sm:px-5 py-2 flex items-center justify-between gap-4 transition-all">
+        {/* Clean Single-Line Brand Identity */}
         <Link
           href="/"
           onClick={(e) => handleNavClick(e, navItems[0])}
-          className="flex items-center gap-2.5 sm:gap-3 group shrink-0"
+          className="flex items-center gap-2.5 group shrink-0"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#FFD54F] via-[#FFC72C] to-[#E5B224] flex items-center justify-center text-[#111111] border border-[#FFC72C]/50 transition-transform group-hover:scale-105 active:scale-95 shrink-0">
-            {/* Bespoke Luxury Crest & "K" Monogram */}
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[#FFD54F] via-[#FFC72C] to-[#E5B224] flex items-center justify-center text-[#111111] transition-transform group-hover:scale-105 active:scale-95 shrink-0">
             <svg
-              className="w-5 h-5 sm:w-5.5 sm:h-5.5"
+              className="w-4 h-4 sm:w-4.5 sm:h-4.5"
               viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -167,18 +165,13 @@ export default function Navbar() {
             </svg>
           </div>
 
-          <div className="flex flex-col">
-            <span className="font-tenor text-base sm:text-lg font-extrabold tracking-tight text-zinc-900 dark:text-white leading-tight">
-              Kigali<span className="text-[#FFC72C]">Rentals</span>
-            </span>
-            <span className="text-[9px] text-[#FFC72C] font-mono uppercase tracking-wider hidden sm:inline -mt-0.5">
-              Rwanda Living & Mobility
-            </span>
-          </div>
+          <span className="font-tenor text-base sm:text-[17px] font-extrabold tracking-tight text-zinc-900 dark:text-white leading-none">
+            Kigali<span className="text-[#FFC72C]">Rentals</span>
+          </span>
         </Link>
 
-        {/* Desktop Navigation Links (Visible on lg: 1024px and up) */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+        {/* Center Navigation Track (Desktop) */}
+        <nav className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.05] dark:border-white/[0.06]">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
 
@@ -187,60 +180,56 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
-                className={`h-9 px-2.5 xl:px-3.5 rounded-full text-xs xl:text-sm font-tenor transition-all duration-200 flex items-center justify-center gap-1.5 shrink-0 ${
+                className={`h-8 px-3.5 rounded-full text-xs font-tenor transition-all duration-200 flex items-center justify-center shrink-0 ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#FFD54F] to-[#FFC72C] text-[#111111] font-extrabold'
-                    : 'text-zinc-700 dark:text-zinc-300 hover:text-[#FFC72C] font-medium hover:bg-black/5 dark:hover:bg-white/5'
+                    ? 'bg-white dark:bg-zinc-800/95 text-zinc-950 dark:text-[#FFC72C] font-bold shadow-2xs'
+                    : 'text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white font-medium'
                 }`}
               >
                 <span>{item.label}</span>
-                {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#111111] shrink-0" />
-                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right Side Actions with Responsive Scaling */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {/* Dual Segmented Theme Switcher (Light / Dark) */}
-          <ThemeToggle variant="nav" />
+        {/* Right Side: Unified Utility Pill + Single Primary CTA */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Compact Combined Utility Pill (Currency + Theme) */}
+          <div className="flex items-center h-9 px-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08]">
+            <button
+              type="button"
+              onClick={toggleCurrency}
+              className="h-7 px-2.5 rounded-full text-[11px] font-tenor font-bold text-zinc-700 dark:text-zinc-200 hover:text-[#FFC72C] dark:hover:text-[#FFC72C] flex items-center gap-1 transition-colors"
+              title={`Active currency: ${currency}. Click to switch to ${currency === 'USD' ? 'RWF' : 'USD'}`}
+            >
+              <span className="text-[#FFC72C] font-extrabold">{currency}</span>
+            </button>
 
-          {/* Elegant Currency Selector Pill (Visible on desktop lg: screens; accessible in mobile drawer) */}
-          <button
-            onClick={toggleCurrency}
-            className="hidden lg:flex h-9 px-3 rounded-xl skeu-btn-frosted items-center justify-center gap-2 text-xs font-tenor shrink-0 transition-all group"
-            title={`Active: ${currency} (Click to toggle USD / RWF)`}
-          >
-            <Globe className="w-3.5 h-3.5 text-[#FFC72C] transition-colors shrink-0" />
-            <div className="flex items-center text-[11px] font-bold tracking-tight">
-              <span className={currency === 'USD' ? 'text-[#FFC72C] font-extrabold' : 'text-zinc-500 dark:text-zinc-400 font-medium'}>
-                USD
-              </span>
-              <span className="text-zinc-400 dark:text-zinc-600 mx-1">|</span>
-              <span className={currency === 'RWF' ? 'text-[#FFC72C] font-extrabold' : 'text-zinc-500 dark:text-zinc-400 font-medium'}>
-                RWF
-              </span>
-            </div>
-          </button>
+            <span className="h-3.5 w-px bg-black/10 dark:bg-white/10 mx-0.5" />
 
-          {/* Primary Phone Call CTA (Visible on wide screens; accessible in mobile drawer) */}
-          <a
-            href="tel:+250788123456"
-            className="hidden xl:inline-flex h-9 items-center justify-center gap-1.5 px-3.5 sm:px-4 rounded-xl skeu-btn-teal text-[#111111] font-tenor font-extrabold text-xs sm:text-sm tracking-tight shrink-0 transition-all"
+            <ThemeToggle variant="nav" />
+          </div>
+
+          {/* Single Primary CTA Button */}
+          <Link
+            href="/#contact"
+            onClick={(e) =>
+              handleNavClick(e, { label: 'Contact', href: '/#contact', id: 'contact' })
+            }
+            className="hidden sm:inline-flex h-9 items-center justify-center gap-1.5 px-4 rounded-full bg-[#FFC72C] hover:bg-[#FFD54F] text-[#111111] font-tenor font-extrabold text-xs tracking-wide shrink-0 transition-colors"
           >
             <Phone className="w-3.5 h-3.5 shrink-0" />
-            <span>Book Call</span>
-          </a>
+            <span>Contact</span>
+          </Link>
 
-          {/* Mobile/Tablet Hamburger Button (Shown on < lg screens) */}
+          {/* Mobile/Tablet Menu Button */}
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden h-9 w-9 flex items-center justify-center rounded-xl text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white skeu-btn-frosted shrink-0 transition-all"
+            className="lg:hidden h-9 w-9 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white bg-black/[0.04] dark:bg-white/[0.05] border border-black/[0.06] dark:border-white/[0.08] shrink-0 transition-all"
             aria-label="Toggle navigation"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
       </div>
