@@ -7,8 +7,16 @@ import Footer from '@/components/Footer';
 import NavigationProgressBar from '@/components/NavigationProgressBar';
 import PageTransition from '@/components/PageTransition';
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_APP_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://kigalirentals.rw');
+
 export const metadata: Metadata = {
-  title: 'Kigali Rentals | Villas, Penthouses & 4x4 Fleet in Rwanda',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Kigali Rentals | Villas, Penthouses & 4x4 Fleet in Rwanda',
+    template: '%s | Kigali Rentals',
+  },
   description:
     'Rwanda’s unified car and property rental platform. Discover luxury apartments in Kiyovu, diplomatic villas in Nyarutarama, and chauffeur or self-drive 4x4 vehicles with zero surprise fees.',
   keywords: [
@@ -20,6 +28,42 @@ export const metadata: Metadata = {
     'Nyarutarama villa',
     'Kiyovu penthouse',
   ],
+  authors: [{ name: 'Kigali Rentals Concierge' }],
+  creator: 'Kigali Rentals',
+  publisher: 'Kigali Rentals Rwanda',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteUrl,
+    siteName: 'Kigali Rentals',
+    title: 'Kigali Rentals | Villas, Penthouses & 4x4 Fleet in Rwanda',
+    description:
+      'Rwanda’s premier vehicle fleet & luxury residential accommodations. Chauffeur & self-drive 4x4 SUVs, diplomatic villas, and high-end penthouses in Kigali with zero surprise fees.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        type: 'image/jpeg',
+        alt: 'Kigali Rentals - Luxury 4x4 Fleet & Diplomatic Residences in Rwanda',
+      },
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        type: 'image/png',
+        alt: 'Kigali Rentals - Luxury 4x4 Fleet & Diplomatic Residences in Rwanda',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kigali Rentals | Villas, Penthouses & 4x4 Fleet in Rwanda',
+    description:
+      'Rwanda’s premier vehicle fleet & luxury residential accommodations. Chauffeur & self-drive 4x4 SUVs, diplomatic villas, and high-end penthouses in Kigali.',
+    images: ['/og-image.jpg'],
+    creator: '@KigaliRentals',
+  },
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
@@ -59,6 +103,12 @@ export default function RootLayout({
         />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg" />
+        <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:alt" content="Kigali Rentals Official Brand Logo &amp; Luxury Fleet" />
+        <meta name="twitter:image" content={`${siteUrl}/og-image.jpg`} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

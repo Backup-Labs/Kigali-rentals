@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "seed:admin": "node scripts/seed-admin.mjs",
-    "seed:db": "node scripts/seed-db.mjs"
+    "seed:db": "node scripts/seed-db.mjs",
+    "og:generate": "node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "cloudinary": "^2.11.0",
