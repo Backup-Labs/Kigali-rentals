@@ -9,7 +9,13 @@ import PageTransition from '@/components/PageTransition';
 
 const siteUrl =
   process.env.NEXT_PUBLIC_APP_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://kigalirentals.rw');
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://kglrentals.amanisamuel.online');
+
+// High-availability CDN images for 100% reliable social crawler unfurling
+const OG_IMAGE_BANNER =
+  'https://res.cloudinary.com/dlf3koulm/image/upload/v1793163370/kigali-rentals/og/kigali-rentals-og-banner.jpg';
+const OG_IMAGE_SQUARE =
+  'https://res.cloudinary.com/dlf3koulm/image/upload/v1793163373/kigali-rentals/og/kigali-rentals-og-square.jpg';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -41,18 +47,28 @@ export const metadata: Metadata = {
       'Rwanda’s premier vehicle fleet & luxury residential accommodations. Chauffeur & self-drive 4x4 SUVs, diplomatic villas, and high-end penthouses in Kigali with zero surprise fees.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: OG_IMAGE_BANNER,
+        secureUrl: OG_IMAGE_BANNER,
         width: 1200,
         height: 630,
         type: 'image/jpeg',
         alt: 'Kigali Rentals - Luxury 4x4 Fleet & Diplomatic Residences in Rwanda',
       },
       {
-        url: '/og-image.png',
+        url: `${siteUrl}/og-image.jpg`,
+        secureUrl: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        type: 'image/png',
+        type: 'image/jpeg',
         alt: 'Kigali Rentals - Luxury 4x4 Fleet & Diplomatic Residences in Rwanda',
+      },
+      {
+        url: OG_IMAGE_SQUARE,
+        secureUrl: OG_IMAGE_SQUARE,
+        width: 800,
+        height: 800,
+        type: 'image/jpeg',
+        alt: 'Kigali Rentals Official Logo Emblem',
       },
     ],
   },
@@ -61,7 +77,7 @@ export const metadata: Metadata = {
     title: 'Kigali Rentals | Villas, Penthouses & 4x4 Fleet in Rwanda',
     description:
       'Rwanda’s premier vehicle fleet & luxury residential accommodations. Chauffeur & self-drive 4x4 SUVs, diplomatic villas, and high-end penthouses in Kigali.',
-    images: ['/og-image.jpg'],
+    images: [OG_IMAGE_BANNER, `${siteUrl}/og-image.jpg`, OG_IMAGE_SQUARE],
     creator: '@KigaliRentals',
   },
   icons: {
@@ -103,12 +119,21 @@ export default function RootLayout({
         />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg" />
-        <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image" content={OG_IMAGE_BANNER} />
+        <meta property="og:image:secure_url" content={OG_IMAGE_BANNER} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:alt" content="Kigali Rentals Official Brand Logo &amp; Luxury Fleet" />
-        <meta name="twitter:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta property="og:image" content={OG_IMAGE_SQUARE} />
+        <meta property="og:image:secure_url" content={OG_IMAGE_SQUARE} />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="800" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={OG_IMAGE_BANNER} />
+        <meta name="twitter:image:src" content={OG_IMAGE_BANNER} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
