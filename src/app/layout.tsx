@@ -20,6 +20,15 @@ export const metadata: Metadata = {
     'Nyarutarama villa',
     'Kiyovu penthouse',
   ],
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/dark-white.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
+      { url: '/light.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: light)' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -48,6 +57,8 @@ export default function RootLayout({
             `,
           }}
         />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

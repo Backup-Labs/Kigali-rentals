@@ -848,10 +848,14 @@ export default function AdminDashboardPage() {
       <div className="min-h-screen flex flex-col justify-between bg-[#F4F6F9] dark:bg-[#0B0C0E] text-zinc-900 dark:text-zinc-100 p-4 sm:p-8">
         {/* Top Bar */}
         <div className="max-w-6xl w-full mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#FFC72C] flex items-center justify-center text-[#111111] font-extrabold text-sm">
-              K
-            </div>
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Return to Kigali Rentals">
+            <Image
+              src="/icon.svg"
+              alt="Kigali Rentals"
+              width={36}
+              height={36}
+              className="w-9 h-9 rounded-xl object-contain shrink-0 shadow-xs transition-transform group-hover:scale-105"
+            />
             <div>
               <span className="font-tenor text-base font-extrabold tracking-tight text-zinc-900 dark:text-white block leading-none">
                 Kigali<span className="text-[#FFC72C]">Rentals</span>
@@ -876,17 +880,31 @@ export default function AdminDashboardPage() {
 
         {/* Center Login Card */}
         <div className="my-auto max-w-md w-full mx-auto bg-white dark:bg-[#141519] rounded-3xl p-6 sm:p-8 border border-zinc-200/90 dark:border-zinc-800/90 shadow-2xl space-y-6">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-[#FFC72C]/15 border border-[#FFC72C]/30 flex items-center justify-center text-[#FFC72C] shrink-0">
-              <Lock className="w-6 h-6" />
+          {/* Official Dual-Theme Logo in Login Card */}
+          <div className="flex flex-col items-center text-center space-y-3 pb-2 border-b border-zinc-100 dark:border-zinc-800/80">
+            <div className="hidden dark:flex items-center justify-center">
+              <Image
+                src="/logo-dark.svg"
+                alt="Kigali Rentals"
+                width={170}
+                height={46}
+                priority
+                className="h-10 w-auto object-contain"
+              />
             </div>
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFC72C] block">
-                Back-Office Security Gate
-              </span>
-              <h1 className="font-tenor font-extrabold text-xl sm:text-2xl text-zinc-900 dark:text-white">
-                Admin Console Login
-              </h1>
+            <div className="flex dark:hidden items-center justify-center">
+              <Image
+                src="/logo-light.svg"
+                alt="Kigali Rentals"
+                width={170}
+                height={46}
+                priority
+                className="h-10 w-auto object-contain"
+              />
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC72C]/10 border border-[#FFC72C]/30 text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFC72C]">
+              <Lock className="w-3 h-3 text-[#FFC72C]" />
+              <span>Back-Office Security Gate</span>
             </div>
           </div>
 
@@ -983,10 +1001,14 @@ export default function AdminDashboardPage() {
       >
         {/* Brand Header */}
         <div className="h-16 px-5 flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800/80">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#FFC72C] flex items-center justify-center text-[#111111] font-extrabold text-sm">
-              K
-            </div>
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Return to Website">
+            <Image
+              src="/icon.svg"
+              alt="Kigali Rentals"
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-lg object-contain shrink-0 shadow-xs transition-transform group-hover:scale-105"
+            />
             <div>
               <span className="font-tenor text-sm font-extrabold tracking-tight text-zinc-900 dark:text-white block leading-none">
                 Kigali<span className="text-[#FFC72C]">Rentals</span>

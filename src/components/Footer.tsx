@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Phone,
@@ -491,10 +492,28 @@ export default function Footer() {
           {/* Content Grid: Left (Newsletter) + Right (4 Link Columns) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-0 pb-12 sm:pb-16">
             
-            {/* Left Section: Newsletter & Socials (Span 4 cols with vertical divider) */}
+            {/* Left Section: Brand Logo, Newsletter & Socials (Span 4 cols with vertical divider) */}
             <div className="lg:col-span-4 lg:pr-12 lg:border-r border-black/10 dark:border-white/20 flex flex-col justify-between">
               <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-white/80 font-semibold block mb-6">
+                {/* Official Dual-Theme Brand Logo */}
+                <Link href="/" className="inline-block mb-6 group" aria-label="Kigali Rentals Home">
+                  <Image
+                    src="/logo-dark.svg"
+                    alt="Kigali Rentals"
+                    width={180}
+                    height={48}
+                    className="h-10 sm:h-11 w-auto object-contain hidden dark:block transition-transform group-hover:scale-102"
+                  />
+                  <Image
+                    src="/logo-light.svg"
+                    alt="Kigali Rentals"
+                    width={180}
+                    height={48}
+                    className="h-10 sm:h-11 w-auto object-contain dark:hidden transition-transform group-hover:scale-102"
+                  />
+                </Link>
+
+                <span className="font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-white/80 font-semibold block mb-4">
                   Newsletter
                 </span>
 
@@ -775,8 +794,9 @@ export default function Footer() {
               4. COPYRIGHT & REGULATORY BAR (ABOVE "Kigali Rentals")
           ========================================================================= */}
           <div className="w-full border-t border-black/10 dark:border-white/20 pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-600 dark:text-white/90 gap-4">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-zinc-600 dark:text-white/90 text-center sm:text-left">
-              COPYRIGHT KGLRENTALS 2026
+            <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-wider text-zinc-600 dark:text-white/90 text-center sm:text-left">
+              <Image src="/icon.svg" alt="Emblem" width={18} height={18} className="w-4 h-4 rounded-xs shrink-0" />
+              <span>COPYRIGHT KGLRENTALS 2026 • RWANDA</span>
             </div>
 
             <div className="flex items-center gap-4">

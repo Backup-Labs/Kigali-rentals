@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useRental } from '@/lib/rentalContext';
 import {
@@ -136,39 +137,36 @@ export default function Navbar() {
     <header className="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
       {/* Refined Minimal Floating Capsule Bar */}
       <div className="pointer-events-auto max-w-5xl xl:max-w-6xl mx-auto glass-skeu-nav rounded-full px-3.5 sm:px-5 py-2 flex items-center justify-between gap-4 transition-all">
-        {/* Clean Single-Line Brand Identity */}
+        {/* Clean Single-Line Brand Identity with Official Dual-Theme Logo */}
         <Link
           href="/"
           onClick={(e) => handleNavClick(e, navItems[0])}
-          className="flex items-center gap-2.5 group shrink-0"
+          className="flex items-center gap-2.5 sm:gap-3 group shrink-0"
+          aria-label="Kigali Rentals Home"
         >
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[#FFD54F] via-[#FFC72C] to-[#E5B224] flex items-center justify-center text-[#111111] transition-transform group-hover:scale-105 active:scale-95 shrink-0">
-            <svg
-              className="w-4 h-4 sm:w-4.5 sm:h-4.5"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M16 3.5L28 9.5V22.5L16 28.5L4 22.5V9.5L16 3.5Z"
-                stroke="#111111"
-                strokeWidth="1.75"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M11 9.5V22.5M11 16H15.5L21 10M15.5 16L21 22"
-                stroke="#111111"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle cx="15.5" cy="16" r="1.5" fill="#111111" />
-            </svg>
+          {/* Official Dark Theme Logo */}
+          <div className="hidden dark:flex items-center">
+            <Image
+              src="/logo-dark.svg"
+              alt="Kigali Rentals"
+              width={140}
+              height={38}
+              priority
+              className="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-102"
+            />
           </div>
 
-          <span className="font-tenor text-base sm:text-[17px] font-extrabold tracking-tight text-zinc-900 dark:text-white leading-none">
-            Kigali<span className="text-[#FFC72C]">Rentals</span>
-          </span>
+          {/* Official Light Theme Logo */}
+          <div className="flex dark:hidden items-center">
+            <Image
+              src="/logo-light.svg"
+              alt="Kigali Rentals"
+              width={140}
+              height={38}
+              priority
+              className="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-102"
+            />
+          </div>
         </Link>
 
         {/* Center Navigation Track (Desktop) */}
