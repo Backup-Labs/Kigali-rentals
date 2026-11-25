@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X, Sparkles } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface DatePickerProps {
   startDate: string; // YYYY-MM-DD
@@ -33,7 +33,6 @@ export default function DatePicker({
   };
 
   const startObj = parseDate(startDate);
-  const endObj = parseDate(endDate);
 
   // Currently viewed month in calendar (0-indexed month)
   const [viewYear, setViewYear] = useState<number>(startObj.getFullYear() || 2026);

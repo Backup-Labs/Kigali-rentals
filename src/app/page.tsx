@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useRental } from '@/lib/rentalContext';
 import { getWhatsAppUrl } from '@/lib/constants';
@@ -18,20 +17,8 @@ import {
   MapPin,
   SlidersHorizontal,
   Sparkles,
-  CheckCircle2,
-  ShieldCheck,
   RotateCcw,
-  Compass,
-  Star,
-  ArrowRight,
-  Clock,
-  Fuel,
-  Gauge,
-  Camera,
   ChevronRight,
-  Shield,
-  Zap,
-  Phone,
   MessageSquare,
   X,
 } from 'lucide-react';
@@ -73,13 +60,6 @@ const HERO_SLIDES = [
     tab: 'car' as const,
   },
 ];
-
-const HERO_BACKGROUNDS = {
-  all: HERO_SLIDES[0],
-  property: HERO_SLIDES[1],
-  car: HERO_SLIDES[0],
-  combo: HERO_SLIDES[3],
-};
 
 export default function HomePage() {
   const { listings, formatPrice, draftBooking, setDraftBooking } = useRental();

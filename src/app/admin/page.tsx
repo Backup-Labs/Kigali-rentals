@@ -31,36 +31,23 @@ import {
   Trash2,
   Upload,
   Image as ImageIcon,
-  Star,
   CheckCircle2,
   Clock,
   DollarSign,
-  TrendingUp,
   ExternalLink,
   X,
   Check,
-  Sparkles,
   Share2,
   MapPin,
-  Bed,
-  Bath,
-  Users,
-  Maximize2,
-  Gauge,
-  Fuel,
   ShieldCheck,
   RotateCcw,
   Menu,
   Globe,
   ArrowUpRight,
-  SlidersHorizontal,
   Eye,
   EyeOff,
   Lock,
   LogOut,
-  KeyRound,
-  Tag,
-  FileText,
   Layers,
   LayoutGrid,
   List,
@@ -356,7 +343,7 @@ export default function AdminDashboardPage() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskAssetId, setNewTaskAssetId] = useState(listings[0]?.id || '');
   const [newTaskAssignee, setNewTaskAssignee] = useState('Jean-Paul Nsengiyumva');
-  const [newTaskType, setNewTaskType] = useState<AdminTask['type']>('cleaning');
+  const [newTaskType] = useState<AdminTask['type']>('cleaning');
   const [newTaskPriority, setNewTaskPriority] = useState<AdminTask['priority']>('high');
   const [newTaskDate, setNewTaskDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [newTaskNotes, setNewTaskNotes] = useState('');
@@ -368,9 +355,7 @@ export default function AdminDashboardPage() {
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const [isUploadingPhotos, setIsUploadingPhotos] = useState(false);
-  const [newBadgeInput, setNewBadgeInput] = useState('');
   const [newAmenityInput, setNewAmenityInput] = useState('');
-  const [newRuleInput, setNewRuleInput] = useState('');
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Social Media Flyer & Card Studio state
@@ -810,21 +795,6 @@ export default function AdminDashboardPage() {
     showToast('Task dispatched to operations board');
   };
 
-  const getStatusBadgeClasses = (status: AssetInventoryItem['status']) => {
-    switch (status) {
-      case 'Available':
-        return 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30';
-      case 'Rented':
-        return 'bg-[#FFC72C]/20 text-amber-800 dark:text-[#FFC72C] border-[#FFC72C]/40';
-      case 'Cleaning':
-        return 'bg-sky-500/15 text-sky-700 dark:text-sky-400 border-sky-500/30';
-      case 'Maintenance':
-        return 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30';
-      default:
-        return 'bg-zinc-500/15 text-zinc-700 dark:text-zinc-300 border-zinc-500/30';
-    }
-  };
-
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
@@ -834,12 +804,6 @@ export default function AdminDashboardPage() {
     } else {
       showToast(`Welcome back, ${SEEDED_ADMIN_CREDENTIALS.name}`);
     }
-  };
-
-  const handleFillSeededAdmin = () => {
-    setLoginIdentifier(SEEDED_ADMIN_CREDENTIALS.email);
-    setLoginPassword(SEEDED_ADMIN_CREDENTIALS.password);
-    setLoginError(null);
   };
 
   // PROTECTED ROUTE GATE: Require Admin Authentication

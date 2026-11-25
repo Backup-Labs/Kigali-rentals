@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useRental } from '@/lib/rentalContext';
 import { Reservation, ReservationPricing } from '@/lib/types';
 import {
@@ -12,23 +11,17 @@ import {
   Lock,
   ArrowRight,
   ArrowLeft,
-  FileText,
   CreditCard,
-  Smartphone,
   UploadCloud,
-  Check,
-  AlertCircle,
   FileCheck,
   Printer,
-  Calendar,
   MapPin,
   Sparkles,
   RefreshCw,
 } from 'lucide-react';
-import CustomSelect, { SelectOption } from '@/components/ui/CustomSelect';
+import CustomSelect from '@/components/ui/CustomSelect';
 
 export default function CheckoutPage() {
-  const router = useRouter();
   const {
     draftBooking,
     createReservation,

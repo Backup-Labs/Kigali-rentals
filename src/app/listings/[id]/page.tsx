@@ -3,31 +3,19 @@
 import React, { useState, useMemo, use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useRental } from '@/lib/rentalContext';
 import { getWhatsAppUrl, WHATSAPP_RAW_NUMBER, WHATSAPP_DISPLAY_NUMBER } from '@/lib/constants';
 import {
   Star,
   MapPin,
   ShieldCheck,
-  Zap,
-  Wifi,
-  Calendar,
-  Users,
-  Clock,
   Sparkles,
   ChevronRight,
   CheckCircle,
   Plus,
   Minus,
-  Lock,
-  ArrowRight,
   Info,
-  Car as CarIcon,
-  Home as HomeIcon,
   Phone,
-  Flame,
-  Award,
   Check,
   MessageSquare,
 } from 'lucide-react';
@@ -38,9 +26,8 @@ interface PageProps {
 }
 
 export default function ListingDetailPage({ params }: PageProps) {
-  const router = useRouter();
   const { id } = use(params);
-  const { getListingById, formatPrice, draftBooking, setDraftBooking, lockSecondsLeft } = useRental();
+  const { getListingById, formatPrice, draftBooking } = useRental();
 
   const listing = getListingById(id);
 
@@ -56,15 +43,7 @@ export default function ListingDetailPage({ params }: PageProps) {
   const [includeCrossSell, setIncludeCrossSell] = useState(false);
   const [addAirportPickup, setAddAirportPickup] = useState(false);
   const [addDedicatedDriver, setAddDedicatedDriver] = useState(false);
-  const [addChildSeat, setAddChildSeat] = useState(false);
   const [addWifiHotspot, setAddWifiHotspot] = useState(true);
-
-  // Format lock timer
-  const formatTimer = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
 
   // Calculate days
   const daysCount = useMemo(() => {
@@ -104,36 +83,12 @@ export default function ListingDetailPage({ params }: PageProps) {
   let addOnsTotal = 0;
   if (addAirportPickup) addOnsTotal += 30;
   if (addDedicatedDriver && isCar) addOnsTotal += (listing.vehicleDetails?.driverCostPerDay || 25) * daysCount;
-  if (addChildSeat) addOnsTotal += 15;
   if (addWifiHotspot) addOnsTotal += 10;
 
   const securityDepositHold = listing.securityDeposit;
   const subtotal = baseTotal + comboTotal + cleaningFee + addOnsTotal;
   const taxesAndTourismLevy = Math.round(subtotal * 0.05); // 5% Rwanda tourism & municipal levy
   const grandTotal = subtotal + taxesAndTourismLevy;
-
-  // Handle proceed to checkout
-  const handleProceedToCheckout = () => {
-    setDraftBooking((prev) => ({
-      ...prev,
-      assetId: listing.id,
-      asset: listing,
-      pairedAssetId: includeCrossSell && crossSellAsset ? crossSellAsset.assetId : undefined,
-      startDate,
-      endDate,
-      daysCount,
-      guestsCount,
-      addOns: {
-        airportPickup: addAirportPickup,
-        dedicatedDriver: addDedicatedDriver,
-        childSeat: addChildSeat,
-        wifiHotspot: addWifiHotspot,
-        damageWaiver: true,
-      },
-    }));
-
-    router.push('/checkout');
-  };
 
   return (
     <div className="min-h-screen bg-[#F8F9FB] dark:bg-[#0B0C0E] text-zinc-900 dark:text-white pb-24 pt-20 sm:pt-24">

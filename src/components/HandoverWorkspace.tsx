@@ -78,7 +78,7 @@ export default function HandoverWorkspace() {
   const [checkOutElecKwh, setCheckOutElecKwh] = useState(12518.4);
   const [checkInWaterUnits, setCheckInWaterUnits] = useState(842.1);
   const [checkOutWaterUnits, setCheckOutWaterUnits] = useState(846.5);
-  const [propertyCleanliness, setPropertyCleanliness] = useState<
+  const [propertyCleanliness] = useState<
     'pristine' | 'good' | 'needs_attention'
   >('pristine');
   const [rooms, setRooms] = useState<

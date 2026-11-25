@@ -8,8 +8,6 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  Clock,
-  Sparkles,
 } from 'lucide-react';
 
 /* =============================================================================
