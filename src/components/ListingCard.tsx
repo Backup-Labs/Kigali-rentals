@@ -27,7 +27,7 @@ interface ListingCardProps {
 }
 
 export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps) {
-  const { formatPrice, setDraftBooking } = useRental();
+  const { formatPrice, setDraftBooking, inventory } = useRental();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -46,6 +46,14 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
   };
 
   const isCar = listing.type === 'car';
+  const vehicleStatus = isCar
+    ? inventory.find((item) => item.id === listing.id)?.status ?? 'Available'
+    : null;
+  const vehicleStatusStyle = vehicleStatus === 'Available'
+    ? 'bg-emerald-500 text-white'
+    : vehicleStatus === 'Rented'
+      ? 'bg-amber-400 text-zinc-950'
+      : 'bg-zinc-800 text-white';
 
   const handleSelectForDraft = () => {
     setDraftBooking((prev) => ({
@@ -71,6 +79,16 @@ export default function ListingCard({ listing, daysCount = 3 }: ListingCardProps
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
         </Link>
+
+        {isCar && vehicleStatus && (
+          <div
+            className={`absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold shadow-md ${vehicleStatusStyle}`}
+            aria-label={`Vehicle status: ${vehicleStatus}`}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
+            {vehicleStatus}
+          </div>
+        )}
 
         {/* Floating Bottom-Left Badge: Gold Pill (Directly from uploaded photo!) */}
         <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
